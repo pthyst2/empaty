@@ -9,3 +9,4 @@ app.get('/*', function(req, res) {
 });
 
 app.listen(process.env.PORT || 4200);
+console.log("Empaty client is running at ", process.env.PORT);
