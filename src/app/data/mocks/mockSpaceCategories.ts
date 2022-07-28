@@ -1,26 +1,26 @@
 export const mockSpaceCategories = [
   {
     _id: '1',
-    label: 'Restaurants',
+    name: 'Restaurants',
   },
   {
     _id: '2',
-    label: 'Moutains',
+    name: 'Moutains',
   },
   {
     _id: '3',
-    label: 'Rivers',
+    name: 'Rivers',
   },
   {
     _id: '4',
-    label: 'Jungles',
+    name: 'Jungles',
   },
   {
     _id: '5',
-    label: 'Forests',
+    name: 'Forests',
   },
   {
     _id: '6',
-    label: 'Islands',
+    name: 'Islands',
   },
 ];

@@ -108,7 +108,7 @@
             items-center
             hover:shadow-light
           "
-          (click)="toggleModal('create-space')"
+          (click)="toggleModal('create-space-image')"
         >
           <img [src]="addSpaceByEditorIcon" />
         </div>
@@ -127,7 +127,6 @@
   <!-- end of list -->
 </div>
 
-<!-- Modals -->
 <!-- Modal Create Space -->
 <ng-template [ngIf]="modals.createSpace == true">
   <modal-create-space
@@ -137,4 +136,10 @@
 </ng-template>
 <!-- end of modal create space -->
 
-<!-- end of modals -->
+<!-- Modal Create Space by image -->
+<ng-template [ngIf]="modals.createSpaceImage == true">
+  <modal-create-space-by-image
+    (closed)="catchModalCreateSpaceImage($event)"
+  ></modal-create-space-by-image>
+</ng-template>
+<!-- end of modal create space by image -->

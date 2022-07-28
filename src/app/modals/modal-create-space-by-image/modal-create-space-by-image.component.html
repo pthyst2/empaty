@@ -1,0 +1,220 @@
+<modal-base (closed)="close()">
+  <div
+    class="flex flex-col rounded-modal px-[48px] pt-[24px] pb-[48px] bg-black2"
+  >
+    <div class="text-right">
+      <fa-icon
+        [icon]="faTimes"
+        (click)="close()"
+        class="text-[28px] text-black45 cursor-pointer"
+      ></fa-icon>
+    </div>
+    <!-- Title -->
+    <p class="modal-title text-center mb-4">{{ title }}</p>
+    <!-- end of title -->
+
+    <!-- Step 1 -->
+    <ng-template [ngIf]="step1.active == true">
+      <form
+        [formGroup]="form1"
+        class="grow flex flex-col"
+        (submit)="submitForm1()"
+      >
+        <div class="grow grid grid-cols-1 lg:grid-cols-2 gap-x-3 gap-y-2 mb-8">
+          <!-- Title -->
+          <div class="form-group-inline">
+            <label
+              ><strong>Title <span class="text-danger">*</span></strong></label
+            >
+            <div
+              class="input-wrapper"
+              [class.input-invalid]="isInvalid1(title)"
+            >
+              <input
+                type="text"
+                formControlName="title"
+                placeholder="My Space"
+                spellcheck="false"
+              />
+            </div>
+          </div>
+          <ng-template [ngIf]="isInvalid1(ctr1.title)">
+            <span class="text-danger" *ngIf="ctr1.title.errors?.['required']">{{
+              step1.messages.title.required
+            }}</span>
+          </ng-template>
+          <!-- end of title -->
+          <!-- Type -->
+          <div class="form-group-inline">
+            <label><strong>Type</strong></label>
+            <div class="inline-flex">
+              <div class="radio-input">
+                <label>
+                  <input type="radio" formControlName="type" value="2d" />
+                  2D
+                </label>
+              </div>
+              <div class="radio-input">
+                <label>
+                  <input type="radio" formControlName="type" value="video" />
+                  Video
+                </label>
+              </div>
+            </div>
+          </div>
+          <!-- end of type -->
+          <!-- Image -->
+          <div class="form-group-inline">
+            <label><strong>Image</strong></label>
+            <div class="input-wrapper">
+              <input type="file" formControlName="image" />
+              <img [src]="stapleSvg" class="px-2 border-l border-black15" />
+            </div>
+          </div>
+          <!-- end of image -->
+          <!-- Audio -->
+          <div class="form-group-inline">
+            <label><strong>Audio File</strong></label>
+            <div class="input-wrapper">
+              <input type="file" formControlName="audio" />
+              <img [src]="stapleSvg" class="px-2 border-l border-black15" />
+            </div>
+          </div>
+          <!-- end of audio -->
+          <!-- Present -->
+          <div class="form-group-inline">
+            <label><strong>Present By</strong></label>
+            <div class="input-wrapper">
+              <input type="text" formControlName="present" spellcheck="false" />
+            </div>
+          </div>
+          <!-- end of present -->
+          <!-- Author -->
+          <div class="form-group-inline">
+            <label><strong>Author Name</strong></label>
+            <div class="input-wrapper">
+              <input type="text" formControlName="author" spellcheck="false" />
+            </div>
+          </div>
+          <!-- end of author -->
+          <!-- Contact name -->
+          <div class="form-group-inline">
+            <label><strong>Contact Name</strong></label>
+            <div class="input-wrapper">
+              <input
+                type="text"
+                formControlName="contactName"
+                spellcheck="false"
+              />
+            </div>
+          </div>
+          <!-- end of contact name -->
+          <!-- Contact email -->
+          <div class="form-group-inline">
+            <label><strong>Contact Email</strong></label>
+            <div class="input-wrapper">
+              <input
+                type="email"
+                formControlName="contactEmail"
+                spellcheck="false"
+              />
+            </div>
+          </div>
+          <!-- end of contact email -->
+          <!-- Contact phonenumber -->
+          <div class="form-group-inline">
+            <label><strong>Contact Phone</strong></label>
+            <div class="input-wrapper">
+              <input
+                type="text"
+                formControlName="contactPhoneNumber"
+                spellcheck="false"
+              />
+            </div>
+          </div>
+          <!-- end of contact phonenumber -->
+          <!-- Address -->
+          <div class="form-group-inline">
+            <label><strong>Address</strong></label>
+            <div class="input-wrapper">
+              <input type="text" formControlName="address" spellcheck="false" />
+            </div>
+          </div>
+          <!-- end of address -->
+          <!-- Url -->
+          <div class="form-group-inline">
+            <label><strong>External URL</strong></label>
+            <div class="input-wrapper">
+              <input type="text" formControlName="url" spellcheck="false" />
+            </div>
+          </div>
+          <!-- end of url -->
+          <!-- Published date -->
+          <div class="form-group-inline">
+            <label><strong>Published Date</strong></label>
+            <div class="input-wrapper">
+              <input type="datetime" formControlName="published" />
+            </div>
+          </div>
+          <!-- end of published date -->
+          <!-- Summary -->
+          <div class="form-group-inline">
+            <label><strong>Summary</strong></label>
+            <div class="input-wrapper">
+              <textarea formControlName="summary"></textarea>
+            </div>
+          </div>
+          <!-- end of summary -->
+          <!-- Category -->
+          <div class="form-group-inline">
+            <label><strong>Category</strong></label>
+            <div
+              class="input-wrapper"
+              [class.input-invalid]="isInvalid1(ctr1.category)"
+            >
+              <select formControlName="category">
+                <option value="" disabled hidden selected>
+                  Select Category
+                </option>
+                <option
+                  *ngFor="let category of step1.selects.categories"
+                  [value]="category._id"
+                >
+                  {{ category.name }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <ng-template [ngIf]="isInvalid1(ctr1.category)">
+            <span
+              class="text-danger"
+              *ngIf="ctr1.category.errors?.['required']"
+              >{{ step1.messages.category.required }}</span
+            >
+          </ng-template>
+          <!-- end of category -->
+        </div>
+        <div class="text-right">
+          <button type="submit" class="btn btn-main">Next</button>
+        </div>
+      </form>
+    </ng-template>
+    <!-- end of step 1 -->
+    <!-- Step 2 -->
+    <ng-template [ngIf]="step2.active == true"> </ng-template>
+    <!-- end of step 2 -->
+    <!-- Step 3 -->
+    <ng-template [ngIf]="step3.active == true"> </ng-template>
+    <!-- end of step 3-->
+  </div>
+</modal-base>
+
+<ng-template [ngIf]="popup == true">
+  <modal-message
+    [title]="popupContent.title"
+    [html]="popupContent.html"
+    [icon]="popupContent.icon"
+    [timer]="popupContent.timer"
+    (closed)="popup = false"
+  ></modal-message>
+</ng-template>

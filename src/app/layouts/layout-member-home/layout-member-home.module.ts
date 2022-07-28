@@ -34,6 +34,7 @@ import { ModalDeleteSpaceComponent } from 'src/app/modals/modal-delete-space/mod
 import { ModalPaySpaceComponent } from '../../modals/modal-pay-space/modal-pay-space.component';
 import { ModalDeleteCollaboratorComponent } from '../../modals/modal-delete-collaborator/modal-delete-collaborator.component';
 import { ModalEditCollaboratorComponent } from '../../modals/modal-edit-collaborator/modal-edit-collaborator.component';
+import { ModalCreateSpaceByImageComponent } from '../../modals/modal-create-space-by-image/modal-create-space-by-image.component';
 //#endregion
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { ModalEditCollaboratorComponent } from '../../modals/modal-edit-collabor
     PartialListCollaboratorsComponent,
     ModalDeleteCollaboratorComponent,
     ModalEditCollaboratorComponent,
+    ModalCreateSpaceByImageComponent,
   ],
   imports: [
     CommonModule,

@@ -42,6 +42,7 @@ export class PageMemberHomeComponent implements OnInit {
 
   modals: any = {
     createSpace: false,
+    createSpaceImage: false,
   };
 
   collaborators: any = [];
@@ -125,6 +126,10 @@ export class PageMemberHomeComponent implements OnInit {
         this.modals.createSpace = !this.modals.createSpace;
         break;
       }
+      case 'create-space-image': {
+        this.modals.createSpaceImage = !this.modals.createSpaceImage;
+        break;
+      }
     }
   }
 
@@ -133,5 +138,8 @@ export class PageMemberHomeComponent implements OnInit {
     if (event != false) {
       this.searchSpaces(this.pagination.currentPage);
     }
+  }
+  catchModalCreateSpaceImage(event: any) {
+    this.toggleModal('create-space-image');
   }
 }

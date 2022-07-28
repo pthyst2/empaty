@@ -3,16 +3,16 @@ import { HttpClient } from '@angular/common/http';
 
 //#region Mocks
 import { mockSpaces } from 'src/app/data/mocks/mockSpaces';
+import { mockSpaceCategories } from 'src/app/data/mocks/mockSpaceCategories';
 //#endregion
-
+const spaces = mockSpaces;
+const categories = mockSpaceCategories;
 @Injectable({
   providedIn: 'root',
 })
 export class SpaceService {
-  spaces: any = mockSpaces;
   constructor(private http: HttpClient) {}
   getSpaces(body?: any) {
-    let spaces = this.spaces;
     let res: any = {
       data: [],
       limit: 20,
@@ -56,18 +56,17 @@ export class SpaceService {
     return res;
   }
   getSpacesNoLimit(body: any) {
-    let spaces = this.spaces;
-    let res: any = {
+    return {
       data: spaces,
       count: spaces.length,
     };
-    return res;
   }
   getSpaceDetail(_id: string) {
-    let res = {
+    let res: any = {
+      status: 200,
       data: null,
     };
-    for (let space of this.spaces) {
+    for (let space of spaces) {
       if (space._id == _id) {
         res.data = space;
       }
@@ -82,6 +81,12 @@ export class SpaceService {
   createSpace(body: any) {
     return {
       status: 201,
+    };
+  }
+  getCategories() {
+    return {
+      status: 200,
+      data: categories,
     };
   }
 }
