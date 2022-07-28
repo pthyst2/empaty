@@ -136,16 +136,12 @@
           <!-- end of image -->
         </div>
         <div class="text-center lg:text-right">
-          <button-base
-            [label]="'Close'"
-            class="mr-4"
-            (click)="close()"
-          ></button-base>
-          <button-base
-            [type]="'submit'"
-            [label]="'Next'"
-            (click)="submitForm1()"
-          ></button-base>
+          <button type="button" class="btn btn-white mr-4" (click)="close()">
+            Close
+          </button>
+          <button type="submit" class="btn btn-main" (click)="submitForm1()">
+            Next
+          </button>
         </div>
       </form>
     </ng-template>
@@ -306,12 +302,16 @@
 
         <!-- Buttons -->
         <div class="flex justify-center lg:justify-end items-center">
-          <button-base
-            [label]="'Back'"
-            class="mr-4"
+          <button
+            type="button"
+            class="btn btn-white mr-4"
             (click)="backStep1()"
-          ></button-base>
-          <button-base [label]="'Finish'" (click)="submitForm2()"></button-base>
+          >
+            Back
+          </button>
+          <button type="submit" class="btn btn-main" (click)="submitForm2()">
+            Finish
+          </button>
         </div>
         <!-- end of buttons -->
       </form>

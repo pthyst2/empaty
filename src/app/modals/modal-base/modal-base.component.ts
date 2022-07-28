@@ -33,7 +33,7 @@ import {
           transform: 'scale(0.0)',
         })
       ),
-      transition('open => close', [animate('150ms')]),
+      transition('open => close', [animate('00ms')]),
       transition('close => open', [animate('150ms')]),
     ]),
   ],

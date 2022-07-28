@@ -1,4 +1,4 @@
-import { Component, Input, HostBinding, OnDestroy } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { ModalBaseComponent } from '../modal-base/modal-base.component';
 import { environment } from 'src/environments/environment';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -13,10 +13,12 @@ export class ModalMessageComponent extends ModalBaseComponent  {
   iconUrl = environment.imageUrls.svg;
   iconSrc: any;
 
+
   @Input() title: string = '';
   @Input() icon: string = '';
   @Input() html: string = '';
   @Input() timer!: number;
+  @Output() override closed = new EventEmitter();
 
   constructor() {
     super();    
@@ -44,5 +46,9 @@ export class ModalMessageComponent extends ModalBaseComponent  {
         break;
       }
     }
+  }
+
+  override close(data?: any): void {
+    this.closed.emit(data ? data : false)
   }
 }

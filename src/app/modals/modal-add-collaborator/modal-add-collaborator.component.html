@@ -71,12 +71,12 @@
         <!-- end of role -->
       </div>
       <div class="flex justify-center items-center">
-        <button-base
-          [label]="'Close'"
-          (click)="close()"
-          class="mr-3"
-        ></button-base>
-        <button-base [label]="'Confirm'" (click)="submitForm()"></button-base>
+        <button type="button" class="btn btn-white mr-4" (click)="close()">
+          Cancel
+        </button>
+        <button type="submit" class="btn btn-main" (click)="submitForm()">
+          Confirm
+        </button>
       </div>
     </form>
     <!-- end of form -->

@@ -79,7 +79,7 @@ export class ModalCreateSpaceComponent extends ModalBaseComponent {
     cubeViewImage: environment.imageUrls.svg + 'cube-view.svg'
   };
 
-  modalTitle: any = this.step2.title;
+  modalTitle: any = this.step1.title;
 
   constructor(private fb: FormBuilder, private popup: PopupMessageService, private arrayService: ArrayService, private spaceService: SpaceService) {
     super();

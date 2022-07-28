@@ -6,22 +6,19 @@
     </div>
     <!-- end of title -->
 
-    <div class="mb-3 grow">
+    <div class="mb-3 grow text-center">
       <p>This space hasn't completed paid yet.</p>
       <p>Would you like to make payment now?</p>
     </div>
 
     <!-- Buttons -->
     <div class="text-center">
-      <button-base
-        [label]="'Cancel'"
-        (click)="close()"
-        class="mr-4"
-      ></button-base>
-      <button-base
-        [label]="'Yes, please'"
-        (click)="makePayment()"
-      ></button-base>
+      <button type="button" class="btn btn-white mr-4" (click)="close()">
+        Cancel
+      </button>
+      <button type="button" class="btn btn-main" (click)="makePayment()">
+        Yes, please !
+      </button>
     </div>
     <!-- end of buttons -->
   </div>
