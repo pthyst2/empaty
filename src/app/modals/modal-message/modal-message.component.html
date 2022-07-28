@@ -1,0 +1,32 @@
+<modal-base [position]="'bottom-right'" [size]="'xs'">
+  <div class="rounded-modal bg-white p-[16px]">
+    <!-- Close -->
+    <div class="text-right mb-4">
+      <fa-icon
+        [icon]="faTimes"
+        class="cursor-pointer"
+        (click)="close()"
+      ></fa-icon>
+    </div>
+    <!-- end of close -->
+    <!-- Icon -->
+    <ng-template [ngIf]="icon">
+      <div class="text-center mb-4">
+        <img [src]="iconSrc" class="inline-block w-[58px] h-[58px]" />
+      </div>
+    </ng-template>
+    <!-- end of icon -->
+    <!-- Title -->
+    <ng-template [ngIf]="title">
+      <p class="text-center mb-4 text-[24px] leading-[34.75px] font-semibold">
+        <strong>{{ title }}</strong>
+      </p>
+    </ng-template>
+    <!-- end of title -->
+    <!-- Html -->
+    <ng-template [ngIf]="html">
+      <div [innerHTML]="html" class="text-center"></div>
+    </ng-template>
+    <!-- end of html -->
+  </div>
+</modal-base>

@@ -1,0 +1,53 @@
+<div class="w-screen min-h-screen">
+  <!-- Big banner -->
+  <partial-banner-home></partial-banner-home>
+  <!-- end of big banner -->
+
+  <!-- Section Spaces -->
+  <partial-section-spaces
+    [spaces]="sectionSpaces.data"
+    [title]="sectionSpaces.title"
+  ></partial-section-spaces>
+  <!-- end of section spaces -->
+
+  <!-- Section Functions -->
+  <partial-section-base
+    [title]="sectionFunctions.title"
+    [classes]="'bg-grey'"
+    [description]="sectionFunctions.description"
+  >
+    <!-- List functions -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-10">
+      <div *ngFor="let item of sectionFunctions.data" class="px-8 mb-8">
+        <partial-item-function [item]="item"></partial-item-function>
+      </div>
+    </div>
+    <!-- end of list functions -->
+    <!-- Button view more-->
+    <div class="w-full text-center">
+      <button-base
+        [label]="sectionFunctions.buttonViewMore.label"
+      ></button-base>
+    </div>
+    <!-- end of button view more -->
+  </partial-section-base>
+  <!-- end of section functions -->
+
+  <!-- Section Japanese News -->
+  <partial-section-base [title]="sectionNews.title">
+    <!-- List blogs -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-10">
+      <div *ngFor="let item of sectionNews.data" class="md:px-4 mb-8">
+        <partial-item-blog [item]="item"></partial-item-blog>
+      </div>
+    </div>
+    <!-- end of list blogs -->
+    <!-- Button view more-->
+    <div class="w-full text-right">
+      <a [routerLink]="['/']" class="text-main uppercase hover:underline">{{
+        sectionNews.buttonViewMore.label
+      }}</a>
+    </div>
+  </partial-section-base>
+  <!-- end of section japanese news -->
+</div>

@@ -1,0 +1,26 @@
+<div class="flex flex-col lg:flex-row">
+  <!-- Icon -->
+  <div
+    class="
+      mb-4
+      lg:mr-6
+      shrink-0
+      w-full
+      lg:w-icon_medium
+      lg:h-icon_medium
+      text-center
+    "
+  >
+    <img
+      [src]="item.icon"
+      class="inline-block w-icon_medium h-icon_medium object-contain"
+    />
+    <!-- end of icon -->
+  </div>
+  <!-- Texts -->
+  <div class="text-center lg:text-left">
+    <p>{{ item.title }}</p>
+    <p class="text-greyDark">{{ item.description }}</p>
+  </div>
+  <!-- end of texts -->
+</div>

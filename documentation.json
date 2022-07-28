@@ -1,0 +1,1165 @@
+{
+    "pipes": [],
+    "interfaces": [],
+    "injectables": [],
+    "guards": [],
+    "interceptors": [],
+    "classes": [],
+    "directives": [],
+    "components": [
+        {
+            "name": "AppComponent",
+            "id": "component-AppComponent-f3f043449d56b4ae1658d394b27cea9b6f9f8d7baf6690beb236d0e27df23c379de22b4cc9b951dc65d29d65bf50e4c0f640a52e71bc242744621e4060fd2039",
+            "file": "src/app/app.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-root",
+            "styleUrls": [
+                "./app.component.sass"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./app.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "title",
+                    "defaultValue": "'client'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 9
+                }
+            ],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core';\n\n@Component({\n  selector: 'app-root',\n  templateUrl: './app.component.html',\n  styleUrls: ['./app.component.sass']\n})\nexport class AppComponent {\n  title = 'client';\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./app.component.sass"
+                }
+            ],
+            "stylesData": "",
+            "templateData": "<router-outlet></router-outlet>\n"
+        },
+        {
+            "name": "ButtonBaseComponent",
+            "id": "component-ButtonBaseComponent-5ff661ee320c013855e25fecc9f3b76779575b4f6e55a1660008487b6fb7246e7e5f724528959001340acfab78d2e2b4293f9998627d848dbb8fdb6f13b8ef9f",
+            "file": "src/app/buttons/button-base/button-base.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "button-base",
+            "styleUrls": [
+                "./button-base.component.sass"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./button-base.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "bgColor",
+                    "defaultValue": "'main'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 10,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "bgColorHover",
+                    "defaultValue": "'transparent'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 11,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "borderColor",
+                    "defaultValue": "'main'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 13,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "label",
+                    "defaultValue": "'Base Button'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 9,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "rounded",
+                    "defaultValue": "true",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 14,
+                    "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "name": "textColor",
+                    "defaultValue": "'white'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 12,
+                    "type": "string",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 18,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';\n\n@Component({\n  selector: 'button-base',\n  templateUrl: './button-base.component.html',\n  styleUrls: ['./button-base.component.sass'],\n})\nexport class ButtonBaseComponent implements OnInit {\n  @Input() label: string = 'Base Button';\n  @Input() bgColor: string = 'main';\n  @Input() bgColorHover: string = 'transparent';\n  @Input() textColor: string = 'white';\n  @Input() borderColor: string = 'main';\n  @Input() rounded: boolean = true;\n\n  constructor() {}\n\n  ngOnInit(): void {}\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".btn-base\r\n    padding: 0.5em\r\n",
+                    "styleUrl": "./button-base.component.sass"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [],
+                "line": 14
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<!--  \n<button\n  [class]=[bgColor ? 'bg-' + bgColor : 'bg-main',\nbgColorHover\n  ? 'hover:bg-' + bgColorHover\n  : 'hover:bg-transparent',\ntextColor ? 'text-' + textColor : 'text-white',\nborderColor ? 'border-' + borderColor : 'border-transparent',\nrounded == true ? 'rounded' : '',\n'border-1',\n'btn-base',\n]\n>\n  <span>{{ label }}</span>\n</button>\n-->\n\n<button\n  [ngClass]=\"[\n    'bg-' + bgColor,\n    'hover:bg-' + bgColorHover,\n    'text-' + textColor,\n    'border-' + borderColor,\n    rounded == true ? 'rounded' : '',\n    'border-1',\n    'btn-base'\n  ]\"\n>\n  <span>{{ label }}</span>\n</button>\n"
+        },
+        {
+            "name": "LayoutHomeComponent",
+            "id": "component-LayoutHomeComponent-a1b616dbc86ef87dea67aa8b2047dc01b3fe7695a9cef86a78b7bffe6b95b48a5dfb1723368e4d1768c35e1c1c871948deb35e90ca60d38d2a08e654f21602fa",
+            "file": "src/app/layouts/layout-home/layout-home.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-layout-home",
+            "styleUrls": [
+                "./layout-home.component.sass"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./layout-home.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "logoUrl",
+                    "defaultValue": "solidAppInfo.logoUrl",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 13
+                },
+                {
+                    "name": "navs",
+                    "defaultValue": "solidNavHeaderHome",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 12
+                },
+                {
+                    "name": "user",
+                    "defaultValue": "{}",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "any",
+                    "optional": false,
+                    "description": "",
+                    "line": 11
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "getUser",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 21,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 17,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\nimport { mockUser } from 'src/app/data/mocks/user';\nimport { solidAppInfo } from 'src/app/data/solids/solidAppInfo';\nimport { solidNavHeaderHome } from 'src/app/data/solids/solidNavHeaderHome';\n@Component({\n  selector: 'app-layout-home',\n  templateUrl: './layout-home.component.html',\n  styleUrls: ['./layout-home.component.sass'],\n})\nexport class LayoutHomeComponent implements OnInit {\n  user: any = {};\n  navs: any = solidNavHeaderHome;\n  logoUrl: string = solidAppInfo.logoUrl;\n\n  constructor() {}\n\n  ngOnInit(): void {\n    this.getUser();\n  }\n\n  getUser() {\n    this.user = mockUser;\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./layout-home.component.sass"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [],
+                "line": 13
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<partial-header-home\n  [logoUrl]=\"logoUrl\"\n  [user]=\"user ? user : {}\"\n  [navs]=\"navs\"\n></partial-header-home>\n<div class=\"page-home\">\n  <router-outlet></router-outlet>\n</div>\n<app-partial-footer-home></app-partial-footer-home>\n"
+        },
+        {
+            "name": "PageHomeComponent",
+            "id": "component-PageHomeComponent-a8452bde30cdfd11bfdf3d8424eee20a5e0314904d9094da5296eadcac19de89e31aa812d16eb892488a93ca31f810903687a5721a97add8b303d03ee500e54a",
+            "file": "src/app/pages/page-home/page-home.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-page-home",
+            "styleUrls": [
+                "./page-home.component.sass"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./page-home.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 12,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'app-page-home',\n  templateUrl: './page-home.component.html',\n  styleUrls: ['./page-home.component.sass']\n})\nexport class PageHomeComponent implements OnInit {\n\n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./page-home.component.sass"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [],
+                "line": 8
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<p>page-home works!</p>\n"
+        },
+        {
+            "name": "PartialFooterHomeComponent",
+            "id": "component-PartialFooterHomeComponent-fc23295965e63597eada506e9306f1298d00b416fdc6f3277caa834fdfa5e24f6643c9187a605a9c9d10f5c1d67311112773dfe5e3d5a65b4c135b8c22609e91",
+            "file": "src/app/partials/partial-footer-home/partial-footer-home.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-partial-footer-home",
+            "styleUrls": [
+                "./partial-footer-home.component.sass"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./partial-footer-home.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 12,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit } from '@angular/core';\n\n@Component({\n  selector: 'app-partial-footer-home',\n  templateUrl: './partial-footer-home.component.html',\n  styleUrls: ['./partial-footer-home.component.sass']\n})\nexport class PartialFooterHomeComponent implements OnInit {\n\n  constructor() { }\n\n  ngOnInit(): void {\n  }\n\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./partial-footer-home.component.sass"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [],
+                "line": 8
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<p>partial-footer-home works!</p>\n"
+        },
+        {
+            "name": "PartialHeaderHomeComponent",
+            "id": "component-PartialHeaderHomeComponent-9217f3ea3b56037d34dff7d300344748a5ce001f52b17c18334c9bf90e065333bc91e87e3b3074c82f92caa47b45e2035fe23589ac0e0ae33f7e41e6a304a771",
+            "file": "src/app/partials/partial-header-home/partial-header-home.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "partial-header-home",
+            "styleUrls": [
+                "./partial-header-home.component.sass"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./partial-header-home.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "logoUrl",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 11,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "navs",
+                    "defaultValue": "[]",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 10,
+                    "type": "any",
+                    "decorators": []
+                },
+                {
+                    "name": "user",
+                    "defaultValue": "{}",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 9,
+                    "type": "any",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 14,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, OnInit, Input } from '@angular/core';\n\n@Component({\n  selector: 'partial-header-home',\n  templateUrl: './partial-header-home.component.html',\n  styleUrls: ['./partial-header-home.component.sass'],\n})\nexport class PartialHeaderHomeComponent implements OnInit {\n  @Input() user: any = {};\n  @Input() navs: any = [];\n  @Input() logoUrl: string = '';\n  constructor() {}\n\n  ngOnInit(): void {}\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".header-home\r\n    .navs\r\n        a\r\n            border-top: none\r\n            border-left: none\r\n            border-right: none\r\n            padding-top: 1em\r\n            padding-bottom: calc( 1em - 2px )\r\n",
+                    "styleUrl": "./partial-header-home.component.sass"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [],
+                "line": 11
+            },
+            "implements": [
+                "OnInit"
+            ],
+            "templateData": "<div\n  class=\"\n    flex\n    justify-between\n    items-center\n    lg:px-page_px_large\n    md:px-page_px_medium\n    sm:px-page_px_small\n    bg-black\n    text-white\n    header-home\n  \"\n>\n  <!-- Left -->\n  <!-- Logo -->\n  <div class=\"logo\">\n    <ng-template [ngIf]=\"logoUrl\">\n      <img src=\"{{ logoUrl }}\" />\n    </ng-template>\n  </div>\n  <!-- end of logo-->\n  <!-- end of left -->\n\n  <!-- Right -->\n  <div class=\"bg-inherit navs\">\n    <!-- Large -->\n    <!-- Navs -->\n    <div class=\"hidden md:flex justify-end items-center bg-inherit\">\n      <ng-template [ngIf]=\"navs && navs.length > 0\">\n        <a\n          *ngFor=\"let nav of navs\"\n          routerLink=\"{{ nav.route }}\"\n          class=\"px-2 border-2 border-inherit hover:border-main\"\n          >{{ nav.label }}</a\n        >\n      </ng-template>\n      <!-- end of navs -->\n      <!-- Experience button -->\n\n      <!-- end of experience button -->\n      <!-- Multi language button -->\n\n      <!-- end of multi language button -->\n      <!-- User -->\n      <ng-template [ngIf]=\"user\">\n        <p>{{ user.fullname }}</p>\n      </ng-template>\n      <!-- end of user -->\n    </div>\n    <!-- end of large -->\n\n    <!-- Tablet & mobile -->\n    <div class=\"flex md:hidden flex-col bg-inherit\">\n      <ng-template [ngIf]=\"navs && navs.length > 0\">\n        <a\n          *ngFor=\"let nav of navs\"\n          routerLink=\"{{ nav.route }}\"\n          class=\"px-2 border-2 border-inherit hover:border-main\"\n          >{{ nav.label }}</a\n        >\n      </ng-template>\n      <!-- end of navs -->\n      <!-- Experience button -->\n\n      <!-- end of experience button -->\n      <!-- Multi language button -->\n\n      <!-- end of multi language button -->\n      <!-- User -->\n      <ng-template [ngIf]=\"user\">\n        <p>{{ user.fullname }}</p>\n      </ng-template>\n      <!-- end of user -->\n    </div>\n    <!-- end of tablet & mobile -->\n  </div>\n  <!-- end of right -->\n</div>\n"
+        }
+    ],
+    "modules": [
+        {
+            "name": "AppModule",
+            "id": "module-AppModule-4f589b02cf7e9739f78ad8ba1a1cb153d91a2c8b4cc9dff6052af23e4d817ee10eb4204d225158340bef8f137b4dfc15937579bbaf06062338681025102d239f",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "src/app/app.module.ts",
+            "methods": [],
+            "sourceCode": "import { NgModule } from '@angular/core';\nimport { BrowserModule } from '@angular/platform-browser';\n\nimport { AppRoutingModule } from './app-routing.module';\nimport { AppComponent } from './app.component';\nimport { ButtonBaseComponent } from './buttons/button-base/button-base.component';\n@NgModule({\n  declarations: [AppComponent, ButtonBaseComponent],\n  imports: [BrowserModule, AppRoutingModule],\n  providers: [],\n  bootstrap: [AppComponent],\n})\nexport class AppModule {}\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "AppComponent"
+                        },
+                        {
+                            "name": "ButtonBaseComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": [
+                        {
+                            "name": "AppRoutingModule"
+                        }
+                    ]
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": [
+                        {
+                            "name": "AppComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "AppRoutingModule",
+            "id": "module-AppRoutingModule-c39fedf445dba12b8cbe2314cfd6788c75a2e8c002c41b447ccc3dc1dd47446d37c7544a379a5e1d82f110a6fe77e71e5fe23476b01eb3f86ad3116b9bb9d317",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "src/app/app-routing.module.ts",
+            "methods": [],
+            "sourceCode": "import { NgModule } from '@angular/core';\nimport { RouterModule, Routes } from '@angular/router';\n\nconst routes: Routes = [\n  {\n    path: '',\n    loadChildren: () =>\n      \"import('./layouts/layout-home/layout-home.module').then(\\\n        (m) => m.LayoutHomeModule\\\n      )\",\n  },\n];\n\n@NgModule({\n  imports: [RouterModule.forRoot(routes)],\n  exports: [RouterModule],\n})\nexport class AppRoutingModule {}\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": []
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "LayoutHomeModule",
+            "id": "module-LayoutHomeModule-bd3590126e974a172bb706a9d9c9c93ded7562cf9f921c425102c14835dc9557881651fd30631daf28eb2b10af3a084335a1caeb9b136267848fcb5e28dc5dca",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "src/app/layouts/layout-home/layout-home.module.ts",
+            "methods": [],
+            "sourceCode": "//#region Modules\nimport { NgModule } from '@angular/core';\nimport { CommonModule } from '@angular/common';\nimport { RouterModule } from '@angular/router';\n//#endregion\n\n//#region Pages\nimport { PageHomeComponent } from 'src/app/pages/page-home/page-home.component';\n//#endregion\n\n//#region Partials\nimport { PartialHeaderHomeComponent } from 'src/app/partials/partial-header-home/partial-header-home.component';\nimport { PartialFooterHomeComponent } from 'src/app/partials/partial-footer-home/partial-footer-home.component';\n//#endregion\n\nimport { LayoutHomeRoutingModule } from './layout-home-routing.module';\nimport { LayoutHomeComponent } from './layout-home.component';\n\n@NgModule({\n  declarations: [\n    LayoutHomeComponent,\n    PageHomeComponent,\n    PartialHeaderHomeComponent,\n    PartialFooterHomeComponent,\n  ],\n  imports: [CommonModule, LayoutHomeRoutingModule, RouterModule],\n})\nexport class LayoutHomeModule {}\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "LayoutHomeComponent"
+                        },
+                        {
+                            "name": "PageHomeComponent"
+                        },
+                        {
+                            "name": "PartialFooterHomeComponent"
+                        },
+                        {
+                            "name": "PartialHeaderHomeComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": [
+                        {
+                            "name": "LayoutHomeRoutingModule"
+                        }
+                    ]
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "LayoutHomeRoutingModule",
+            "id": "module-LayoutHomeRoutingModule-b30fd3f4f19c0ab9ed4ea6588c76b53662f79f304f9a16a9a4a2b98e0684696d39706b7791b540bcac2c8ae92f50317104033182cf90447e6d054febf87d3319",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "src/app/layouts/layout-home/layout-home-routing.module.ts",
+            "methods": [],
+            "sourceCode": "import { NgModule } from '@angular/core';\nimport { RouterModule, Routes } from '@angular/router';\nimport { LayoutHomeComponent } from './layout-home.component';\nimport { PageHomeComponent } from 'src/app/pages/page-home/page-home.component';\nconst routes: Routes = [\n  {\n    path: '',\n    component: LayoutHomeComponent,\n    children: [\n      {\n        path: '',\n        component: PageHomeComponent,\n      },\n    ],\n  },\n];\n\n@NgModule({\n  imports: [RouterModule.forChild(routes)],\n  exports: [RouterModule],\n})\nexport class LayoutHomeRoutingModule {}\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": []
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        }
+    ],
+    "miscellaneous": {
+        "variables": [
+            {
+                "name": "context",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/buttons/button-base.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/partials/partial-header-home/partial-header-home.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/environments/environment.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\n  production: false\n}"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/environments/environment.prod.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\n  production: true\n}"
+            },
+            {
+                "name": "LoggedIn",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/partials/partial-header-home/partial-header-home.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "mockUser",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/data/mocks/user.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\r\n  fullname: 'Hoàng Thuỳ Linh',\r\n  avatar:\r\n    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzKK597Mgl3THJUypxMgXdjdkdQVFqhH7hmQ&usqp=CAU',\r\n  email: 'dev_user@optimizer.jp',\r\n  password: 'Phanhueman123',\r\n}"
+            },
+            {
+                "name": "require",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/test.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "literal type"
+            },
+            {
+                "name": "solidAppInfo",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/data/solids/solidAppInfo.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\r\n  name: 'BSpace',\r\n  languages: ['jp', 'en'],\r\n  logoUrl: 'assets/images/solids/logos/logo-bspace.png',\r\n  socials: [\r\n    {\r\n      type: 'twitter',\r\n      url: 'https://www.twitter.com/',\r\n    },\r\n    {\r\n      type: 'facebook',\r\n      url: 'https://www.facebook.com/',\r\n    },\r\n    {\r\n      type: 'instagram',\r\n      url: 'https://www.instagram.com/',\r\n    },\r\n  ],\r\n}"
+            },
+            {
+                "name": "solidNavHeaderHome",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/data/solids/solidNavHeaderHome.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "[]",
+                "defaultValue": "[\r\n  {\r\n    label: 'What BSpace',\r\n    route: '',\r\n    subs: [],\r\n  },\r\n  {\r\n    label: 'Function',\r\n    route: '',\r\n    subs: [],\r\n  },\r\n  {\r\n    label: 'Utilization Scene',\r\n    route: '',\r\n    subs: [],\r\n  },\r\n  {\r\n    label: 'FAQ',\r\n    route: '',\r\n    subs: [],\r\n  },\r\n]"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/buttons/button-base.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "(args) => ({\r\n  props: {\r\n    ...args,\r\n  },\r\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/stories/partials/partial-header-home/partial-header-home.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "(args) => ({\r\n  props: {\r\n    ...args,\r\n  },\r\n})"
+            }
+        ],
+        "functions": [],
+        "typealiases": [],
+        "enumerations": [],
+        "groupedVariables": {
+            "src/test.ts": [
+                {
+                    "name": "context",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)"
+                },
+                {
+                    "name": "require",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/test.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "literal type"
+                }
+            ],
+            "src/stories/buttons/button-base.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/buttons/button-base.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/buttons/button-base.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "(args) => ({\r\n  props: {\r\n    ...args,\r\n  },\r\n})"
+                }
+            ],
+            "src/stories/partials/partial-header-home/partial-header-home.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/partials/partial-header-home/partial-header-home.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "LoggedIn",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/partials/partial-header-home/partial-header-home.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/stories/partials/partial-header-home/partial-header-home.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "(args) => ({\r\n  props: {\r\n    ...args,\r\n  },\r\n})"
+                }
+            ],
+            "src/environments/environment.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\n  production: false\n}"
+                }
+            ],
+            "src/environments/environment.prod.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.prod.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\n  production: true\n}"
+                }
+            ],
+            "src/app/data/mocks/user.ts": [
+                {
+                    "name": "mockUser",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/data/mocks/user.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\r\n  fullname: 'Hoàng Thuỳ Linh',\r\n  avatar:\r\n    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzKK597Mgl3THJUypxMgXdjdkdQVFqhH7hmQ&usqp=CAU',\r\n  email: 'dev_user@optimizer.jp',\r\n  password: 'Phanhueman123',\r\n}"
+                }
+            ],
+            "src/app/data/solids/solidAppInfo.ts": [
+                {
+                    "name": "solidAppInfo",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/data/solids/solidAppInfo.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\r\n  name: 'BSpace',\r\n  languages: ['jp', 'en'],\r\n  logoUrl: 'assets/images/solids/logos/logo-bspace.png',\r\n  socials: [\r\n    {\r\n      type: 'twitter',\r\n      url: 'https://www.twitter.com/',\r\n    },\r\n    {\r\n      type: 'facebook',\r\n      url: 'https://www.facebook.com/',\r\n    },\r\n    {\r\n      type: 'instagram',\r\n      url: 'https://www.instagram.com/',\r\n    },\r\n  ],\r\n}"
+                }
+            ],
+            "src/app/data/solids/solidNavHeaderHome.ts": [
+                {
+                    "name": "solidNavHeaderHome",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/data/solids/solidNavHeaderHome.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
+                    "defaultValue": "[\r\n  {\r\n    label: 'What BSpace',\r\n    route: '',\r\n    subs: [],\r\n  },\r\n  {\r\n    label: 'Function',\r\n    route: '',\r\n    subs: [],\r\n  },\r\n  {\r\n    label: 'Utilization Scene',\r\n    route: '',\r\n    subs: [],\r\n  },\r\n  {\r\n    label: 'FAQ',\r\n    route: '',\r\n    subs: [],\r\n  },\r\n]"
+                }
+            ]
+        },
+        "groupedFunctions": {},
+        "groupedEnumerations": {},
+        "groupedTypeAliases": {}
+    },
+    "routes": {
+        "name": "<root>",
+        "kind": "module",
+        "className": "AppModule",
+        "children": [
+            {
+                "name": "routes",
+                "filename": "src/app/app-routing.module.ts",
+                "module": "AppRoutingModule",
+                "children": [
+                    {
+                        "path": "",
+                        "loadChildren": "./layouts/layout-home/layout-home.module#LayoutHomeModule",
+                        "children": [
+                            {
+                                "kind": "module",
+                                "children": [
+                                    {
+                                        "name": "routes",
+                                        "filename": "src/app/layouts/layout-home/layout-home-routing.module.ts",
+                                        "module": "LayoutHomeRoutingModule",
+                                        "children": [
+                                            {
+                                                "path": "",
+                                                "component": "LayoutHomeComponent",
+                                                "children": [
+                                                    {
+                                                        "path": "",
+                                                        "component": "PageHomeComponent"
+                                                    }
+                                                ]
+                                            }
+                                        ],
+                                        "kind": "module"
+                                    }
+                                ],
+                                "module": "LayoutHomeModule"
+                            }
+                        ]
+                    }
+                ],
+                "kind": "module"
+            }
+        ]
+    },
+    "coverage": {
+        "count": 0,
+        "status": "low",
+        "files": [
+            {
+                "filePath": "src/app/app.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "AppComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/buttons/button-base/button-base.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ButtonBaseComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/9",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/data/mocks/user.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "mockUser",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/data/solids/solidAppInfo.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "solidAppInfo",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/data/solids/solidNavHeaderHome.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "solidNavHeaderHome",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/layouts/layout-home/layout-home.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "LayoutHomeComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/7",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/pages/page-home/page-home.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "PageHomeComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/partials/partial-footer-home/partial-footer-home.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "PartialFooterHomeComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/partials/partial-header-home/partial-header-home.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "PartialHeaderHomeComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/6",
+                "status": "low"
+            },
+            {
+                "filePath": "src/environments/environment.prod.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "environment",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/environments/environment.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "environment",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/buttons/button-base.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/buttons/button-base.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/partials/partial-header-home/partial-header-home.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/partials/partial-header-home/partial-header-home.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "LoggedIn",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/stories/partials/partial-header-home/partial-header-home.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/test.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "context",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/test.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "require",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            }
+        ]
+    }
+}

@@ -1,0 +1,12 @@
+<div class="flex flex-col min-h-screen bg-memberBgColor">
+  <partial-header-member
+    [linkActive]="linkActive"
+    [user]="user"
+  ></partial-header-member>
+  <div
+    class="grow px-6 md:px-12 py-3 md:pt-10 md:pb-6 flex flex-col items-center"
+  >
+    <router-outlet></router-outlet>
+  </div>
+  <partial-copyright></partial-copyright>
+</div>

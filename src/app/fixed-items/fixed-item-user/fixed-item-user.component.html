@@ -1,0 +1,60 @@
+<div [class]="classes" class="min-w-itemLanguage fixed-item-user">
+  <ul class="text-black">
+    <ng-template [ngIf]="user">
+      <li>
+        <a
+          [routerLink]="['member']"
+          class="
+            block
+            py-2
+            text-center
+            border border-x-0 border-t-0 border-b border-grey
+            hover:text-main
+          "
+        >
+          <p>{{ user.fullname }}</p>
+          <p>{{ user.email }}</p>
+        </a>
+      </li>
+      <li>
+        <a
+          [routerLink]="['member/home']"
+          class="py-2 flex justify-start hover:text-main"
+        >
+          <fa-icon [icon]="faHouse" class="mr-4"></fa-icon>
+          <span>Home</span>
+        </a>
+      </li>
+      <li>
+        <a
+          [routerLink]="['member/setting']"
+          class="py-2 flex justify-start hover:text-main"
+        >
+          <fa-icon [icon]="faGear" class="mr-4"></fa-icon>
+          <span>Setting</span>
+        </a>
+      </li>
+      <li>
+        <p
+          (click)="logout()"
+          class="cursor-pointer py-2 flex justify-start hover:text-main"
+        >
+          <fa-icon [icon]="faLogout" class="mr-4"></fa-icon>
+          <span>Logout</span>
+        </p>
+      </li>
+    </ng-template>
+    <ng-template [ngIf]="!user">
+      <li>
+        <a [routerLink]="['/auth/login']" class="block py-2 hover:text-main"
+          ><span>Login</span></a
+        >
+      </li>
+      <li>
+        <a [routerLink]="['/auth/register']" class="block py-2 hover:text-main"
+          ><span>Register</span></a
+        >
+      </li>
+    </ng-template>
+  </ul>
+</div>

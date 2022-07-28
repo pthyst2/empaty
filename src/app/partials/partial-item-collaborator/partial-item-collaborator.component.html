@@ -1,0 +1,65 @@
+<div
+  class="
+    flex flex-col
+    lg:flex-row
+    items-center
+    py-8
+    px-4
+    border-b border-black15
+  "
+>
+  <div class="grow w-full flex lg:inline-flex items-center justify-between">
+    <img [src]="icon" class="w-[50px] h-[50px]" />
+    <div class="grow text-right lg:text-left px-4 lg:min-w-[260px]">
+      <p class="uppercase">
+        <strong>{{ collaborator.user.fullname }}</strong>
+      </p>
+      <p class="text-black45 break-all">
+        <span>{{ collaborator.user.email }}</span>
+      </p>
+      <p class="text-black45">
+        <strong>{{ collaborator.role.name }}</strong>
+      </p>
+    </div>
+  </div>
+  <!-- SVG Buttons -->
+  <div class="grow w-full justify-end lg:grow-0 flex lg:inline-flex">
+    <!-- Edit-->
+    <div class="svg-wrapper w-[40px] h-[40px]">
+      <div class="svg svg-edit w-[20px] h-[20px]"></div>
+    </div>
+    <!-- end of edit -->
+    <!-- Delete-->
+    <div class="svg-wrapper w-[40px] h-[40px]" (click)="toggleModal('delete')">
+      <div class="svg svg-trash w-[20px] h-[20px]"></div>
+    </div>
+    <!-- end of delete -->
+  </div>
+  <!-- end of svg buttons -->
+</div>
+
+<!-- Modal delete collaborator -->
+<ng-template [ngIf]="modals.delete == true">
+  <modal-delete-collaborator
+    [collaborator]="collaborator"
+    (closed)="catchDeleteModal($event)"
+  ></modal-delete-collaborator>
+</ng-template>
+<!-- end of modal delete collaborator -->
+
+<!-- Modal edit collaborator -->
+<ng-template [ngIf]="modals.edit == true">
+  <modal-edit-collaborator></modal-edit-collaborator>
+</ng-template>
+<!-- end of modal edit collaborator -->
+
+<!-- Modal message -->
+<ng-template [ngIf]="modals.message == true">
+  <modal-message
+    [icon]="message.icon"
+    [title]="message.title"
+    [html]="message.html"
+    (closed)="toggleModal('message')"
+  ></modal-message>
+</ng-template>
+<!-- end of modal message -->

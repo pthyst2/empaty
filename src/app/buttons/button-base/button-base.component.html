@@ -1,0 +1,20 @@
+<!-- 
+<button
+  [ngClass]="[
+    'bg-' + bgColor,
+    'hover:bg-' + bgColorHover,
+    'text-' + textColor,
+    'border-' + borderColor,
+    rounded == true ? 'rounded' : '',
+    'border-2',
+    'py-4',
+    'px-6',
+    'btn-base'
+  ]"
+>
+  <span>{{ label }}</span>
+</button>
+-->
+<button [class]="classes" [type]="type">
+  <span>{{ label }}</span>
+</button>

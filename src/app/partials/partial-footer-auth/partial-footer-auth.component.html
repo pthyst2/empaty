@@ -1,0 +1,17 @@
+<div class="py-6 px-8 border-t border-greyDark bg-transparent text-greyDark">
+  <nav class="flex flex-wrap w-full justify-center items-center">
+    <ng-template [ngIf]="navs && navs.length > 0">
+      <a
+        *ngFor="let item of navs"
+        [routerLink]="item.route"
+        class="px-4 py-2 hover:text-main"
+        >{{ item.label }}</a
+      >
+    </ng-template>
+    <!-- Experience button -->
+    <button-icon-fa [label]="btnExp.label" (click)="comingSoon()">
+      <fa-icon [icon]="faCirclePlay"></fa-icon>
+    </button-icon-fa>
+    <!-- end of experience button -->
+  </nav>
+</div>

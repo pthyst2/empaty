@@ -1,0 +1,12 @@
+<div class="py-20 px-8 md:px-page_px_md lg:px-page_px_lg" [class]="classes">
+  <!-- Title & description -->
+  <div class="mb-11 text-center">
+    <p class="text-xl">{{ title }}</p>
+    <p *ngIf="description">{{ description }}</p>
+  </div>
+  <!-- end of title & description -->
+
+  <!-- Content -->
+  <ng-content></ng-content>
+  <!-- end of content -->
+</div>

@@ -1,0 +1,26 @@
+<div class="py-20 px-8 md:px-page_px_md lg:px-page_px_lg bg-white">
+  <!-- Title & description -->
+  <div class="mb-11 text-center">
+    <p class="text-xl">{{ title }}</p>
+    <p *ngIf="description">{{ description }}</p>
+  </div>
+  <!-- end of title & description -->
+  <!-- List spaces -->
+  <ng-template [ngIf]="spaces && spaces.length > 0">
+    <div class="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 mb-8">
+      <div *ngFor="let space of spaces" class="md:px-8 mb-6">
+        <partial-item-space [space]="space"></partial-item-space>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template [ngIf]="spaces && spaces.length == 0">
+    <p class="text-center">{{ msg.noSpace }}</p>
+  </ng-template>
+  <!-- end of list spaces -->
+
+  <!-- Button explore -->
+  <div class="w-full text-center">
+    <button-base [label]="btnMoreSpace.label"></button-base>
+  </div>
+  <!-- end of button explore -->
+</div>

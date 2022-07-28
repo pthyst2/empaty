@@ -1,0 +1,659 @@
+<div class="w-full md:w-80per mx-auto text-white">
+  <!-- Step Register -->
+  <ng-template [ngIf]="stepRegister.active == true">
+    <!-- Title -->
+    <div class="py-4 text-right border-b border-greyDark">
+      <p class="text-xl font-semibold">Register New Account</p>
+    </div>
+    <!-- end of title -->
+    <!-- Form -->
+    <form [formGroup]="stepRegister.form" (submit)="submitStepRegister()">
+      <!-- Inputs -->
+      <div class="grid gap-x-8 grid-cols-1 md:grid-cols-2 py-4">
+        <!-- First name -->
+        <div class="form-group">
+          <label>First Name <span class="text-danger">*</span></label>
+          <div class="input-wrapper">
+            <input
+              type="text"
+              formControlName="firstName"
+              [class.input-invalid]="
+                (ctrRegister.firstName.dirty || stepRegister.submitted) &&
+                ctrRegister.firstName.invalid
+              "
+              spellcheck="false"
+              placeholder="John"
+            />
+          </div>
+          <ng-template
+            [ngIf]="
+              (ctrRegister.firstName.dirty || stepRegister.submitted) &&
+              ctrRegister.firstName.invalid
+            "
+          >
+            <span
+              *ngIf="ctrRegister.firstName.errors?.['required']"
+              class="text-danger"
+            >
+              {{ stepRegister.messages.firstName.required }}
+            </span>
+            <span
+              *ngIf="ctrRegister.firstName.errors?.['maxlength']"
+              class="text-danger"
+            >
+              {{ stepRegister.messages.firstName.maxLength }}
+            </span>
+          </ng-template>
+        </div>
+        <!-- end of first name -->
+        <!-- Last name -->
+        <div class="form-group">
+          <label>Last Name <span class="text-danger">*</span></label>
+          <div class="input-wrapper">
+            <input
+              type="text"
+              formControlName="lastName"
+              [class.input-invalid]="
+                (ctrRegister.lastName.dirty || stepRegister.submitted) &&
+                ctrRegister.lastName.invalid
+              "
+              spellcheck="false"
+              placeholder="Doe"
+            />
+          </div>
+          <ng-template
+            [ngIf]="
+              (ctrRegister.lastName.dirty || stepRegister.submitted) &&
+              ctrRegister.lastName.invalid
+            "
+          >
+            <span
+              *ngIf="ctrRegister.lastName.errors?.['required']"
+              class="text-danger"
+              >{{ stepRegister.messages.lastName.required }}</span
+            >
+            <span
+              *ngIf="ctrRegister.lastName.errors?.['maxlength']"
+              class="text-danger"
+              >{{ stepRegister.messages.lastName.maxLength }}</span
+            >
+          </ng-template>
+        </div>
+        <!-- end of last name -->
+        <!-- Email -->
+        <div class="form-group">
+          <label>Email <span class="text-danger">*</span></label>
+          <div class="input-wrapper">
+            <input
+              type="email"
+              formControlName="email"
+              [class.input-invalid]="
+                (ctrRegister.email.dirty || stepRegister.submitted) &&
+                ctrRegister.email.invalid
+              "
+              spellcheck="false"
+              placeholder="email@domain.com"
+            />
+          </div>
+          <ng-template
+            [ngIf]="
+              (ctrRegister.email.dirty || stepRegister.submitted) &&
+              ctrRegister.email.invalid
+            "
+          >
+            <span
+              class="text-danger"
+              *ngIf="ctrRegister.email.errors?.['required']"
+            >
+              {{ stepRegister.messages.email.required }}
+            </span>
+            <span
+              class="text-danger"
+              *ngIf="ctrRegister.email.errors?.['email']"
+            >
+              {{ stepRegister.messages.email.email }}
+            </span>
+          </ng-template>
+        </div>
+        <!-- end of email -->
+        <!-- Password -->
+        <div class="form-group">
+          <label>Password <span class="text-danger">*</span></label>
+          <div class="input-wrapper">
+            <input
+              [type]="stepRegister.shows.password == true ? 'text' : 'password'"
+              formControlName="password"
+              [class.input-invalid]="
+                (ctrRegister.password.dirty || stepRegister.submitted) &&
+                ctrRegister.password.invalid
+              "
+            />
+            <button
+              type="button"
+              class="px-4 py-2"
+              (click)="
+                stepRegister.shows.password = !stepRegister.shows.password
+              "
+            >
+              <fa-icon
+                [icon]="
+                  stepRegister.shows.password == true ? faEyeSlash : faEye
+                "
+              ></fa-icon>
+            </button>
+          </div>
+          <ng-template
+            [ngIf]="
+              (ctrRegister.password.dirty || stepRegister.submitted) &&
+              ctrRegister.password.invalid
+            "
+          >
+            <span
+              class="text-danger"
+              *ngIf="ctrRegister.password.errors?.['required']"
+            >
+              {{ stepRegister.messages.password.required }}
+            </span>
+            <span
+              class="text-danger"
+              *ngIf="ctrRegister.password.errors?.['minlength']"
+            >
+              {{ stepRegister.messages.password.minLength }}
+            </span>
+            <span
+              class="text-danger"
+              *ngIf="ctrRegister.password.errors?.['maxlength']"
+            >
+              {{ stepRegister.messages.password.maxLength }}
+            </span>
+          </ng-template>
+        </div>
+        <!-- end of password -->
+        <!-- Country code -->
+        <div class="form-group">
+          <label>Country Code <span class="text-danger">*</span></label>
+          <div class="input-wrapper">
+            <div class="select-wrapper">
+              <select formControlName="countryCode">
+                <option
+                  *ngFor="let item of stepRegister.selects.countryCodes"
+                  value="item.countryCode"
+                >
+                  {{ item.name }} (+{{ item.countryCode }})
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <!-- end of country code -->
+        <!-- Phone number -->
+        <div class="form-group">
+          <label>Phone Number <span class="text-danger">*</span></label>
+          <div class="input-wrapper">
+            <input
+              type="text"
+              formControlName="phoneNumber"
+              [class.input-invalid]="
+                (ctrRegister.phoneNumber.dirty || stepRegister.submitted) &&
+                ctrRegister.phoneNumber.invalid
+              "
+              spellcheck="false"
+              placeholder="0123-456-789"
+            />
+          </div>
+          <ng-template
+            [ngIf]="
+              (ctrRegister.phoneNumber.dirty || stepRegister.submitted) &&
+              ctrRegister.phoneNumber.invalid
+            "
+          >
+            <span
+              class="text-danger"
+              *ngIf="ctrRegister.phoneNumber.errors?.['required']"
+            >
+              {{ stepRegister.messages.phoneNumber.required }}
+            </span>
+            <span
+              class="text-danger"
+              *ngIf="ctrRegister.phoneNumber.errors?.['minlength']"
+            >
+              {{ stepRegister.messages.phoneNumber.minLength }}
+            </span>
+            <span
+              class="text-danger"
+              *ngIf="ctrRegister.phoneNumber.errors?.['maxlength']"
+            >
+              {{ stepRegister.messages.phoneNumber.maxLength }}
+            </span>
+          </ng-template>
+        </div>
+        <!-- end of phone number -->
+        <!-- Company name -->
+        <div class="form-group">
+          <label>Company Name <span class="text-danger">*</span></label>
+          <div class="input-wrapper">
+            <input
+              type="text"
+              formControlName="companyName"
+              [class.input-invalid]="
+                (ctrRegister.companyName.dirty || stepRegister.submitted) &&
+                ctrRegister.companyName.invalid
+              "
+              spellcheck="false"
+              placeholder="My Company"
+            />
+          </div>
+          <ng-template
+            [ngIf]="
+              (ctrRegister.companyName.dirty || stepRegister.submitted) &&
+              ctrRegister.companyName.invalid
+            "
+          >
+            <span
+              *ngIf="ctrRegister.companyName.errors?.['required']"
+              class="text-danger"
+              >{{ stepRegister.messages.companyName.required }}</span
+            >
+          </ng-template>
+        </div>
+        <!-- end of company name -->
+      </div>
+      <!-- end of inputs -->
+      <!-- Button submit -->
+      <div class="text-center">
+        <button
+          type="submit"
+          class="
+            py-3
+            px-8
+            w-full
+            md:w-50per
+            rounded
+            bg-main
+            text-white
+            border border-main
+            hover:bg-transparent
+            hover:text-main
+          "
+        >
+          Submit
+        </button>
+      </div>
+      <!-- end of button submit -->
+      <!-- Nav -->
+      <nav class="w-full text-center py-4">
+        <a [routerLink]="['/auth/login']" class="hover:text-main"
+          >Have an account? Login here</a
+        >
+      </nav>
+      <!-- end of nav -->
+    </form>
+    <!-- end of form -->
+  </ng-template>
+  <!-- end of step register -->
+
+  <!-- Step Plan -->
+  <ng-template [ngIf]="stepPlan.active == true">
+    <!-- Title -->
+    <div class="py-4 text-right border-b border-greyDark">
+      <p class="text-xl font-semibold">Choose Your Plan</p>
+    </div>
+    <!-- end of title -->
+    <!-- Plans -->
+    <div
+      class="
+        py-4
+        grid grid-cols-1
+        md:grid-cols-2
+        lg:grid-cols-3
+        xl:grid-cols-4
+        gap-4
+      "
+    >
+      <div
+        *ngFor="let item of stepPlan.plans"
+        (click)="selectPlan(item)"
+        class="p-8 rounded-lg border-2 hover:border-main cursor-pointer"
+        [class]="
+          stepPlan.plan?._id == item._id ? 'border-main' : 'border-white'
+        "
+      >
+        <p class="mb-4 font-semibold">{{ item.title }}</p>
+        <div class="mb-4">
+          <p *ngIf="item.fees.year" class="text-xl text-main">
+            {{ item.fees.year | currency: "USD" }} / year
+          </p>
+          <p *ngIf="item.fees.month" class="text-lg">
+            {{ item.fees.month | currency: "USD" }} / month
+          </p>
+        </div>
+
+        <p class="mb-4">{{ item.description }}</p>
+      </div>
+    </div>
+    <!-- end of plans -->
+    <!-- Buttons -->
+    <div class="py-4 text-center">
+      <div class="mb-2">
+        <button
+          type="button"
+          (click)="submitStepPlan()"
+          class="
+            py-3
+            px-8
+            rounded
+            bg-main
+            text-white
+            border border-main
+            hover:bg-transparent
+            hover:text-main
+          "
+        >
+          Purchase selected plan
+        </button>
+      </div>
+      <div>
+        <button
+          type="button"
+          (click)="skipPlan()"
+          class="
+            py-3
+            px-8
+            rounded
+            bg-transparent
+            text-main
+            border-0
+            hover:text-white
+            hover:underline
+          "
+        >
+          I'll comeback later
+        </button>
+      </div>
+    </div>
+    <!-- end of buttons -->
+  </ng-template>
+  <!-- end of step plan -->
+
+  <!-- Step Credit card -->
+  <ng-template [ngIf]="stepCreditCard.active == true">
+    <!-- Title -->
+    <div class="py-4 text-right border-b border-greyDark">
+      <p class="text-xl font-semibold">Credit Card Information</p>
+    </div>
+    <!-- end of title -->
+    <!-- Form -->
+    <form [formGroup]="stepCreditCard.card" class="py-2">
+      <!-- Card holder -->
+      <div class="form-group">
+        <label>Card Holder <span class="text-danger">*</span></label>
+        <div class="input-wrapper">
+          <input
+            type="text"
+            formControlName="holder"
+            [class.input-invalid]="
+              (ctrCard.holder.dirty || stepCreditCard.submitted) &&
+              ctrCard.holder.invalid
+            "
+            spellcheck="false"
+            placeholder="CARD HOLDER"
+          />
+        </div>
+        <ng-template
+          [ngIf]="
+            (ctrCard.holder.dirty || stepCreditCard.submitted) &&
+            ctrCard.holder.invalid
+          "
+        >
+          <div>
+            <span
+              *ngIf="ctrCard.holder.errors?.['required']"
+              class="text-danger"
+              >{{ stepCreditCard.messages.holder.required }}</span
+            >
+          </div>
+        </ng-template>
+      </div>
+      <!-- end of card holder -->
+      <!-- Card type & Card number -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+        <!-- Card type -->
+        <div class="form-group">
+          <label>Card Type <span class="text-danger">*</span></label>
+          <div class="input-wrapper">
+            <div class="select-wrapper">
+              <select formControlName="type">
+                <option value="mastercard">Mastercard</option>
+                <option value="visa">VISA</option>
+                <option value="jcb">JCB</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <!-- end of card type -->
+        <!-- Card number -->
+        <div class="form-group">
+          <label>Card Number <span class="text-danger">*</span></label>
+          <div class="input-wrapper">
+            <input
+              [type]="stepCreditCard.shows.number == true ? 'text' : 'password'"
+              formControlName="number"
+              [class.input-invalid]="
+                (ctrCard.number.dirty || stepCreditCard.submitted) &&
+                ctrCard.number.invalid
+              "
+              spellcheck="false"
+            />
+            <button
+              type="button"
+              class="py-2 px-4 hover:text-main"
+              (click)="
+                stepCreditCard.shows.number = !stepCreditCard.shows.number
+              "
+            >
+              <fa-icon
+                [icon]="
+                  stepCreditCard.shows.number == true ? faEyeSlash : faEye
+                "
+              ></fa-icon>
+            </button>
+          </div>
+          <ng-template
+            [ngIf]="
+              (ctrCard.number.dirty || stepCreditCard.submitted) &&
+              ctrCard.number.invalid
+            "
+          >
+            <span
+              *ngIf="ctrCard.number.errors?.['required']"
+              class="text-danger"
+              >{{ stepCreditCard.messages.number.required }}</span
+            >
+            <span
+              *ngIf="ctrCard.number.errors?.['pattern']"
+              class="text-danger"
+              >{{ stepCreditCard.messages.number.pattern }}</span
+            >
+          </ng-template>
+        </div>
+        <!-- end of card number -->
+      </div>
+      <!-- end of card type & card number -->
+      <!-- Exp dates & CVC -->
+      <div class="form-group grid grid-cols-1 md:grid-cols-2 gap-x-4">
+        <!-- Exp date -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+          <!-- Month -->
+          <div class="form-group">
+            <label>Expire Month <span class="text-danger">*</span></label>
+            <div class="input-wrapper">
+              <div class="select-wrapper">
+                <select
+                  formControlName="expMonth"
+                  [class.input-invalid]="
+                    (ctrCard.expMonth.dirty || stepCreditCard.submitted) &&
+                    ctrCard.expMonth.invalid
+                  "
+                >
+                  <option value="" selected disabled hidden>
+                    Select month
+                  </option>
+                  <option value="1">01</option>
+                  <option value="2">02</option>
+                  <option value="3">03</option>
+                  <option value="4">04</option>
+                  <option value="5">05</option>
+                  <option value="6">06</option>
+                  <option value="7">07</option>
+                  <option value="8">08</option>
+                  <option value="9">09</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                </select>
+              </div>
+            </div>
+            <ng-template
+              [ngIf]="
+                (ctrCard.expMonth.dirty || stepCreditCard.submitted) &&
+                ctrCard.expMonth.invalid
+              "
+            >
+              <span
+                *ngIf="ctrCard.expMonth.errors?.['required']"
+                class="text-danger"
+              >
+                {{ stepCreditCard.messages.expMonth.required }}
+              </span>
+            </ng-template>
+          </div>
+          <!-- end of month -->
+          <!-- Year -->
+          <div class="form-group">
+            <label>Expire Year <span class="text-danger">*</span></label>
+            <div class="input-wrapper">
+              <div class="select-wrapper">
+                <select
+                  formControlName="expYear"
+                  [class.input-invalid]="
+                    (ctrCard.expYear.dirty || stepCreditCard.submitted) &&
+                    ctrCard.expYear.invalid
+                  "
+                >
+                  <option value="" selected disabled hidden>Select year</option>
+                  <option
+                    *ngFor="let item of stepCreditCard.expYears"
+                    value="{{ item }}"
+                  >
+                    {{ item }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <ng-template
+              [ngIf]="
+                (ctrCard.expYear.dirty || stepCreditCard.submitted) &&
+                ctrCard.expYear.invalid
+              "
+            >
+              <span
+                *ngIf="ctrCard.expYear.errors?.['required']"
+                class="text-danger"
+              >
+                {{ stepCreditCard.messages.expYear.required }}
+              </span>
+            </ng-template>
+          </div>
+          <!-- end of year -->
+        </div>
+        <!-- end of exp date -->
+        <!-- Cvc -->
+        <div class="form-group">
+          <label>CVC <span class="text-danger">*</span></label>
+          <div class="input-wrapper">
+            <input
+              [type]="stepCreditCard.shows.cvc == true ? 'text' : 'password'"
+              formControlName="cvc"
+              [class.input-invalid]="
+                (ctrCard.cvc.dirty || stepCreditCard.submitted) &&
+                ctrCard.cvc.invalid
+              "
+              spellcheck="false"
+              placeholder="123"
+            />
+            <button
+              type="button"
+              class="py-2 px-4 hover:text-main"
+              (click)="stepCreditCard.shows.cvc = !stepCreditCard.shows.cvc"
+            >
+              <fa-icon
+                [icon]="stepCreditCard.shows.cvc == true ? faEyeSlash : faEye"
+              ></fa-icon>
+            </button>
+          </div>
+          <ng-template
+            [ngIf]="
+              (ctrCard.cvc.dirty || stepCreditCard.submitted) &&
+              ctrCard.cvc.invalid
+            "
+          >
+            <span *ngIf="ctrCard.cvc.errors?.['required']" class="text-danger">
+              {{ stepCreditCard.messages.cvc.required }}
+            </span>
+            <span *ngIf="ctrCard.cvc.errors?.['pattern']" class="text-danger">
+              {{ stepCreditCard.messages.cvc.pattern }}
+            </span>
+          </ng-template>
+        </div>
+        <!-- end of cvc -->
+      </div>
+      <!-- end of exp dates & cvc -->
+      <!-- Buttons -->
+      <div class="py-4 text-center">
+        <div class="mb-2">
+          <button
+            type="button"
+            (click)="submitStepCreditCard()"
+            class="
+              py-3
+              px-8
+              rounded
+              bg-main
+              text-white
+              border border-main
+              hover:bg-transparent
+              hover:text-main
+            "
+          >
+            Add credit card
+          </button>
+        </div>
+        <div>
+          <button
+            type="button"
+            (click)="skipCreditCard()"
+            class="
+              py-3
+              px-8
+              rounded
+              bg-transparent
+              text-main
+              border-0
+              hover:text-white
+              hover:underline
+            "
+          >
+            I'll comeback later
+          </button>
+        </div>
+      </div>
+      <!-- end of buttons -->
+    </form>
+    <!-- end of form -->
+  </ng-template>
+  <!-- end of step credit card-->
+
+  <!-- Step Payment -->
+  <ng-template [ngIf]="stepPaymentMethod.active == true"></ng-template>
+  <!-- end of step payment -->
+</div>

@@ -1,0 +1,14 @@
+<a [routerLink]="['/']" class="block w-full rounded border border-t-grey">
+  <!-- Thumbnail -->
+  <div
+    class="p-4 bg-cover bg-center box-border h-itemBlogHeight"
+    [style.backgroundImage]="'url(' + item.thumbnail + ')'"
+  ></div>
+  <!-- end of thumbnail -->
+  <!-- Texts -->
+  <div class="bg-white p-4">
+    <p class="hover:text-main">{{ item.title }}</p>
+    <p class="uppercase text-right text-main">{{ btnReadMore.label }}</p>
+  </div>
+  <!-- end of texts -->
+</a>

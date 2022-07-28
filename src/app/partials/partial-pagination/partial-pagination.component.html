@@ -1,0 +1,51 @@
+<div class="flex flex-wrap justify-center items-center py-4">
+  <!-- Previous -->
+  <ng-template [ngIf]="nav.currentPage > 1">
+    <button
+      type="button"
+      class="
+        px-4
+        py-2
+        mx-2
+        rounded
+        border border-black15
+        bg-white
+        hover:bg-black15
+      "
+      (click)="pagePressed(nav.currentPage - 1)"
+    >
+      <fa-icon [icon]="faPrev"></fa-icon>
+    </button>
+  </ng-template>
+  <!-- end of previous -->
+  <!-- List pages -->
+  <button
+    *ngFor="let link of links"
+    type="button"
+    class="px-3 py-2 mx-1 rounded hover:bg-black15"
+    [class.active]="link == nav.currentPage"
+    (click)="pagePressed(link)"
+  >
+    {{ link }}
+  </button>
+  <!-- end of list pages -->
+  <!-- Next -->
+  <ng-template [ngIf]="nav.currentPage < nav.pages">
+    <button
+      type="button"
+      class="
+        px-4
+        py-2
+        mx-2
+        rounded
+        border border-black15
+        bg-white
+        hover:bg-black15
+      "
+      (click)="pagePressed(nav.currentPage + 1)"
+    >
+      <fa-icon [icon]="faNext"></fa-icon>
+    </button>
+  </ng-template>
+  <!-- end of next -->
+</div>

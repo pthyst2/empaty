@@ -1,0 +1,88 @@
+<!-- Fixed header -->
+<div
+  class="
+    fixed
+    top-0
+    left-0
+    right-0
+    px-12
+    pb-4
+    xs:pb-0
+    bg-blacklight
+    text-white
+    z-topHeaderHome
+  "
+>
+  <div class="flex flex-wrap justify-between">
+    <!-- Left -->
+    <div class="grow flex flex-wrap justifi-start items-center">
+      <!-- Logo -->
+      <div
+        class="
+          inline-flex
+          justify-center
+          items-center
+          lg:justify-start
+          py-6
+          pr-4
+          lg:py-0
+        "
+      >
+        <a [routerLink]="['/home']">
+          <img [src]="logoUrl" class="h-5 lg:h-8" />
+        </a>
+      </div>
+      <!-- end of logo -->
+      <!-- Nav -->
+      <nav class="grow inline-flex justify-start items-center">
+        <a
+          *ngFor="let item of nav"
+          [routerLink]="['/member/' + item.route]"
+          [class.active]="linkActive == item.route"
+          class="
+            relative
+            inline-flex
+            justify-center
+            items-center
+            py-0
+            sm:py-6
+            pr-6
+            md:px-6
+            hover:text-main
+          "
+        >
+          <fa-icon
+            [icon]="item.icon"
+            class="text-iconButton lg:text-icon20"
+          ></fa-icon>
+
+          <span
+            *ngIf="linkActive == item.route"
+            class="hidden md:block absolute -bottom-4"
+            >{{ item.label }}</span
+          >
+        </a>
+      </nav>
+      <!-- end of nav -->
+    </div>
+    <!-- end of left -->
+    <!-- Right -->
+    <div class="grow md:grow-0 relative cursor-pointer hover:text-main">
+      <div class="flex h-full justify-end items-center">
+        <fa-icon class="lg:hidden" [icon]="faUser"></fa-icon>
+        <p class="hidden lg:inline-block">{{ user.fullname }}</p>
+        <fa-icon [icon]="faCaretDown" class="ml-3"></fa-icon>
+      </div>
+      <fixed-item-user
+        [attributes]="fixedUserAttributes"
+        [user]="user"
+        class="hidden-item"
+      ></fixed-item-user>
+    </div>
+    <!-- end of right -->
+  </div>
+</div>
+<!-- end of fixed header -->
+<!-- Margin bottom -->
+<div class="header-margin-bottom"></div>
+<!-- end of margin bottom -->

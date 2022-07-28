@@ -1,0 +1,13 @@
+<!-- Cover -->
+<div
+  class="fixed top-0 bottom-0 left-0 right-0 z-modalCover bg-black opacity-50"
+  (click)="static == false ? close() : ''"
+></div>
+<!-- end of cover -->
+<!-- Modal -->
+<div class="fixed z-modal" [class]="positionClasses">
+  <div [class]="getSize()" [@openClose]="isOpen ? 'open' : 'close'">
+    <ng-content></ng-content>
+  </div>
+</div>
+<!-- end of modal -->

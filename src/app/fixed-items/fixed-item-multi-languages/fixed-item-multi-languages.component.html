@@ -1,0 +1,15 @@
+<div [class]="classes" class="min-w-itemLanguage fixed-item-languages">
+  <ng-template [ngIf]="languages && languages.length > 0">
+    <a
+      *ngFor="let item of languages"
+      href="#"
+      class="py-2 flex justify-start items-center text-black hover:text-main"
+    >
+      <img [src]="item.icon" class="h-itemLanguageFlag mr-4" />
+      <span>{{ item.label }}</span>
+    </a>
+  </ng-template>
+  <ng-template [ngIf]="!languages || languages.length == 0">
+    <p>There is no language.</p>
+  </ng-template>
+</div>

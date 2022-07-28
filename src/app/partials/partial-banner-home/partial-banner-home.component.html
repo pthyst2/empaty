@@ -1,0 +1,91 @@
+<div class="flex flex-col relative min-h-bannerHome banner-home">
+  <!-- Center -->
+  <div
+    class="
+      grow
+      inline-flex
+      justify-center
+      items-center
+      py-80
+      md:py-60
+      lg:py-40
+      text-center
+      web-info
+    "
+  >
+    <div class="max-w-90per md:max-w-75per lg:max-w-50per absolute z-10">
+      <h1
+        class="
+          mb-4
+          lg:text-webTitle_lg
+          md:text-webTitle_md
+          text-webTitle_sm
+          font-sans
+          text-mainLight
+        "
+        [innerHtml]="title"
+      ></h1>
+      <p
+        class="mb-4 text-webDesc text-xl leading-9 font-sans text-white"
+        [innerHtml]="description"
+      ></p>
+      <button-icon-fa [label]="btnExperience.label">
+        <fa-icon [icon]="faCirclePlay"></fa-icon>
+      </button-icon-fa>
+    </div>
+  </div>
+  <!-- end of center -->
+  <!-- Bottom -->
+  <div
+    class="
+      lg:px-page_px_lg
+      md:px-page_px_md
+      sm:px-page_px_sm
+      py-10
+      bg-main
+      text-white
+      opacity-90
+      grid
+      lg:grid-cols-3
+      sm:grid-cols-1
+    "
+  >
+    <div
+      *ngFor="let info of bottomInfos"
+      class="
+        px-6
+        border-white
+        mb-8
+        lg:mb-0
+        lg:border-r
+        last:border-none
+        font-sans
+        info-wrapper
+      "
+    >
+      <div
+        class="flex flex-col items-center text-center lg:text-left lg:flex-row"
+      >
+        <div
+          class="
+            grow-0
+            shrink-0
+            w-icon_medium
+            h-icon_medium
+            lg:mr-6
+            mb-4
+            icon-wrapper
+          "
+        >
+          <img [src]="info.icon" class="object-contain" />
+        </div>
+
+        <div>
+          <p class="text-base mb-4">{{ info.title }}</p>
+          <p class="text-sm">{{ info.detail }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end of bottom -->
+</div>

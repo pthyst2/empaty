@@ -1,0 +1,75 @@
+<div
+  class="
+    px-8
+    md:px-page_px_md
+    lg:px-page_px_lg
+    py-20
+    bg-blacklight
+    text-white
+  "
+>
+  <div class="grid grid-cols-2 lg:grid-cols-4">
+    <!-- Logo & socials -->
+    <div>
+      <a [routerLink]="['/']" class="block mb-4">
+        <img [src]="appInfo.logoUrl" />
+      </a>
+      <div class="flex">
+        <a href="{{ appInfo.socials.instagram }}" class="mr-4"
+          ><fa-icon
+            [icon]="icons.instagram"
+            class="text-iconFooterSocial"
+          ></fa-icon
+        ></a>
+        <a href="{{ appInfo.socials.twitter }}" class="mr-4"
+          ><fa-icon
+            [icon]="icons.twitter"
+            class="text-iconFooterSocial"
+          ></fa-icon
+        ></a>
+        <a href="{{ appInfo.socials.facebook }}" class="mr-4"
+          ><fa-icon
+            [icon]="icons.facebook"
+            class="text-iconFooterSocial"
+          ></fa-icon
+        ></a>
+      </div>
+    </div>
+    <!-- end of logo & socials -->
+
+    <!-- Nav -->
+    <ng-template [ngIf]="nav && nav.length > 0">
+      <ul>
+        <li *ngFor="let item of nav" class="mb-4">
+          <a [routerLink]="[item.route]" class="hover:text-main">{{
+            item.label
+          }}</a>
+        </li>
+      </ul>
+    </ng-template>
+    <!-- end of nav -->
+
+    <!-- Contact -->
+    <div>
+      <a [routerLink]="['/']" class="hover:text-main">Contact</a>
+    </div>
+    <!-- end of contact -->
+
+    <!-- Buttons -->
+    <div>
+      <div class="flex flex-col md:flex-row">
+        <button-base
+          [label]="'Register'"
+          [classes]="buttons.classes"
+          class="md:mx-2 mb-2"
+        ></button-base>
+        <button-base
+          [label]="'My Page'"
+          [classes]="buttons.classes"
+          class="md:mx-2 mb-2"
+        ></button-base>
+      </div>
+    </div>
+    <!-- end of buttons -->
+  </div>
+</div>

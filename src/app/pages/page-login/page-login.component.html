@@ -1,0 +1,110 @@
+<div class="w-full md:w-40per mx-auto">
+  <form [formGroup]="loginForm" class="text-white" (submit)="submitLogin()">
+    <!-- Title -->
+    <div class="py-4 text-xl font-semibold border-b border-greyDark text-right">
+      <p>Login</p>
+    </div>
+    <!-- end of title -->
+    <!-- Inputs -->
+    <div class="py-4">
+      <!-- Email -->
+      <div class="form-group">
+        <label>Email <span class="text-danger">*</span></label>
+        <div class="input-wrapper">
+          <input
+            type="email"
+            formControlName="email"
+            spellcheck="false"
+            placeholder="email@domain.com"
+            class="grow text-black"
+            [class.input-invalid]="
+              (ctr.email.dirty || formSubmitted) && ctr.email.invalid
+            "
+          />
+        </div>
+        <ng-template
+          [ngIf]="(ctr.email.dirty || formSubmitted) && ctr.email.invalid"
+        >
+          <div class="text-right" t>
+            <span *ngIf="ctr.email.errors?.['required']" class="text-danger">{{
+              validatorMessages.email.required
+            }}</span>
+            <span *ngIf="ctr.email.errors?.['email']" class="text-danger">{{
+              validatorMessages.email.email
+            }}</span>
+          </div>
+        </ng-template>
+      </div>
+      <!-- end of email -->
+      <!-- Password -->
+      <div class="form-group">
+        <label>Password <span class="text-danger">*</span></label>
+        <div class="input-wrapper">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            formControlName="password"
+            spellcheck="false"
+            placeholder="Login password"
+            class="grow text-black"
+            [class.input-invalid]="
+              (ctr.password.dirty || formSubmitted) && ctr.password.invalid
+            "
+          />
+          <button
+            type="button"
+            (click)="showPassword = !showPassword"
+            class="px-3 py-2 hover:text-main"
+          >
+            <fa-icon [icon]="showPassword ? faEyeSlash : faEye"></fa-icon>
+          </button>
+        </div>
+        <ng-template
+          [ngIf]="(ctr.password.dirty || formSubmitted) && ctr.password.invalid"
+        >
+          <div class="text-right">
+            <span
+              *ngIf="ctr.password.errors?.['required']"
+              class="text-danger"
+              >{{ validatorMessages.password.required }}</span
+            >
+          </div>
+        </ng-template>
+      </div>
+      <!-- end of password -->
+    </div>
+    <!-- end of inputs -->
+    <!-- Navs -->
+    <nav class="mb-8 flex flex-wrap items-center justify-end">
+      <a
+        [routerLink]="['/auth/forgot-password']"
+        class="px-2 border-r border-white hover:text-main"
+        >Forgot password</a
+      >
+      <a [routerLink]="['/auth/register']" class="pl-2 hover:text-main"
+        >Register</a
+      >
+    </nav>
+    <!-- end of navs -->
+    <!-- Submit button -->
+    <div class="flex">
+      <button
+        type="submit"
+        class="
+          grow
+          px-8
+          py-4
+          w-full
+          text-white
+          bg-main
+          hover:bg-transparent
+          hover:text-main
+          border-main border
+          rounded
+        "
+      >
+        Login
+      </button>
+    </div>
+    <!-- end of submit button -->
+  </form>
+</div>

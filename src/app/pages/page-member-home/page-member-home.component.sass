@@ -1,0 +1,15 @@
+@use "src/assets/styles/colors" as colors
+.input-wrapper
+    .select-wrapper,input
+        margin-bottom: 0px
+.create-new-space
+    .bg
+        background-image: url('~src/assets/images/solids/icons/space_plus.png')
+        background-size: contain
+        background-repeat: no-repeat
+    &:hover
+        .bg
+            background-image: url('~src/assets/images/solids/icons/space_plus-color.png')
+        p
+            color: colors.$main
+.page-member-home

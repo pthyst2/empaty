@@ -1,0 +1,49 @@
+<a
+  [routerLink]="['/']"
+  class="
+    block
+    w-full
+    h-itemSpaceHeight
+    border-2 border-white
+    shadow-light
+    bg-cover bg-center
+  "
+  [style.backgroundImage]="'url(' + space.thumbnail + ')'"
+>
+  <div
+    class="
+      relative
+      w-full
+      h-full
+      overflow-hidden
+      bg-transparent
+      text-white
+      hover:bg-black
+      opacity-90
+      duration-500
+      space-cover
+    "
+  >
+    <div
+      class="
+        absolute
+        bottom-full
+        left-0
+        w-full
+        h-full
+        flex
+        justify-center
+        items-center
+        duration-500
+        space-texts
+      "
+    >
+      <div class="text-center">
+        <a [routerLink]="['/']" class="block mb-2 hover:text-main">{{
+          space.author
+        }}</a>
+        <p class="hover:text-main">{{ msg.viewmore }}</p>
+      </div>
+    </div>
+  </div>
+</a>

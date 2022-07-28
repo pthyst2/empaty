@@ -1,0 +1,126 @@
+<div class="w-full flex flex-col flex-wrap md:flex-row items-center">
+  <!-- Thumbnail -->
+  <a
+    [routerLink]="[space.link]"
+    class="
+      grow
+      justify-center
+      items-center
+      mr-0
+      mb-4
+      flex
+      md:mr-6
+      md:mb-0
+      md:inline-flex
+      md:grow-0
+      md:w-itemSpaceWidthLg
+    "
+  >
+    <img
+      [src]="space.thumbnail"
+      class="w-itemSpaceWidthLg h-itemSpaceHeightLg"
+    />
+  </a>
+  <!-- end of thumbnail -->
+  <!-- Info -->
+  <div class="grow mr-0 mb-4 px-4 md:mb-0 md:mr-10 md:px-0">
+    <a
+      [routerLink]="[space.link]"
+      class="text-xl hover:text-main uppercase font-semibold"
+    >
+      {{ space.title }}
+    </a>
+    <p class="text-greyDark">
+      Update on {{ space.updatedAt | date: "yyyy.MM.dd" }} by
+      {{ space.author }} | Status:
+      <span class="capitalize">{{ space.status }}</span>
+    </p>
+    <p class="text-greyDark">
+      Service Type: {{ space.serviceType.name }} | Space size:
+      {{ space.size.width }}mx{{ space.size.length }}m
+      {{ space.size.width * space.size.length }}m2
+    </p>
+  </div>
+  <!-- end of info -->
+  <!-- Actions -->
+  <div class="grow inline-flex justify-end items-center">
+    <!-- Product -->
+    <a
+      [routerLink]="['/member/products']"
+      class="svg-wrapper w-[45px] h-[45px]"
+    >
+      <div class="svg svg-store w-[20px] h-[20px]"></div>
+    </a>
+    <!-- end of product -->
+
+    <!-- Make private -->
+    <ng-container *ngIf="space.status == 'published'; else private">
+      <div
+        class="svg-wrapper w-[45px] h-[45px]"
+        (click)="space.paid ? '' : toggleModal('make-payment')"
+      >
+        <div class="svg svg-lock w-[20px] h-[20px]"></div>
+      </div>
+    </ng-container>
+    <!-- end of private -->
+
+    <!-- Make public -->
+    <ng-template #private>
+      <div
+        class="svg-wrapper w-[45px] h-[45px]"
+        (click)="space.paid ? '' : toggleModal('make-payment')"
+      >
+        <div class="svg svg-unlock w-[20px] h-[20px]"></div>
+      </div>
+    </ng-template>
+    <!-- end of make public -->
+
+    <!-- Collaborators -->
+    <div
+      class="svg-wrapper w-[45px] h-[45px]"
+      (click)="toggleModal('add-collaborator')"
+    >
+      <div class="svg svg-add-collaborator w-[20px] h-[20px]"></div>
+    </div>
+    <!-- end of collaborators -->
+
+    <!-- Edit -->
+    <div class="svg-wrapper w-[45px] h-[45px]" (click)="toggleModal('edit')">
+      <div class="svg svg-edit w-[20px] h-[20px]"></div>
+    </div>
+    <!-- end of edit -->
+
+    <!-- Delete -->
+    <div class="svg-wrapper w-[45px] h-[45px]" (click)="toggleModal('delete')">
+      <div class="svg svg-trash w-[20px] h-[20px]"></div>
+    </div>
+    <!-- end of delete -->
+  </div>
+  <!-- end of actions -->
+</div>
+
+<!-- Modal Add Collaborator -->
+<ng-template [ngIf]="modals.addCollaborator == true">
+  <modal-add-collaborator
+    [space]="space"
+    [collaborators]="collaborators"
+    [static]="false"
+    (closed)="toggleModal('add-collaborator')"
+  >
+  </modal-add-collaborator>
+</ng-template>
+<!-- end of modal add collaborator -->
+
+<!-- Modal Delete -->
+<ng-template [ngIf]="modals.delete == true">
+  <modal-delete-space [space]="space" (closed)="toggleModal('delete')">
+  </modal-delete-space>
+</ng-template>
+<!-- end of modal delete -->
+
+<!-- Modal Make Payment -->
+<ng-template [ngIf]="modals.makePayment == true">
+  <modal-pay-space [space]="space" (closed)="catchMakePayment($event)">
+  </modal-pay-space>
+</ng-template>
+<!-- end of modal make payment -->

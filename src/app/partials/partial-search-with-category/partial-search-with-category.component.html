@@ -1,0 +1,63 @@
+<div
+  class="
+    flex flex-col
+    lg:flex-row
+    bg-white
+    shadow-light
+    rounded-[3px]
+    py-2
+    px-4
+  "
+>
+  <!-- Keyword -->
+  <div
+    class="
+      inline-flex
+      justify-center
+      items-center
+      mr-0
+      pr-0
+      py-2
+      lg:py-0
+      lg:mr-4
+      lg:pr-4
+      border-black45 border-b
+      lg:border-b-0 lg:border-r
+    "
+  >
+    <div
+      class="inline-flex items-center justify-center shrink-0 cursor-pointer"
+    >
+      <fa-icon [icon]="faSearch"></fa-icon>
+    </div>
+    <div class="grow px-2">
+      <input type="text" class="w-full" spellcheck="false" />
+    </div>
+    <div
+      class="
+        inline-flex
+        items-center
+        justify-center
+        shrink-0
+        rounded-circle
+        bg-black15
+        w-[16px]
+        h-[16px]
+        cursor-pointer
+      "
+    >
+      <fa-icon [icon]="faTimes" class="text-[10px] text-white"></fa-icon>
+    </div>
+  </div>
+  <!-- end of keyword -->
+  <!-- Select -->
+  <div class="py-2 lg:py-0">
+    <select class="w-full">
+      <option value="">All Category</option>
+      <option *ngFor="let category of categories" [value]="category[key]">
+        {{ category[label] }}
+      </option>
+    </select>
+  </div>
+  <!-- end of select -->
+</div>

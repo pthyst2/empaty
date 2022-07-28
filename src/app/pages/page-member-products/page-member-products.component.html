@@ -1,0 +1,58 @@
+<div class="bg-black2 p-[48px] rounded-modal">
+  <div class="flex flex-col">
+    <!-- Title -->
+    <p class="page-title mb-[20px] text-center">Product List</p>
+    <!-- end of title -->
+
+    <!-- Search & refresh -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 mb-[20px] gap-y-4">
+      <div class="col-span-1"></div>
+      <!-- Search -->
+      <div class="col-span-2">
+        <partial-search-with-category
+          [categories]="categories"
+          [key]="'_id'"
+          [label]="'name'"
+        ></partial-search-with-category>
+      </div>
+      <!-- end of search -->
+      <!-- Refresh -->
+      <div class="col-span-1 px-4 text-center lg:text-left">
+        <div
+          class="
+            inline-flex
+            px-4
+            py-1
+            lg:py-0
+            h-full
+            justify-center
+            items-center
+            cursor-pointer
+            bg-white
+            rounded
+            shadow-light
+          "
+        >
+          <fa-icon [icon]="faRefresh"></fa-icon>
+        </div>
+      </div>
+      <!-- end of refresh -->
+    </div>
+    <!-- end of search & refresh -->
+
+    <!-- Product list -->
+    <div class="grow inline-flex justify-center items-center">
+      <div *ngIf="products && products.length > 0; else noItem" class="grow">
+        <partial-table-products [products]="products"></partial-table-products>
+      </div>
+      <ng-template #noItem>
+        <p>You have no product.</p>
+      </ng-template>
+    </div>
+    <!-- end of product list -->
+
+    <!-- Pagination -->
+    <partial-pagination></partial-pagination>
+    <!-- end of pagination -->
+  </div>
+</div>

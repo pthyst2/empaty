@@ -1,0 +1,321 @@
+<modal-base (closed)="close($event)" [static]="static">
+  <div
+    class="
+      flex flex-col
+      py-pyModalSm
+      px-pxModalSm
+      md:py-pyModalMd
+      md:px-pxModalMd
+      lg:py-pyModalLg
+      lg:px-pxModalLg
+      xl:py-pyModalXl
+      xl:px-pxModalXl
+      bg-black2
+      rounded-modal
+    "
+  >
+    <!-- Title -->
+    <div class="mb-4 md:mb-6 xl:mb-8 text-center">
+      <p class="modal-title">{{ modalTitle }}</p>
+    </div>
+    <!-- end of title -->
+
+    <!-- Step 1 -->
+    <ng-template [ngIf]="step1.active == true">
+      <form [formGroup]="form1" class="grow flex-col" (submit)="submitForm1()">
+        <div class="flex flex-col lg:flex-row justify-center mb-8">
+          <!-- Form -->
+          <div class="flex flex-col justify-between">
+            <!-- Title -->
+            <div class="mb-4">
+              <div class="form-group-inline">
+                <label class="text-right"
+                  ><p>Space Title <span class="text-danger">*</span></p></label
+                >
+
+                <div
+                  class="input-wrapper w-[235px] shrink-0"
+                  [class.input-invalid]="isCtr1Invalid(ctr1.title)"
+                >
+                  <input
+                    type="text"
+                    formControlName="title"
+                    spellcheck="false"
+                    placeholder="My Awesome Space"
+                  />
+                </div>
+              </div>
+              <ng-template [ngIf]="isCtr1Invalid(ctr1.title)">
+                <div class="text-right">
+                  <p
+                    class="text-danger"
+                    *ngIf="ctr1.title.errors?.['required']"
+                  >
+                    <span>{{ step1.msg.title.required }}</span>
+                  </p>
+                </div>
+              </ng-template>
+            </div>
+            <!-- end of title -->
+
+            <!-- Image -->
+            <div class="mb-4">
+              <div class="form-group-inline">
+                <label class="text-right"><p>Image</p></label>
+
+                <div class="input-wrapper w-[235px] shrink-0">
+                  <input type="file" formControlName="image" />
+                </div>
+              </div>
+            </div>
+            <!-- end of image -->
+
+            <!-- Service type -->
+            <div class="mb-4">
+              <div class="form-group-inline">
+                <label class="text-right"
+                  ><p>Service Type <span class="text-danger">*</span></p></label
+                >
+
+                <div
+                  class="input-wrapper w-[235px] shrink-0"
+                  [class.input-invalid]="isCtr1Invalid(ctr1.title)"
+                >
+                  <select
+                    formControlName="serviceType"
+                    [class.border-red]="isCtr1Invalid(ctr1.serviceType)"
+                  >
+                    <option value="" hidden selected disabled>
+                      Select service type
+                    </option>
+                    <option *ngFor="let type of step1.selects.serviceTypes">
+                      {{ type.name }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <ng-template [ngIf]="isCtr1Invalid(ctr1.serviceType)">
+                <div class="text-right">
+                  <p
+                    *ngIf="ctr1.serviceType.errors?.['required']"
+                    class="text-danger"
+                  >
+                    <span>
+                      {{ step1.msg.serviceType.required }}
+                    </span>
+                  </p>
+                </div>
+              </ng-template>
+            </div>
+            <!-- end of service type -->
+
+            <!-- Description -->
+            <div class="mb-4">
+              <div class="form-group-inline">
+                <label class="text-right"><p>Description</p></label>
+                <div class="input-wrapper w-[235px] min-h-[123px] shrink-0">
+                  <textarea
+                    formControlName="description"
+                    spellcheck="false"
+                    placeholder="This space was created by Empaty"
+                  >
+                  </textarea>
+                </div>
+              </div>
+            </div>
+            <!-- end of description -->
+          </div>
+          <!-- end of form -->
+          <!-- Image -->
+          <div class="shrink-0 lg:shrink text-center pl-8">
+            <img
+              [src]="step1.defaultImage"
+              class="inline-block w-[180px] lg:w-full"
+            />
+          </div>
+          <!-- end of image -->
+        </div>
+        <div class="text-center lg:text-right">
+          <button-base
+            [label]="'Close'"
+            class="mr-4"
+            (click)="close()"
+          ></button-base>
+          <button-base
+            [type]="'submit'"
+            [label]="'Next'"
+            (click)="submitForm1()"
+          ></button-base>
+        </div>
+      </form>
+    </ng-template>
+    <!-- end of step 1 -->
+    <!-- Step 2 -->
+    <ng-template [ngIf]="step2.active == true">
+      <form [formGroup]="form2" class="grow flex flex-col">
+        <!-- Create by -->
+        <div
+          class="
+            flex flex-col
+            items-start
+            justify-around
+            lg:flex-row
+            lg:items-center
+            mb-9
+          "
+        >
+          <div
+            class="radio-input mb-3 lg:mb-0"
+            (click)="ctr2.createBy.setValue('template')"
+          >
+            <div class="input-wrapper">
+              <div
+                class="input"
+                [class.checked]="ctr2.createBy.value == 'template'"
+              ></div>
+            </div>
+            <p class="label">Create By Template</p>
+          </div>
+          <div class="radio-input" (click)="ctr2.createBy.setValue('self')">
+            <div class="input-wrapper">
+              <div
+                class="input"
+                [class.checked]="ctr2.createBy.value == 'self'"
+              ></div>
+            </div>
+            <p class="label">Create By Myself</p>
+          </div>
+        </div>
+        <!-- end of create by -->
+
+        <!-- By template -->
+        <ng-template [ngIf]="ctr2.createBy.value == 'template'">
+          <slider-create-space
+            class="mb-8"
+            [items]="step2.selects.sizes"
+            (space)="catchSliderValue($event)"
+          ></slider-create-space>
+        </ng-template>
+        <!-- end of by template -->
+
+        <!-- By self -->
+        <ng-template [ngIf]="ctr2.createBy.value == 'self'">
+          <div class="flex flex-col">
+            <p class="text-center mb-4">
+              Please select the width and length of the space:
+            </p>
+
+            <div
+              class="
+                pb-12
+                mb-2
+                border-b-2 border-black15
+                flex flex-col
+                lg:flex-row
+                justify-around
+                items-center
+              "
+            >
+              <!-- Selects -->
+              <div>
+                <!-- Width -->
+                <div class="form-group-inline mb-4">
+                  <label class="text-center lg:text-right">Width (m)</label>
+                  <div class="input-wrapper">
+                    <select formControlName="width" class="min-w-[75px]">
+                      <option
+                        *ngFor="let width of step2.selects.widths"
+                        value="{{ width }}"
+                      >
+                        {{ width }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <!-- end of width -->
+                <!-- Length -->
+                <div class="form-group-inline mb-4">
+                  <label class="text-center lg:text-right">Length (m)</label>
+                  <div class="input-wrapper">
+                    <select formControlName="length" class="min-w-[75px]">
+                      <option
+                        *ngFor="let width of step2.selects.widths"
+                        value="{{ width }}"
+                      >
+                        {{ width }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <!-- end of length -->
+                <!-- Height -->
+                <p class="text-black45">The height is fixed at 3m.</p>
+                <!-- end of height -->
+              </div>
+              <!-- end of selects -->
+
+              <!-- 3D Block -->
+              <div class="relative mt-8 lg:mt-0 mx-8 lg:mx-0 px-4">
+                <img [src]="step2.cubeViewImage" />
+                <!-- Width -->
+                <span class="absolute -bottom-1"
+                  ><strong>{{ ctr2.width.value }}m</strong></span
+                >
+                <!-- end of width -->
+
+                <!-- Length -->
+                <span class="absolute -bottom-1 right-1/4"
+                  ><strong>{{ ctr2.length.value }}m</strong></span
+                >
+                <!-- end of length -->
+
+                <!-- Height -->
+                <span class="absolute -right-8 top-1/2"
+                  ><strong>3m</strong></span
+                >
+                <!-- end of height -->
+              </div>
+              <!-- end of 3D block -->
+            </div>
+
+            <div
+              class="
+                flex flex-col
+                lg:flex-row
+                justify-between
+                items-center
+                mb-4
+              "
+            >
+              <p class="text-center lg:text-left">
+                The space will be created with length = {{ ctr2.length.value }}m
+                and width = {{ ctr2.width.value }}m.
+              </p>
+              <p class="text-[24px]">
+                Square:
+                <strong
+                  >{{ ctr2.length.value * ctr2.width.value }}m<sup
+                    >2</sup
+                  ></strong
+                >
+              </p>
+            </div>
+          </div>
+        </ng-template>
+        <!-- end of by self -->
+
+        <!-- Buttons -->
+        <div class="flex justify-center lg:justify-end items-center">
+          <button-base
+            [label]="'Back'"
+            class="mr-4"
+            (click)="backStep1()"
+          ></button-base>
+          <button-base [label]="'Finish'" (click)="submitForm2()"></button-base>
+        </div>
+        <!-- end of buttons -->
+      </form>
+    </ng-template>
+    <!-- end of step 2 -->
+  </div>
+</modal-base>

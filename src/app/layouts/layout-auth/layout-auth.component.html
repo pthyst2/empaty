@@ -1,0 +1,9 @@
+<div class="flex flex-col w-full min-h-screen bg-cover layout-auth">
+  <partial-header-auth></partial-header-auth>
+  <div class="grow">
+    <div class="p-8 md:px-page_px_md lg:px-page_px_lg">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <partial-footer-auth [navs]="footerNavs"></partial-footer-auth>
+</div>

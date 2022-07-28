@@ -1,0 +1,152 @@
+<div class="p-[16px] lg:p-[48px] rounded-modal shadow-light bg-black2">
+  <!-- Title -->
+  <div class="text-center mb-8">
+    <p class="page-title">Collaborators</p>
+  </div>
+  <!-- end of title -->
+
+  <div class="flex flex-col md:flex-row">
+    <!-- List collaborators -->
+    <partial-list-collaborators
+      [collaborators]="collaborators"
+    ></partial-list-collaborators>
+    <!-- end of list collaborators -->
+    <!-- Invite -->
+    <div class="px-4 min-w-[290px] h-full">
+      <form
+        [formGroup]="collabForm"
+        class="p-[32px] bg-white h-full flex flex-col rounded-modal"
+        (submit)="submitInvite()"
+      >
+        <!-- Title -->
+        <p class="text-center uppercase tracking-wider">
+          <strong>Invite</strong>
+        </p>
+        <!-- end of title -->
+        <div class="grow">
+          <!-- Email -->
+          <div class="flex flex-col mb-4">
+            <label class="mb-2"
+              ><strong>Email <span class="text-danger">*</span></strong></label
+            >
+            <div
+              class="border border-black15 rounded-[3px] py-1 px-2"
+              [class.input-invalid]="isCtrInvalid(ctr.email)"
+            >
+              <input
+                class="rounded-[3px]"
+                type="email"
+                formControlName="email"
+                spellcheck="false"
+                placeholder="collaborator@mail.jp"
+              />
+            </div>
+            <ng-template [ngIf]="isCtrInvalid(ctr.email)">
+              <span
+                *ngIf="ctr.email.errors?.['required']"
+                class="text-danger"
+                >{{ messages.email.required }}</span
+              >
+              <span *ngIf="ctr.email.errors?.['email']" class="text-danger">{{
+                messages.email.email
+              }}</span>
+            </ng-template>
+          </div>
+          <!-- end of email -->
+          <!-- Invitation message -->
+          <div class="flex flex-col mb-4">
+            <label class="mb-2"><strong>Invitation Message</strong></label>
+            <div class="border border-black15 rounded-[3px] py-1 px-2">
+              <textarea
+                formControlName="message"
+                class="w-full"
+                spellcheck="false"
+              ></textarea>
+            </div>
+          </div>
+          <!-- end of invitation message -->
+          <!-- Role -->
+          <div class="flex flex-col mb-4">
+            <label class="mb-2">
+              <strong>Role <span class="text-danger">*</span></strong></label
+            >
+            <div
+              class="border border-black15 rounded-[3px] py-1 px-2"
+              [class.input-invalid]="isCtrInvalid(ctr.role)"
+            >
+              <select formControlName="role" class="w-full">
+                <option value="" hidden selected disabled>Select Role</option>
+                <option *ngFor="let role of roles" [value]="role.value">
+                  {{ role.name }}
+                </option>
+              </select>
+            </div>
+            <ng-template [ngIf]="isCtrInvalid(ctr.role)">
+              <span *ngIf="ctr.role.errors?.['required']" class="text-danger">{{
+                messages.role.required
+              }}</span>
+            </ng-template>
+          </div>
+          <!-- end of role -->
+          <!-- Permisions -->
+          <form *ngIf="ctr.role.value == 'admin'" formGroupName="permissions">
+            <div class="checkbox-input">
+              <label class="container"
+                >Invoice permission
+                <input
+                  type="checkbox"
+                  [value]="true"
+                  formControlName="invoice"
+                />
+                <span class="checkmark"></span>
+              </label>
+            </div>
+            <div class="checkbox-input">
+              <label class="container"
+                >Email permission
+                <input type="checkbox" [value]="true" formControlName="email" />
+                <span class="checkmark"></span>
+              </label>
+            </div>
+            <div class="checkbox-input">
+              <label class="container"
+                >Billing permission
+                <input
+                  type="checkbox"
+                  [value]="true"
+                  formControlName="billing"
+                />
+                <span class="checkmark"></span>
+              </label>
+            </div>
+          </form>
+          <!-- end of permissions -->
+        </div>
+        <button
+          type="submit"
+          class="
+            mt-4
+            rounded
+            bg-main
+            hover:bg-mainLight
+            text-white text-center
+            py-2
+          "
+        >
+          Invite
+        </button>
+      </form>
+    </div>
+    <!-- end of infite -->
+  </div>
+</div>
+
+<ng-template [ngIf]="popup.show == true">
+  <modal-message
+    [icon]="popup.content.icon"
+    [title]="popup.content.title"
+    [html]="popup.content.html"
+    [timer]="popup.content.timer"
+    (closed)="closePopup()"
+  ></modal-message>
+</ng-template>

@@ -1,0 +1,140 @@
+<div class="shadow-light rounded-modal p-[34px] bg-black2 page-member-home">
+  <!-- Title -->
+  <div class="mb-4 md:mb-6 xl:mb-8 text-center">
+    <p class="page-title">Space List</p>
+  </div>
+  <!-- end of title -->
+
+  <!-- Search & Create new  -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 mb-[43px]">
+    <div class="col-span-1"></div>
+    <!-- Search -->
+    <div class="col-span-1">
+      <div
+        class="
+          flex
+          items-center
+          flex-col
+          md:flex-row
+          p-4
+          rounded
+          shadow-light
+          bg-white
+        "
+      >
+        <div
+          class="
+            w-full
+            inline-flex
+            items-center
+            grow
+            border-b
+            md:border-b-0 md:border-r
+            boder-black45
+            pb-2
+            md:pb-0
+            md:pr-2
+          "
+        >
+          <button type="button" (click)="searchSpaces()" s>
+            <fa-icon [icon]="faSearch"></fa-icon>
+          </button>
+          <input
+            type="text"
+            [(ngModel)]="search.keyword"
+            class="px-2 grow"
+            spellcheck="false"
+            placeholder="keyword..."
+          />
+          <div class="cursor-pointer" (click)="search.keyword = ''">
+            <img class="w-[20px] h-[20px]" [src]="xCircleIcon" />
+          </div>
+        </div>
+        <select
+          class="w-full pt-2 md:pt-0 md:pl-2 cursor-pointer"
+          [(ngModel)]="search.serviceType"
+        >
+          <option value="" hidden disabled selected>All</option>
+          <option *ngFor="let type of serviceTypes" value="{{ type._id }}">
+            {{ type.name }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <!-- end of search -->
+    <!-- Create new -->
+    <div class="col-span-1">
+      <div
+        class="
+          flex
+          justify-center
+          lg:justify-start
+          items-center
+          h-full
+          p-4
+          lg:py-0
+        "
+      >
+        <!-- Add space by image -->
+        <div
+          class="
+            h-full
+            rounded
+            px-4
+            mx-2
+            cursor-pointer
+            bg-white
+            inline-flex
+            justify-center
+            items-center
+            hover:shadow-light
+          "
+          (click)="toggleModal('create-space')"
+        >
+          <img [src]="addSpaceByImageIcon" />
+        </div>
+        <!-- end of add space by image -->
+        <!-- Add space by editor -->
+        <div
+          class="
+            h-full
+            rounded
+            px-4
+            mx-2
+            cursor-pointer
+            bg-white
+            inline-flex
+            justify-center
+            items-center
+            hover:shadow-light
+          "
+          (click)="toggleModal('create-space')"
+        >
+          <img [src]="addSpaceByEditorIcon" />
+        </div>
+        <!-- end of add space by editor -->
+      </div>
+    </div>
+    <!-- end of create new -->
+  </div>
+  <!-- end of search & create new -->
+
+  <!-- List -->
+  <partial-section-spaces-large
+    [spaces]="spaces"
+    [collaborators]="collaborators"
+  ></partial-section-spaces-large>
+  <!-- end of list -->
+</div>
+
+<!-- Modals -->
+<!-- Modal Create Space -->
+<ng-template [ngIf]="modals.createSpace == true">
+  <modal-create-space
+    [static]="true"
+    (closed)="catchModalCreateSpace($event)"
+  ></modal-create-space>
+</ng-template>
+<!-- end of modal create space -->
+
+<!-- end of modals -->

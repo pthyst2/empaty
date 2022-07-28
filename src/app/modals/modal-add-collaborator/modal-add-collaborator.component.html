@@ -1,0 +1,84 @@
+<modal-base (closed)="close()" [static]="static">
+  <div class="rounded-modal bg-black2 p-8 flex flex-col">
+    <!-- Title -->
+    <div class="text-center mb-6">
+      <p class="modal-title">Add User</p>
+    </div>
+    <!-- end of title -->
+
+    <!-- Form -->
+    <form [formGroup]="form" class="grow flex-col">
+      <div class="grow">
+        <!--- Email -->
+        <div class="flex flex-col mb-6">
+          <label class="mb-2"
+            ><strong>Email <span class="text-danger">*</span></strong></label
+          >
+          <div
+            class="mb-2 rounded border border-black15 w-full"
+            [class.input-invalid]="isCtrInvalid(ctr.email)"
+          >
+            <select formControlName="email" class="p-2 w-[290px]">
+              <option value="" hidden disabled selected>Select user</option>
+              <option
+                *ngFor="let item of collaborators"
+                value="{{ item.user._id }}"
+              >
+                {{ item.user.email }}
+              </option>
+            </select>
+          </div>
+          <ng-template [ngIf]="isCtrInvalid(ctr.email)">
+            <div
+              class="text-danger text-right"
+              *ngIf="ctr.email.errors?.['required']"
+            >
+              <p>Please select a user.</p>
+            </div>
+          </ng-template>
+        </div>
+        <!-- end of email -->
+        <!-- Role -->
+        <div class="flex flex-col mb-6">
+          <label class="mb-2"
+            ><strong>Role <span class="text-danger">*</span></strong></label
+          >
+          <div class="flex flex-wrap">
+            <!-- Can View -->
+            <div class="radio-input" (click)="ctr.role.setValue('view')">
+              <div class="input-wrapper">
+                <div
+                  class="input"
+                  [class.checked]="ctr.role.value == 'view'"
+                ></div>
+              </div>
+              <div class="label">Can View</div>
+            </div>
+            <!-- end of can view -->
+            <!-- Can edit -->
+            <div class="radio-input" (click)="ctr.role.setValue('edit')">
+              <div class="input-wrapper">
+                <div
+                  class="input"
+                  [class.checked]="ctr.role.value == 'edit'"
+                ></div>
+              </div>
+              <div class="label">Can Edit</div>
+            </div>
+            <!-- end of can edit -->
+          </div>
+        </div>
+        <!-- end of role -->
+      </div>
+      <div class="flex justify-center items-center">
+        <button-base
+          [label]="'Close'"
+          (click)="close()"
+          class="mr-3"
+        ></button-base>
+        <button-base [label]="'Confirm'" (click)="submitForm()"></button-base>
+      </div>
+    </form>
+    <!-- end of form -->
+  </div>
+</modal-base>

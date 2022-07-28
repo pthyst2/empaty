@@ -1,0 +1,195 @@
+<div
+  class="
+    fixed
+    top-0
+    left-0
+    right-0
+    z-topHeaderHome
+    flex
+    justify-between
+    items-start
+    py-4
+    lg:py-0
+    lg:items-center
+    lg:px-page_px_lg
+    md:px-page_px_md
+    px-8
+    bg-black
+    text-white
+    border-b border-white03
+    header-home
+  "
+  [ngClass]="{
+    'md:bg-transparent': transparent
+  }"
+>
+  <!-- Left -->
+  <!-- Logo -->
+  <div class="logo">
+    <ng-template [ngIf]="logoUrl">
+      <a [routerLink]="['/']">
+        <img src="{{ logoUrl }}" />
+      </a>
+    </ng-template>
+  </div>
+  <!-- end of logo-->
+  <!-- end of left -->
+
+  <!-- Right -->
+  <div class="navs">
+    <!-- Large menu -->
+    <div class="hidden lg:flex justify-between items-center menu-large">
+      <ng-template [ngIf]="navs && navs.length > 0">
+        <a
+          *ngFor="let nav of navs"
+          routerLink="{{ nav.route }}"
+          class="
+            mr-4
+            py-5
+            -mb-3
+            border-l-0 border-t-0 border-r-0 border-b-2 border-transparent
+            hover:border-main
+          "
+          ><span>{{ nav.label }}</span></a
+        >
+      </ng-template>
+      <!-- end of navs -->
+      <!-- Experience button -->
+      <div class="px-2 btn-experience-wrapper">
+        <button-icon-fa [label]="btnExperience.label">
+          <fa-icon [icon]="faCirclePlay"></fa-icon>
+        </button-icon-fa>
+      </div>
+      <!-- end of experience button -->
+
+      <!-- Register button -->
+      <ng-template [ngIf]="!user">
+        <div class="px-2 btn-register-wrapper">
+          <button-base
+            (click)="goRegister()"
+            [label]="btnRegister.label"
+            [classes]="btnRegister.classes"
+          ></button-base>
+        </div>
+      </ng-template>
+      <!-- end of register button -->
+
+      <!-- Multi language button -->
+      <div class="relative lg:mr-4">
+        <div
+          class="
+            mr-0
+            px-4
+            my-5
+            lg:border lg:border-r lg:border-y-0 lg:border-l-0 lg:border-greyDark
+          "
+        >
+          <img
+            [src]="currentLanguage.icon"
+            class="w-icon_small h-icon_small border-0 rounded-circle"
+          />
+        </div>
+
+        <fixed-item-multi-languages
+          [attributes]="fixedItems.languages"
+          class="hidden fixed-item"
+        >
+        </fixed-item-multi-languages>
+      </div>
+      <!-- end of multi language button -->
+      <!-- User -->
+      <div class="relative hover:text-main">
+        <div class="py-5 px-2 h-icon_small flex items-center icon-wrapper">
+          <fa-icon [icon]="faUser"></fa-icon>
+        </div>
+        <fixed-item-user
+          [attributes]="fixedItems.user"
+          [user]="user"
+          class="hidden fixed-item fixed-user"
+        >
+        </fixed-item-user>
+      </div>
+      <!-- end of user -->
+    </div>
+    <!-- end of large menu -->
+
+    <!-- Mobile menu -->
+    <div class="flex flex-col lg:hidden items-end justify-end menu-mobile">
+      <!-- Menu icon -->
+      <div class="text-white text-iconMenu" (click)="toggleMenu()">
+        <ng-template [ngIf]="menuExpand == true">
+          <fa-icon [icon]="faTimes"></fa-icon>
+        </ng-template>
+        <ng-template [ngIf]="menuExpand == false">
+          <fa-icon [icon]="faBars"></fa-icon>
+        </ng-template>
+      </div>
+      <!-- end menu icon -->
+      <!-- Navs -->
+      <ng-template [ngIf]="menuExpand == true">
+        <ng-template [ngIf]="navs && navs.length > 0">
+          <a
+            *ngFor="let nav of navs"
+            routerLink="{{ nav.route }}"
+            class="
+              py-3
+              border-l-0 border-t-0 border-r-0 border-b-2 border-transparent
+              hover:border-main
+            "
+            ><span>{{ nav.label }}</span></a
+          >
+        </ng-template>
+        <!-- end of navs -->
+        <!-- Experience button -->
+        <div class="btn-experience-wrapper">
+          <button-icon-fa [label]="btnExperience.label">
+            <fa-icon [icon]="faCirclePlay"></fa-icon>
+          </button-icon-fa>
+        </div>
+        <!-- end of experience button -->
+
+        <!-- Register button -->
+        <ng-template [ngIf]="!user">
+          <div class="pt-3 btn-register-wrapper">
+            <button-base
+              (click)="goRegister()"
+              [label]="btnRegister.label"
+              [classes]="btnRegister.classes"
+            ></button-base>
+          </div>
+        </ng-template>
+        <!-- end of register button -->
+
+        <!-- Multi language button -->
+        <div class="relative">
+          <div class="py-3">
+            <img [src]="currentLanguage.icon" class="h-icon_small" />
+          </div>
+          <fixed-item-multi-languages
+            [attributes]="fixedItems.languages"
+            class="hidden fixed-item"
+          >
+          </fixed-item-multi-languages>
+        </div>
+        <!-- end of multi language button -->
+        <!-- User -->
+        <div class="relative">
+          <div class="py-3 px-2 h-icon_small flex items-center icon-wrapper">
+            <fa-icon [icon]="faUser" class="mr-3"></fa-icon>
+            <fa-icon [icon]="faCaretDown"></fa-icon>
+          </div>
+          <fixed-item-user
+            [attributes]="fixedItems.user"
+            [user]="user"
+            class="hidden fixed-item fixed-user"
+          >
+          </fixed-item-user>
+        </div>
+        <!-- end of user -->
+      </ng-template>
+      <!-- end of navs -->
+    </div>
+    <!-- end of menu -->
+  </div>
+  <!-- end of right -->
+</div>

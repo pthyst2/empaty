@@ -1,0 +1,33 @@
+<!-- Head -->
+<div class="flex flex-wrap bg-[#f3f3f3] border-b-2">
+  <div class="grow inline-flex">
+    <div
+      class="py-2 px-4 border-b-2 cursor-pointer -mb-[2px]"
+      [class.bg-white]="tab == 'active'"
+      [class.border-main]="tab == 'active'"
+      (click)="showTab('active')"
+    >
+      Active <span *ngIf="actives.length > 0"> ({{ actives.length }}) </span>
+    </div>
+    <div
+      class="py-2 px-4 border-b-2 cursor-pointer -mb-[2px]"
+      [class.bg-white]="tab == 'pending'"
+      [class.border-main]="tab == 'pending'"
+      (click)="showTab('pending')"
+    >
+      Pending <span *ngIf="pendings.length > 0"> ({{ pendings.length }}) </span>
+    </div>
+  </div>
+  <div class="py-2 px-4">
+    <p>Total: {{ collaborators.length }}</p>
+  </div>
+</div>
+<!-- end of head -->
+<!-- Body -->
+<div class="max-h-[500px] overflow-y-scroll list">
+  <partial-item-collaborator
+    *ngFor="let collab of dataDisplay"
+    [collaborator]="collab"
+  ></partial-item-collaborator>
+</div>
+<!-- end of body -->

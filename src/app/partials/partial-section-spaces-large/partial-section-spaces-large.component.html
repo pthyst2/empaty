@@ -1,0 +1,16 @@
+<div class="w-full h-[800px] overflow-y-auto partial-section-spaces-large">
+  <ng-container *ngIf="spaces && spaces.length > 0; else noSpace">
+    <div
+      class="py-8 px-9 border-t border-black45 space"
+      *ngFor="let space of spaces"
+    >
+      <partial-item-space-large
+        [space]="space"
+        [collaborators]="collaborators"
+      ></partial-item-space-large>
+    </div>
+  </ng-container>
+  <ng-template #noSpace>
+    <p>{{ msg.noSpace }}</p>
+  </ng-template>
+</div>
