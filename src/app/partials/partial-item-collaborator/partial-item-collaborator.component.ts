@@ -34,7 +34,7 @@ export class PartialItemCollaboratorComponent implements OnInit {
         break;
       }
       case 'edit': {
-        this.modals.edit = this.modals.edit;
+        this.modals.edit = !this.modals.edit;
         break;
       }
       case 'message': {
@@ -53,10 +53,14 @@ export class PartialItemCollaboratorComponent implements OnInit {
       });
     }
   }
-  catchEditModal(value: boolean) {
+  catchEditModal(value: any) {
     this.toggleModal('edit');
     if (value == true) {
       this.updateCollaborator();
+      this.toggleModal('message', {
+        icon: 'success',
+        title: 'Collaborator updated',
+      });
     }
   }
 

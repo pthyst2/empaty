@@ -1,1 +1,91 @@
-<p>modal-edit-collaborator works!</p>
+<modal-base [static]="false">
+  <div class="rounded-modal p-[32px] bg-black2 flex flex-col">
+    <!-- Title -->
+    <p class="modal-title text-center mb-4">Edit Collaborator</p>
+    <!-- end of title -->
+
+    <div class="grow mb-8">
+      <!-- First name -->
+      <div class="form-group-inline mb-3">
+        <label><strong>First Name</strong></label>
+
+        <p>{{ collaborator.user.name.first }}</p>
+      </div>
+      <!-- end of first name -->
+      <!-- Last name -->
+      <div class="form-group-inline mb-3">
+        <label><strong>Last Name</strong></label>
+
+        <p>{{ collaborator.user.name.last }}</p>
+      </div>
+      <!-- end of last name -->
+      <!-- Email -->
+      <div class="form-group-inline mb-3">
+        <label><strong>Email</strong></label>
+
+        <p>{{ collaborator.user.email }}</p>
+      </div>
+      <!-- end of email -->
+      <!-- Role -->
+      <div class="form-group-inline mb-3">
+        <label><strong>Role</strong></label>
+        <div class="grow input-wrapper">
+          <select [(ngModel)]="role" class="w-full">
+            <option *ngFor="let role of roles" [value]="role.value">
+              {{ role.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <!-- end of role -->
+      <!-- Permissions -->
+      <ng-template [ngIf]="role == 'admin'">
+        <div class="checkbox-input">
+          <label>
+            Invoice permission
+            <input
+              type="checkbox"
+              [value]="true"
+              [(ngModel)]="permissions.invoice"
+            />
+            <span class="checkmark"></span>
+          </label>
+        </div>
+        <div class="checkbox-input">
+          <label>
+            Billing permission
+            <input
+              type="checkbox"
+              [value]="true"
+              [(ngModel)]="permissions.billing"
+            />
+            <span class="checkmark"></span>
+          </label>
+        </div>
+        <div class="checkbox-input">
+          <label>
+            Email permission
+            <input
+              type="checkbox"
+              [value]="true"
+              [(ngModel)]="permissions.email"
+            />
+            <span class="checkmark"></span>
+          </label>
+        </div>
+      </ng-template>
+      <!-- end of permissions -->
+    </div>
+
+    <!-- Buttons -->
+    <div class="text-center">
+      <button type="button" class="btn btn-white mr-4" (click)="close()">
+        Cancel
+      </button>
+      <button type="button" class="btn btn-main" (click)="saveChange()">
+        Save Change
+      </button>
+    </div>
+    <!-- end of buttons -->
+  </div>
+</modal-base>

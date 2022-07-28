@@ -25,7 +25,7 @@
   <!-- SVG Buttons -->
   <div class="grow w-full justify-end lg:grow-0 flex lg:inline-flex">
     <!-- Edit-->
-    <div class="svg-wrapper w-[40px] h-[40px]">
+    <div class="svg-wrapper w-[40px] h-[40px]" (click)="toggleModal('edit')">
       <div class="svg svg-edit w-[20px] h-[20px]"></div>
     </div>
     <!-- end of edit -->
@@ -49,7 +49,10 @@
 
 <!-- Modal edit collaborator -->
 <ng-template [ngIf]="modals.edit == true">
-  <modal-edit-collaborator></modal-edit-collaborator>
+  <modal-edit-collaborator
+    [collaborator]="collaborator"
+    (closed)="catchEditModal($event)"
+  ></modal-edit-collaborator>
 </ng-template>
 <!-- end of modal edit collaborator -->
 
