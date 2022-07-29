@@ -139,7 +139,20 @@
 <!-- Modal Create Space by image -->
 <ng-template [ngIf]="modals.createSpaceImage == true">
   <modal-create-space-by-image
+    [user]="user"
     (closed)="catchModalCreateSpaceImage($event)"
   ></modal-create-space-by-image>
 </ng-template>
 <!-- end of modal create space by image -->
+
+<!-- Modal message -->
+<ng-template [ngIf]="popup == true">
+  <modal-message
+    [timer]="popupContent.timer"
+    [title]="popupContent.title"
+    [html]="popupContent.html"
+    [icon]="popupContent.icon"
+    (closed)="toggleModal('popup')"
+  ></modal-message>
+</ng-template>
+<!-- end of modal message -->

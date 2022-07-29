@@ -1,0 +1,11 @@
+<div class="max-h-[800px] overflow-y-scroll list">
+  <ng-template [ngIf]="spaces && spaces.length > 0">
+    <partial-item-public-space
+      *ngFor="let space of spaces"
+      [space]="space"
+    ></partial-item-public-space>
+  </ng-template>
+  <ng-template [ngIf]="!spaces || spaces.length == 0"
+    >You have not public any space yet.</ng-template
+  >
+</div>

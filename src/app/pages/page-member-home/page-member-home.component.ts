@@ -46,7 +46,14 @@ export class PageMemberHomeComponent implements OnInit {
   };
 
   collaborators: any = [];
-
+  user: any;
+  popup = false;
+  popupContent: any = {
+    icon: '',
+    title: '',
+    html: '',
+    timer: undefined,
+  };
   constructor(
     private spaceService: SpaceService,
     private popupService: PopupMessageService,
@@ -58,6 +65,7 @@ export class PageMemberHomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.setSEO();
+    this.getUser();
     this.loadServiceTypes();
     this.searchSpacesNoLimit();
     this.loadCollaborators();
@@ -66,7 +74,9 @@ export class PageMemberHomeComponent implements OnInit {
   setSEO() {
     this.seo.setTitle('Company Spaces');
   }
-
+  getUser() {
+    this.user = this.authService.getUserDecoded();
+  }
   loadSpaces(body?: any) {
     try {
       let res = this.spaceService.getSpaces(body);
@@ -120,7 +130,7 @@ export class PageMemberHomeComponent implements OnInit {
     this.spaces = res.data;
   }
 
-  toggleModal(name: string) {
+  toggleModal(name: string, content?: any) {
     switch (name) {
       case 'create-space': {
         this.modals.createSpace = !this.modals.createSpace;
@@ -128,6 +138,21 @@ export class PageMemberHomeComponent implements OnInit {
       }
       case 'create-space-image': {
         this.modals.createSpaceImage = !this.modals.createSpaceImage;
+        break;
+      }
+      case 'popup': {
+        if (content) {
+          this.popup = true;
+          this.popupContent = content;
+        } else {
+          this.popup = false;
+          this.popupContent = {
+            icon: '',
+            title: '',
+            html: '',
+            timer: undefined,
+          };
+        }
         break;
       }
     }
@@ -141,5 +166,10 @@ export class PageMemberHomeComponent implements OnInit {
   }
   catchModalCreateSpaceImage(event: any) {
     this.toggleModal('create-space-image');
+    this.toggleModal('popup', {
+      icon: 'success',
+      title: 'Space Created',
+      timer: 1500,
+    });
   }
 }

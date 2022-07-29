@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faPencil } from '@fortawesome/free-solid-svg-icons';
 import { environment } from 'src/environments/environment';
 import { SpaceService } from 'src/app/services/data/space.service';
+import { UserCardService } from 'src/app/services/data/user-card.service';
 @Component({
   selector: 'modal-create-space-by-image',
   templateUrl: './modal-create-space-by-image.component.html',
@@ -10,12 +11,17 @@ import { SpaceService } from 'src/app/services/data/space.service';
 })
 export class ModalCreateSpaceByImageComponent implements OnInit {
   faTimes = faTimes;
+  faPencil = faPencil;
   stapleSvg = environment.imageUrls.svg + 'staple.svg';
+  lockSvg = environment.imageUrls.svg + 'lock.svg';
+  globalSvg = environment.imageUrls.svg + 'global.svg';
+  cardLogo = environment.imageUrls.logos + 'logo-visa.png';
+
   @Input() user: any;
   @Output() closed = new EventEmitter();
   step1: any = {
     active: true,
-    title: 'Create Space',
+    title: 'Create Space By Image',
     selects: {
       categories: [],
     },
@@ -47,7 +53,7 @@ export class ModalCreateSpaceByImageComponent implements OnInit {
     shows: {
       contactName: true,
       contactEmail: true,
-      contactPhome: true,
+      contactPhone: true,
       address: true,
       url: true,
       published: true,
@@ -105,10 +111,15 @@ export class ModalCreateSpaceByImageComponent implements OnInit {
     html: '',
     timer: undefined,
   };
-  constructor(private fb: FormBuilder, private spaceService: SpaceService) {}
+  constructor(
+    private fb: FormBuilder,
+    private spaceService: SpaceService,
+    private userCardService: UserCardService
+  ) {}
 
   ngOnInit(): void {
     this.getCategories();
+    this.getCardInfo();
   }
   close(data?: any) {
     this.closed.emit(data ? data : false);
@@ -182,6 +193,31 @@ export class ModalCreateSpaceByImageComponent implements OnInit {
     }
   }
 
+  getCardInfo() {
+    let res = this.userCardService.getCard(this.user._id);
+    let data = res.data;
+    this.ctr2.type.setValue(data.type);
+    switch (this.ctr2.type.value) {
+      case 'visa': {
+        this.cardLogo = environment.imageUrls.logos + 'logo-visa.png';
+        break;
+      }
+      case 'master': {
+        this.cardLogo = environment.imageUrls.logos + 'logo-master-card.svg';
+        break;
+      }
+      case 'jcb': {
+        this.cardLogo = environment.imageUrls.logos + 'logo-jcb.png';
+        break;
+      }
+    }
+    this.ctr2.holder.setValue(data.holder);
+    this.ctr2.number.setValue(data.cardNumber);
+    this.ctr2.last4.setValue(data.last4);
+    this.ctr2.expMonth.setValue(data.expire.month);
+    this.ctr2.expYear.setValue(data.expire.year);
+    this.ctr2.cvc.setValue(data.cvc);
+  }
   submitForm2() {
     this.step2.submitted = true;
     if (this.form2.valid) {

@@ -15,6 +15,7 @@ import { PartialSearchWithCategoryComponent } from 'src/app/partials/partial-sea
 import { PartialTableProductsComponent } from '../../partials/partial-table-products/partial-table-products.component';
 import { PartialItemCollaboratorComponent } from 'src/app/partials/partial-item-collaborator/partial-item-collaborator.component';
 import { PartialListCollaboratorsComponent } from '../../partials/partial-list-collaborators/partial-list-collaborators.component';
+import { PartialItemPublicSpaceComponent } from 'src/app/partials/partial-item-public-space/partial-item-public-space.component';
 //#endregion
 
 //#region Pages
@@ -35,6 +36,8 @@ import { ModalPaySpaceComponent } from '../../modals/modal-pay-space/modal-pay-s
 import { ModalDeleteCollaboratorComponent } from '../../modals/modal-delete-collaborator/modal-delete-collaborator.component';
 import { ModalEditCollaboratorComponent } from '../../modals/modal-edit-collaborator/modal-edit-collaborator.component';
 import { ModalCreateSpaceByImageComponent } from '../../modals/modal-create-space-by-image/modal-create-space-by-image.component';
+import { PartialListPublicSpacesComponent } from '../../partials/partial-list-public-spaces/partial-list-public-spaces.component';
+import { ModalMakePrivateComponent } from '../../modals/modal-make-private/modal-make-private.component';
 //#endregion
 @NgModule({
   declarations: [
@@ -51,6 +54,7 @@ import { ModalCreateSpaceByImageComponent } from '../../modals/modal-create-spac
     PartialItemSpaceLargeComponent,
     PartialSearchWithCategoryComponent,
     PartialItemCollaboratorComponent,
+    PartialItemPublicSpaceComponent,
     ModalCreateSpaceComponent,
     ModalAddCollaboratorComponent,
     ModalDeleteSpaceComponent,
@@ -59,6 +63,8 @@ import { ModalCreateSpaceByImageComponent } from '../../modals/modal-create-spac
     ModalDeleteCollaboratorComponent,
     ModalEditCollaboratorComponent,
     ModalCreateSpaceByImageComponent,
+    PartialListPublicSpacesComponent,
+    ModalMakePrivateComponent,
   ],
   imports: [
     CommonModule,

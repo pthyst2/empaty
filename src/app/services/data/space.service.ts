@@ -89,4 +89,18 @@ export class SpaceService {
       data: categories,
     };
   }
+  getPublishedSpaces() {
+    let res: any = {
+      status: 200,
+      count: 0,
+      data: [],
+    };
+    for (let space of spaces) {
+      if (space.status == 'published') {
+        res.data.push(space);
+        res.count++;
+      }
+    }
+    return res;
+  }
 }
