@@ -19,8 +19,11 @@ export const mockUserToken = 'abcdefghjklmnopqrstuvwxyz0123456789';
 export const mockUserDecoded = {
   _id: '1',
   fullname: 'Linh Huỳnh',
+  firstname: 'テスト',
+  lastname: 'さかもと',
   avatar:
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRzKK597Mgl3THJUypxMgXdjdkdQVFqhH7hmQ&usqp=CAU',
-  email: 'linh_huynh98@optimizer.jp',
+  email: 'kenichi_sakamoto@optimizer.co.jp',
   phoneNumber: '0523187254',
+  company: '株式会社オプティマイザー',
 };

@@ -1,0 +1,214 @@
+<!-- Basic info -->
+<div class="py-4 border-b border-grey">
+  <!-- Title & edit -->
+  <div class="flex items-center justify-center lg:justify-start mb-2">
+    <p class="text-[16px] leading-[23px] tracking-wider uppercase mr-2">
+      <strong>{{
+        basicInfo.edit == true ? "Edit Basic Information" : "Basic Information"
+      }}</strong>
+    </p>
+    <div
+      *ngIf="basicInfo.edit == false"
+      class="svg-wrapper w-[20px] h-[20px]"
+      (click)="toggleForm(basicInfo)"
+    >
+      <div class="svg svg-edit w-[20px] h-[20px]"></div>
+    </div>
+  </div>
+  <!-- end of title & edit -->
+  <!-- Content -->
+  <ng-template [ngIf]="basicInfo.loading == true">
+    <div class="w-full h-[100px]">
+      <partial-loading></partial-loading>
+    </div>
+  </ng-template>
+  <ng-template [ngIf]="basicInfo.loading == false">
+    <ng-template [ngIf]="basicInfo.edit == false">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-4">
+        <div>
+          <span class="text-black45">First Name: </span
+          ><span>{{ user.firstname }}</span>
+        </div>
+        <div>
+          <span class="text-black45">Last Name: </span
+          ><span>{{ user.lastname }}</span>
+        </div>
+        <div>
+          <span class="text-black45">Phone Number: </span
+          ><span>{{ user.phoneNumber }}</span>
+        </div>
+        <div>
+          <span class="text-black45">Company Name: </span
+          ><span>{{ user.company }}</span>
+        </div>
+      </div>
+    </ng-template>
+    <!-- end of content -->
+    <!-- Form -->
+    <ng-template [ngIf]="basicInfo.edit == true">
+      <form [formGroup]="form1" class="flex flex-col min-h-[300px]">
+        <div class="grow">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-4">
+            <!-- First name -->
+            <div class="flex flex-col">
+              <label class="mb-2"
+                ><strong
+                  >First Name <span class="text-danger">*</span></strong
+                ></label
+              >
+              <div
+                class="flex border border-black15 rounded"
+                [class.input-invalid]="
+                  fs.isControlInvalid(ctr1.firstname, basicInfo.submitted)
+                "
+              >
+                <input
+                  type="text"
+                  formControlName="firstname"
+                  spellcheck="false"
+                  class="w-full px-2 py-1 rounded focus:bg-black2"
+                />
+              </div>
+              <ng-template
+                [ngIf]="
+                  fs.isControlInvalid(ctr1.firstname, basicInfo.submitted)
+                "
+              >
+                <p
+                  class="text-danger"
+                  *ngIf="fs.isCtrHasError(ctr1.firstname, 'required')"
+                >
+                  {{ basicInfo.messages.firstname.required }}
+                </p>
+              </ng-template>
+            </div>
+            <!-- end of first name -->
+            <!-- Last name -->
+            <div class="flex flex-col">
+              <label class="mb-2"
+                ><strong
+                  >Last Name <span class="text-danger">*</span></strong
+                ></label
+              >
+              <div
+                class="flex border border-black15 rounded"
+                [class.input-invalid]="
+                  fs.isControlInvalid(ctr1.lastname, basicInfo.submitted)
+                "
+              >
+                <input
+                  type="text"
+                  formControlName="lastname"
+                  spellcheck="false"
+                  class="w-full px-2 py-1 rounded focus:bg-black2"
+                />
+              </div>
+              <ng-template
+                [ngIf]="fs.isControlInvalid(ctr1.lastname, basicInfo.submitted)"
+              >
+                <p
+                  class="text-danger"
+                  *ngIf="fs.isCtrHasError(ctr1.lastname, 'required')"
+                >
+                  {{ basicInfo.messages.lastname.required }}
+                </p>
+              </ng-template>
+            </div>
+            <!-- end of last name -->
+            <!-- Phone number -->
+            <div class="flex flex-col">
+              <label class="mb-2"
+                ><strong
+                  >Phone Number <span class="text-danger">*</span></strong
+                ></label
+              >
+              <div
+                class="flex border border-black15 rounded"
+                [class.input-invalid]="
+                  fs.isControlInvalid(ctr1.phone, basicInfo.submitted)
+                "
+              >
+                <input
+                  type="text"
+                  formControlName="phone"
+                  spellcheck="false"
+                  class="w-full px-2 py-1 rounded focus:bg-black2"
+                />
+              </div>
+              <ng-template
+                [ngIf]="fs.isControlInvalid(ctr1.phone, basicInfo.submitted)"
+              >
+                <p
+                  class="text-danger"
+                  *ngIf="fs.isCtrHasError(ctr1.phone, 'required')"
+                >
+                  {{ basicInfo.messages.phone.required }}
+                </p>
+              </ng-template>
+            </div>
+            <!-- end of phone number -->
+            <!-- Company name -->
+            <div class="flex flex-col">
+              <label class="mb-2"
+                ><strong
+                  >Company Name <span class="text-danger">*</span></strong
+                ></label
+              >
+              <div
+                class="flex border border-black15 rounded"
+                [class.input-invalid]="
+                  fs.isControlInvalid(ctr1.company, basicInfo.submitted)
+                "
+              >
+                <input
+                  type="text"
+                  formControlName="company"
+                  spellcheck="false"
+                  class="w-full px-2 py-1 rounded focus:bg-black2"
+                />
+              </div>
+              <ng-template
+                [ngIf]="fs.isControlInvalid(ctr1.company, basicInfo.submitted)"
+              >
+                <p
+                  class="text-danger"
+                  *ngIf="fs.isCtrHasError(ctr1.company, 'required')"
+                >
+                  {{ basicInfo.messages.company.required }}
+                </p>
+              </ng-template>
+            </div>
+            <!-- end of company name -->
+          </div>
+        </div>
+        <div class="text-center lg:text-right">
+          <!-- Buttons -->
+          <button
+            type="button"
+            class="btn btn-white mr-4"
+            (click)="toggleForm(basicInfo)"
+          >
+            Cancel
+          </button>
+          <button type="submit" class="btn btn-main">Save Changes</button>
+          <!-- end of buttons -->
+        </div>
+      </form>
+    </ng-template>
+    <!-- end of form -->
+  </ng-template>
+</div>
+<!-- end of basic info -->
+<!-- Login info -->
+<div class="py-4">
+  <!-- Title & edit -->
+
+  <!-- end of title & edit -->
+  <!-- Content -->
+
+  <!-- end of content -->
+  <!-- Form -->
+
+  <!-- end of form -->
+</div>
+<!-- end of login info -->

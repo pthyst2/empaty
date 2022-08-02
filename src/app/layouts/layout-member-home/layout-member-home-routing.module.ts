@@ -7,6 +7,8 @@ import { PageMemberPublicSpacesComponent } from 'src/app/pages/page-member-publi
 import { PageMemberStatisticsComponent } from 'src/app/pages/page-member-statistics/page-member-statistics.component';
 import { PageMemberProductsComponent } from 'src/app/pages/page-member-products/page-member-products.component';
 import { PageMemberOrderComponent } from 'src/app/pages/page-member-order/page-member-order.component';
+import { PageMemberProfileComponent } from 'src/app/pages/page-member-profile/page-member-profile.component';
+import { LayoutSettingComponent } from '../layout-setting/layout-setting.component';
 const routes: Routes = [
   {
     path: '',
@@ -40,6 +42,21 @@ const routes: Routes = [
       {
         path: 'statistics',
         component: PageMemberStatisticsComponent,
+      },
+      {
+        path: 'setting',
+        component: LayoutSettingComponent,
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            redirectTo: 'profile',
+          },
+          {
+            path: 'profile',
+            component: PageMemberProfileComponent,
+          },
+        ],
       },
     ],
   },

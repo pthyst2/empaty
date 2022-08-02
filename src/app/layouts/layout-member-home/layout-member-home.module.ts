@@ -40,6 +40,8 @@ import { ModalCreateSpaceByImageComponent } from '../../modals/modal-create-spac
 import { PartialListPublicSpacesComponent } from '../../partials/partial-list-public-spaces/partial-list-public-spaces.component';
 import { ModalMakePrivateComponent } from '../../modals/modal-make-private/modal-make-private.component';
 import { PartialSidebarSettingComponent } from '../../partials/partial-sidebar-setting/partial-sidebar-setting.component';
+import { PageMemberProfileComponent } from '../../pages/page-member-profile/page-member-profile.component';
+import { LayoutSettingComponent } from '../layout-setting/layout-setting.component';
 //#endregion
 @NgModule({
   declarations: [
@@ -69,6 +71,8 @@ import { PartialSidebarSettingComponent } from '../../partials/partial-sidebar-s
     PartialListPublicSpacesComponent,
     ModalMakePrivateComponent,
     PartialSidebarSettingComponent,
+    PageMemberProfileComponent,
+    LayoutSettingComponent,
   ],
   imports: [
     CommonModule,

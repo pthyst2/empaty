@@ -1,1 +1,84 @@
-<p>partial-sidebar-setting works!</p>
+<!-- User -->
+<div class="flex lg:flex border-b-0 lg:border-b border-black15 py-4">
+  <a
+    [routerLink]="['/member/setting/profile']"
+    class="grow flex items-center py-4 px-2 hover:bg-grey rounded-[4px]"
+  >
+    <!-- Avatar -->
+    <img
+      [src]="user.avatar"
+      class="mr-2 w-[32px] h-[32px] rounded-circle border-2 border-main"
+    />
+    <!-- end of avatar -->
+    <!-- Info -->
+    <div class="grow">
+      <p>
+        <strong>{{ user.fullname }}</strong>
+      </p>
+      <p class="text-black45">{{ user.email }}</p>
+    </div>
+    <!-- end of info -->
+  </a>
+</div>
+<!-- end of user -->
+<!-- Links -->
+<div class="flex flex-row lg:flex-col flex-wrap py-4">
+  <ng-container *ngFor="let group of menu">
+    <ng-template [ngIf]="group.route">
+      <a
+        class="py-2 px-4 rounded-[4px] hover:bg-grey"
+        [routerLink]="[group.route]"
+        [class.bg-grey]="group.active"
+        >{{ group.label }}</a
+      >
+    </ng-template>
+    <ng-template [ngIf]="!group.route">
+      <div
+        class="
+          inline-flex
+          items-center
+          rounded-[4px]
+          py-2
+          px-4
+          cursor-pointer
+          hover:bg-grey
+        "
+        (click)="toggle(group)"
+      >
+        <ng-template [ngIf]="group.icon">
+          <div class="svg-wrapper w-[18px] h-[18px] mr-2">
+            <div [class]="'w-[18px] h-[18px] svg svg-' + group.icon"></div>
+          </div>
+        </ng-template>
+        <p class="mr-2">{{ group.label }}</p>
+        <p>
+          <fa-icon [icon]="group.show == true ? faUp : faDown"></fa-icon>
+        </p>
+      </div>
+      <ng-template [ngIf]="group.show">
+        <a
+          class="
+            inline-flex
+            items-center
+            py-2
+            px-4
+            lg:px-8
+            hover:bg-grey
+            rounded-[4px]
+          "
+          *ngFor="let item of group.items"
+          [class.bg-grey]="item.active"
+          [routerLink]="[item.route]"
+        >
+          <ng-template [ngIf]="item.icon">
+            <div class="svg-wrapper w-[18px] h-[18px] mr-2">
+              <div [class]="'w-[18px] h-[18px] svg svg-' + item.icon"></div>
+            </div>
+          </ng-template>
+          <p>{{ item.label }}</p>
+        </a>
+      </ng-template>
+    </ng-template>
+  </ng-container>
+</div>
+<!-- end of links -->

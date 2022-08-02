@@ -1,0 +1,49 @@
+<div class="bg-black2 rounded-modal p-[48px]">
+  <!-- Title -->
+  <div class="text-center mb-4">
+    <p class="page-title">Setting</p>
+  </div>
+  <!-- end of title -->
+  <!-- Content -->
+  <div class="flex flex-col lg:flex-row">
+    <!-- Sidebar -->
+    <div
+      class="
+        bg-white
+        rounded-[4px]
+        pt-[16px]
+        pb-[32px]
+        px-[16px]
+        mr-0
+        mb-4
+        lg:mb-0
+        lg:mr-4
+        w-full
+        lg:w-[233px]
+        lg:min-h-[360px]
+      "
+    >
+      <partial-sidebar-setting
+        [route]="route"
+        [user]="user"
+      ></partial-sidebar-setting>
+    </div>
+    <!-- end of sidebar -->
+    <!-- Page content -->
+    <div
+      class="
+        w-full
+        md:w-[500px]
+        lg:w-[740px]
+        bg-white
+        rounded-[4px]
+        py-[32px]
+        px-[16px]
+      "
+    >
+      <router-outlet></router-outlet>
+    </div>
+    <!-- end of page content -->
+  </div>
+  <!-- end of content -->
+</div>

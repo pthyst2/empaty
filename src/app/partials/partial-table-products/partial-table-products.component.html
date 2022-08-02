@@ -37,10 +37,10 @@
         <p>{{ product.category_name }}</p>
       </div>
       <div class="p-4 inline-flex justify-center">
-        <p *ngIf="product.updatedAt">
-          {{ product.updatedAt | date: "yyyy-MM-dd" }}
+        <p *ngIf="product.updated_at">
+          {{ product.updated_at | date: "yyyy-MM-dd" }}
         </p>
-        <p *ngIf="!product.updatedAt">No data</p>
+        <p *ngIf="!product.updated_at">No data</p>
       </div>
     </div>
   </ng-container>
