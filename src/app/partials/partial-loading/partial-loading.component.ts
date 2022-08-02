@@ -1,15 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-partial-loading',
+  selector: 'partial-loading',
   templateUrl: './partial-loading.component.html',
-  styleUrls: ['./partial-loading.component.sass']
+  styleUrls: ['./partial-loading.component.sass'],
 })
 export class PartialLoadingComponent implements OnInit {
+  constructor() {}
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

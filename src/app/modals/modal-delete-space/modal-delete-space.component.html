@@ -6,18 +6,18 @@
     </div>
     <!-- end of title -->
 
-    <div class="mb-3 grow flex flex-col">
+    <div class="mb-3 text-center">
       <p>Do you really want to delete this space?</p>
     </div>
 
     <!-- Buttons -->
     <div class="text-center">
-      <button-base
-        [label]="'Close'"
-        (click)="close()"
-        class="mr-4"
-      ></button-base>
-      <button-base [label]="'Delete'" (click)="confirmDelete()"></button-base>
+      <button type="button" class="btn btn-white mr-4" (click)="close()">
+        Cancel
+      </button>
+      <button type="button" class="btn btn-main" (click)="confirmDelete()">
+        Yes, delete it.
+      </button>
     </div>
     <!-- end of buttons -->
   </div>

@@ -12,6 +12,10 @@ import { AppComponent } from './app.component';
 import { PageTestZoneComponent } from './pages/page-test-zone/page-test-zone.component';
 //#endregion
 
+//#region Interceptors
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ResponseInterceptor } from './interceptors/response.interceptor';
+//#endregion
 @NgModule({
   declarations: [AppComponent, PageTestZoneComponent],
   imports: [
@@ -21,7 +25,13 @@ import { PageTestZoneComponent } from './pages/page-test-zone/page-test-zone.com
     BrowserModule,
     BrowserAnimationsModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ResponseInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

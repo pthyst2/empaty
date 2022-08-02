@@ -103,4 +103,9 @@ export class SpaceService {
     }
     return res;
   }
+  updateSpace(body: any) {
+    return {
+      status: 200,
+    };
+  }
 }

@@ -11,7 +11,7 @@
       <div class="col-span-2">
         <partial-search-with-category
           [categories]="categories"
-          [key]="'_id'"
+          [key]="'id'"
           [label]="'name'"
         ></partial-search-with-category>
       </div>
@@ -41,18 +41,35 @@
     <!-- end of search & refresh -->
 
     <!-- Product list -->
-    <div class="grow inline-flex justify-center items-center">
-      <div *ngIf="products && products.length > 0; else noItem" class="grow">
-        <partial-table-products [products]="products"></partial-table-products>
+    <ng-template [ngIf]="loading == false">
+      <div class="grow inline-flex justify-center items-center">
+        <div *ngIf="products && products.length > 0; else noItem" class="grow">
+          <partial-table-products
+            [products]="products"
+          ></partial-table-products>
+        </div>
+        <ng-template #noItem>
+          <p>You have no product.</p>
+        </ng-template>
       </div>
-      <ng-template #noItem>
-        <p>You have no product.</p>
-      </ng-template>
-    </div>
+    </ng-template>
     <!-- end of product list -->
 
     <!-- Pagination -->
-    <partial-pagination></partial-pagination>
+    <ng-template [ngIf]="loading == false">
+      <partial-pagination
+        [nav]="nav"
+        (pageClicked)="searchProducts($event)"
+      ></partial-pagination>
+    </ng-template>
     <!-- end of pagination -->
+
+    <!-- Loading -->
+    <ng-template [ngIf]="loading == true">
+      <div class="w-full h-[35vh]">
+        <partial-loading></partial-loading>
+      </div>
+    </ng-template>
+    <!-- end of loading -->
   </div>
 </div>

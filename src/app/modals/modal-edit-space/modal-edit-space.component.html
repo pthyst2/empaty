@@ -1,0 +1,137 @@
+<modal-base (closed)="close()">
+  <div class="flex flex-col p-[48px] bg-white rounded-modal">
+    <!-- Title -->
+    <div class="text-center mb-4">
+      <p class="modal-title">Edit Space</p>
+    </div>
+    <!-- end of title -->
+    <!-- Form -->
+
+    <form
+      class="grow flex flex-col"
+      (submit)="submitForm()"
+      [formGroup]="editForm"
+    >
+      <!-- Inputs && image-->
+      <div class="grow flex flex-col lg:flex-row mb-4">
+        <!-- Inputs -->
+        <div class="pr-4 mb-4 lg:mb-0">
+          <!-- Title -->
+          <div class="mb-4">
+            <div class="form-group-inline">
+              <label class="text-right"
+                ><strong
+                  >Space Title <span class="text-danger">*</span></strong
+                ></label
+              >
+              <div
+                class="input-wrapper shrink-0 grow-0 w-[240px]"
+                [class.input-invalid]="
+                  fs.isControlInvalid(ctr.title, submitted)
+                "
+              >
+                <input type="text" formControlName="title" spellcheck="false" />
+              </div>
+            </div>
+            <ng-template [ngIf]="fs.isControlInvalid(ctr.title, submitted)">
+              <div class="text-right">
+                <span
+                  class="text-danger"
+                  *ngIf="fs.isCtrHasError(ctr.title, 'required')"
+                  >{{ messages.title.required }}</span
+                >
+              </div>
+            </ng-template>
+          </div>
+          <!-- end of title -->
+          <!-- Image -->
+          <div class="mb-4">
+            <div class="form-group-inline">
+              <label class="text-right"><strong>Image </strong></label>
+              <div class="input-wrapper shrink-0 grow-0 w-[240px]">
+                <input type="file" formControlName="image" spellcheck="false" />
+                <div
+                  class="
+                    ml-2
+                    pl-2
+                    border-l border-black15
+                    svg-wrapper
+                    w-[20px]
+                    h-[20px]
+                  "
+                >
+                  <div class="svg svg-staple w-[18px] h-[18px]"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end of image -->
+          <!-- Url -->
+          <div class="mb-4">
+            <div class="form-group-inline">
+              <label class="text-right"><strong>Public URL</strong></label>
+              <div class="input-wrapper shrink-0 grow-0 w-[240px]">
+                <input type="text" formControlName="url" spellcheck="false" />
+                <div
+                  class="
+                    ml-2
+                    pl-2
+                    border-l border-black15
+                    svg-wrapper
+                    w-[20px]
+                    h-[20px]
+                  "
+                >
+                  <div class="svg svg-lock w-[18px] h-[18px]"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- end of url -->
+          <div class="mb-4">
+            <div class="form-group-inline">
+              <label class="text-right"><strong>Summary</strong></label>
+              <div class="input-wrapper shrink-0 grow-0 w-[240px]">
+                <textarea
+                  formControlName="summary"
+                  spellcheck="false"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end of inputs -->
+        <!-- Image -->
+        <div class="text-right w-full lg:w-[240px]">
+          <img [src]="image" [alt]="space.title" class="inline-block" />
+        </div>
+        <!-- end of image -->
+      </div>
+      <!-- end of inputs && image -->
+      <!-- Buttons -->
+      <div class="text-center">
+        <button type="button" class="btn btn-white mr-4" (click)="close()" c>
+          Cancel
+        </button>
+        <button type="submit" class="btn btn-main" (click)="submitForm()">
+          Save Change
+        </button>
+      </div>
+      <!-- end of buttons -->
+    </form>
+
+    <!-- end of form -->
+  </div>
+</modal-base>
+
+<!-- Message popup -->
+<ng-template [ngIf]="popup == true">
+  <modal-message
+    [title]="popupContent.title"
+    [html]="popupContent.html"
+    [icon]="popupContent.icon"
+    [timer]="popupContent.timer"
+    (closed)="togglePopup()"
+  ></modal-message>
+</ng-template>
+<!-- end of message popup -->

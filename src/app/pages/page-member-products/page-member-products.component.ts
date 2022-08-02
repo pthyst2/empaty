@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/services/data/product.service';
-import { PopupMessageService } from 'src/app/services/utilities/popup-message.service';
+import { ProductCategoryService } from 'src/app/services/data/product-category.service';
 import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -10,13 +10,22 @@ import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons';
 })
 export class PageMemberProductsComponent implements OnInit {
   faRefresh = faArrowsRotate;
-  limit: number = 25;
+  limit: number = 10;
   offset: number = 0;
+
+  nav: any = {
+    pages: 1,
+    currentPage: 1,
+  };
+
   categories: any = [];
   products: any = [];
+
+  loading = false;
+
   constructor(
     private productService: ProductService,
-    private popupService: PopupMessageService
+    private categoryService: ProductCategoryService
   ) {}
 
   ngOnInit(): void {
@@ -25,13 +34,19 @@ export class PageMemberProductsComponent implements OnInit {
   }
 
   loadCategories() {
-    let res = this.productService.getCategories();
-    this.categories = res.data;
+    this.categoryService.getAll().subscribe({
+      next: (res) => {
+        console.log('res: ', res);
+        this.categories = res[0].items;
+      },
+      error: (err) => {
+        console.error('Error when loading product categories: ', err);
+      },
+    });
   }
 
-  searchProducts(body?: any) {
-    try {
-      let data = {
+  searchProducts(page?: number) {
+    /*let data = {
         keyword: '',
         category: '',
         offset: this.offset,
@@ -51,14 +66,22 @@ export class PageMemberProductsComponent implements OnInit {
         if (body.limit) {
           data.limit = body.limit;
         }
-      }
+      }*/
+    /*let res = this.productService.getProducts();
+    this.products = res.data;*/
 
-      let res = this.productService.getProducts(data);
-      if (res.status == 200) {
-        this.products = res.data;
-      }
-    } catch (err) {
-      console.error('Error when loading products: ', err);
-    }
+    this.loading = true;
+    this.productService.getAllProducts().subscribe({
+      next: (res) => {
+        this.products = res[0].items;
+        this.nav.pages = Math.ceil(res[0].total / this.limit);
+      },
+      error: (err) => {
+        console.error('Error when loading all products: ', err);
+      },
+      complete: () => {
+        this.loading = false;
+      },
+    });
   }
 }

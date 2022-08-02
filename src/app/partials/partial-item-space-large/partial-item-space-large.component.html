@@ -111,16 +111,25 @@
 </ng-template>
 <!-- end of modal add collaborator -->
 
-<!-- Modal Delete -->
-<ng-template [ngIf]="modals.delete == true">
-  <modal-delete-space [space]="space" (closed)="toggleModal('delete')">
-  </modal-delete-space>
-</ng-template>
-<!-- end of modal delete -->
-
 <!-- Modal Make Payment -->
 <ng-template [ngIf]="modals.makePayment == true">
   <modal-pay-space [space]="space" (closed)="catchMakePayment($event)">
   </modal-pay-space>
 </ng-template>
 <!-- end of modal make payment -->
+
+<!-- Modal edit space -->
+<ng-template [ngIf]="modals.edit == true">
+  <modal-edit-space
+    (closed)="toggleModal('edit')"
+    [space]="space"
+  ></modal-edit-space>
+</ng-template>
+<!-- end of modal edit space -->
+
+<!-- Modal Delete -->
+<ng-template [ngIf]="modals.delete == true">
+  <modal-delete-space [space]="space" (closed)="toggleModal('delete')">
+  </modal-delete-space>
+</ng-template>
+<!-- end of modal delete -->

@@ -1,6 +1,8 @@
 export const environment = {
   production: true,
-  appName: 'BSpace',
+  appName: 'Empaty',
+  apiUrl: 'http://magento.optimizer.vn/rest/V2/',
+  testApi: 'https://pokeapi.co/api/v2/',
   imageUrls: {
     none: 'assets/images/solids/no-image.png',
     logos: 'assets/images/solids/logos/',

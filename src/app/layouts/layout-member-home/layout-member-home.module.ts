@@ -30,6 +30,7 @@ import { PageMemberOrderComponent } from 'src/app/pages/page-member-order/page-m
 
 //#region Modals
 import { ModalCreateSpaceComponent } from 'src/app/modals/modal-create-space/modal-create-space.component';
+import { ModalEditSpaceComponent } from 'src/app/modals/modal-edit-space/modal-edit-space.component';
 import { ModalAddCollaboratorComponent } from 'src/app/modals/modal-add-collaborator/modal-add-collaborator.component';
 import { ModalDeleteSpaceComponent } from 'src/app/modals/modal-delete-space/modal-delete-space.component';
 import { ModalPaySpaceComponent } from '../../modals/modal-pay-space/modal-pay-space.component';
@@ -38,6 +39,7 @@ import { ModalEditCollaboratorComponent } from '../../modals/modal-edit-collabor
 import { ModalCreateSpaceByImageComponent } from '../../modals/modal-create-space-by-image/modal-create-space-by-image.component';
 import { PartialListPublicSpacesComponent } from '../../partials/partial-list-public-spaces/partial-list-public-spaces.component';
 import { ModalMakePrivateComponent } from '../../modals/modal-make-private/modal-make-private.component';
+import { PartialSidebarSettingComponent } from '../../partials/partial-sidebar-setting/partial-sidebar-setting.component';
 //#endregion
 @NgModule({
   declarations: [
@@ -56,6 +58,7 @@ import { ModalMakePrivateComponent } from '../../modals/modal-make-private/modal
     PartialItemCollaboratorComponent,
     PartialItemPublicSpaceComponent,
     ModalCreateSpaceComponent,
+    ModalEditSpaceComponent,
     ModalAddCollaboratorComponent,
     ModalDeleteSpaceComponent,
     ModalPaySpaceComponent,
@@ -65,6 +68,7 @@ import { ModalMakePrivateComponent } from '../../modals/modal-make-private/modal
     ModalCreateSpaceByImageComponent,
     PartialListPublicSpacesComponent,
     ModalMakePrivateComponent,
+    PartialSidebarSettingComponent,
   ],
   imports: [
     CommonModule,
