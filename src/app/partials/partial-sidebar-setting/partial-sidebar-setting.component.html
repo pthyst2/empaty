@@ -2,16 +2,23 @@
 <div class="flex lg:flex border-b-0 lg:border-b border-black15 py-4">
   <a
     [routerLink]="['/member/setting/profile']"
-    class="grow flex items-center py-4 px-2 hover:bg-grey rounded-[4px]"
+    class="flex items-center py-4 px-2 hover:bg-grey rounded-[4px]"
   >
     <!-- Avatar -->
     <img
       [src]="user.avatar"
-      class="mr-2 w-[32px] h-[32px] rounded-circle border-2 border-main"
+      class="
+        shrink-0
+        mr-2
+        w-[32px]
+        h-[32px]
+        rounded-circle
+        border-2 border-main
+      "
     />
     <!-- end of avatar -->
     <!-- Info -->
-    <div class="grow">
+    <div class="grow break-all">
       <p>
         <strong>{{ user.fullname }}</strong>
       </p>

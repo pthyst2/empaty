@@ -1,4 +1,4 @@
-<div class="bg-black2 rounded-modal p-[48px]">
+<div class="inline-flex flex-col border-box bg-black2 rounded-modal p-[48px]">
   <!-- Title -->
   <div class="text-center mb-4">
     <p class="page-title">Setting</p>
@@ -18,8 +18,7 @@
         mb-4
         lg:mb-0
         lg:mr-4
-        w-full
-        lg:w-[233px]
+        lg:max-w-[233px]
         lg:min-h-[360px]
       "
     >
@@ -32,16 +31,16 @@
     <!-- Page content -->
     <div
       class="
-        w-full
-        md:w-[500px]
-        lg:w-[740px]
+        grow
+        md:max-w-[500px]
+        lg:max-w-[740px]
         bg-white
         rounded-[4px]
         py-[32px]
         px-[16px]
       "
     >
-      <router-outlet></router-outlet>
+      <ng-content></ng-content>
     </div>
     <!-- end of page content -->
   </div>

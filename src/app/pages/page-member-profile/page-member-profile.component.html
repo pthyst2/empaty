@@ -1,214 +1,561 @@
-<!-- Basic info -->
-<div class="py-4 border-b border-grey">
-  <!-- Title & edit -->
-  <div class="flex items-center justify-center lg:justify-start mb-2">
-    <p class="text-[16px] leading-[23px] tracking-wider uppercase mr-2">
-      <strong>{{
-        basicInfo.edit == true ? "Edit Basic Information" : "Basic Information"
-      }}</strong>
-    </p>
-    <div
-      *ngIf="basicInfo.edit == false"
-      class="svg-wrapper w-[20px] h-[20px]"
-      (click)="toggleForm(basicInfo)"
-    >
-      <div class="svg svg-edit w-[20px] h-[20px]"></div>
+<layout-setting>
+  <!-- Basic info -->
+  <div class="py-4 border-b border-grey">
+    <!-- Title & edit -->
+    <div class="flex items-center justify-center lg:justify-start mb-2">
+      <p class="text-[16px] leading-[23px] tracking-wider uppercase mr-2">
+        <strong>{{
+          basicInfo.edit == true
+            ? "Edit Basic Information"
+            : "Basic Information"
+        }}</strong>
+      </p>
+      <div
+        *ngIf="basicInfo.edit == false"
+        class="svg-wrapper w-[20px] h-[20px]"
+        (click)="toggleForm(basicInfo)"
+      >
+        <div class="svg svg-edit w-[20px] h-[20px]"></div>
+      </div>
     </div>
-  </div>
-  <!-- end of title & edit -->
-  <!-- Content -->
-  <ng-template [ngIf]="basicInfo.loading == true">
-    <div class="w-full h-[100px]">
-      <partial-loading></partial-loading>
-    </div>
-  </ng-template>
-  <ng-template [ngIf]="basicInfo.loading == false">
-    <ng-template [ngIf]="basicInfo.edit == false">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-4">
-        <div>
-          <span class="text-black45">First Name: </span
-          ><span>{{ user.firstname }}</span>
-        </div>
-        <div>
-          <span class="text-black45">Last Name: </span
-          ><span>{{ user.lastname }}</span>
-        </div>
-        <div>
-          <span class="text-black45">Phone Number: </span
-          ><span>{{ user.phoneNumber }}</span>
-        </div>
-        <div>
-          <span class="text-black45">Company Name: </span
-          ><span>{{ user.company }}</span>
-        </div>
+    <!-- end of title & edit -->
+    <!-- Content & form -->
+    <ng-template [ngIf]="basicInfo.loading == true">
+      <div class="w-full h-[100px]">
+        <partial-loading></partial-loading>
       </div>
     </ng-template>
-    <!-- end of content -->
-    <!-- Form -->
-    <ng-template [ngIf]="basicInfo.edit == true">
-      <form [formGroup]="form1" class="flex flex-col min-h-[300px]">
-        <div class="grow">
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-4">
-            <!-- First name -->
-            <div class="flex flex-col">
-              <label class="mb-2"
-                ><strong
-                  >First Name <span class="text-danger">*</span></strong
-                ></label
-              >
-              <div
-                class="flex border border-black15 rounded"
-                [class.input-invalid]="
-                  fs.isControlInvalid(ctr1.firstname, basicInfo.submitted)
-                "
-              >
-                <input
-                  type="text"
-                  formControlName="firstname"
-                  spellcheck="false"
-                  class="w-full px-2 py-1 rounded focus:bg-black2"
-                />
-              </div>
-              <ng-template
-                [ngIf]="
-                  fs.isControlInvalid(ctr1.firstname, basicInfo.submitted)
-                "
-              >
-                <p
-                  class="text-danger"
-                  *ngIf="fs.isCtrHasError(ctr1.firstname, 'required')"
-                >
-                  {{ basicInfo.messages.firstname.required }}
-                </p>
-              </ng-template>
-            </div>
-            <!-- end of first name -->
-            <!-- Last name -->
-            <div class="flex flex-col">
-              <label class="mb-2"
-                ><strong
-                  >Last Name <span class="text-danger">*</span></strong
-                ></label
-              >
-              <div
-                class="flex border border-black15 rounded"
-                [class.input-invalid]="
-                  fs.isControlInvalid(ctr1.lastname, basicInfo.submitted)
-                "
-              >
-                <input
-                  type="text"
-                  formControlName="lastname"
-                  spellcheck="false"
-                  class="w-full px-2 py-1 rounded focus:bg-black2"
-                />
-              </div>
-              <ng-template
-                [ngIf]="fs.isControlInvalid(ctr1.lastname, basicInfo.submitted)"
-              >
-                <p
-                  class="text-danger"
-                  *ngIf="fs.isCtrHasError(ctr1.lastname, 'required')"
-                >
-                  {{ basicInfo.messages.lastname.required }}
-                </p>
-              </ng-template>
-            </div>
-            <!-- end of last name -->
-            <!-- Phone number -->
-            <div class="flex flex-col">
-              <label class="mb-2"
-                ><strong
-                  >Phone Number <span class="text-danger">*</span></strong
-                ></label
-              >
-              <div
-                class="flex border border-black15 rounded"
-                [class.input-invalid]="
-                  fs.isControlInvalid(ctr1.phone, basicInfo.submitted)
-                "
-              >
-                <input
-                  type="text"
-                  formControlName="phone"
-                  spellcheck="false"
-                  class="w-full px-2 py-1 rounded focus:bg-black2"
-                />
-              </div>
-              <ng-template
-                [ngIf]="fs.isControlInvalid(ctr1.phone, basicInfo.submitted)"
-              >
-                <p
-                  class="text-danger"
-                  *ngIf="fs.isCtrHasError(ctr1.phone, 'required')"
-                >
-                  {{ basicInfo.messages.phone.required }}
-                </p>
-              </ng-template>
-            </div>
-            <!-- end of phone number -->
-            <!-- Company name -->
-            <div class="flex flex-col">
-              <label class="mb-2"
-                ><strong
-                  >Company Name <span class="text-danger">*</span></strong
-                ></label
-              >
-              <div
-                class="flex border border-black15 rounded"
-                [class.input-invalid]="
-                  fs.isControlInvalid(ctr1.company, basicInfo.submitted)
-                "
-              >
-                <input
-                  type="text"
-                  formControlName="company"
-                  spellcheck="false"
-                  class="w-full px-2 py-1 rounded focus:bg-black2"
-                />
-              </div>
-              <ng-template
-                [ngIf]="fs.isControlInvalid(ctr1.company, basicInfo.submitted)"
-              >
-                <p
-                  class="text-danger"
-                  *ngIf="fs.isCtrHasError(ctr1.company, 'required')"
-                >
-                  {{ basicInfo.messages.company.required }}
-                </p>
-              </ng-template>
-            </div>
-            <!-- end of company name -->
+    <ng-template [ngIf]="basicInfo.loading == false">
+      <!-- Content -->
+      <ng-template [ngIf]="basicInfo.edit == false">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-4 break-all">
+          <div>
+            <span class="text-black45">First Name: </span
+            ><span>{{ user.firstname }}</span>
+          </div>
+          <div>
+            <span class="text-black45">Last Name: </span
+            ><span>{{ user.lastname }}</span>
+          </div>
+          <div>
+            <span class="text-black45">Phone Number: </span
+            ><span>{{ user.phoneNumber }}</span>
+          </div>
+          <div>
+            <span class="text-black45">Company Name: </span
+            ><span>{{ user.company }}</span>
           </div>
         </div>
-        <div class="text-center lg:text-right">
+      </ng-template>
+      <!-- end of content -->
+      <!-- Form -->
+      <ng-template [ngIf]="basicInfo.edit == true">
+        <form
+          [formGroup]="form1"
+          class="flex flex-col min-h-[300px]"
+          (submit)="submitForm1()"
+        >
+          <div class="grow mb-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-4">
+              <!-- First name -->
+              <div class="flex flex-col">
+                <label class="mb-2"
+                  ><strong
+                    >First Name <span class="text-danger">*</span></strong
+                  ></label
+                >
+                <div
+                  class="flex border border-black15 rounded"
+                  [class.input-invalid]="
+                    fs.isControlInvalid(ctr1.firstname, basicInfo.submitted)
+                  "
+                >
+                  <input
+                    type="text"
+                    formControlName="firstname"
+                    spellcheck="false"
+                    class="w-full px-2 py-1 rounded focus:bg-black2"
+                  />
+                </div>
+                <div
+                  *ngIf="
+                    fs.isControlInvalid(ctr1.firstname, basicInfo.submitted)
+                  "
+                  class="text-right"
+                >
+                  <p
+                    class="text-danger"
+                    *ngIf="fs.isCtrHasError(ctr1.firstname, 'required')"
+                  >
+                    {{ basicInfo.messages.firstname.required }}
+                  </p>
+                </div>
+              </div>
+              <!-- end of first name -->
+              <!-- Last name -->
+              <div class="flex flex-col">
+                <label class="mb-2"
+                  ><strong
+                    >Last Name <span class="text-danger">*</span></strong
+                  ></label
+                >
+                <div
+                  class="flex border border-black15 rounded"
+                  [class.input-invalid]="
+                    fs.isControlInvalid(ctr1.lastname, basicInfo.submitted)
+                  "
+                >
+                  <input
+                    type="text"
+                    formControlName="lastname"
+                    spellcheck="false"
+                    class="w-full px-2 py-1 rounded focus:bg-black2"
+                  />
+                </div>
+                <div
+                  class="text-right"
+                  *ngIf="
+                    fs.isControlInvalid(ctr1.lastname, basicInfo.submitted)
+                  "
+                >
+                  <p
+                    class="text-danger"
+                    *ngIf="fs.isCtrHasError(ctr1.lastname, 'required')"
+                  >
+                    {{ basicInfo.messages.lastname.required }}
+                  </p>
+                </div>
+              </div>
+              <!-- end of last name -->
+              <!-- Phone number -->
+              <div class="flex flex-col">
+                <label class="mb-2"
+                  ><strong
+                    >Phone Number <span class="text-danger">*</span></strong
+                  ></label
+                >
+                <div
+                  class="flex border border-black15 rounded"
+                  [class.input-invalid]="
+                    fs.isControlInvalid(ctr1.phone, basicInfo.submitted)
+                  "
+                >
+                  <input
+                    type="text"
+                    formControlName="phone"
+                    spellcheck="false"
+                    class="w-full px-2 py-1 rounded focus:bg-black2"
+                  />
+                </div>
+                <div
+                  class="text-right"
+                  *ngIf="fs.isControlInvalid(ctr1.phone, basicInfo.submitted)"
+                >
+                  <p
+                    class="text-danger"
+                    *ngIf="fs.isCtrHasError(ctr1.phone, 'required')"
+                  >
+                    {{ basicInfo.messages.phone.required }}
+                  </p>
+                </div>
+              </div>
+              <!-- end of phone number -->
+              <!-- Company name -->
+              <div class="flex flex-col">
+                <label class="mb-2"
+                  ><strong
+                    >Company Name <span class="text-danger">*</span></strong
+                  ></label
+                >
+                <div
+                  class="flex border border-black15 rounded"
+                  [class.input-invalid]="
+                    fs.isControlInvalid(ctr1.company, basicInfo.submitted)
+                  "
+                >
+                  <input
+                    type="text"
+                    formControlName="company"
+                    spellcheck="false"
+                    class="w-full px-2 py-1 rounded focus:bg-black2"
+                  />
+                </div>
+                <div
+                  class="text-right"
+                  *ngIf="fs.isControlInvalid(ctr1.company, basicInfo.submitted)"
+                >
+                  <p
+                    class="text-danger"
+                    *ngIf="fs.isCtrHasError(ctr1.company, 'required')"
+                  >
+                    {{ basicInfo.messages.company.required }}
+                  </p>
+                </div>
+              </div>
+              <!-- end of company name -->
+            </div>
+          </div>
           <!-- Buttons -->
-          <button
-            type="button"
-            class="btn btn-white mr-4"
-            (click)="toggleForm(basicInfo)"
+          <div
+            class="
+              flex flex-col
+              lg:flex-row
+              lg:justify-end
+              justify-center
+              items-center
+            "
           >
-            Cancel
-          </button>
-          <button type="submit" class="btn btn-main">Save Changes</button>
+            <button
+              type="button"
+              class="btn btn-white lg:mb-0 lg:mr-4 order-last lg:order-first"
+              (click)="toggleForm(basicInfo)"
+            >
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-main mb-3 lg:mb-0">
+              Save Changes
+            </button>
+          </div>
           <!-- end of buttons -->
-        </div>
-      </form>
+        </form>
+      </ng-template>
+      <!-- end of form -->
     </ng-template>
-    <!-- end of form -->
+    <!-- end of content & form -->
+  </div>
+  <!-- end of basic info -->
+  <!-- Login info -->
+  <div class="py-4">
+    <!-- Title & edit -->
+    <div class="flex items-center justify-center lg:justify-start mb-2">
+      <p class="text-[16px] leading-[23px] tracking-wider uppercase mr-2">
+        <strong>{{
+          loginInfo.edit == true
+            ? "Edit Login Information"
+            : "Login Information"
+        }}</strong>
+      </p>
+      <div
+        *ngIf="loginInfo.edit == false"
+        class="svg-wrapper w-[20px] h-[20px]"
+        (click)="toggleForm(loginInfo)"
+      >
+        <div class="svg svg-edit w-[20px] h-[20px]"></div>
+      </div>
+    </div>
+    <!-- end of title & edit -->
+    <!-- Content & form-->
+    <ng-template [ngIf]="loginInfo.loading == true">
+      <div class="w-full h-[100px]">
+        <partial-loading></partial-loading>
+      </div>
+    </ng-template>
+    <ng-template [ngIf]="loginInfo.loading == false">
+      <!-- Content -->
+      <ng-template [ngIf]="loginInfo.edit == false">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-4 break-all">
+          <div>
+            <span class="text-black45">Email: </span
+            ><span>{{ user.email }}</span>
+          </div>
+          <div>
+            <span class="text-black45">Password: </span><span>******</span>
+          </div>
+        </div>
+      </ng-template>
+      <!-- end of content -->
+      <!-- Form -->
+      <ng-template [ngIf]="loginInfo.edit == true">
+        <form
+          [formGroup]="form2"
+          class="flex flex-col min-h-[300px]"
+          (submit)="submitForm2()"
+        >
+          <div class="grow mb-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-4">
+              <!-- Email -->
+              <div class="flex flex-col">
+                <label class="mb-2"
+                  ><strong
+                    >Email <span class="text-danger">*</span></strong
+                  ></label
+                >
+                <div
+                  class="flex border border-black15 rounded"
+                  [class.input-invalid]="
+                    fs.isControlInvalid(ctr2.email, loginInfo.submitted)
+                  "
+                >
+                  <input
+                    type="email"
+                    formControlName="email"
+                    spellcheck="false"
+                    class="w-full px-2 py-1 rounded focus:bg-black2"
+                  />
+                </div>
+                <div
+                  class="text-right"
+                  *ngIf="fs.isControlInvalid(ctr2.email, loginInfo.submitted)"
+                >
+                  <p
+                    class="text-danger"
+                    *ngIf="fs.isCtrHasError(ctr2.email, 'required')"
+                  >
+                    {{ loginInfo.messages.email.required }}
+                  </p>
+                  <p
+                    class="text-danger"
+                    *ngIf="fs.isCtrHasError(ctr2.email, 'email')"
+                  >
+                    {{ loginInfo.messages.email.email }}
+                  </p>
+                </div>
+              </div>
+              <!-- end of email -->
+              <!-- Current password -->
+              <div class="flex flex-col">
+                <label class="mb-2"
+                  ><strong
+                    >Current Password <span class="text-danger">*</span></strong
+                  ></label
+                >
+                <div
+                  class="
+                    flex
+                    items-center
+                    border border-black15
+                    rounded
+                    relative
+                  "
+                  [class.input-invalid]="
+                    fs.isControlInvalid(
+                      ctr2.currentPassword,
+                      loginInfo.submitted
+                    )
+                  "
+                >
+                  <input
+                    [type]="
+                      loginInfo.shows.currentPassword == true
+                        ? 'text'
+                        : 'password'
+                    "
+                    formControlName="currentPassword"
+                    spellcheck="false"
+                    class="w-full px-2 py-1 rounded focus:bg-black2"
+                  />
+                  <fa-icon
+                    class="
+                      absolute
+                      right-[6px]
+                      w-[20px]
+                      h-[20px]
+                      cursor-pointer
+                      text-black45
+                    "
+                    (click)="
+                      loginInfo.shows.currentPassword =
+                        !loginInfo.shows.currentPassword
+                    "
+                    [icon]="
+                      loginInfo.shows.currentPassword == true
+                        ? faEyeSlash
+                        : faEye
+                    "
+                  ></fa-icon>
+                </div>
+                <div
+                  class="text-right"
+                  *ngIf="
+                    fs.isControlInvalid(
+                      ctr2.currentPassword,
+                      loginInfo.submitted
+                    )
+                  "
+                >
+                  <p
+                    class="text-danger"
+                    *ngIf="fs.isCtrHasError(ctr2.currentPassword, 'required')"
+                  >
+                    {{ loginInfo.messages.currentPassword.required }}
+                  </p>
+                </div>
+              </div>
+              <!-- end of current password -->
+              <!-- New password -->
+              <div class="flex flex-col">
+                <label class="mb-2"
+                  ><strong
+                    >New Password <span class="text-danger">*</span></strong
+                  ></label
+                >
+                <div
+                  class="
+                    flex
+                    items-center
+                    border border-black15
+                    rounded
+                    relative
+                  "
+                  [class.input-invalid]="
+                    fs.isControlInvalid(ctr2.newPassword, loginInfo.submitted)
+                  "
+                >
+                  <input
+                    [type]="
+                      loginInfo.shows.newPassword == true ? 'text' : 'password'
+                    "
+                    formControlName="newPassword"
+                    spellcheck="false"
+                    class="w-full px-2 py-1 rounded focus:bg-black2"
+                  />
+                  <fa-icon
+                    class="
+                      absolute
+                      right-[6px]
+                      w-[20px]
+                      h-[20px]
+                      cursor-pointer
+                      text-black45
+                    "
+                    (click)="
+                      loginInfo.shows.newPassword = !loginInfo.shows.newPassword
+                    "
+                    [icon]="
+                      loginInfo.shows.newPassword == true ? faEyeSlash : faEye
+                    "
+                  ></fa-icon>
+                </div>
+                <div
+                  *ngIf="
+                    fs.isControlInvalid(ctr2.newPassword, loginInfo.submitted)
+                  "
+                >
+                  <p
+                    class="text-danger"
+                    *ngIf="fs.isCtrHasError(ctr2.newPassword, 'required')"
+                  >
+                    {{ loginInfo.messages.newPassword.required }}
+                  </p>
+                </div>
+              </div>
+              <!-- end of new password -->
+              <!-- Confirm password -->
+              <div class="flex flex-col">
+                <label class="mb-2"
+                  ><strong
+                    >Confirm Password <span class="text-danger">*</span></strong
+                  ></label
+                >
+                <div
+                  class="
+                    flex
+                    items-center
+                    border border-black15
+                    rounded
+                    relative
+                  "
+                  [class.input-invalid]="
+                    fs.isControlInvalid(
+                      ctr2.confirmPassword,
+                      loginInfo.submitted
+                    )
+                  "
+                >
+                  <input
+                    [type]="
+                      loginInfo.shows.confirmPassword == true
+                        ? 'text'
+                        : 'password'
+                    "
+                    formControlName="confirmPassword"
+                    spellcheck="false"
+                    class="w-full px-2 py-1 rounded focus:bg-black2"
+                  />
+                  <fa-icon
+                    class="
+                      absolute
+                      right-[6px]
+                      w-[20px]
+                      h-[20px]
+                      cursor-pointer
+                      text-black45
+                    "
+                    (click)="
+                      loginInfo.shows.confirmPassword =
+                        !loginInfo.shows.confirmPassword
+                    "
+                    [icon]="
+                      loginInfo.shows.confirmPassword == true
+                        ? faEyeSlash
+                        : faEye
+                    "
+                  ></fa-icon>
+                </div>
+                <ng-template
+                  [ngIf]="
+                    fs.isControlInvalid(
+                      ctr2.confirmPassword,
+                      loginInfo.submitted
+                    )
+                  "
+                >
+                  <p
+                    class="text-danger"
+                    *ngIf="fs.isCtrHasError(ctr2.confirmPassword, 'required')"
+                  >
+                    {{ loginInfo.messages.confirmPassword.required }}
+                  </p>
+                  <p
+                    class="text-danger"
+                    *ngIf="fs.isCtrHasError(ctr2.confirmPassword, 'matched')"
+                  >
+                    {{ loginInfo.messages.confirmPassword.matched }}
+                  </p>
+                </ng-template>
+              </div>
+              <!-- end of confirm password -->
+            </div>
+          </div>
+          <!-- Buttons -->
+          <div
+            class="
+              flex flex-col
+              lg:flex-row
+              lg:justify-end
+              justify-center
+              items-center
+            "
+          >
+            <button
+              type="button"
+              class="btn btn-white lg:mb-0 lg:mr-4 order-last lg:order-first"
+              (click)="toggleForm(loginInfo)"
+            >
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-main mb-3 lg:mb-0">
+              Save Changes
+            </button>
+          </div>
+          <!-- end of buttons -->
+        </form>
+      </ng-template>
+      <!-- end of form -->
+    </ng-template>
+
+    <!-- end of content & form -->
+  </div>
+  <!-- end of login info -->
+  <!-- Popup -->
+  <ng-template [ngIf]="popup == true">
+    <modal-message
+      [title]="popupContent.title"
+      [html]="popupContent.html"
+      [icon]="popupContent.icon"
+      [timer]="popupContent.timer"
+      (closed)="togglePopup()"
+    ></modal-message>
   </ng-template>
-</div>
-<!-- end of basic info -->
-<!-- Login info -->
-<div class="py-4">
-  <!-- Title & edit -->
-
-  <!-- end of title & edit -->
-  <!-- Content -->
-
-  <!-- end of content -->
-  <!-- Form -->
-
-  <!-- end of form -->
-</div>
-<!-- end of login info -->
+  <!-- end of popup -->
+</layout-setting>

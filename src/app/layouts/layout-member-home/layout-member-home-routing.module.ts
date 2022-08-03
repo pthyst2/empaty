@@ -8,7 +8,6 @@ import { PageMemberStatisticsComponent } from 'src/app/pages/page-member-statist
 import { PageMemberProductsComponent } from 'src/app/pages/page-member-products/page-member-products.component';
 import { PageMemberOrderComponent } from 'src/app/pages/page-member-order/page-member-order.component';
 import { PageMemberProfileComponent } from 'src/app/pages/page-member-profile/page-member-profile.component';
-import { LayoutSettingComponent } from '../layout-setting/layout-setting.component';
 const routes: Routes = [
   {
     path: '',
@@ -45,7 +44,6 @@ const routes: Routes = [
       },
       {
         path: 'setting',
-        component: LayoutSettingComponent,
         children: [
           {
             path: '',
