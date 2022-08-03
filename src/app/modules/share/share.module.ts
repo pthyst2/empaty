@@ -17,6 +17,7 @@ import { ButtonSvgComponent } from 'src/app/buttons/button-svg/button-svg.compon
 import { PartialCopyrightComponent } from 'src/app/partials/partial-copyright/partial-copyright.component';
 import { PartialLoadingComponent } from 'src/app/partials/partial-loading/partial-loading.component';
 import { PartialPaginationComponent } from 'src/app/partials/partial-pagination/partial-pagination.component';
+import { PartialItemSwitchComponent } from '../../partials/partial-item-switch/partial-item-switch.component';
 //#endregion
 
 //#region Fixed items
@@ -26,6 +27,7 @@ import { FixedItemUserComponent } from 'src/app/fixed-items/fixed-item-user/fixe
 //#region Modals
 import { ModalBaseComponent } from 'src/app/modals/modal-base/modal-base.component';
 import { ModalMessageComponent } from 'src/app/modals/modal-message/modal-message.component';
+import { ModalPopupComponent } from '../../modals/modal-popup/modal-popup.component';
 //#endregion modals
 
 //#region Sliders
@@ -35,17 +37,20 @@ import { SliderCreateSpaceComponent } from '../../sliders/slider-create-space/sl
 
 @NgModule({
   declarations: [
-    PartialCopyrightComponent,
     ButtonBaseComponent,
     ButtonIconFontAwesomeComponent,
     ButtonSvgComponent,
     FixedItemUserComponent,
     ModalBaseComponent,
     ModalMessageComponent,
+    ModalPopupComponent,
     PartialLoadingComponent,
     PartialPaginationComponent,
+    PartialCopyrightComponent,
+    PartialItemSwitchComponent,
     SliderBaseComponent,
     SliderCreateSpaceComponent,
+    PartialItemSwitchComponent,
   ],
   imports: [
     CommonModule,
@@ -59,12 +64,14 @@ import { SliderCreateSpaceComponent } from '../../sliders/slider-create-space/sl
     ButtonBaseComponent,
     ButtonIconFontAwesomeComponent,
     ButtonSvgComponent,
-    PartialCopyrightComponent,
     FixedItemUserComponent,
     ModalBaseComponent,
     ModalMessageComponent,
+    ModalPopupComponent,
+    PartialCopyrightComponent,
     PartialLoadingComponent,
     PartialPaginationComponent,
+    PartialItemSwitchComponent,
     SliderBaseComponent,
     SliderCreateSpaceComponent,
     RouterModule,

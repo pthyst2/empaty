@@ -16,6 +16,8 @@ import { PartialTableProductsComponent } from '../../partials/partial-table-prod
 import { PartialItemCollaboratorComponent } from 'src/app/partials/partial-item-collaborator/partial-item-collaborator.component';
 import { PartialListCollaboratorsComponent } from '../../partials/partial-list-collaborators/partial-list-collaborators.component';
 import { PartialItemPublicSpaceComponent } from 'src/app/partials/partial-item-public-space/partial-item-public-space.component';
+import { PartialListPublicSpacesComponent } from '../../partials/partial-list-public-spaces/partial-list-public-spaces.component';
+import { PartialSidebarSettingComponent } from '../../partials/partial-sidebar-setting/partial-sidebar-setting.component';
 //#endregion
 
 //#region Pages
@@ -26,6 +28,8 @@ import { PageMemberPublicSpacesComponent } from '../../pages/page-member-public-
 import { PageMemberStatisticsComponent } from '../../pages/page-member-statistics/page-member-statistics.component';
 import { PageMemberProductsComponent } from 'src/app/pages/page-member-products/page-member-products.component';
 import { PageMemberOrderComponent } from 'src/app/pages/page-member-order/page-member-order.component';
+import { PageMemberProfileComponent } from '../../pages/page-member-profile/page-member-profile.component';
+import { PageMemberManageComponent } from 'src/app/pages/page-member-manage/page-member-manage.component';
 //#endregion
 
 //#region Modals
@@ -37,21 +41,33 @@ import { ModalPaySpaceComponent } from '../../modals/modal-pay-space/modal-pay-s
 import { ModalDeleteCollaboratorComponent } from '../../modals/modal-delete-collaborator/modal-delete-collaborator.component';
 import { ModalEditCollaboratorComponent } from '../../modals/modal-edit-collaborator/modal-edit-collaborator.component';
 import { ModalCreateSpaceByImageComponent } from '../../modals/modal-create-space-by-image/modal-create-space-by-image.component';
-import { PartialListPublicSpacesComponent } from '../../partials/partial-list-public-spaces/partial-list-public-spaces.component';
 import { ModalMakePrivateComponent } from '../../modals/modal-make-private/modal-make-private.component';
-import { PartialSidebarSettingComponent } from '../../partials/partial-sidebar-setting/partial-sidebar-setting.component';
-import { PageMemberProfileComponent } from '../../pages/page-member-profile/page-member-profile.component';
+//#endregion
+
+//#region Layouts
 import { LayoutSettingComponent } from '../layout-setting/layout-setting.component';
 //#endregion
 @NgModule({
   declarations: [
     LayoutMemberHomeComponent,
+    LayoutSettingComponent,
+    ModalCreateSpaceComponent,
+    ModalEditSpaceComponent,
+    ModalAddCollaboratorComponent,
+    ModalDeleteSpaceComponent,
+    ModalPaySpaceComponent,
+    ModalDeleteCollaboratorComponent,
+    ModalEditCollaboratorComponent,
+    ModalCreateSpaceByImageComponent,
+    ModalMakePrivateComponent,
     PageMemberHomeComponent,
     PageMemberCollaboratorsComponent,
     PageMemberPublicSpacesComponent,
     PageMemberStatisticsComponent,
     PageMemberProductsComponent,
     PageMemberOrderComponent,
+    PageMemberManageComponent,
+    PageMemberProfileComponent,
     PartialSectionSpacesLargeComponent,
     PartialTableProductsComponent,
     PartialHeaderMemberComponent,
@@ -59,20 +75,9 @@ import { LayoutSettingComponent } from '../layout-setting/layout-setting.compone
     PartialSearchWithCategoryComponent,
     PartialItemCollaboratorComponent,
     PartialItemPublicSpaceComponent,
-    ModalCreateSpaceComponent,
-    ModalEditSpaceComponent,
-    ModalAddCollaboratorComponent,
-    ModalDeleteSpaceComponent,
-    ModalPaySpaceComponent,
     PartialListCollaboratorsComponent,
-    ModalDeleteCollaboratorComponent,
-    ModalEditCollaboratorComponent,
-    ModalCreateSpaceByImageComponent,
     PartialListPublicSpacesComponent,
-    ModalMakePrivateComponent,
     PartialSidebarSettingComponent,
-    PageMemberProfileComponent,
-    LayoutSettingComponent,
   ],
   imports: [
     CommonModule,

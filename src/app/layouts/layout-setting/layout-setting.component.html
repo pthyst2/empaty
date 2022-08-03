@@ -1,4 +1,15 @@
-<div class="inline-flex flex-col border-box bg-black2 rounded-modal p-[48px]">
+<div
+  class="
+    inline-flex
+    flex-col
+    border-box
+    bg-black2
+    rounded-modal
+    p-[48px]
+    lg:w-[900px]
+    xl:min-w-[900px]
+  "
+>
   <!-- Title -->
   <div class="text-center mb-4">
     <p class="page-title">Setting</p>
@@ -7,41 +18,13 @@
   <!-- Content -->
   <div class="flex flex-col lg:flex-row">
     <!-- Sidebar -->
-    <div
-      class="
-        bg-white
-        rounded-[4px]
-        pt-[16px]
-        pb-[32px]
-        px-[16px]
-        mr-0
-        mb-4
-        lg:mb-0
-        lg:mr-4
-        lg:max-w-[233px]
-        lg:min-h-[360px]
-      "
-    >
-      <partial-sidebar-setting
-        [route]="route"
-        [user]="user"
-      ></partial-sidebar-setting>
-    </div>
+    <partial-sidebar-setting
+      [route]="route"
+      [user]="user"
+    ></partial-sidebar-setting>
     <!-- end of sidebar -->
     <!-- Page content -->
-    <div
-      class="
-        grow
-        md:max-w-[500px]
-        lg:max-w-[740px]
-        bg-white
-        rounded-[4px]
-        py-[32px]
-        px-[16px]
-      "
-    >
-      <ng-content></ng-content>
-    </div>
+    <ng-content></ng-content>
     <!-- end of page content -->
   </div>
   <!-- end of content -->

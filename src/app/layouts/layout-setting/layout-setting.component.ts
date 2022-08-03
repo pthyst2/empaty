@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'layout-setting',
@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LayoutSettingComponent implements OnInit {
   user: any;
-  route = 'profile';
+  @Input() route = 'profile';
   constructor() {}
 
   ngOnInit(): void {

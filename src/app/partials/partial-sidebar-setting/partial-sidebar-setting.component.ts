@@ -10,7 +10,7 @@ export class PartialSidebarSettingComponent implements OnInit {
   faDown = faCaretDown;
   faUp = faCaretUp;
   @Input() user: any;
-  @Input() route: any = 'manage';
+  @Input() route: any = 'profile';
   menu: any = [
     {
       icon: 'account',
@@ -22,19 +22,19 @@ export class PartialSidebarSettingComponent implements OnInit {
           icon: 'manage',
           label: 'Manage',
           active: false,
-          route: 'manage',
+          route: '/member/setting/manage',
         },
         {
           icon: 'billing',
           label: 'Billing',
           active: false,
-          route: 'billing',
+          route: '/member/setting/billing',
         },
         {
           icon: 'user-octagon',
           label: 'Roles',
           active: false,
-          route: 'roles',
+          route: '/member/setting/roles',
         },
       ],
     },
@@ -42,7 +42,6 @@ export class PartialSidebarSettingComponent implements OnInit {
   constructor(private router: Router) {}
   ngOnInit(): void {
     this.activeItem();
-    console.log('user: ', this.user);
   }
   activeItem() {
     for (let group of this.menu) {
@@ -64,5 +63,8 @@ export class PartialSidebarSettingComponent implements OnInit {
   }
   toggle(group: any) {
     group.show = group.show != undefined ? !group.show : undefined;
+  }
+  goPage(route: string) {
+    this.router.navigate([route]);
   }
 }

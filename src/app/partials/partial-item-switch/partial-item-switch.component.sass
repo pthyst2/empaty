@@ -1,0 +1,25 @@
+@use "src/assets/styles/colors" as colors
+.switch-wrapper
+    display: inline-flex
+
+    align-items: center
+    border: 2px solid transparent
+    min-width: 36px
+
+    border-radius: 16px
+    transition: 0.25s all ease-in-out
+    cursor: pointer
+    .switch-button
+        width: 18px
+        height: 18px
+        border-radius: 50%
+        background-color: white
+
+.false
+    border-color: colors.$black15
+    background-color: colors.$black15
+    justify-content: flex-start
+.true
+    border-color: colors.$main
+    background-color: colors.$main
+    justify-content: flex-end

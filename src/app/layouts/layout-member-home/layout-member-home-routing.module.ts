@@ -1,3 +1,4 @@
+//#region Imports
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutMemberHomeComponent } from './layout-member-home.component';
@@ -8,6 +9,9 @@ import { PageMemberStatisticsComponent } from 'src/app/pages/page-member-statist
 import { PageMemberProductsComponent } from 'src/app/pages/page-member-products/page-member-products.component';
 import { PageMemberOrderComponent } from 'src/app/pages/page-member-order/page-member-order.component';
 import { PageMemberProfileComponent } from 'src/app/pages/page-member-profile/page-member-profile.component';
+import { PageMemberManageComponent } from 'src/app/pages/page-member-manage/page-member-manage.component';
+//#endregion
+
 const routes: Routes = [
   {
     path: '',
@@ -53,6 +57,10 @@ const routes: Routes = [
           {
             path: 'profile',
             component: PageMemberProfileComponent,
+          },
+          {
+            path: 'manage',
+            component: PageMemberManageComponent,
           },
         ],
       },

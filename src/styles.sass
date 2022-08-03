@@ -113,6 +113,25 @@ input,select,textarea
             width: 100%
     .input-wrapper.input-invalid
         border-color: #ff0000
+.form-group-col
+    display: flex
+    flex-direction: column
+    label
+        margin-bottom: 0.5em
+    .input-wrapper
+        position: relative
+        border: 1px solid colors.$black15
+        border-radius: 4px
+        display: inline-flex
+        input
+            width: 100%
+            border-radius: 4px
+            padding: 0.25em 0.5em
+            font-size: 14px
+            line-height: 22px
+            color: colors.$black45
+            &:focus
+                background-color: colors.$black2
 .page-title,.modal-title
     font-weight: 500
     font-size: 28px
@@ -124,6 +143,7 @@ input,select,textarea
         line-height: 36px
 .page-title
     letter-spacing: 0.1em
+
 .radio-input
     display: inline-flex
     justify-content: flex-start
