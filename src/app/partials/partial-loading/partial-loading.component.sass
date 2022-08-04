@@ -1,0 +1,15 @@
+@use "src/assets/styles/colors" as colors
+.ani-color
+    animation: loading infinite 1s 0s ease-in-out
+
+@keyframes loading
+    0%
+        color: inherit
+    25%
+        color: colors.$main 45%
+    50%
+        color: colors.$main 70%
+    75%
+        color: colors.$main 95%
+    100%
+        color: colors.$main

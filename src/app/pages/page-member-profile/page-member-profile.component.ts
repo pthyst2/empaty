@@ -127,6 +127,7 @@ export class PageMemberProfileComponent implements OnInit {
         title: 'Basic infomation updated',
         timer: 1500,
       });
+      this.basicInfo.edit = false;
       this.getUser();
     } else {
       this.togglePopup({
@@ -157,6 +158,7 @@ export class PageMemberProfileComponent implements OnInit {
         title: 'Login infomation updated',
         timer: 1500,
       });
+      this.loginInfo.edit = false;
       this.getUser();
     } else {
       this.togglePopup({

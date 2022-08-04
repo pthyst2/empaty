@@ -21,7 +21,7 @@ export class PageMemberOrderComponent implements OnInit {
 
   cardImages = {
     visa: environment.imageUrls.logos + 'logo-visa.png',
-    master: environment.imageUrls.logos + 'logo-master-card.svg',
+    master: environment.imageUrls.logos + 'logo-master-card.png',
     jcb: environment.imageUrls.logos + 'logo-jcb.png',
   };
 

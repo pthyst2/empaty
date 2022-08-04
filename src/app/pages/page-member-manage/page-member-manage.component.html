@@ -3,21 +3,13 @@
     <!-- Account detail -->
     <div class="border-b border-black15 pb-4">
       <!-- Title & edit -->
-      <div
-        class="
-          flex
-          items-center
-          justify-center
-          lg:justify-start
-          mb-2
-          text-black65
-        "
-      >
+      <div class="flex items-center justify-between mb-2 text-black65">
         <p class="text-[16px] leading-[23px] tracking-wider uppercase mr-2">
           <strong>{{
             accountInfo.edit == true ? "Edit Account Detail" : "Account Detail"
           }}</strong>
         </p>
+        <!-- 
         <div
           *ngIf="accountInfo.edit == false"
           class="svg-wrapper w-[20px] h-[20px]"
@@ -25,6 +17,24 @@
         >
           <div class="svg svg-edit w-[20px] h-[20px]"></div>
         </div>
+      -->
+        <button
+          *ngIf="accountInfo.edit == false"
+          type="button"
+          class="
+            px-3
+            py-1
+            border border-black15
+            bg-white
+            text-black text-[14px]
+            hover:text-white
+            hover:bg-main
+            rounded
+          "
+          (click)="accountInfo.edit = true"
+        >
+          Edit
+        </button>
       </div>
       <!-- end of title & edit -->
       <!-- Content & form -->

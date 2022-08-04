@@ -1,0 +1,43 @@
+<div
+  class="
+    flex flex-col
+    justify-between
+    rounded-modal
+    bg-black2
+    py-[16px]
+    px-[32px]
+    min-h-[120px]
+    max-w-[340px]
+    shadow-light
+  "
+>
+  <div class="flex flex-col lg:flex-row justify-between lg:items-center">
+    <!-- Holder -->
+    <div>
+      <p class="uppercase tracking-wider">
+        {{ card.holder }}
+      </p>
+    </div>
+    <!-- end of holder -->
+    <!-- Expire -->
+    <div>
+      <p>EXP {{ card.expire.month }}/{{ card.expire.year }}</p>
+    </div>
+    <!-- end of expire -->
+  </div>
+  <div class="flex flex-col lg:flex-row justify-between items-center">
+    <!-- Number -->
+    <div class="mr-8">
+      <p>XXXX-XXXX-XXXX-{{ card.last4 }}</p>
+    </div>
+    <!-- end of number -->
+    <!-- Brand -->
+    <div class="w-full lg:w-auto text-right mt-4 lg:mt-0">
+      <img
+        [src]="image"
+        class="inline-block object-contain w-[100px] h-[64px]"
+      />
+    </div>
+    <!-- end of brand -->
+  </div>
+</div>

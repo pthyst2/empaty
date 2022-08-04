@@ -16,11 +16,6 @@ export class ResponseInterceptor implements HttpInterceptor {
     req: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    const newUrl = environment.apiUrl + req.url;
-    //const newUrl = environment.testApi + 'pokemon/ditto';
-    req = req.clone({
-      url: newUrl,
-    });
     return next.handle(req).pipe(
       map((event: any) => {
         return event;

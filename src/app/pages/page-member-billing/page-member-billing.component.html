@@ -1,0 +1,218 @@
+<layout-setting [route]="'/member/setting/billing'">
+  <!-- Content mode -->
+  <ng-template [ngIf]="editMode == false">
+    <div class="grow flex flex-col lg:flex-row">
+      <!-- Account & Payment -->
+      <div class="grow flex flex-col mb-4 mr-0 lg:mr-4">
+        <!-- Account -->
+        <div class="bg-white rounded-[4px] p-[16px] mb-4">
+          <!-- Subscription -->
+          <div class="pb-4 mb-4 border-b border-black15">
+            <!-- Title -->
+            <div class="flex items-center justify-between mb-4 text-black65">
+              <p
+                class="text-[16px] leading-[23px] tracking-wider uppercase mr-2"
+              >
+                <strong>Subscription</strong>
+              </p>
+              <button
+                *ngIf="subscriptionInfo.data"
+                type="button"
+                class="btn btn-white"
+              >
+                Change Plan
+              </button>
+              <button
+                *ngIf="!subscriptionInfo.data"
+                type="button"
+                class="btn btn-main"
+              >
+                Purchase New Plan
+              </button>
+            </div>
+            <!-- end of title -->
+            <!-- Content -->
+            <div *ngIf="subscriptionInfo.loading == false; else subLoading">
+              <div *ngIf="subscriptionInfo.data; else noPlan">
+                <span class="text-black65">Your plan: </span
+                ><span>{{ subscriptionInfo.data.plan.title }}</span>
+              </div>
+              <ng-template #noPlan>
+                <p>You did not purchase any plan yet.</p>
+              </ng-template>
+            </div>
+            <ng-template #subLoading>
+              <div class="w-full h-[100px]">
+                <partial-loading></partial-loading>
+              </div>
+            </ng-template>
+            <!-- end of content -->
+          </div>
+          <!-- end of subscription -->
+          <!-- Address -->
+          <div>
+            <!-- Title -->
+            <div class="flex items-center justify-between mb-4 text-black65">
+              <p
+                class="text-[16px] leading-[23px] tracking-wider uppercase mr-2"
+              >
+                <strong>Addresses</strong>
+              </p>
+              <button
+                *ngIf="addressInfo.data.billing && addressInfo.data.service"
+                type="button"
+                class="btn btn-white"
+              >
+                Edit Addresses
+              </button>
+              <button
+                *ngIf="!addressInfo.data.billing && !addressInfo.data.service"
+                type="button"
+                class="btn btn-main"
+              >
+                Setup Addresses
+              </button>
+            </div>
+            <!-- end of title -->
+            <!-- Content -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <!-- Billing address -->
+              <div>
+                <p class="text-black45"><strong>Billing Address</strong></p>
+                <div
+                  *ngIf="
+                    addressInfo.loading.billing == false;
+                    else billingLoading
+                  "
+                >
+                  <div *ngIf="addressInfo.data.billing; else noBilling">
+                    <p>
+                      <span>{{ addressInfo.data.billing.street }}</span>
+                      <span *ngIf="addressInfo.data.billing.state"
+                        >, {{ addressInfo.data.billing.state }}</span
+                      >
+                      <span *ngIf="addressInfo.data.billing.unit"
+                        >, {{ addressInfo.data.billing.unit }}</span
+                      >
+                      <span>, {{ addressInfo.data.billing.city }}</span>
+                      <span>, {{ addressInfo.data.billing.country }}.</span>
+                    </p>
+                    <p>
+                      Postal Code: {{ addressInfo.data.billing.postalCode }}
+                    </p>
+                  </div>
+                  <ng-template #noBilling>
+                    <p>No billing address data.</p>
+                  </ng-template>
+                </div>
+                <ng-template #billingLoading>
+                  <div class="w-full h-[100px]">
+                    <partial-loading></partial-loading>
+                  </div>
+                </ng-template>
+              </div>
+              <!-- end of billing address -->
+              <!-- Service address -->
+              <div>
+                <p class="text-black45"><strong>Service Address</strong></p>
+                <div
+                  *ngIf="
+                    addressInfo.loading.service == false;
+                    else serviceLoading
+                  "
+                >
+                  <div *ngIf="addressInfo.data.service; else noService">
+                    <p>
+                      <span>{{ addressInfo.data.service.street }}</span>
+                      <span *ngIf="addressInfo.data.service.state"
+                        >, {{ addressInfo.data.service.state }}</span
+                      >
+                      <span *ngIf="addressInfo.data.service.unit"
+                        >, {{ addressInfo.data.service.unit }}</span
+                      >
+                      <span>, {{ addressInfo.data.service.city }}</span>
+                      <span>, {{ addressInfo.data.service.country }}.</span>
+                    </p>
+                    <p>
+                      Postal Code: {{ addressInfo.data.service.postalCode }}
+                    </p>
+                  </div>
+                  <ng-template #noService>
+                    <p>No service address data.</p>
+                  </ng-template>
+                </div>
+                <ng-template #serviceLoading>
+                  <div class="w-full h-[100px]">
+                    <partial-loading></partial-loading>
+                  </div>
+                </ng-template>
+              </div>
+              <!-- end of service address -->
+            </div>
+            <!-- end of content -->
+          </div>
+          <!-- end of address -->
+        </div>
+        <!-- end of account -->
+        <!-- Payment -->
+        <div class="bg-white rounded-[4px] p-[16px]">
+          <!-- Title -->
+          <div class="flex items-center justify-between mb-8 text-black65">
+            <p class="text-[16px] leading-[23px] tracking-wider uppercase mr-2">
+              <strong>Payment</strong>
+            </p>
+            <button
+              *ngIf="paymentInfo.data"
+              type="button"
+              class="btn btn-white"
+            >
+              Edit Payment
+            </button>
+            <button
+              *ngIf="!paymentInfo.data"
+              type="button"
+              class="btn btn-main"
+            >
+              Setup Payment
+            </button>
+          </div>
+          <!-- end of title -->
+          <!-- Content -->
+          <div class="flex justify-center">
+            <partial-credit-card
+              *ngIf="paymentInfo.data; else noPayment"
+              [card]="paymentInfo.data"
+            ></partial-credit-card>
+            <ng-template #noPayment>
+              <p>No payment data.</p>
+            </ng-template>
+          </div>
+          <!-- end of content -->
+        </div>
+        <!-- end of payment -->
+      </div>
+      <!-- end of account & payment  -->
+      <!-- Invoices -->
+      <div class="bg-white rounded-[4px] p-[16px]"></div>
+      <!-- end of invoices -->
+    </div>
+  </ng-template>
+  <!-- end of content mode -->
+  <!-- Edit mode -->
+  <ng-template [ngIf]="editMode == true">
+    <div class="bg-white rounded-[4px] p-[16px]">
+      <!-- Title -->
+      <!-- end of title -->
+      <!-- Subscription -->
+
+      <!-- end of subscription -->
+      <!-- Address -->
+
+      <!-- end of address -->
+      <!-- Payment -->
+
+      <!-- end of payment -->
+    </div>
+  </ng-template>
+  <!-- end of edit mode -->
+</layout-setting>

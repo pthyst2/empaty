@@ -12,16 +12,7 @@
     <!-- Basic info -->
     <div class="py-4 border-b border-grey">
       <!-- Title & edit -->
-      <div
-        class="
-          flex
-          items-center
-          justify-center
-          lg:justify-start
-          mb-2
-          text-black65
-        "
-      >
+      <div class="flex items-center justify-between mb-2 text-black65">
         <p class="text-[16px] leading-[23px] tracking-wider uppercase mr-2">
           <strong>{{
             basicInfo.edit == true
@@ -29,13 +20,31 @@
               : "Basic Information"
           }}</strong>
         </p>
+        <!--  
         <div
           *ngIf="basicInfo.edit == false"
           class="svg-wrapper w-[20px] h-[20px]"
           (click)="toggleForm(basicInfo)"
         >
           <div class="svg svg-edit w-[20px] h-[20px]"></div>
-        </div>
+        </div>-->
+        <button
+          *ngIf="basicInfo.edit == false"
+          type="button"
+          class="
+            px-3
+            py-1
+            border border-black15
+            bg-white
+            text-black text-[14px]
+            hover:text-white
+            hover:bg-main
+            rounded
+          "
+          (click)="toggleForm(basicInfo)"
+        >
+          Edit
+        </button>
       </div>
       <!-- end of title & edit -->
       <!-- Content & form -->
@@ -238,16 +247,7 @@
     <!-- Login info -->
     <div class="py-4">
       <!-- Title & edit -->
-      <div
-        class="
-          flex
-          items-center
-          justify-center
-          lg:justify-start
-          mb-2
-          text-black65
-        "
-      >
+      <div class="flex items-center justify-between mb-2 text-black65">
         <p class="text-[16px] leading-[23px] tracking-wider uppercase mr-2">
           <strong>{{
             loginInfo.edit == true
@@ -255,13 +255,23 @@
               : "Login Information"
           }}</strong>
         </p>
-        <div
+        <button
           *ngIf="loginInfo.edit == false"
-          class="svg-wrapper w-[20px] h-[20px]"
+          type="button"
+          class="
+            px-3
+            py-1
+            border border-black15
+            bg-white
+            text-black text-[14px]
+            hover:text-white
+            hover:bg-main
+            rounded
+          "
           (click)="toggleForm(loginInfo)"
         >
-          <div class="svg svg-edit w-[20px] h-[20px]"></div>
-        </div>
+          Edit
+        </button>
       </div>
       <!-- end of title & edit -->
       <!-- Content & form-->

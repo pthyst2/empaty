@@ -4,14 +4,14 @@ import { CommonModule } from '@angular/common';
 import { ShareModule } from 'src/app/modules/share/share.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LayoutMemberHomeRoutingModule } from './layout-member-home-routing.module';
-
 //#endregion
 
 //#region Partials
+import { PartialCreditCardComponent } from '../../partials/partial-credit-card/partial-credit-card.component';
 import { PartialHeaderMemberComponent } from '../../partials/partial-header-member/partial-header-member.component';
 import { PartialItemSpaceLargeComponent } from 'src/app/partials/partial-item-space-large/partial-item-space-large.component';
-import { PartialSectionSpacesLargeComponent } from '../../partials/partial-section-spaces-large/partial-section-spaces-large.component';
 import { PartialSearchWithCategoryComponent } from 'src/app/partials/partial-search-with-category/partial-search-with-category.component';
+import { PartialSectionSpacesLargeComponent } from '../../partials/partial-section-spaces-large/partial-section-spaces-large.component';
 import { PartialTableProductsComponent } from '../../partials/partial-table-products/partial-table-products.component';
 import { PartialItemCollaboratorComponent } from 'src/app/partials/partial-item-collaborator/partial-item-collaborator.component';
 import { PartialListCollaboratorsComponent } from '../../partials/partial-list-collaborators/partial-list-collaborators.component';
@@ -21,7 +21,6 @@ import { PartialSidebarSettingComponent } from '../../partials/partial-sidebar-s
 //#endregion
 
 //#region Pages
-import { LayoutMemberHomeComponent } from './layout-member-home.component';
 import { PageMemberHomeComponent } from '../../pages/page-member-home/page-member-home.component';
 import { PageMemberCollaboratorsComponent } from '../../pages/page-member-collaborators/page-member-collaborators.component';
 import { PageMemberPublicSpacesComponent } from '../../pages/page-member-public-spaces/page-member-public-spaces.component';
@@ -30,6 +29,7 @@ import { PageMemberProductsComponent } from 'src/app/pages/page-member-products/
 import { PageMemberOrderComponent } from 'src/app/pages/page-member-order/page-member-order.component';
 import { PageMemberProfileComponent } from '../../pages/page-member-profile/page-member-profile.component';
 import { PageMemberManageComponent } from 'src/app/pages/page-member-manage/page-member-manage.component';
+import { PageMemberBillingComponent } from '../../pages/page-member-billing/page-member-billing.component';
 //#endregion
 
 //#region Modals
@@ -45,6 +45,7 @@ import { ModalMakePrivateComponent } from '../../modals/modal-make-private/modal
 //#endregion
 
 //#region Layouts
+import { LayoutMemberHomeComponent } from './layout-member-home.component';
 import { LayoutSettingComponent } from '../layout-setting/layout-setting.component';
 //#endregion
 @NgModule({
@@ -68,6 +69,7 @@ import { LayoutSettingComponent } from '../layout-setting/layout-setting.compone
     PageMemberOrderComponent,
     PageMemberManageComponent,
     PageMemberProfileComponent,
+    PageMemberBillingComponent,
     PartialSectionSpacesLargeComponent,
     PartialTableProductsComponent,
     PartialHeaderMemberComponent,
@@ -78,6 +80,7 @@ import { LayoutSettingComponent } from '../layout-setting/layout-setting.compone
     PartialListCollaboratorsComponent,
     PartialListPublicSpacesComponent,
     PartialSidebarSettingComponent,
+    PartialCreditCardComponent,
   ],
   imports: [
     CommonModule,
