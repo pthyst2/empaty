@@ -1,0 +1,200 @@
+@use "src/assets/styles/colors" as colors
+input,select,textarea
+    outline: none
+    border: none
+    &:focus
+        outline: none
+        border: none
+.input-invalid
+    border-color: colors.$red
+.form-group
+    margin-bottom: 1em
+    label
+        display: block
+        margin-bottom: 0.5em
+        font-size: 1em
+        font-weight: bold
+    .input-wrapper
+        display: flex
+        input[type="text"],input[type="email"],input[type="password"],.select-wrapper
+            flex-grow: 1
+            color: colors.$blackest
+            background-color: colors.$greyMedium
+            border-radius: 0.25em
+            margin-bottom: 0.25em
+        input[type="text"],input[type="email"],input[type="password"]
+            padding: 0.75em 1em
+            border: 2px solid transparent
+            outline: none
+            opacity: 0.8
+            &:focus
+                border-color: colors.$main
+        .select-wrapper
+            position: relative
+            &::after
+                content: "▼"
+                font-size: 1em
+                top: 1em
+                right: 10px
+                position: absolute
+                pointer-events: none
+            select
+                border-radius: 0.25em
+                box-sizing: border-box
+                width: 100%
+                background-color: transparent
+                color: inherit
+                padding: 0.9em 2em 0.9em 0.9em
+                -webkit-appearance: none
+                appearance: none
+                outline: none
+                border: 2px solid transparent
+                &:focus
+                    border-color: colors.$main
+                    outline: none
+        input[type="text"].input-invalid,input[type="email"].input-invalid,input[type="password"].input-invalid,.select-wrapper.input-invalid
+            outline-color: colors.$red
+        input[type="text"].style2,input[type="email"].style2,input[type="password"].style2,.select-wrapper.style2
+            color: colors.$blackest
+            background-color: #fff
+            opacity: 1
+            border-radius: 0px
+            select
+                border-radius: 0px
+        input[type="text"].style2,input[type="email"].style2,input[type="password"].style2
+            padding-top: 0.9em
+            padding-bottom: 0.9em
+.form-group-inline
+    display: flex
+    justify-content: center
+    align-items: center
+    label
+        font-size: 1em
+        line-height: 20px
+        color: colors.$black65
+        flex-grow: 1
+    .input-wrapper
+        display: inline-flex
+        border-width: 1px
+        border-style: solid
+        border-color: colors.$black15
+        border-radius: 3px
+        background-color: white
+        color: colors.$black45
+        padding: 0.5em
+        margin-left: 20px
+        input,select,textarea
+            border: none
+            outline: none
+            font-size: 14px
+            line-height: 16px
+            width: 100%
+    .input-wrapper.input-invalid
+        border-color: #ff0000
+.form-group-col
+    display: flex
+    flex-direction: column
+    label
+        margin-bottom: 0.5em
+    .input-wrapper
+        position: relative
+        border: 1px solid colors.$black15
+        border-radius: 4px
+        display: inline-flex
+        input
+            width: 100%
+            border-radius: 4px
+            padding: 0.25em 0.5em
+            font-size: 14px
+            line-height: 22px
+            color: colors.$black45
+            &:focus
+                background-color: colors.$black2
+.page-title,.modal-title
+    font-weight: 500
+    font-size: 28px
+    line-height: 41px
+    font-family: 'MPlus-SemiBold'
+    text-transform: uppercase
+    @media screen and (max-width: 991.98px)
+        font-size: 20px
+        line-height: 36px
+.page-title
+    letter-spacing: 0.1em
+
+.radio-input
+    display: inline-flex
+    justify-content: flex-start
+    align-items: center
+    cursor: pointer
+    margin-right: 1em
+    .input-wrapper
+        border-radius: 50%
+        border: 1px solid colors.$main
+        padding: 3px
+        margin-right: 0.4em
+        .input
+            width: 10px
+            height: 10px
+            border-radius: 50%
+        .input.checked
+            background-color: colors.$main
+.checkbox-input
+    /* The container */
+    label
+        display: block
+        position: relative
+        padding-left: 35px
+        margin-bottom: 12px
+        cursor: pointer
+        font-size: 0.9em
+        -webkit-user-select: none
+        -moz-user-select: none
+        -ms-user-select: none
+        user-select: none
+
+    /* Hide the browser's default checkbox */
+    label
+        input
+            position: absolute
+            opacity: 0
+            cursor: pointer
+            height: 0
+            width: 0
+            &:checked ~ .checkmark
+                background-color: colors.$main
+                border-color: colors.$main
+
+        /* Create a custom checkbox */
+        .checkmark
+            position: absolute
+            top: 0
+            left: 0
+            height: 20px
+            width: 20px
+            border-radius: 3px
+            border: 1px solid colors.$black15
+            &:after
+                content: ""
+                position: absolute
+                display: none
+                left: 6px
+                top: 1px
+                width: 8px
+                height: 13px
+                border: solid white
+                border-width: 0 3px 3px 0
+                -webkit-transform: rotate(45deg)
+                -ms-transform: rotate(45deg)
+                transform: rotate(45deg)
+        &:hover
+            input ~ .checkmark
+                background-color: colors.$main
+                &:after
+                    display: block
+
+    /* Create the checkmark/indicator (hidden when not checked) */
+
+    /* Show the checkmark when checked */
+    label input:checked ~ .checkmark:after
+        display: block

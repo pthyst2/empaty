@@ -1,0 +1,33 @@
+<div
+  class="
+    flex flex-col
+    justify-between
+    box-border
+    h-full
+    border
+    hover:border-main
+    rounded-[10px]
+    p-[16px]
+    cursor-pointer
+  "
+  (click)="active == true ? '' : (this.showConfirm = true)"
+  [class.border-black15]="active == false"
+  [class.border-main]="active == true"
+>
+  <div>
+    <p>{{ plan.title }}</p>
+  </div>
+  <div class="py-4">
+    <p class="text-main">
+      <strong
+        >{{
+          plan.fees.year | currency: "JPY":"symbol-narrow":"1.2-2"
+        }}/year</strong
+      >
+    </p>
+    <p *ngIf="plan.fees.month">
+      {{ plan.fees.month | currency: "JPY":"symbol-narrow":"1.2-2" }}/month
+    </p>
+  </div>
+  <div [innerHtml]="plan.description" class="text-[13px]"></div>
+</div>

@@ -3,9 +3,21 @@
   <ng-template [ngIf]="editMode == false">
     <div class="grow flex flex-col lg:flex-row">
       <!-- Account & Payment -->
-      <div class="grow flex flex-col mb-4 mr-0 lg:mr-4">
+      <div
+        class="
+          grow
+          flex flex-col
+          mb-4
+          mr-0
+          lg:mr-4
+          lg:mb-0
+          lg:max-w-[500px]
+          xl:min-w-[500px]
+          lg:h-[600px]
+        "
+      >
         <!-- Account -->
-        <div class="bg-white rounded-[4px] p-[16px] mb-4">
+        <div class="bg-white rounded-[4px] p-[16px] mb-4 grow">
           <!-- Subscription -->
           <div class="pb-4 mb-4 border-b border-black15">
             <!-- Title -->
@@ -19,6 +31,7 @@
                 *ngIf="subscriptionInfo.data"
                 type="button"
                 class="btn btn-white"
+                (click)="toggleEdit('sub')"
               >
                 Change Plan
               </button>
@@ -26,6 +39,7 @@
                 *ngIf="!subscriptionInfo.data"
                 type="button"
                 class="btn btn-main"
+                (click)="toggleEdit('sub')"
               >
                 Purchase New Plan
               </button>
@@ -59,9 +73,10 @@
                 <strong>Addresses</strong>
               </p>
               <button
-                *ngIf="addressInfo.data.billing && addressInfo.data.service"
+                *ngIf="addressInfo.data.billing || addressInfo.data.service"
                 type="button"
                 class="btn btn-white"
+                (click)="toggleEdit('address')"
               >
                 Edit Addresses
               </button>
@@ -69,6 +84,7 @@
                 *ngIf="!addressInfo.data.billing && !addressInfo.data.service"
                 type="button"
                 class="btn btn-main"
+                (click)="toggleEdit('address')"
               >
                 Setup Addresses
               </button>
@@ -165,6 +181,7 @@
               *ngIf="paymentInfo.data"
               type="button"
               class="btn btn-white"
+              (click)="toggleEdit('payment')"
             >
               Edit Payment
             </button>
@@ -172,6 +189,7 @@
               *ngIf="!paymentInfo.data"
               type="button"
               class="btn btn-main"
+              (click)="toggleEdit('payment')"
             >
               Setup Payment
             </button>
@@ -193,18 +211,127 @@
       </div>
       <!-- end of account & payment  -->
       <!-- Invoices -->
-      <div class="bg-white rounded-[4px] p-[16px]"></div>
+      <div
+        class="
+          bg-white
+          rounded-[4px]
+          p-[16px]
+          min-w-[200px]
+          h-auto
+          lg:h-[568px]
+          overflow-hidden
+        "
+      >
+        <!-- Title -->
+        <div
+          class="
+            flex
+            items-center
+            justify-between
+            text-black65
+            pb-4
+            border-b border-black15
+          "
+        >
+          <p class="text-[16px] leading-[23px] tracking-wider uppercase mr-2">
+            <strong>Invoices</strong>
+          </p>
+        </div>
+        <!-- end of title -->
+        <!-- List -->
+        <div
+          class="
+            max-h-[350px]
+            lg:max-h-[530px]
+            overflow-y-scroll
+            list
+            scrollbar-small
+          "
+        >
+          <ng-template [ngIf]="invoiceInfo.loading == true">
+            <div class="w-full h-[100px]">
+              <partial-loading></partial-loading>
+            </div>
+          </ng-template>
+          <ng-template [ngIf]="invoiceInfo.loading == false">
+            <ng-container
+              *ngIf="
+                invoiceInfo.data && invoiceInfo.data.length > 0;
+                else noInvoice
+              "
+            >
+              <div
+                *ngFor="let invoice of invoiceInfo.data"
+                class="flex justify-between items-center py-2"
+              >
+                <div>
+                  <p class="text-black65">
+                    {{ invoice.name }}
+                  </p>
+                  <p class="text-black45">
+                    <span>{{ invoice.created_at | date: "yyyy-MM-dd" }}</span>
+                  </p>
+                </div>
+                <div>
+                  <div class="svg-wrapper w-[20px] h-[20px]">
+                    <div class="svg svg-download w-[18px] h-[18px]"></div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+            <ng-template #noInvoice>
+              <p>You have no invoice yet.</p>
+            </ng-template>
+          </ng-template>
+        </div>
+        <!-- end of list -->
+      </div>
       <!-- end of invoices -->
     </div>
   </ng-template>
   <!-- end of content mode -->
   <!-- Edit mode -->
   <ng-template [ngIf]="editMode == true">
-    <div class="bg-white rounded-[4px] p-[16px]">
+    <div
+      class="bg-white rounded-[4px] p-[16px] grow lg:min-w-[500px] xl:w-[714px]"
+    >
       <!-- Title -->
+      <div class="flex items-center justify-between mb-4 text-black65">
+        <p class="text-[16px] leading-[23px] tracking-wider uppercase mr-2">
+          <strong>{{ editTitle }}</strong>
+        </p>
+        <button
+          *ngIf="subscriptionInfo.edit == true"
+          type="button"
+          class="btn btn-white"
+          (click)="toggleEdit('sub')"
+        >
+          Back
+        </button>
+        <button
+          *ngIf="addressInfo.edit == true"
+          type="button"
+          class="btn btn-white"
+          (click)="toggleEdit('address')"
+        >
+          Back
+        </button>
+        <button
+          *ngIf="paymentInfo.edit == true"
+          type="button"
+          class="btn btn-white"
+          (click)="toggleEdit('payment')"
+        >
+          Back
+        </button>
+      </div>
       <!-- end of title -->
       <!-- Subscription -->
-
+      <partial-list-plans
+        [plans]="subscriptionInfo.selects.plans"
+        [userPlan]="subscriptionInfo.data.plan"
+        (selected)="submitForm('sub', $event)"
+      ></partial-list-plans>
       <!-- end of subscription -->
       <!-- Address -->
 
@@ -215,4 +342,12 @@
     </div>
   </ng-template>
   <!-- end of edit mode -->
+
+  <!-- Popup -->
+  <modal-popup
+    [content]="this.popup"
+    [show]="this.popup.show"
+    (closed)="this.popup.show = false"
+  ></modal-popup>
+  <!-- end of popup-->
 </layout-setting>

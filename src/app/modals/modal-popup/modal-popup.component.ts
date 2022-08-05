@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-
 import { environment } from 'src/environments/environment';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { ModalBaseComponent } from '../modal-base/modal-base.component';
@@ -11,7 +10,8 @@ import { ModalBaseComponent } from '../modal-base/modal-base.component';
 export class ModalPopupComponent extends ModalBaseComponent {
   faTimes = faTimes;
   iconUrl = environment.imageUrls.svg;
-  iconSrc: any;
+  iconSuccess = this.iconUrl + 'popup-icon-success.svg';
+  iconError = this.iconUrl + 'popup-icon-error.svg';
 
   @Input() content: any;
   @Input() show: boolean = false;
@@ -20,24 +20,10 @@ export class ModalPopupComponent extends ModalBaseComponent {
     super()
   }
   override ngOnInit(): void {
-    this.renderIcon();
     if (this.content?.timer) {
       setTimeout(() => {
         this.close(false);
       }, this.content?.timer);
-    }
-  }
-
-  renderIcon() {
-    switch (this.content?.icon) {
-      case 'success': {
-        this.iconSrc = this.iconUrl + 'popup-icon-success.svg';
-        break;
-      }
-      case 'error': {
-        this.iconSrc = this.iconUrl + 'popup-icon-error.svg';
-        break;
-      }
     }
   }
 

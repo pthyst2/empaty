@@ -1,0 +1,15 @@
+<ng-template [ngIf]="plans && plans.length > 0">
+  <div
+    class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4"
+  >
+    <partial-item-plan
+      *ngFor="let plan of plans"
+      [plan]="plan"
+      [active]="userPlan._id == plan._id ? true : false"
+      (selected)="select($event)"
+    ></partial-item-plan>
+  </div>
+</ng-template>
+<ng-template [ngIf]="!plans || plans.length == 0">
+  <p>There is no plan yet.</p>
+</ng-template>

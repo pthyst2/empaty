@@ -1,0 +1,35 @@
+<ng-template [ngIf]="show == true">
+  <modal-base
+    [position]="'center'"
+    [size]="'xs'"
+    [static]="false"
+    (closed)="close($event)"
+  >
+    <div class="rounded-modal bg-white p-[16px] w-[300px]">
+      <!-- Close -->
+      <div class="text-right mb-4 text-[24px] text-black45">
+        <fa-icon
+          [icon]="faTimes"
+          class="cursor-pointer"
+          (click)="close()"
+        ></fa-icon>
+      </div>
+      <!-- end of close -->
+
+      <!-- Content -->
+      <p>Purchase plan work here</p>
+      <!-- end of content -->
+
+      <!--- Buttons -->
+      <div class="text-center">
+        <button type="button" class="btn btn-white" (click)="close()">
+          Cancel
+        </button>
+        <button type="button" class="btn btn-main" (click)="close(true)">
+          Purchase it
+        </button>
+      </div>
+      <!-- end of buttons -->
+    </div>
+  </modal-base>
+</ng-template>

@@ -27,3 +27,74 @@ $billing: $svgUrl + 'receipt.svg'
 $billing-color: $billing
 $user-octagon: $svgUrl + 'user-octagon.svg'
 $user-octagon-color: $user-octagon
+$download: $svgUrl + 'download.svg'
+$download-color: $svgUrl + 'download-color.svg'
+.svg-wrapper
+    display: inline-flex
+    justify-content: center
+    align-items: center
+    cursor: pointer
+    .svg
+        background-repeat: no-repeat
+        background-size: contain
+    .svg-store
+        background-image: url($store)
+    .svg-lock
+        background-image: url($lock)
+    .svg-unlock
+        background-image: url($unlock)
+    .svg-edit
+        background-image: url($edit)
+    .svg-trash
+        background-image: url($trash)
+    .svg-add-collaborator
+        background-image: url($addCollaborator)
+    .svg-staple
+        background-image: url($staple)
+    .svg-global
+        background-image: url($global)
+    .svg-plan
+        background-image: url($plan)
+    .svg-open-app
+        background-image: url($openApp)
+    .svg-account
+        background-image: url($account)
+    .svg-manage
+        background-image: url($manage)
+    .svg-billing
+        background-image: url($billing)
+    .svg-user-octagon
+        background-image: url($user-octagon)
+    .svg-download
+        background-image: url($download)
+    &:hover
+        .svg-store
+            background-image: url($store-color)
+        .svg-lock
+            background-image: url($lock-color)
+        .svg-unlock
+            background-image: url($unlock-color)
+        .svg-edit
+            background-image: url($edit-color)
+        .svg-trash
+            background-image: url($trash-color)
+        .svg-add-collaborator
+            background-image: url($addCollaborator-color)
+        .svg-staple
+            background-image: url($staple-color)
+        .svg-global
+            background-image: url($global-color)
+        .svg-plan
+            background-image: url($plan-color)
+        .svg-open-app
+            background-image: url($openApp-color)
+        .svg-account
+            background-image: url($account-color)
+        .svg-manage
+            background-image: url($manage-color)
+        .svg-billing
+            background-image: url($billing-color)
+        .svg-user-octagon
+            background-image: url($user-octagon-color)
+        .svg-download
+            background-image: url($download-color)

@@ -26,6 +26,7 @@ import { FixedItemUserComponent } from 'src/app/fixed-items/fixed-item-user/fixe
 
 //#region Modals
 import { ModalBaseComponent } from 'src/app/modals/modal-base/modal-base.component';
+import { ModalConfirmComponent } from '../../modals/modal-confirm/modal-confirm.component';
 import { ModalMessageComponent } from 'src/app/modals/modal-message/modal-message.component';
 import { ModalPopupComponent } from '../../modals/modal-popup/modal-popup.component';
 //#endregion modals
@@ -35,51 +36,38 @@ import { SliderBaseComponent } from '../../sliders/slider-base/slider-base.compo
 import { SliderCreateSpaceComponent } from '../../sliders/slider-create-space/slider-create-space.component';
 //#endregion
 
+//#region Declarations
+const declarations: any = [
+  ButtonBaseComponent,
+  ButtonIconFontAwesomeComponent,
+  ButtonSvgComponent,
+  FixedItemUserComponent,
+  ModalConfirmComponent,
+  ModalBaseComponent,
+  ModalMessageComponent,
+  ModalPopupComponent,
+  PartialCopyrightComponent,
+  PartialItemSwitchComponent,
+  PartialLoadingComponent,
+  PartialPaginationComponent,
+  SliderBaseComponent,
+  SliderCreateSpaceComponent,
+];
+//#endregion
+//#region Imports
+const imports: any = [
+  CommonModule,
+  RouterModule,
+  FontAwesomeModule,
+  FormsModule,
+  ReactiveFormsModule,
+  DragScrollModule,
+];
+//#endregion
 @NgModule({
-  declarations: [
-    ButtonBaseComponent,
-    ButtonIconFontAwesomeComponent,
-    ButtonSvgComponent,
-    FixedItemUserComponent,
-    ModalBaseComponent,
-    ModalMessageComponent,
-    ModalPopupComponent,
-    PartialLoadingComponent,
-    PartialPaginationComponent,
-    PartialCopyrightComponent,
-    PartialItemSwitchComponent,
-    SliderBaseComponent,
-    SliderCreateSpaceComponent,
-    PartialItemSwitchComponent,
-  ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    FontAwesomeModule,
-    FormsModule,
-    ReactiveFormsModule,
-    DragScrollModule,
-  ],
-  exports: [
-    ButtonBaseComponent,
-    ButtonIconFontAwesomeComponent,
-    ButtonSvgComponent,
-    FixedItemUserComponent,
-    ModalBaseComponent,
-    ModalMessageComponent,
-    ModalPopupComponent,
-    PartialCopyrightComponent,
-    PartialLoadingComponent,
-    PartialPaginationComponent,
-    PartialItemSwitchComponent,
-    SliderBaseComponent,
-    SliderCreateSpaceComponent,
-    RouterModule,
-    FontAwesomeModule,
-    FormsModule,
-    ReactiveFormsModule,
-    DragScrollModule,
-  ],
+  declarations: declarations,
+  imports: imports,
+  exports: [declarations, ...imports],
   providers: [],
 })
 export class ShareModule {}

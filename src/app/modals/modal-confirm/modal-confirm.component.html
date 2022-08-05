@@ -1,6 +1,6 @@
-<ng-template [ngIf]="content && show == true">
+<ng-template [ngIf]="content && content.show == true">
   <modal-base
-    [position]="'bottom-right'"
+    [position]="'center'"
     [size]="'xs'"
     [static]="false"
     (closed)="close($event)"
@@ -43,6 +43,16 @@
         <div [innerHTML]="content.html" class="text-center"></div>
       </ng-template>
       <!-- end of html -->
+      <!--- Buttons -->
+      <div class="text-center">
+        <button type="button" class="btn btn-white" (click)="close()">
+          {{ content.cancelText ? content.cancelText : "Cancel" }}
+        </button>
+        <button type="button" class="btn btn-main" (click)="close(true)">
+          {{ content.confirmText ? content.confirmText : "OK" }}
+        </button>
+      </div>
+      <!-- end of buttons -->
     </div>
   </modal-base>
 </ng-template>

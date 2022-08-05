@@ -1,25 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+//#region Services
 import { FormService } from 'src/app/services/utilities/form.service';
 import { AuthService } from 'src/app/services/data/auth.service';
 import { UserPlanService } from 'src/app/services/data/user-plan.service';
 import { UserCardService } from 'src/app/services/data/user-card.service';
 import { CreditCardService } from 'src/app/services/utilities/credit-card.service';
 import { AddressService } from 'src/app/services/data/address.service';
+import { InvoiceService } from 'src/app/services/data/invoice.service';
+import { CountryService } from 'src/app/services/data/country.service';
+//#endregion
 @Component({
   selector: 'page-member-billing',
   templateUrl: './page-member-billing.component.html',
   styleUrls: ['./page-member-billing.component.sass'],
 })
 export class PageMemberBillingComponent implements OnInit {
+  //#region Variables
   user: any;
   editMode = false;
   editTitle = 'Edit Mode';
   subscriptionInfo: any = {
     data: undefined,
+    selects: {
+      plans: [],
+    },
     loading: false,
     edit: false,
-    form: this.fb.group({}),
+    form: this.fb.group({
+      user: ['', [Validators.required]],
+      plan: ['', [Validators.required]],
+    }),
   };
   addressInfo: any = {
     data: {
@@ -87,7 +98,14 @@ export class PageMemberBillingComponent implements OnInit {
       cvc: ['', [Validators.required]],
     }),
   };
-  popup: any;
+  invoiceInfo: any = {
+    loading: false,
+    data: [],
+  };
+  popup: any = {};
+
+  //#endregion
+
   constructor(
     private fb: FormBuilder,
     public fs: FormService,
@@ -95,7 +113,9 @@ export class PageMemberBillingComponent implements OnInit {
     private addressService: AddressService,
     private planService: UserPlanService,
     private ccService: CreditCardService,
-    private paymentService: UserCardService
+    private paymentService: UserCardService,
+    private invoicService: InvoiceService,
+    private countryService: CountryService
   ) {}
 
   ngOnInit(): void {
@@ -105,7 +125,10 @@ export class PageMemberBillingComponent implements OnInit {
       this.getAddressBilling();
       this.getAddressService();
       this.getPayment();
+      this.getInvoices();
     }
+    this.getUserPlans();
+    this.getCountries();
   }
 
   getUser() {
@@ -120,7 +143,6 @@ export class PageMemberBillingComponent implements OnInit {
     setTimeout(() => {
       this.addressInfo.loading.billing = false;
     }, 1000);
-    console.log('billing: ', this.addressInfo.data.billing);
   }
   getAddressService() {
     this.addressInfo.loading.service = true;
@@ -130,7 +152,6 @@ export class PageMemberBillingComponent implements OnInit {
     setTimeout(() => {
       this.addressInfo.loading.service = false;
     }, 1000);
-    console.log('service: ', this.addressInfo.data.service);
   }
   getSubscription() {
     this.subscriptionInfo.loading = true;
@@ -140,7 +161,10 @@ export class PageMemberBillingComponent implements OnInit {
     setTimeout(() => {
       this.subscriptionInfo.loading = false;
     }, 1000);
-    console.log('subscription: ', this.subscriptionInfo.data);
+    let data = this.subscriptionInfo.data;
+
+    this.ctr('sub').user.setValue(data.user);
+    this.ctr('sub').plan.setValue(data.plan._id);
   }
   getPayment() {
     this.paymentInfo.loading = true;
@@ -148,6 +172,29 @@ export class PageMemberBillingComponent implements OnInit {
     setTimeout(() => {
       this.paymentInfo.loading = false;
     }, 1000);
+  }
+  getInvoices() {
+    this.invoiceInfo.loading = true;
+    this.invoiceInfo.data = this.invoicService.getAll(this.user._id)[0].items;
+    setTimeout(() => {
+      this.invoiceInfo.loading = false;
+    }, 1000);
+  }
+
+  getUserPlans() {
+    this.subscriptionInfo.selects.plans = this.planService.getPlans().data;
+    console.log('userPlans: ', this.subscriptionInfo.selects.plans);
+  }
+  getCountries() {
+    this.countryService.getAllCountries().subscribe({
+      next: (res) => {
+        console.log('countries res: ', res);
+        this.addressInfo.selects.countries = res;
+      },
+      error: (err) => {
+        console.error('Error when getting countries list: ', err);
+      },
+    });
   }
 
   form(name: string) {
@@ -179,25 +226,33 @@ export class PageMemberBillingComponent implements OnInit {
     this.editMode = !this.editMode;
     switch (name) {
       case 'sub': {
-        this.editTitle = 'Edit Subscription';
+        this.editTitle = this.subscriptionInfo.data
+          ? 'Change Plan'
+          : 'Choose Plan';
         this.subscriptionInfo.edit = !this.subscriptionInfo.edit;
         break;
       }
       case 'address': {
-        this.editTitle = 'Edit Addresses';
+        this.editTitle =
+          !this.addressInfo.data.billing && !this.addressInfo.data.service
+            ? 'Setup Addresses'
+            : 'Edit Addresses';
         this.addressInfo.edit = !this.addressInfo.edit;
         break;
       }
       case 'payment': {
-        this.editTitle = 'Edit Payment';
+        this.editTitle = this.paymentInfo.data
+          ? 'Edit Payment'
+          : 'Setup Payment Method';
         this.paymentInfo.edit = !this.paymentInfo.edit;
         break;
       }
     }
   }
-  submitForm(name: string) {
+  submitForm(name: string, content?: any) {
     switch (name) {
       case 'sub': {
+        this.ctr('sub').plan.setValue(content._id);
         this.subscriptionInfo.submitted = true;
         if (this.form('sub').valid) {
           this.subscriptionInfo.edit = false;

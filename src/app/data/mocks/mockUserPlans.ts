@@ -4,8 +4,8 @@ export const mockUserPlans = [
     title: 'One Man Company',
     description: 'Starter pack for small company with single person.',
     fees: {
-      month: 9.99,
-      year: 99.99,
+      month: 99.99,
+      year: 999.99,
     },
   },
   {
@@ -13,8 +13,8 @@ export const mockUserPlans = [
     title: 'Rising Agency',
     description: 'Medium pack for humble company with 10 - 25 people.',
     fees: {
-      month: 49.99,
-      year: 499.99,
+      month: 499.99,
+      year: 4999.99,
     },
   },
   {
@@ -22,8 +22,8 @@ export const mockUserPlans = [
     title: 'Local Organization',
     description: 'Professional pack for big company with 50 - 100 people.',
     fees: {
-      month: 99.99,
-      year: 999.99,
+      month: 999.99,
+      year: 9999.99,
     },
   },
   {
@@ -32,7 +32,7 @@ export const mockUserPlans = [
     description:
       'Ultra deluxe pack for giant company with more than 100 people.',
     fees: {
-      year: 2999.99,
+      year: 29999.99,
     },
   },
 ];
