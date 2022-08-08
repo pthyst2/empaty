@@ -226,10 +226,12 @@ export class PageMemberBillingComponent implements OnInit {
     this.editMode = !this.editMode;
     switch (name) {
       case 'sub': {
+        console.log('Sub button clicked');
         this.editTitle = this.subscriptionInfo.data
           ? 'Change Plan'
           : 'Choose Plan';
         this.subscriptionInfo.edit = !this.subscriptionInfo.edit;
+        console.log('this.subscriptionInfo.edit: ', this.subscriptionInfo.edit);
         break;
       }
       case 'address': {
