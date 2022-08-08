@@ -3,6 +3,7 @@ import { ModalBaseComponent } from '../modal-base/modal-base.component';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from 'src/app/services/data/auth.service';
 import { UserCardService } from 'src/app/services/data/user-card.service';
+import { environment } from 'src/environments/environment.prod';
 @Component({
   selector: 'modal-purchase-plan',
   templateUrl: './modal-purchase-plan.component.html',
@@ -15,7 +16,7 @@ export class ModalPurchasePlanComponent extends ModalBaseComponent {
   payment: any;
 
   faTimes = faTimes;
-
+  appName = environment.appName;
   constructor(private authService: AuthService, private cardService: UserCardService){
     super();
   }
@@ -24,16 +25,18 @@ export class ModalPurchasePlanComponent extends ModalBaseComponent {
     if (this.user) {
       this.getPayment();
     }
+    console.log("Input Plan: ", this.plan);
   }
   
   override close(data?:any) {
-    super.closed.emit(data ? data : false)
+    super.close(data?data:false)
   }
 
   getUser(){
     this.user = this.authService.getUserDecoded();
   }
   getPayment(){
-    this.payment = this.cardService.getCard(this.user._id)
+    this.payment = this.cardService.getCard(this.user._id).data;
+    console.log("this.payment: ",this.payment);
   }
 }

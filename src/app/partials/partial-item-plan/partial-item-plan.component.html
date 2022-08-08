@@ -10,7 +10,7 @@
     p-[16px]
     cursor-pointer
   "
-  (click)="active == true ? '' : (this.showConfirm = true)"
+  (click)="active == true ? '' : toggleConfirm()"
   [class.border-black15]="active == false"
   [class.border-main]="active == true"
 >
@@ -31,3 +31,9 @@
   </div>
   <div [innerHtml]="plan.description" class="text-[13px]"></div>
 </div>
+
+<modal-purchase-plan
+  [plan]="plan"
+  [show]="showConfirm"
+  (closed)="catchConfirm($event)"
+></modal-purchase-plan>

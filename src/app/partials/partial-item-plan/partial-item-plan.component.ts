@@ -20,5 +20,10 @@ export class PartialItemPlanComponent implements OnInit {
     if (event == true) {
       this.selected.emit(this.plan);
     }
+    this.toggleConfirm();
+  }
+
+  toggleConfirm() {
+    this.showConfirm = !this.showConfirm;
   }
 }

@@ -183,12 +183,10 @@ export class PageMemberBillingComponent implements OnInit {
 
   getUserPlans() {
     this.subscriptionInfo.selects.plans = this.planService.getPlans().data;
-    console.log('userPlans: ', this.subscriptionInfo.selects.plans);
   }
   getCountries() {
     this.countryService.getAllCountries().subscribe({
       next: (res) => {
-        console.log('countries res: ', res);
         this.addressInfo.selects.countries = res;
       },
       error: (err) => {
@@ -226,12 +224,10 @@ export class PageMemberBillingComponent implements OnInit {
     this.editMode = !this.editMode;
     switch (name) {
       case 'sub': {
-        console.log('Sub button clicked');
         this.editTitle = this.subscriptionInfo.data
           ? 'Change Plan'
           : 'Choose Plan';
         this.subscriptionInfo.edit = !this.subscriptionInfo.edit;
-        console.log('this.subscriptionInfo.edit: ', this.subscriptionInfo.edit);
         break;
       }
       case 'address': {

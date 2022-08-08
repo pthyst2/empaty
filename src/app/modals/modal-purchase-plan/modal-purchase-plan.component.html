@@ -1,31 +1,121 @@
 <ng-template [ngIf]="show == true">
-  <modal-base
-    [position]="'center'"
-    [size]="'xs'"
-    [static]="false"
-    (closed)="close($event)"
-  >
+  <modal-base [position]="'center'" [static]="false" (closed)="close($event)">
     <div class="rounded-modal bg-white p-[16px] w-[300px]">
-      <!-- Close -->
-      <div class="text-right mb-4 text-[24px] text-black45">
+      <!-- Title and close -->
+      <div
+        class="
+          text-black65
+          flex
+          justify-between
+          items-center
+          pb-2
+          border-b border-black15
+        "
+      >
+        <!-- Title -->
+        <div class="uppercase"><strong>Purchase Plan</strong></div>
+        <!-- end of title -->
+        <!-- Close -->
         <fa-icon
           [icon]="faTimes"
           class="cursor-pointer"
           (click)="close()"
         ></fa-icon>
+        <!-- end of close -->
       </div>
-      <!-- end of close -->
+      <!-- end of title and close -->
 
       <!-- Content -->
-      <p>Purchase plan work here</p>
+      <div class="pt-2 pb-2 border-b border-black15">
+        <!-- Plan -->
+        <div class="mb-2">
+          <!-- Title -->
+          <div class="mb-1 text-main">
+            <p>
+              <strong>{{ plan.title }}</strong>
+            </p>
+          </div>
+          <!-- end of title -->
+          <!-- Description -->
+          <div class="mb-1 text-black65">
+            <p>
+              {{ plan.description }}
+            </p>
+          </div>
+          <!-- end of description -->
+          <!-- Fees -->
+          <div>
+            <div class="flex justify-between items-center">
+              <p>Yearly Fee</p>
+              <p>
+                {{ plan.fees.year | currency: "JPY":"symbol-narrow":"1.2-2" }}
+              </p>
+            </div>
+            <div
+              *ngIf="plan.fees.month"
+              class="flex justify-between items-center"
+            >
+              <p>Monthly Fee</p>
+              <p>
+                {{ plan.fees.month | currency: "JPY":"symbol-narrow":"1.2-2" }}
+              </p>
+            </div>
+          </div>
+          <!-- end of fees -->
+        </div>
+        <!-- end of plan -->
+        <!-- Payment method -->
+        <div>
+          <p class="text-main"><strong>Payment Method</strong></p>
+          <!-- Holder -->
+          <p>{{ payment.holder }}</p>
+          <!-- end of holder -->
+          <!-- Last 4 -->
+          <p>**** **** **** {{ payment.last4 }}</p>
+          <!-- end of last 4 -->
+          <!-- Type -->
+          <ng-container [ngSwitch]="payment.type">
+            <p *ngSwitchCase="'visa'">VISA</p>
+            <p *ngSwitchCase="'master'">Master Card</p>
+            <p *ngSwitchCase="'jcb'">JCB</p>
+          </ng-container>
+          <!-- end of type -->
+        </div>
+        <!-- end of payment method -->
+      </div>
       <!-- end of content -->
 
+      <!-- Note -->
+      <div class="text-black65 pt-2 pb-4 italic text-[13px]">
+        <p>
+          This plan will be apply immediately after you clicked
+          <strong>Purchase it</strong> button.
+        </p>
+        <p>
+          By click <span><strong>Purchase it</strong></span
+          >, you are argeed with our
+          <a [routerLink]="['/member/home']" class="text-main"
+            >Terms and Conditions</a
+          >
+          about purchase plans on {{ appName }} system.
+        </p>
+      </div>
+      <!-- end of note -->
+
       <!--- Buttons -->
-      <div class="text-center">
-        <button type="button" class="btn btn-white" (click)="close()">
+      <div class="flex flex-col lg:flex-row justify-center items-center">
+        <button
+          type="button"
+          class="btn btn-white mr-0 lg:mr-4"
+          (click)="close()"
+        >
           Cancel
         </button>
-        <button type="button" class="btn btn-main" (click)="close(true)">
+        <button
+          type="button"
+          class="btn btn-main order-first lg:order-last mb-2 lg:mb-0"
+          (click)="close(true)"
+        >
           Purchase it
         </button>
       </div>
