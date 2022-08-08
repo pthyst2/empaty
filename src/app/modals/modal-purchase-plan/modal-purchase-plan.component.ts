@@ -25,7 +25,7 @@ export class ModalPurchasePlanComponent extends ModalBaseComponent {
       this.getPayment();
     }
   }
-
+  
   override close(data?:any) {
     super.closed.emit(data ? data : false)
   }
