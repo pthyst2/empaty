@@ -29,6 +29,9 @@ $user-octagon: $svgUrl + 'user-octagon.svg'
 $user-octagon-color: $user-octagon
 $download: $svgUrl + 'download.svg'
 $download-color: $svgUrl + 'download-color.svg'
+$user-add-white: $svgUrl + 'user-add-white.svg'
+$refresh: $svgUrl + 'refresh.svg'
+$refresh-color: $svgUrl + 'refresh-color.svg'
 .svg-wrapper
     display: inline-flex
     justify-content: center
@@ -67,6 +70,10 @@ $download-color: $svgUrl + 'download-color.svg'
         background-image: url($user-octagon)
     .svg-download
         background-image: url($download)
+    .svg-user-add-white
+        background-image: url($user-add-white)
+    .svg-refresh
+        background-image: url($refresh)
     &:hover
         .svg-store
             background-image: url($store-color)
@@ -98,3 +105,5 @@ $download-color: $svgUrl + 'download-color.svg'
             background-image: url($user-octagon-color)
         .svg-download
             background-image: url($download-color)
+        .svg-refresh
+            background-image: url($refresh-color)

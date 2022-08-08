@@ -31,8 +31,8 @@ import { PageMemberOrderComponent } from 'src/app/pages/page-member-order/page-m
 import { PageMemberProfileComponent } from '../../pages/page-member-profile/page-member-profile.component';
 import { PageMemberProductsComponent } from 'src/app/pages/page-member-products/page-member-products.component';
 import { PageMemberPublicSpacesComponent } from '../../pages/page-member-public-spaces/page-member-public-spaces.component';
+import { PageMemberRolesComponent } from '../../pages/page-member-roles/page-member-roles.component';
 import { PageMemberStatisticsComponent } from '../../pages/page-member-statistics/page-member-statistics.component';
-
 //#endregion
 
 //#region Modals
@@ -43,14 +43,15 @@ import { ModalDeleteSpaceComponent } from 'src/app/modals/modal-delete-space/mod
 import { ModalDeleteCollaboratorComponent } from '../../modals/modal-delete-collaborator/modal-delete-collaborator.component';
 import { ModalEditSpaceComponent } from 'src/app/modals/modal-edit-space/modal-edit-space.component';
 import { ModalEditCollaboratorComponent } from '../../modals/modal-edit-collaborator/modal-edit-collaborator.component';
+import { ModalInviteUserComponent } from 'src/app/modals/modal-invite-user/modal-invite-user.component';
 import { ModalMakePrivateComponent } from '../../modals/modal-make-private/modal-make-private.component';
 import { ModalPaySpaceComponent } from '../../modals/modal-pay-space/modal-pay-space.component';
+import { ModalPurchasePlanComponent } from '../../modals/modal-purchase-plan/modal-purchase-plan.component';
 //#endregion
 
 //#region Layouts
 import { LayoutMemberHomeComponent } from './layout-member-home.component';
 import { LayoutSettingComponent } from '../layout-setting/layout-setting.component';
-import { ModalPurchasePlanComponent } from '../../modals/modal-purchase-plan/modal-purchase-plan.component';
 //#endregion
 @NgModule({
   declarations: [
@@ -64,16 +65,19 @@ import { ModalPurchasePlanComponent } from '../../modals/modal-purchase-plan/mod
     ModalEditCollaboratorComponent,
     ModalEditSpaceComponent,
     ModalMakePrivateComponent,
+    ModalInviteUserComponent,
     ModalPaySpaceComponent,
+    ModalPurchasePlanComponent,
     PageMemberBillingComponent,
     PageMemberCollaboratorsComponent,
     PageMemberHomeComponent,
+    PageMemberManageComponent,
     PageMemberProductsComponent,
     PageMemberProfileComponent,
     PageMemberPublicSpacesComponent,
     PageMemberOrderComponent,
     PageMemberStatisticsComponent,
-    PageMemberManageComponent,
+    PageMemberRolesComponent,
     PartialSectionSpacesLargeComponent,
     PartialTableProductsComponent,
     PartialHeaderMemberComponent,
@@ -87,7 +91,6 @@ import { ModalPurchasePlanComponent } from '../../modals/modal-purchase-plan/mod
     PartialCreditCardComponent,
     PartialItemPlanComponent,
     PartialListPlansComponent,
-    ModalPurchasePlanComponent,
   ],
   imports: [
     CommonModule,

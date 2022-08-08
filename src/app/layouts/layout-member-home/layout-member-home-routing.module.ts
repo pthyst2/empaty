@@ -11,6 +11,7 @@ import { PageMemberOrderComponent } from 'src/app/pages/page-member-order/page-m
 import { PageMemberProfileComponent } from 'src/app/pages/page-member-profile/page-member-profile.component';
 import { PageMemberManageComponent } from 'src/app/pages/page-member-manage/page-member-manage.component';
 import { PageMemberBillingComponent } from 'src/app/pages/page-member-billing/page-member-billing.component';
+import { PageMemberRolesComponent } from 'src/app/pages/page-member-roles/page-member-roles.component';
 //#endregion
 
 const routes: Routes = [
@@ -66,6 +67,10 @@ const routes: Routes = [
           {
             path: 'billing',
             component: PageMemberBillingComponent,
+          },
+          {
+            path: 'roles',
+            component: PageMemberRolesComponent,
           },
         ],
       },

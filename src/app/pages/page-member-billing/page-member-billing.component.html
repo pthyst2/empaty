@@ -327,17 +327,752 @@
       </div>
       <!-- end of title -->
       <!-- Subscription -->
-      <partial-list-plans
-        [plans]="subscriptionInfo.selects.plans"
-        [userPlan]="subscriptionInfo.data.plan"
-        (selected)="submitForm('sub', $event)"
-      ></partial-list-plans>
+      <ng-template [ngIf]="subscriptionInfo.edit == true">
+        <partial-list-plans
+          [plans]="subscriptionInfo.selects.plans"
+          [userPlan]="subscriptionInfo.data.plan"
+          (selected)="submitForm('sub', $event)"
+        ></partial-list-plans>
+      </ng-template>
       <!-- end of subscription -->
       <!-- Address -->
-
+      <ng-template [ngIf]="addressInfo.edit == true">
+        <!-- Billing address -->
+        <div class="mb-4">
+          <!-- Title -->
+          <p class="text-black65 mb-2"><strong>Billing Address</strong></p>
+          <!-- end of title -->
+          <!-- Form -->
+          <form [formGroup]="form('bill')" (submit)="submitForm('bill')">
+            <!-- Inputs -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-4 mb-4">
+              <div>
+                <!-- Country -->
+                <div class="mb-2">
+                  <div class="form-group-inline">
+                    <label>Country <span class="text-danger">*</span></label>
+                    <div
+                      class="input-wrapper"
+                      [class.input-invalid]="
+                        fs.isControlInvalid(
+                          ctr('bill').country,
+                          addressInfo.submits.billing
+                        )
+                      "
+                    >
+                      <select formControlName="country">
+                        <option value="" disabled selected hidden>
+                          Choose Country
+                        </option>
+                        <option
+                          *ngFor="let country of addressInfo.selects.countries"
+                          [value]="country.name.common"
+                        >
+                          {{ country.name.common }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <ng-template
+                    [ngIf]="
+                      fs.isControlInvalid(
+                        ctr('bill').country,
+                        addressInfo.submits.billing
+                      )
+                    "
+                  >
+                    <div class="text-right text-danger text-[13px]">
+                      <p
+                        *ngIf="
+                          fs.isCtrHasError(ctr('bill').country, 'required')
+                        "
+                      >
+                        {{ addressInfo.messages.country.required }}
+                      </p>
+                    </div>
+                  </ng-template>
+                </div>
+                <!-- end of country -->
+                <!-- City -->
+                <div class="mb-2">
+                  <div class="form-group-inline">
+                    <label>City <span class="text-danger">*</span></label>
+                    <div
+                      class="input-wrapper"
+                      [class.input-invalid]="
+                        fs.isControlInvalid(
+                          ctr('bill').city,
+                          addressInfo.submits.billing
+                        )
+                      "
+                    >
+                      <input
+                        type="text"
+                        formControlName="city"
+                        spellcheck="false"
+                        placeholder="City"
+                      />
+                    </div>
+                  </div>
+                  <ng-template
+                    [ngIf]="
+                      fs.isControlInvalid(
+                        ctr('bill').city,
+                        addressInfo.submits.billing
+                      )
+                    "
+                  >
+                    <div class="text-danger text-right text-[13px]">
+                      <p *ngIf="fs.isCtrHasError(ctr('bill').city, 'required')">
+                        {{ addressInfo.messages.city.required }}
+                      </p>
+                    </div>
+                  </ng-template>
+                </div>
+                <!-- end of city -->
+                <!-- Unit -->
+                <div class="mb-2">
+                  <div class="form-group-inline">
+                    <label>Suite/Unit </label>
+                    <div class="input-wrapper">
+                      <input
+                        type="text"
+                        formControlName="unit"
+                        spellcheck="false"
+                        placeholder="Suite/Unit"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <!-- end of unit -->
+              </div>
+              <div>
+                <!-- State -->
+                <div class="mb-2">
+                  <div class="form-group-inline">
+                    <label>State</label>
+                    <div class="input-wrapper">
+                      <input
+                        type="text"
+                        formControlName="state"
+                        spellcheck="false"
+                        placeholder="State"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <!-- end of state -->
+                <!-- Street -->
+                <div class="mb-2">
+                  <div class="form-group-inline">
+                    <label>Street <span class="text-danger">*</span></label>
+                    <div
+                      class="input-wrapper"
+                      [class.input-invalid]="
+                        fs.isControlInvalid(
+                          ctr('bill').street,
+                          addressInfo.submits.billing
+                        )
+                      "
+                    >
+                      <input
+                        type="text"
+                        formControlName="street"
+                        spellcheck="false"
+                        placeholder="Street"
+                      />
+                    </div>
+                  </div>
+                  <ng-template
+                    [ngIf]="
+                      fs.isControlInvalid(
+                        ctr('bill').street,
+                        addressInfo.submits.billing
+                      )
+                    "
+                  >
+                    <div class="text-danger text-right text-[13px]">
+                      <p
+                        *ngIf="fs.isCtrHasError(ctr('bill').street, 'required')"
+                      >
+                        {{ addressInfo.messages.street.required }}
+                      </p>
+                    </div>
+                  </ng-template>
+                </div>
+                <!-- end of street -->
+                <!-- Postal code -->
+                <div class="mb-2">
+                  <div class="form-group-inline mb-2">
+                    <label
+                      >Postal Code <span class="text-danger">*</span></label
+                    >
+                    <div
+                      class="input-wrapper"
+                      [class.input-invalid]="
+                        fs.isControlInvalid(
+                          ctr('bill').postalCode,
+                          addressInfo.submits.billing
+                        )
+                      "
+                    >
+                      <input
+                        type="text"
+                        formControlName="postalCode"
+                        spellcheck="false"
+                        placeholder="Postal Code"
+                      />
+                    </div>
+                  </div>
+                  <ng-template
+                    [ngIf]="
+                      fs.isControlInvalid(
+                        ctr('bill').postalCode,
+                        addressInfo.submits.billing
+                      )
+                    "
+                  >
+                    <div class="text-danger text-right text-[13px]">
+                      <p
+                        *ngIf="
+                          fs.isCtrHasError(ctr('bill').postalCode, 'required')
+                        "
+                      >
+                        {{ addressInfo.messages.postalCode.required }}
+                      </p>
+                    </div>
+                  </ng-template>
+                </div>
+                <!-- end of postal code -->
+              </div>
+            </div>
+            <!-- end of inputs -->
+            <!-- Buttons -->
+            <div class="text-right">
+              <button type="submit" class="btn btn-main">
+                {{ addressInfo.data.billing ? "Save Changes" : "Complete" }}
+              </button>
+            </div>
+            <!-- end of buttons -->
+          </form>
+          <!-- end of form -->
+        </div>
+        <!-- end of billing address -->
+        <!-- Service address -->
+        <div class="mb-4">
+          <!-- Title -->
+          <p class="text-black65 mb-2"><strong>Service Address</strong></p>
+          <!-- end of title -->
+          <!-- Form -->
+          <form [formGroup]="form('service')" (submit)="submitForm('service')">
+            <!-- Inputs -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-4 mb-4">
+              <div>
+                <!-- Country -->
+                <div class="mb-2">
+                  <div class="form-group-inline">
+                    <label>Country <span class="text-danger">*</span></label>
+                    <div
+                      class="input-wrapper"
+                      [class.input-invalid]="
+                        fs.isControlInvalid(
+                          ctr('service').country,
+                          addressInfo.submits.service
+                        )
+                      "
+                    >
+                      <select formControlName="country">
+                        <option value="" disabled selected hidden>
+                          Choose Country
+                        </option>
+                        <option
+                          *ngFor="let country of addressInfo.selects.countries"
+                          [value]="country.name.common"
+                        >
+                          {{ country.name.common }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <ng-template
+                    [ngIf]="
+                      fs.isControlInvalid(
+                        ctr('service').country,
+                        addressInfo.submits.service
+                      )
+                    "
+                  >
+                    <div class="text-right text-danger text-[13px]">
+                      <p
+                        *ngIf="
+                          fs.isCtrHasError(ctr('service').country, 'required')
+                        "
+                      >
+                        {{ addressInfo.messages.country.required }}
+                      </p>
+                    </div>
+                  </ng-template>
+                </div>
+                <!-- end of country -->
+                <!-- City -->
+                <div class="mb-2">
+                  <div class="form-group-inline">
+                    <label>City <span class="text-danger">*</span></label>
+                    <div
+                      class="input-wrapper"
+                      [class.input-invalid]="
+                        fs.isControlInvalid(
+                          ctr('service').city,
+                          addressInfo.submits.service
+                        )
+                      "
+                    >
+                      <input
+                        type="text"
+                        formControlName="city"
+                        spellcheck="false"
+                        placeholder="City"
+                      />
+                    </div>
+                  </div>
+                  <ng-template
+                    [ngIf]="
+                      fs.isControlInvalid(
+                        ctr('service').city,
+                        addressInfo.submits.service
+                      )
+                    "
+                  >
+                    <div class="text-danger text-right text-[13px]">
+                      <p
+                        *ngIf="
+                          fs.isCtrHasError(ctr('service').city, 'required')
+                        "
+                      >
+                        {{ addressInfo.messages.city.required }}
+                      </p>
+                    </div>
+                  </ng-template>
+                </div>
+                <!-- end of city -->
+                <!-- Unit -->
+                <div class="mb-2">
+                  <div class="form-group-inline">
+                    <label>Suite/Unit </label>
+                    <div class="input-wrapper">
+                      <input
+                        type="text"
+                        formControlName="unit"
+                        spellcheck="false"
+                        placeholder="Suite/Unit"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <!-- end of unit -->
+              </div>
+              <div>
+                <!-- State -->
+                <div class="mb-2">
+                  <div class="form-group-inline">
+                    <label>State</label>
+                    <div class="input-wrapper">
+                      <input
+                        type="text"
+                        formControlName="state"
+                        spellcheck="false"
+                        placeholder="State"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <!-- end of state -->
+                <!-- Street -->
+                <div class="mb-2">
+                  <div class="form-group-inline">
+                    <label>Street <span class="text-danger">*</span></label>
+                    <div
+                      class="input-wrapper"
+                      [class.input-invalid]="
+                        fs.isControlInvalid(
+                          ctr('service').street,
+                          addressInfo.submits.service
+                        )
+                      "
+                    >
+                      <input
+                        type="text"
+                        formControlName="street"
+                        spellcheck="false"
+                        placeholder="Street"
+                      />
+                    </div>
+                  </div>
+                  <ng-template
+                    [ngIf]="
+                      fs.isControlInvalid(
+                        ctr('service').street,
+                        addressInfo.submits.service
+                      )
+                    "
+                  >
+                    <div class="text-danger text-right text-[13px]">
+                      <p
+                        *ngIf="
+                          fs.isCtrHasError(ctr('service').street, 'required')
+                        "
+                      >
+                        {{ addressInfo.messages.street.required }}
+                      </p>
+                    </div>
+                  </ng-template>
+                </div>
+                <!-- end of street -->
+                <!-- Postal code -->
+                <div class="mb-2">
+                  <div class="form-group-inline mb-2">
+                    <label
+                      >Postal Code <span class="text-danger">*</span></label
+                    >
+                    <div
+                      class="input-wrapper"
+                      [class.input-invalid]="
+                        fs.isControlInvalid(
+                          ctr('service').postalCode,
+                          addressInfo.submits.service
+                        )
+                      "
+                    >
+                      <input
+                        type="text"
+                        formControlName="postalCode"
+                        spellcheck="false"
+                        placeholder="Postal Code"
+                      />
+                    </div>
+                  </div>
+                  <ng-template
+                    [ngIf]="
+                      fs.isControlInvalid(
+                        ctr('service').postalCode,
+                        addressInfo.submits.service
+                      )
+                    "
+                  >
+                    <div class="text-danger text-right text-[13px]">
+                      <p
+                        *ngIf="
+                          fs.isCtrHasError(
+                            ctr('service').postalCode,
+                            'required'
+                          )
+                        "
+                      >
+                        {{ addressInfo.messages.postalCode.required }}
+                      </p>
+                    </div>
+                  </ng-template>
+                </div>
+                <!-- end of postal code -->
+              </div>
+            </div>
+            <!-- end of inputs -->
+            <!-- Buttons -->
+            <div class="text-right">
+              <button type="submit" class="btn btn-main">
+                {{ addressInfo.data.service ? "Save Changes" : "Complete" }}
+              </button>
+            </div>
+            <!-- end of buttons -->
+          </form>
+          <!-- end of form -->
+        </div>
+        <!-- end of service address -->
+      </ng-template>
       <!-- end of address -->
       <!-- Payment -->
-
+      <ng-template [ngIf]="paymentInfo.edit == true">
+        <!-- Form -->
+        <form [formGroup]="form('payment')" (submit)="submitForm('payment')">
+          <!-- Inputs -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-4 mb-4">
+            <!-- Holder -->
+            <div>
+              <div class="form-group-inline">
+                <label>Holder <span class="text-danger">*</span></label>
+                <div
+                  class="input-wrapper"
+                  [class.input-invalid]="
+                    fs.isControlInvalid(
+                      ctr('payment').holder,
+                      paymentInfo.submitted
+                    )
+                  "
+                >
+                  <input type="text" formControlName="holder" />
+                </div>
+              </div>
+              <ng-template
+                [ngIf]="
+                  fs.isControlInvalid(
+                    ctr('payment').holder,
+                    paymentInfo.submitted
+                  )
+                "
+              >
+                <div class="text-danger text-right text-[13px]">
+                  <p
+                    *ngIf="fs.isCtrHasError(ctr('payment').holder, 'required')"
+                  >
+                    {{ paymentInfo.messages.holder.required }}
+                  </p>
+                </div>
+              </ng-template>
+            </div>
+            <!-- end of holder -->
+            <!-- Type -->
+            <div>
+              <div class="form-group-inline">
+                <label>Type <span class="text-danger">*</span></label>
+                <div
+                  class="input-wrapper"
+                  [class.input-invalid]="
+                    fs.isControlInvalid(
+                      ctr('payment').type,
+                      paymentInfo.submitted
+                    )
+                  "
+                >
+                  <select formControlName="type">
+                    <option value="" disabled selected hidden>
+                      Select Type
+                    </option>
+                    <option
+                      *ngFor="let type of paymentInfo.selects.types"
+                      [value]="type.value"
+                    >
+                      {{ type.name }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <ng-template
+                [ngIf]="
+                  fs.isControlInvalid(
+                    ctr('payment').type,
+                    paymentInfo.submitted
+                  )
+                "
+              >
+                <div class="text-danger text-right text-[13px]">
+                  <p *ngIf="fs.isCtrHasError(ctr('payment').type, 'required')">
+                    {{ paymentInfo.messages.type.required }}
+                  </p>
+                </div>
+              </ng-template>
+            </div>
+            <!-- end of type -->
+            <!-- Number -->
+            <div>
+              <div class="form-group-inline">
+                <label>Number <span class="text-danger">*</span></label>
+                <div
+                  class="input-wrapper"
+                  [class.input-invalid]="
+                    fs.isControlInvalid(
+                      ctr('payment').number,
+                      paymentInfo.submitted
+                    )
+                  "
+                >
+                  <input
+                    [type]="
+                      paymentInfo.shows.number == true ? 'text' : 'password'
+                    "
+                    formControlName="number"
+                  />
+                  <div
+                    class="svg-wrapper text-black65"
+                    (click)="
+                      paymentInfo.shows.number = !paymentInfo.shows.number
+                    "
+                  >
+                    <fa-icon
+                      [icon]="
+                        paymentInfo.shows.number == true ? faEyeSlash : faEye
+                      "
+                    ></fa-icon>
+                  </div>
+                </div>
+              </div>
+              <ng-template
+                [ngIf]="
+                  fs.isControlInvalid(
+                    ctr('payment').number,
+                    paymentInfo.submitted
+                  )
+                "
+              >
+                <div class="text-danger text-right text-[13px]">
+                  <p
+                    *ngIf="fs.isCtrHasError(ctr('payment').number, 'required')"
+                  >
+                    {{ paymentInfo.messages.number.required }}
+                  </p>
+                </div>
+              </ng-template>
+            </div>
+            <!-- end of number -->
+            <!-- CVC -->
+            <div>
+              <div class="form-group-inline">
+                <label>CVC <span class="text-danger">*</span></label>
+                <div
+                  class="input-wrapper"
+                  [class.input-invalid]="
+                    fs.isControlInvalid(
+                      ctr('payment').cvc,
+                      paymentInfo.submitted
+                    )
+                  "
+                >
+                  <input
+                    [type]="paymentInfo.shows.cvc == true ? 'text' : 'password'"
+                    formControlName="cvc"
+                  />
+                  <div
+                    class="svg-wrapper text-black65"
+                    (click)="paymentInfo.shows.cvc = !paymentInfo.shows.cvc"
+                  >
+                    <fa-icon
+                      [icon]="
+                        paymentInfo.shows.cvc == true ? faEyeSlash : faEye
+                      "
+                    ></fa-icon>
+                  </div>
+                </div>
+              </div>
+              <ng-template
+                [ngIf]="
+                  fs.isControlInvalid(ctr('payment').cvc, paymentInfo.submitted)
+                "
+              >
+                <div class="text-danger text-right text-[13px]">
+                  <p *ngIf="fs.isCtrHasError(ctr('payment').cvc, 'required')">
+                    {{ paymentInfo.messages.cvc.required }}
+                  </p>
+                </div>
+              </ng-template>
+            </div>
+            <!-- end of cvc -->
+            <!-- Exp month -->
+            <div>
+              <div class="form-group-inline">
+                <label>Expire Month <span class="text-danger">*</span></label>
+                <div
+                  class="input-wrapper"
+                  [class.input-invalid]="
+                    fs.isControlInvalid(
+                      ctr('payment').expMonth,
+                      paymentInfo.submitted
+                    )
+                  "
+                >
+                  <select formControlName="expMonth">
+                    <option value="" selected disabled hidden>
+                      Select Month
+                    </option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                  </select>
+                </div>
+              </div>
+              <ng-template
+                [ngIf]="
+                  fs.isControlInvalid(
+                    ctr('payment').expMonth,
+                    paymentInfo.submitted
+                  )
+                "
+              >
+                <div class="text-danger text-right text-[13px]">
+                  <p
+                    *ngIf="
+                      fs.isCtrHasError(ctr('payment').expMonth, 'required')
+                    "
+                  >
+                    {{ paymentInfo.messages.expMonth.required }}
+                  </p>
+                </div>
+              </ng-template>
+            </div>
+            <!-- end of exp month -->
+            <!-- Exp year -->
+            <div>
+              <div class="form-group-inline">
+                <label>Expire Year <span class="text-danger">*</span></label>
+                <div
+                  class="input-wrapper"
+                  [class.input-invalid]="
+                    fs.isControlInvalid(
+                      ctr('payment').expYear,
+                      paymentInfo.submitted
+                    )
+                  "
+                >
+                  <select formControlName="expYear">
+                    <option value="" selected disabled hidden>
+                      Select Year
+                    </option>
+                    <option
+                      *ngFor="let year of paymentInfo.selects.years"
+                      [value]="year"
+                    >
+                      {{ year }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <ng-template
+                [ngIf]="
+                  fs.isControlInvalid(
+                    ctr('payment').expYear,
+                    paymentInfo.submitted
+                  )
+                "
+              >
+                <div class="text-danger text-right text-[13px]">
+                  <p
+                    *ngIf="fs.isCtrHasError(ctr('payment').expYear, 'required')"
+                  >
+                    {{ paymentInfo.messages.expYear.required }}
+                  </p>
+                </div>
+              </ng-template>
+            </div>
+            <!-- end of exp year -->
+          </div>
+          <!-- end of inputs -->
+          <!-- Buttons -->
+          <div class="text-right">
+            <button type="submit" class="btn btn-main">
+              {{ paymentInfo.data ? "Save Changes" : "Complete" }}
+            </button>
+          </div>
+          <!-- end of buttons -->
+        </form>
+        <!-- end of form -->
+      </ng-template>
       <!-- end of payment -->
     </div>
   </ng-template>

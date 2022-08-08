@@ -18,6 +18,7 @@ export const mockCollaborators = [
         },
         role: roles[0],
         status: statuses[0],
+        created_at: new Date(),
       },
       {
         user: {
@@ -28,6 +29,7 @@ export const mockCollaborators = [
         },
         role: roles[1],
         status: statuses[1],
+        created_at: new Date(),
       },
       {
         user: {
@@ -38,6 +40,7 @@ export const mockCollaborators = [
         },
         role: roles[1],
         status: statuses[1],
+        created_at: new Date(),
       },
       {
         user: {
@@ -48,6 +51,7 @@ export const mockCollaborators = [
         },
         role: roles[1],
         status: statuses[1],
+        created_at: new Date(),
       },
     ],
   },
@@ -64,6 +68,7 @@ export const mockCollaborators = [
         },
         role: roles[1],
         status: statuses[1],
+        created_at: new Date(),
       },
     ],
   },

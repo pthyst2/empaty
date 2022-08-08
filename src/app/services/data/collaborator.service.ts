@@ -23,6 +23,45 @@ export class CollaboratorService {
     }
     return res;
   }
+
+  getCollaboratorsByRole(_id: string, role: string) {
+    let res: any = {
+      data: [],
+      count: 0,
+    };
+    for (let item of collaborators) {
+      if (item.user == _id) {
+        for (let jtem of item.collaborators) {
+          if (jtem.role.value == role) {
+            res.data.push(jtem);
+          }
+        }
+        res.count = res.data.length;
+        break;
+      }
+    }
+    return res;
+  }
+
+  getCollaboratorsByStatus(_id: string, status: string) {
+    let res: any = {
+      data: [],
+      count: 0,
+    };
+    for (let item of collaborators) {
+      if (item.user == _id) {
+        for (let jtem of item.collaborators) {
+          if (jtem.status.value == status) {
+            res.data.push(jtem);
+          }
+        }
+        res.count = res.data.length;
+        break;
+      }
+    }
+    return res;
+  }
+
   getRoles() {
     return {
       status: 200,

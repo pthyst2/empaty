@@ -25,18 +25,14 @@ export class ModalPurchasePlanComponent extends ModalBaseComponent {
     if (this.user) {
       this.getPayment();
     }
-    console.log("Input Plan: ", this.plan);
   }
-  
   override close(data?:any) {
     super.close(data?data:false)
   }
-
   getUser(){
     this.user = this.authService.getUserDecoded();
   }
   getPayment(){
     this.payment = this.cardService.getCard(this.user._id).data;
-    console.log("this.payment: ",this.payment);
   }
 }
