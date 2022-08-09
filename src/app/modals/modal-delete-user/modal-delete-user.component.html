@@ -1,0 +1,36 @@
+<ng-template [ngIf]="show == true">
+  <modal-base (closed)="close()">
+    <div class="rounded-modal bg-white p-[16px] w-[320px]">
+      <!-- Title -->
+      <div class="text-center">
+        <div class="text-[22px] uppercase">
+          <strong>Delete Collaborator</strong>
+        </div>
+      </div>
+      <!-- end of title -->
+      <!-- Content -->
+      <div class="text-black65 py-4 text-center">
+        <p>
+          After deleted, this user will not able to view or edit all of your
+          space.
+        </p>
+      </div>
+      <!-- end of content -->
+      <!-- Buttons -->
+      <div class="flex justify-center items-center">
+        <button type="button" class="btn btn-main mr-2" (click)="close()">
+          Cancel
+        </button>
+        <button type="button" class="btn btn-white" (click)="confirm()">
+          Confirm
+        </button>
+      </div>
+      <!-- end of buttons -->
+    </div>
+  </modal-base>
+</ng-template>
+<modal-popup
+  [content]="popup"
+  [show]="popup.show"
+  (closed)="popup.show = false"
+></modal-popup>

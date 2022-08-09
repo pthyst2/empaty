@@ -74,7 +74,7 @@ export class CollaboratorService {
       data: '0523187254abcdefghjkl',
     };
   }
-  deleteCollaborator(_id: string) {
+  deleteCollaborator(body: any) {
     return {
       status: 200,
     };

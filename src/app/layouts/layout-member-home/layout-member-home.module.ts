@@ -52,6 +52,7 @@ import { ModalPurchasePlanComponent } from '../../modals/modal-purchase-plan/mod
 //#region Layouts
 import { LayoutMemberHomeComponent } from './layout-member-home.component';
 import { LayoutSettingComponent } from '../layout-setting/layout-setting.component';
+import { ModalDeleteUserComponent } from '../../modals/modal-delete-user/modal-delete-user.component';
 //#endregion
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import { LayoutSettingComponent } from '../layout-setting/layout-setting.compone
     PartialCreditCardComponent,
     PartialItemPlanComponent,
     PartialListPlansComponent,
+    ModalDeleteUserComponent,
   ],
   imports: [
     CommonModule,

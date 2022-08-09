@@ -94,6 +94,7 @@
                       rounded
                       border border-black15
                     "
+                    (click)="userDelete = user; toggleModal('delete')"
                   >
                     <div class="svg svg-trash w-[16px] h-[16px]"></div>
                   </div>
@@ -113,5 +114,12 @@
 
 <modal-invite-user
   [show]="modals.invite"
-  (closed)="modals.invite = false"
+  (closed)="toggleModal('invite', $event)"
 ></modal-invite-user>
+
+<modal-delete-user
+  [show]="modals.delete"
+  [collaborator]="userDelete"
+  (closed)="toggleModal('delete', $event)"
+>
+</modal-delete-user>

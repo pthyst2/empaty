@@ -18,6 +18,7 @@ export class PageMemberRolesComponent implements OnInit {
     invite: false,
     delete: false,
   };
+  userDelete: any;
   popup: any = {
     show: false,
     icon: '',
