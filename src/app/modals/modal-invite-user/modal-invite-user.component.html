@@ -1,1 +1,120 @@
-<p>modal-invite-user works!</p>
+<ng-template [ngIf]="show">
+  <modal-base [static]="false" [position]="'center'" (closed)="close($event)">
+    <div class="flex flex-col rounded-modal bg-white p-[16px] w-[320px]">
+      <!-- Close -->
+      <div class="text-right">
+        <div
+          (click)="close()"
+          class="svg-wrapper w-[20px] h-[20px] text-black45 hover:text-main"
+        >
+          <fa-icon [icon]="faTimes" class="text-[20px]"></fa-icon>
+        </div>
+      </div>
+      <!-- end of close -->
+      <!-- Title -->
+      <div class="text-center">
+        <p class="uppercase"><strong>Invite</strong></p>
+      </div>
+      <!-- end of title -->
+      <!-- Form -->
+      <div class="grow py-4">
+        <form [formGroup]="form" (submit)="submit()">
+          <!-- Email -->
+          <div class="mb-4">
+            <div class="form-group-col">
+              <label>Email <span class="text-danger">*</span></label>
+              <div
+                class="input-wrapper"
+                [class.input-invalid]="
+                  fs.isControlInvalid(ctr.email, invite.submitted)
+                "
+              >
+                <input
+                  type="email"
+                  formControlName="email"
+                  placeholder="user@mail.com"
+                />
+              </div>
+            </div>
+            <ng-template
+              [ngIf]="fs.isControlInvalid(ctr.email, invite.submitted)"
+            >
+              <div class="text-right text-danger">
+                <p *ngIf="fs.isCtrHasError(ctr.email, 'required')">
+                  {{ invite.messages.email.required }}
+                </p>
+                <p *ngIf="fs.isCtrHasError(ctr.email, 'email')">
+                  {{ invite.messages.email.email }}
+                </p>
+              </div>
+            </ng-template>
+          </div>
+          <!-- end of email -->
+          <!-- Message -->
+          <div class="mb-4">
+            <div class="form-group-col">
+              <label>Invitation Message</label>
+              <div class="input-wrapper">
+                <textarea
+                  formControlName="inviteMessage"
+                  spellcheck="false"
+                  class="min-h-[100px] max-h-[300px]"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+          <!-- end of message -->
+          <!-- Role -->
+          <div>
+            <div class="form-group-col">
+              <label>Role <span class="text-danger">*</span></label>
+              <div
+                class="input-wrapper"
+                [class.input-invalid]="
+                  fs.isControlInvalid(ctr.role, invite.submitted)
+                "
+              >
+                <select formControlName="role">
+                  <option value="" disabled hidden selected>Select Role</option>
+                  <option
+                    *ngFor="let role of invite.selects.roles"
+                    [value]="role.value"
+                  >
+                    {{ role.name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <ng-template
+              [ngIf]="fs.isControlInvalid(ctr.role, invite.submitted)"
+            >
+              <div class="text-right text-danger">
+                <p *ngIf="fs.isCtrHasError(ctr.role, 'required')">
+                  {{ invite.messages.role.required }}
+                </p>
+              </div>
+            </ng-template>
+          </div>
+          <!-- end of role -->
+        </form>
+      </div>
+      <!-- end of form -->
+      <!-- Buttons -->
+      <div class="flex justify-center items-center">
+        <button type="button" class="btn btn-white mr-2" (click)="close()">
+          Cancel
+        </button>
+        <button type="button" class="btn btn-main" (click)="submit()">
+          Send Invite
+        </button>
+      </div>
+      <!-- end of buttons -->
+    </div>
+  </modal-base>
+</ng-template>
+
+<modal-popup
+  [content]="popup"
+  [show]="popup.show"
+  (closed)="popup.show = false"
+></modal-popup>

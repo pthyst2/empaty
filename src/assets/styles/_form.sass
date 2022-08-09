@@ -101,7 +101,7 @@ input,select,textarea
         border: 1px solid colors.$black15
         border-radius: 4px
         display: inline-flex
-        input
+        input,textarea, select
             width: 100%
             border-radius: 4px
             padding: 0.25em 0.5em
@@ -110,6 +110,9 @@ input,select,textarea
             color: colors.$black45
             &:focus
                 background-color: colors.$black2
+    .input-wrapper.input-invalid
+        border-color: colors.$red
+
 .page-title,.modal-title
     font-weight: 500
     font-size: 28px

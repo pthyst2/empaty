@@ -3,7 +3,11 @@
     <!-- Title & invite -->
     <div class="flex justify-between items-center mb-4">
       <p class="uppercase text-black65"><strong>Space Users</strong></p>
-      <button type="button" class="btn btn-main">
+      <button
+        type="button"
+        class="btn btn-main"
+        (click)="toggleModal('invite')"
+      >
         <div class="svg-wrapper w-[16px] h-[16px] mr-2">
           <div class="svg svg-user-add-white w-[16px] h-[16px]"></div>
         </div>
@@ -103,7 +107,11 @@
         <p>There is no collaborators.</p>
       </ng-template>
     </ng-template>
-
     <!-- end of table -->
   </div>
 </layout-setting>
+
+<modal-invite-user
+  [show]="modals.invite"
+  (closed)="modals.invite = false"
+></modal-invite-user>

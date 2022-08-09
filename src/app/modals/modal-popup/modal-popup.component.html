@@ -7,12 +7,16 @@
   >
     <div class="rounded-modal bg-white p-[16px] w-[300px]">
       <!-- Close -->
-      <div class="text-right mb-4 text-[24px] text-black45">
-        <fa-icon
-          [icon]="faTimes"
-          class="cursor-pointer"
-          (click)="close()"
-        ></fa-icon>
+      <div class="text-right mb-4 text-[22px]">
+        <div
+          class="inline-block w-[22px] h-[22px] text-black45 hover:text-main"
+        >
+          <fa-icon
+            [icon]="faTimes"
+            class="cursor-pointer"
+            (click)="close()"
+          ></fa-icon>
+        </div>
       </div>
       <!-- end of close -->
       <!-- Icon -->

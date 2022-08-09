@@ -14,6 +14,18 @@ export class PageMemberRolesComponent implements OnInit {
   status: any = '';
 
   loading = false;
+  modals = {
+    invite: false,
+    delete: false,
+  };
+  popup: any = {
+    show: false,
+    icon: '',
+    title: '',
+    html: '',
+    timer: undefined,
+  };
+
   constructor(
     private authService: AuthService,
     private collabService: CollaboratorService
@@ -76,5 +88,23 @@ export class PageMemberRolesComponent implements OnInit {
     setTimeout(() => {
       this.loading = false;
     }, 1500);
+  }
+  toggleModal(name: string, event?: any) {
+    switch (name) {
+      case 'invite': {
+        this.modals.invite = !this.modals.invite;
+        if (event && event == true) {
+          this.getData('users');
+        }
+        break;
+      }
+      case 'delete': {
+        this.modals.delete = !this.modals.delete;
+        if (event && event == true) {
+          this.getData('users');
+        }
+        break;
+      }
+    }
   }
 }
