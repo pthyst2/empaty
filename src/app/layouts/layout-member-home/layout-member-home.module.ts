@@ -41,6 +41,7 @@ import { ModalCreateSpaceByImageComponent } from '../../modals/modal-create-spac
 import { ModalCreateSpaceComponent } from 'src/app/modals/modal-create-space/modal-create-space.component';
 import { ModalDeleteSpaceComponent } from 'src/app/modals/modal-delete-space/modal-delete-space.component';
 import { ModalDeleteCollaboratorComponent } from '../../modals/modal-delete-collaborator/modal-delete-collaborator.component';
+import { ModalDeleteUserComponent } from '../../modals/modal-delete-user/modal-delete-user.component';
 import { ModalEditSpaceComponent } from 'src/app/modals/modal-edit-space/modal-edit-space.component';
 import { ModalEditCollaboratorComponent } from '../../modals/modal-edit-collaborator/modal-edit-collaborator.component';
 import { ModalInviteUserComponent } from 'src/app/modals/modal-invite-user/modal-invite-user.component';
@@ -52,7 +53,6 @@ import { ModalPurchasePlanComponent } from '../../modals/modal-purchase-plan/mod
 //#region Layouts
 import { LayoutMemberHomeComponent } from './layout-member-home.component';
 import { LayoutSettingComponent } from '../layout-setting/layout-setting.component';
-import { ModalDeleteUserComponent } from '../../modals/modal-delete-user/modal-delete-user.component';
 //#endregion
 @NgModule({
   declarations: [

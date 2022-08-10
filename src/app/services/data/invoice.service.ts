@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { mockUsers } from 'src/app/data/mocks/mockUsers';
+import { mockInvoices } from 'src/app/data/mocks/mockInvoices';
 const users = mockUsers;
+const invoices = mockInvoices;
 @Injectable({
   providedIn: 'root',
 })
@@ -12,17 +14,24 @@ export class InvoiceService {
         items: [],
       },
     ];
-
-    let n = 100;
-    for (let i = 1; i <= n; i++) {
-      res[0].items.push({
-        _id: i.toString(),
-        name: 'INV-' + i.toString(),
-        user: users[0]._id,
-        created_at: new Date(),
-      });
+    for (let invoice of invoices) {
+      res[0].items.push(invoice);
     }
+    return res;
+  }
 
+  getDetail(id: string) {
+    let res: any = {
+      status: 200,
+      data: null,
+    };
+
+    for (let invoice of invoices) {
+      if (invoice._id == id) {
+        res.data = invoice;
+        break;
+      }
+    }
     return res;
   }
 }

@@ -1,0 +1,395 @@
+<div class="box-border w-full min-h-[100vh] bg-white p-[32px] flex flex-col">
+  <!-- Header -->
+  <div class="flex justify-between items-center pb-8">
+    <!-- Logo -->
+    <img [src]="logo" class="h-[50px]" />
+    <!-- end of logo -->
+    <!-- Title -->
+    <p class="text-[24px] uppercase"><strong>Invoice</strong></p>
+    <!-- end of title -->
+  </div>
+  <!-- end of header -->
+  <!-- Info -->
+  <div class="grid grid-cols-2 gap-8 pb-8 text-[10px]">
+    <!-- Company -->
+    <div>
+      <ul>
+        <li>
+          <p>{{ invoice.company.name }}</p>
+        </li>
+        <li *ngIf="invoice.company.address.apartment">
+          <p>{{ invoice.company.address.apartment }}</p>
+        </li>
+        <li>
+          <p>{{ invoice.company.address.street }}</p>
+        </li>
+        <li>
+          <p>
+            {{
+              invoice.company.address.district
+                ? invoice.company.address.district + ", "
+                : ""
+            }}{{
+              invoice.company.address.city +
+                " " +
+                invoice.company.address.postalCode
+            }}
+          </p>
+        </li>
+        <li>
+          <p>{{ invoice.company.address.country }}</p>
+        </li>
+      </ul>
+    </div>
+    <!-- end of company -->
+    <!-- Invoice -->
+    <div class="text-right">
+      <ul>
+        <li>
+          <p>Created Date: {{ invoice.created_at | date: "YYYY-MM-DD" }}</p>
+        </li>
+        <li>
+          <p>Invoice ID: {{ invoice._id }}</p>
+        </li>
+        <li>
+          <p>Company ID: {{ invoice.user._id }}</p>
+        </li>
+        <li>
+          <p>Company Name: {{ invoice.user.companyName }}</p>
+        </li>
+      </ul>
+    </div>
+    <!-- end of invoice -->
+    <!-- Billing address -->
+    <div>
+      <div class="pb-2 mb-2 border-b uppercase">
+        <p>Bill To</p>
+      </div>
+      <ul>
+        <li>
+          <p>{{ invoice.user.companyName }}</p>
+        </li>
+        <li>
+          <p>{{ invoice.addresses.bill.postalCode }}</p>
+        </li>
+        <li>
+          <p>
+            {{ invoice.addresses.bill.country
+            }}{{
+              invoice.addresses.bill.state
+                ? ", " + invoice.addresses.bill.state
+                : ""
+            }}{{
+              ", " +
+                invoice.addresses.bill.city +
+                ", " +
+                invoice.addresses.bill.street
+            }}
+          </p>
+        </li>
+        <li>
+          <p>
+            {{
+              invoice.addresses.bill.apartment
+                ? invoice.addresses.bill.apartment
+                : ""
+            }}
+          </p>
+        </li>
+      </ul>
+    </div>
+    <!-- end of billing address -->
+    <!-- Service address -->
+    <div>
+      <div class="pb-2 mb-2 border-b uppercase">
+        <p>Service At</p>
+      </div>
+      <ul>
+        <li>
+          <p>{{ invoice.user.companyName }}</p>
+        </li>
+        <li>
+          <p>{{ invoice.addresses.service.postalCode }}</p>
+        </li>
+        <li>
+          <p>
+            {{ invoice.addresses.service.country
+            }}{{
+              invoice.addresses.service.state
+                ? ", " + invoice.addresses.service.state
+                : ""
+            }}{{
+              ", " +
+                invoice.addresses.service.city +
+                ", " +
+                invoice.addresses.service.street
+            }}
+          </p>
+        </li>
+        <li>
+          <p>
+            {{
+              invoice.addresses.service.apartment
+                ? invoice.addresses.service.apartment
+                : ""
+            }}
+          </p>
+        </li>
+      </ul>
+    </div>
+    <!-- end of service address -->
+  </div>
+  <!-- end of info -->
+  <!-- Table -->
+  <div class="grow text-[10px] pb-4">
+    <table class="table w-full">
+      <!-- Charge summary -->
+      <tr class="tr-title">
+        <td colspan="8">
+          <p class="uppercase">Charge Summary</p>
+        </td>
+      </tr>
+      <tr class="tr-head">
+        <td><p>Charge Name</p></td>
+        <td><p>Charge Detail</p></td>
+        <td><p>Service Period</p></td>
+        <td><p>Quantity</p></td>
+        <td><p>Unit Price</p></td>
+        <td><p>Tax</p></td>
+        <td><p>Sub Total</p></td>
+        <td><p>Total</p></td>
+      </tr>
+      <tr *ngFor="let charge of invoice.summary.charges">
+        <td>{{ charge.name }}</td>
+        <td>
+          <div class="text-left">
+            <ng-container *ngFor="let item of charge.detail | keyvalue">
+              <p>{{ item.value }}</p>
+            </ng-container>
+          </div>
+        </td>
+        <td>
+          <p>{{ charge.period.start | date: "YYYY-MM-dd" }}</p>
+          <p>{{ charge.period.end | date: "YYYY-MM-dd" }}</p>
+        </td>
+        <td>
+          <p>{{ charge.quantity }}</p>
+        </td>
+        <td>
+          <p>{{ charge.price | currency: "JPY":"symbol-narrow":"1.2-2" }}</p>
+        </td>
+        <td>
+          <p>{{ charge.tax | currency: "JPY":"symbol-narrow":"1.2-2" }}</p>
+        </td>
+        <td>
+          <p>{{ charge.subTotal | currency: "JPY":"symbol-narrow":"1.2-2" }}</p>
+        </td>
+        <td>
+          <p>{{ charge.total | currency: "JPY":"symbol-narrow":"1.2-2" }}</p>
+        </td>
+      </tr>
+      <!-- end of charge summary -->
+      <!-- Usage summary -->
+      <tr class="tr-title">
+        <td colspan="8">
+          <p class="uppercase">Usage Summary</p>
+        </td>
+      </tr>
+      <tr class="tr-head">
+        <td><p>Charge Name</p></td>
+        <td><p>Charge Detail</p></td>
+        <td><p>Service Period</p></td>
+        <td><p>Quantity</p></td>
+        <td><p>Unit Price</p></td>
+        <td><p>Tax</p></td>
+        <td><p>Sub Total</p></td>
+        <td><p>Total</p></td>
+      </tr>
+      <tr *ngFor="let usage of invoice.summary.usages">
+        <td>{{ usage.name }}</td>
+        <td>
+          <div class="text-left">
+            <p>{{ usage.detail.title }}</p>
+            <ng-template
+              [ngIf]="usage.detail.items && usage.detail.items.length > 0"
+            >
+              <p *ngFor="let item of usage.detail.items">
+                {{ item.name }}: {{ item.quantity }}
+              </p>
+            </ng-template>
+            <p>{{ usage.detail.note }}</p>
+          </div>
+        </td>
+        <td>
+          <p>{{ usage.period.start | date: "YYYY-MM-dd" }}</p>
+          <p>{{ usage.period.end | date: "YYYY-MM-dd" }}</p>
+        </td>
+        <td>
+          <p>{{ usage.quantity }}</p>
+        </td>
+        <td>
+          <p>{{ usage.price | currency: "JPY":"symbol-narrow":"1.2-2" }}</p>
+        </td>
+        <td>
+          <p>{{ usage.tax | currency: "JPY":"symbol-narrow":"1.2-2" }}</p>
+        </td>
+        <td>
+          <p>{{ usage.subTotal | currency: "JPY":"symbol-narrow":"1.2-2" }}</p>
+        </td>
+        <td>
+          <p>{{ usage.total | currency: "JPY":"symbol-narrow":"1.2-2" }}</p>
+        </td>
+      </tr>
+      <!-- end of usage summary -->
+    </table>
+  </div>
+  <!-- end of table -->
+  <!-- Invoice totals -->
+  <div class="grid grid-cols-2 text-[10px]">
+    <div></div>
+    <div>
+      <table class="w-full mb-2">
+        <tr class="tr-title uppercase">
+          <td colspan="4"><p>Invoice Total</p></td>
+        </tr>
+        <tr class="tr-head">
+          <td><p>Gross</p></td>
+          <td><p>Tax</p></td>
+          <td><p>Sub Total</p></td>
+          <td><p>Total</p></td>
+        </tr>
+        <tr>
+          <td>
+            <p>
+              {{
+                invoice.totals.charge.gross
+                  | currency: "JPY":"symbol-narrow":"1.2-2"
+              }}
+            </p>
+          </td>
+          <td>
+            <p>
+              {{
+                invoice.totals.charge.tax
+                  | currency: "JPY":"symbol-narrow":"1.2-2"
+              }}
+            </p>
+          </td>
+          <td>
+            <p>
+              {{
+                invoice.totals.charge.subTotal
+                  | currency: "JPY":"symbol-narrow":"1.2-2"
+              }}
+            </p>
+          </td>
+          <td>
+            <p>
+              {{
+                invoice.totals.charge.total
+                  | currency: "JPY":"symbol-narrow":"1.2-2"
+              }}
+            </p>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p>
+              {{
+                invoice.totals.charge.gross
+                  | currency: "JPY":"symbol-narrow":"1.2-2"
+              }}
+            </p>
+          </td>
+          <td>
+            <p>
+              {{
+                invoice.totals.charge.tax
+                  | currency: "JPY":"symbol-narrow":"1.2-2"
+              }}
+            </p>
+          </td>
+          <td>
+            <p>
+              {{
+                invoice.totals.charge.subTotal
+                  | currency: "JPY":"symbol-narrow":"1.2-2"
+              }}
+            </p>
+          </td>
+          <td>
+            <p>
+              {{
+                invoice.totals.charge.total
+                  | currency: "JPY":"symbol-narrow":"1.2-2"
+              }}
+            </p>
+          </td>
+        </tr>
+        <tfoot>
+          <tr>
+            <td>
+              <p>
+                <strong>{{
+                  invoice.totals.total.gross
+                    | currency: "JPY":"symbol-narrow":"1.2-2"
+                }}</strong>
+              </p>
+            </td>
+            <td>
+              <p>
+                <strong>
+                  {{
+                    invoice.totals.total.tax
+                      | currency: "JPY":"symbol-narrow":"1.2-2"
+                  }}</strong
+                >
+              </p>
+            </td>
+            <td>
+              <p>
+                <strong>
+                  {{
+                    invoice.totals.total.subTotal
+                      | currency: "JPY":"symbol-narrow":"1.2-2"
+                  }}</strong
+                >
+              </p>
+            </td>
+            <td>
+              <p>
+                <strong>
+                  {{
+                    invoice.totals.total.total
+                      | currency: "JPY":"symbol-narrow":"1.2-2"
+                  }}</strong
+                >
+              </p>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+      <ul>
+        <li>
+          <p>Currency: {{ invoice.transaction.currency }}</p>
+        </li>
+        <li>
+          <p>
+            Transaction Date:
+            {{ invoice.transaction.date | date: "YYYY-MM-dd" }}
+          </p>
+        </li>
+        <li>
+          <p>Transaction Number: {{ invoice.transaction.number }}</p>
+        </li>
+        <li>
+          <p>Transaction Type: {{ invoice.transaction.type }}</p>
+        </li>
+        <li>
+          <p>Support Inquiries: {{ invoice.transaction.supportEmail }}</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!-- end of invoice totals -->
+</div>

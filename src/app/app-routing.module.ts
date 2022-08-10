@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { PageMemberInvoiceDetailComponent } from './pages/page-member-invoice-detail/page-member-invoice-detail.component';
 import { PageTestZoneComponent } from './pages/page-test-zone/page-test-zone.component';
 //#region Guards
 import { GuardMember } from './services/guards/guard-member';
@@ -26,6 +27,11 @@ const routes: Routes = [
       import('./layouts/layout-member-home/layout-member-home.module').then(
         (m) => m.LayoutMemberHomeModule
       ),
+  },
+  {
+    path: 'invoice/:id',
+    canActivate: [GuardMember],
+    component: PageMemberInvoiceDetailComponent,
   },
   {
     path: 'errors',

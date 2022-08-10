@@ -1,0 +1,14 @@
+@use 'src/assets/styles/colors' as colors
+table
+    .tr-title
+        background-color: colors.$main
+        color: white
+    .tr-head
+        background-color: colors.$main-lighter
+    tr
+        td
+            border: 1px solid colors.$main
+            padding: 0.5em
+            text-align: center
+            &:first-child
+                text-align: left

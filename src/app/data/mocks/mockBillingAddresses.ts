@@ -9,8 +9,9 @@ export const mockBillingAddresses = [
     country: 'Kuwait',
     state: 'Some State',
     city: 'Kuwaiti',
-    street: 'Some Street',
+    street: '15A Some Street',
     unit: '',
     postalCode: '700000',
+    apartment: 'Halo Building 5F',
   },
 ];

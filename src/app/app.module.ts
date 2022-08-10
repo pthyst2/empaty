@@ -10,6 +10,7 @@ import { ShareModule } from './modules/share/share.module';
 //#region Components
 import { AppComponent } from './app.component';
 import { PageTestZoneComponent } from './pages/page-test-zone/page-test-zone.component';
+import { PageMemberInvoiceDetailComponent } from './pages/page-member-invoice-detail/page-member-invoice-detail.component';
 //#endregion
 
 //#region Interceptors
@@ -17,7 +18,11 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ResponseInterceptor } from './interceptors/response.interceptor';
 //#endregion
 @NgModule({
-  declarations: [AppComponent, PageTestZoneComponent],
+  declarations: [
+    AppComponent,
+    PageTestZoneComponent,
+    PageMemberInvoiceDetailComponent,
+  ],
   imports: [
     AppRoutingModule,
     HttpClientModule,
