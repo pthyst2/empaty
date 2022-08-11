@@ -1,1 +1,137 @@
-<p>page-member-statistics works!</p>
+<div
+  class="rounded-modal bg-black2 py-[32px] px-[16px] lg:px-[32px] xl:px-[48px]"
+>
+  <ng-template [ngIf]="loading == true">
+    <div class="w-[320px] h-[350px]">
+      <partial-loading></partial-loading>
+    </div>
+  </ng-template>
+  <ng-template [ngIf]="loading == false">
+    <!-- Title -->
+    <p class="page-title text-center mb-8">Statistics</p>
+    <!-- end of title -->
+    <!-- Tabs -->
+    <div class="bg-black15 w-full flex items-center">
+      <p
+        class="
+          cursor-pointer
+          py-2
+          px-4
+          border-b-2
+          hover:border-main
+          hover:bg-white
+        "
+        *ngFor="let tab of tabs"
+        (click)="activeTab(tab)"
+        [class.border-main]="tabActive == tab"
+        [class.bg-white]="tabActive == tab"
+        [class.border-transparent]="tabActive != tab"
+      >
+        {{ tab }}
+      </p>
+    </div>
+    <div class="px-8 py-4 bg-white">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-y-4">
+        <div
+          class="flex justify-start lg:justify-center items-center lg:px-[48px]"
+        >
+          <div class="svg-wrapper w-[32px] h-[32px] mr-2">
+            <div class="svg svg-3d-cube w-[32px] h-[32px]"></div>
+          </div>
+          <div>
+            <p class="uppercase text-black45 tracking-wider">
+              {{ tabActive }}
+            </p>
+            <p class="text-black65">
+              <strong>{{ spaces.length }} spaces</strong>
+            </p>
+          </div>
+        </div>
+        <div
+          class="
+            flex
+            justify-start
+            lg:justify-center
+            items-center
+            lg:px-[48px]
+            lg:border-l lg:border-r
+          "
+        >
+          <div class="svg-wrapper w-[32px] h-[32px] mr-2">
+            <div class="svg svg-monitor-mobile w-[32px] h-[32px]"></div>
+          </div>
+          <div>
+            <p class="uppercase text-black45 tracking-wider">Impressions</p>
+            <p class="text-black65">
+              <strong>{{ total.impressions }}</strong>
+            </p>
+          </div>
+        </div>
+        <div
+          class="flex justify-start lg:justify-center items-center lg:px-[48px]"
+        >
+          <div class="svg-wrapper w-[32px] h-[32px] mr-2">
+            <div class="svg svg-health w-[32px] h-[32px]"></div>
+          </div>
+          <div>
+            <p class="uppercase text-black45 tracking-wider">Visits</p>
+            <p class="text-black65">
+              <strong>{{ total.visits }}</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end of tabs -->
+    <!-- List -->
+    <div>
+      <!-- Head -->
+      <div class="grid grid-cols-5 bg-black15">
+        <div class="col-span-2 p-2">Name</div>
+        <div class="p-2 text-center">Impressions</div>
+        <div class="p-2 text-center">Visits</div>
+        <div class="p-2 text-center">Unique Visitors</div>
+      </div>
+      <!--end of head -->
+      <!-- Body -->
+      <div class="list max-h-[400px] overflow-y-scroll bg-white">
+        <div
+          *ngFor="let space of spaces"
+          class="grid grid-cols-5 border-t border-black15"
+        >
+          <!-- Name -->
+          <div class="col-span-2 p-2 flex items-center">
+            <img
+              [src]="space.thumbnail"
+              class="w-[64px] h-[64px] mr-2 object-contain"
+            />
+            <div>
+              <p class="text-[16px] uppercase">
+                <strong>{{ space.title }}</strong>
+              </p>
+              <p class="text-black45">Updated by {{ space.author }}</p>
+            </div>
+          </div>
+          <!-- end of name -->
+          <!-- Impressions -->
+          <div class="p-2 justify-center flex items-center">
+            <p>{{ space.statistics.impressions }}</p>
+          </div>
+          <!-- end of impressions -->
+          <!-- Visits -->
+          <div class="p-2 justify-center flex items-center">
+            <p>{{ space.statistics.visits }}</p>
+          </div>
+          <!-- end of visits -->
+          <!-- Unique visitors -->
+          <div class="p-2 justify-center flex items-center">
+            <p>{{ space.statistics.uniques }}</p>
+          </div>
+          <!-- end of unique visitors -->
+        </div>
+      </div>
+      <!-- end of body -->
+    </div>
+    <!-- end of list -->
+  </ng-template>
+</div>

@@ -54,6 +54,11 @@ export const mockSpaces = [
         role: roles[1],
       },
     ],
+    statistics: {
+      impressions: 1472,
+      visits: 104,
+      uniques: 36,
+    },
   },
   {
     _id: '2',
@@ -92,6 +97,11 @@ export const mockSpaces = [
         role: roles[1],
       },
     ],
+    statistics: {
+      impressions: 1472,
+      visits: 104,
+      uniques: 36,
+    },
   },
   {
     _id: '3',
@@ -130,6 +140,11 @@ export const mockSpaces = [
         role: roles[1],
       },
     ],
+    statistics: {
+      impressions: 1472,
+      visits: 104,
+      uniques: 36,
+    },
   },
   {
     _id: '4',
@@ -168,6 +183,11 @@ export const mockSpaces = [
         role: roles[1],
       },
     ],
+    statistics: {
+      impressions: 1472,
+      visits: 104,
+      uniques: 36,
+    },
   },
   {
     _id: '5',
@@ -206,6 +226,11 @@ export const mockSpaces = [
         role: roles[1],
       },
     ],
+    statistics: {
+      impressions: 1472,
+      visits: 104,
+      uniques: 36,
+    },
   },
   {
     _id: '6',
@@ -244,5 +269,10 @@ export const mockSpaces = [
         role: roles[1],
       },
     ],
+    statistics: {
+      impressions: 1472,
+      visits: 104,
+      uniques: 36,
+    },
   },
 ];

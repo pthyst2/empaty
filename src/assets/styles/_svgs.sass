@@ -32,6 +32,12 @@ $download-color: $svgUrl + 'download-color.svg'
 $user-add-white: $svgUrl + 'user-add-white.svg'
 $refresh: $svgUrl + 'refresh.svg'
 $refresh-color: $svgUrl + 'refresh-color.svg'
+$cube-3d: $svgUrl + '3d-cube.svg'
+$cube-3d-color: $cube-3d
+$monitor-mobile: $svgUrl + "monitor-mobile.svg"
+$monitor-mobile-color: $monitor-mobile
+$health: $svgUrl + 'health.svg'
+$health-color: $health
 .svg-wrapper
     display: inline-flex
     justify-content: center
@@ -74,6 +80,12 @@ $refresh-color: $svgUrl + 'refresh-color.svg'
         background-image: url($user-add-white)
     .svg-refresh
         background-image: url($refresh)
+    .svg-3d-cube
+        background-image: url($cube-3d)
+    .svg-monitor-mobile
+        background-image: url($monitor-mobile)
+    .svg-health
+        background-image: url($health)
     &:hover
         .svg-store
             background-image: url($store-color)
@@ -107,3 +119,9 @@ $refresh-color: $svgUrl + 'refresh-color.svg'
             background-image: url($download-color)
         .svg-refresh
             background-image: url($refresh-color)
+        .svg-3d-cube
+            background-image: url($cube-3d-color)
+        .svg-monitor-mobile
+            background-image: url($monitor-mobile)
+        .svg-health
+            background-image: url($health)
