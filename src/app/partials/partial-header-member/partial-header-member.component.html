@@ -1,88 +1,55 @@
-<!-- Fixed header -->
 <div
   class="
     fixed
-    top-0
     left-0
     right-0
-    px-12
-    pb-4
-    xs:pb-0
+    px-page_px_sm
+    md:px-page_px_md
+    lg:page_px_lg
+    z-topHeaderHome
     bg-blacklight
     text-white
-    z-topHeaderHome
+    flex
+    justify-between
+    items-center
   "
 >
-  <div class="flex flex-wrap justify-between">
-    <!-- Left -->
-    <div class="grow flex flex-wrap justifi-start items-center">
-      <!-- Logo -->
-      <div
-        class="
-          inline-flex
-          justify-center
-          items-center
-          lg:justify-start
-          py-6
-          pr-4
-          lg:py-0
-        "
+  <!-- Logo & nav -->
+  <div class="inline-flex items-center">
+    <!-- Logo -->
+    <img [src]="logo" class="lg:pr-8 lg:border-r border-white" />
+    <!-- end of logo -->
+    <!-- Nav -->
+    <nav>
+      <a
+        *ngFor="let link of nav"
+        [routerLink]="['/member/' + link.route]"
+        class="inline-block"
       >
-        <a [routerLink]="['/home']">
-          <img [src]="logoUrl" class="h-5 lg:h-8" />
-        </a>
-      </div>
-      <!-- end of logo -->
-      <!-- Nav -->
-      <nav class="grow inline-flex justify-start items-center">
-        <a
-          *ngFor="let item of nav"
-          [routerLink]="['/member/' + item.route]"
-          [class.active]="linkActive == item.route"
-          class="
-            relative
-            inline-flex
-            justify-center
-            items-center
-            py-0
-            sm:py-6
-            pr-6
-            md:px-6
-            hover:text-main
-          "
-        >
-          <fa-icon
-            [icon]="item.icon"
-            class="text-iconButton lg:text-icon20"
-          ></fa-icon>
-
-          <span
-            *ngIf="linkActive == item.route"
-            class="hidden md:block absolute -bottom-4"
-            >{{ item.label }}</span
-          >
-        </a>
-      </nav>
-      <!-- end of nav -->
-    </div>
-    <!-- end of left -->
-    <!-- Right -->
-    <div class="grow md:grow-0 relative cursor-pointer hover:text-main">
-      <div class="flex h-full justify-end items-center">
-        <fa-icon class="lg:hidden" [icon]="faUser"></fa-icon>
-        <p class="hidden lg:inline-block">{{ user.fullname }}</p>
-        <fa-icon [icon]="faCaretDown" class="ml-3"></fa-icon>
-      </div>
-      <fixed-item-user
-        [attributes]="fixedUserAttributes"
-        [user]="user"
-        class="hidden-item"
-      ></fixed-item-user>
-    </div>
-    <!-- end of right -->
+        <div class="svg-wrapper px-8 py-4">
+          <div class="w-[24px] h-[24px] svg" [class]="'svg-' + link.svg"></div>
+        </div>
+      </a>
+    </nav>
+    <!-- end of nav -->
   </div>
+  <!-- end of logo & nav -->
+  <!-- User -->
+  <div
+    class="relative cursor-pointer hover:text-mainLight"
+    (mouseover)="showFixed = true"
+    (mouseleave)="showFixed = false"
+  >
+    <div class="h-[48px] inline-flex items-center">
+      <fa-icon [icon]="faUser"></fa-icon>
+      <p class="px-4">{{ user.fullname }}</p>
+      <fa-icon [icon]="faCaretDown"></fa-icon>
+    </div>
+    <ng-template [ngIf]="showFixed">
+      <fixed-item-user [user]="user" [attributes]="fixedUser"></fixed-item-user>
+    </ng-template>
+  </div>
+
+  <!-- end of user -->
 </div>
-<!-- end of fixed header -->
-<!-- Margin bottom -->
-<div class="header-margin-bottom"></div>
-<!-- end of margin bottom -->
+<div class="lg:mb-[48px]"></div>

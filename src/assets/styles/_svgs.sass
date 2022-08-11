@@ -38,6 +38,13 @@ $monitor-mobile: $svgUrl + "monitor-mobile.svg"
 $monitor-mobile-color: $monitor-mobile
 $health: $svgUrl + 'health.svg'
 $health-color: $health
+$cube-3d-scan-white: $svgUrl + '3d-cube-scan-white.svg'
+$cube-3d-scan-color: $svgUrl + '3d-cube-scan-color.svg'
+$people-white: $svgUrl + 'people-white.svg'
+$people-color: $svgUrl + 'people-color.svg'
+$global-white: $svgUrl + 'global-white.svg'
+$chart-white: $svgUrl + 'chart-white.svg'
+$chart-color: $svgUrl + 'chart-color.svg'
 .svg-wrapper
     display: inline-flex
     justify-content: center
@@ -86,6 +93,14 @@ $health-color: $health
         background-image: url($monitor-mobile)
     .svg-health
         background-image: url($health)
+    .svg-3d-cube-scan-white
+        background-image: url($cube-3d-scan-white)
+    .svg-people-white
+        background-image: url($people-white)
+    .svg-global-white
+        background-image: url($global-white)
+    .svg-chart-white
+        background-image: url($chart-white)
     &:hover
         .svg-store
             background-image: url($store-color)
@@ -125,3 +140,11 @@ $health-color: $health
             background-image: url($monitor-mobile)
         .svg-health
             background-image: url($health)
+        .svg-3d-cube-scan-white
+            background-image: url($cube-3d-scan-color)
+        .svg-people-white
+            background-image: url($people-color)
+        .svg-global-white
+            background-image: url($global-color)
+        .svg-chart-white
+            background-image: url($chart-color)

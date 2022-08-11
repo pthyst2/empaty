@@ -17,37 +17,33 @@ import {
 export class PartialHeaderMemberComponent implements OnInit {
   faUser = faUser;
   faCaretDown = faCaretDown;
-  logoUrl = environment.imageUrls.logos + 'logo-empaty.svg';
+  logo = environment.imageUrls.logos + 'logo-empaty.svg';
   @Input() linkActive: any;
   @Input() user: any;
   nav = [
     {
-      label: 'Spaces',
-      icon: faCube,
+      svg: '3d-cube-scan-white',
       route: 'home',
       active: false,
     },
     {
-      label: 'Collaborators',
-      icon: faPeopleGroup,
+      svg: 'people-white',
       route: 'collaborators',
       active: false,
     },
     {
-      label: 'Public Spaces',
-      icon: faLink,
+      svg: 'global-white',
       route: 'public-spaces',
       active: false,
     },
     {
-      label: 'Statistics',
-      icon: faChartSimple,
+      svg: 'chart-white',
       route: 'statistics',
       active: false,
     },
   ];
-
-  fixedUserAttributes = {
+  showFixed = false;
+  fixedUser = {
     bottomNegative: 'full',
     right: '0',
     rounded: true,
