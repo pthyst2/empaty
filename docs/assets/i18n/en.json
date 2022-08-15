@@ -1,0 +1,27 @@
+{
+    "headerHome": {
+        "nav": {
+            "whatIsEmpaty": "What is Empaty?",
+            "function": "Function",
+            "scene": "Utilization Scene",
+            "faq": "FAQ"
+        },
+        "buttons": {
+            "experience": "Experience",
+            "register": "Register"
+        }
+    },
+    "fixedUser": {
+        "login": "Login",
+        "register": "Register"
+    },
+    "sectionSpaces": {
+        "title": "Various Utilization Scenes",
+        "noSpace": "You do not have any space.",
+        "btnExplore": "Explore more space"
+    },
+    "itemSpace": {
+        "tryItNow": "Try It Now"
+    }
+
+}

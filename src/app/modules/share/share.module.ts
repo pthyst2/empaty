@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DragScrollModule } from 'ngx-drag-scroll';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 //#endregion
 
 //#region Buttons
@@ -34,6 +36,7 @@ import { ModalPopupComponent } from '../../modals/modal-popup/modal-popup.compon
 //#region Sliders
 import { SliderBaseComponent } from '../../sliders/slider-base/slider-base.component';
 import { SliderCreateSpaceComponent } from '../../sliders/slider-create-space/slider-create-space.component';
+import { HttpClient } from '@angular/common/http';
 //#endregion
 
 //#region Declarations
@@ -62,6 +65,13 @@ const imports: any = [
   FormsModule,
   ReactiveFormsModule,
   DragScrollModule,
+  TranslateModule.forRoot({
+    loader: {
+      provide: TranslateLoader,
+      useFactory: httpTranslateLoader,
+      deps: [HttpClient],
+    },
+  }),
 ];
 //#endregion
 @NgModule({
@@ -71,3 +81,6 @@ const imports: any = [
   providers: [],
 })
 export class ShareModule {}
+export function httpTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

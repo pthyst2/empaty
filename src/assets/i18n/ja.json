@@ -1,0 +1,26 @@
+{
+    "headerHome": {
+        "nav": {
+            "whatIsEmpaty": "Empatyとは？",
+            "function": "関数",
+            "scene": "活用シーン",
+            "faq": "よくある質問"
+        },
+        "buttons": {
+            "experience": "経験",
+            "register": "登録"
+        }
+    },
+    "fixedUser": {
+        "login": "ログイン",
+        "register": "登録"
+    },
+    "sectionSpaces": {
+        "title": "さまざまな活用シーン",
+        "nospace": "スペースがありません。",
+        "btnExplore": "より多くのスペースを探索する"
+    },
+    "itemSpace": {
+        "tryItNow": "今試してみて"
+    }
+}

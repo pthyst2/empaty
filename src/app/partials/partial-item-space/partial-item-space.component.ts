@@ -7,9 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class PartialItemSpaceComponent implements OnInit {
   @Input() space: any = {};
-  msg = {
-    viewmore: 'Try it now',
-  };
+
   constructor() {}
   ngOnInit(): void {
     this.setNoImage();

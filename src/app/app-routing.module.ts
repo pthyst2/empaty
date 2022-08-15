@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AppComponent } from './app.component';
 import { PageMemberInvoiceDetailComponent } from './pages/page-member-invoice-detail/page-member-invoice-detail.component';
 import { PageTestZoneComponent } from './pages/page-test-zone/page-test-zone.component';
 //#region Guards
