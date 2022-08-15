@@ -16,6 +16,7 @@ export class LayoutHomeComponent implements OnInit {
   constructor(private translate: TranslateService, private lang: LangService) {}
 
   ngOnInit(): void {
+    this.getUser();
     this.setLang();
   }
 
