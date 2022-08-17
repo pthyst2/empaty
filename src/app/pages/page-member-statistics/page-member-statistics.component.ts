@@ -28,8 +28,8 @@ export class PageMemberStatisticsComponent implements OnInit {
   }
   getSpaces() {
     this.loading = true;
-    let res: any = this.spaceService.getSpaces();
-    this.spaces = res.data;
+    //let res: any = this.spaceService.getSpaces();
+    this.spaces = [];
     for (let space of this.spaces) {
       if (!space.thumbnail) {
         space.thumbnail = environment.imageUrls.none;

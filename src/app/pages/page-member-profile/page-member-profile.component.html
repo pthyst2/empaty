@@ -20,14 +20,7 @@
               : "Basic Information"
           }}</strong>
         </p>
-        <!--  
-        <div
-          *ngIf="basicInfo.edit == false"
-          class="svg-wrapper w-[20px] h-[20px]"
-          (click)="toggleForm(basicInfo)"
-        >
-          <div class="svg svg-edit w-[20px] h-[20px]"></div>
-        </div>-->
+
         <button
           *ngIf="basicInfo.edit == false"
           type="button"
@@ -60,20 +53,16 @@
             class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-4 break-all"
           >
             <div>
-              <span class="text-black45">First Name: </span
-              ><span>{{ user.firstname }}</span>
-            </div>
-            <div>
-              <span class="text-black45">Last Name: </span
-              ><span>{{ user.lastname }}</span>
+              <span class="text-black45">Full Name: </span
+              ><span>{{ user.fullname }}</span>
             </div>
             <div>
               <span class="text-black45">Phone Number: </span
-              ><span>{{ user.phoneNumber }}</span>
+              ><span>{{ user.phone }}</span>
             </div>
             <div>
-              <span class="text-black45">Company Name: </span
-              ><span>{{ user.company }}</span>
+              <span class="text-black45">Address: </span
+              ><span>{{ user.address }}</span>
             </div>
           </div>
         </ng-template>
@@ -87,70 +76,39 @@
           >
             <div class="grow mb-8">
               <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-4">
-                <!-- First name -->
+                <!-- Full name -->
                 <div class="form-group-col">
                   <label class="text-black65"
-                    >First Name <span class="text-danger">*</span></label
+                    >Full Name <span class="text-danger">*</span></label
                   >
                   <div
                     class="input-wrapper"
                     [class.input-invalid]="
-                      fs.isControlInvalid(ctr1.firstname, basicInfo.submitted)
+                      fs.isControlInvalid(ctr1.fullname, basicInfo.submitted)
                     "
                   >
                     <input
                       type="text"
-                      formControlName="firstname"
+                      formControlName="fullname"
                       spellcheck="false"
                     />
                   </div>
                   <div
                     *ngIf="
-                      fs.isControlInvalid(ctr1.firstname, basicInfo.submitted)
+                      fs.isControlInvalid(ctr1.fullname, basicInfo.submitted)
                     "
                     class="text-right"
                   >
                     <p
                       class="text-danger"
-                      *ngIf="fs.isCtrHasError(ctr1.firstname, 'required')"
+                      *ngIf="fs.isCtrHasError(ctr1.fullname, 'required')"
                     >
-                      {{ basicInfo.messages.firstname.required }}
+                      Full name cannot be empty.
                     </p>
                   </div>
                 </div>
                 <!-- end of first name -->
-                <!-- Last name -->
-                <div class="form-group-col">
-                  <label class="text-black65"
-                    >Last Name <span class="text-danger">*</span></label
-                  >
-                  <div
-                    class="input-wrapper"
-                    [class.input-invalid]="
-                      fs.isControlInvalid(ctr1.lastname, basicInfo.submitted)
-                    "
-                  >
-                    <input
-                      type="text"
-                      formControlName="lastname"
-                      spellcheck="false"
-                    />
-                  </div>
-                  <div
-                    class="text-right"
-                    *ngIf="
-                      fs.isControlInvalid(ctr1.lastname, basicInfo.submitted)
-                    "
-                  >
-                    <p
-                      class="text-danger"
-                      *ngIf="fs.isCtrHasError(ctr1.lastname, 'required')"
-                    >
-                      {{ basicInfo.messages.lastname.required }}
-                    </p>
-                  </div>
-                </div>
-                <!-- end of last name -->
+
                 <!-- Phone number -->
                 <div class="form-group-col">
                   <label class="text-black65"
@@ -176,43 +134,23 @@
                       class="text-danger"
                       *ngIf="fs.isCtrHasError(ctr1.phone, 'required')"
                     >
-                      {{ basicInfo.messages.phone.required }}
+                      Phone number cannot be empty.
                     </p>
                   </div>
                 </div>
                 <!-- end of phone number -->
-                <!-- Company name -->
+                <!-- Address -->
                 <div class="form-group-col">
-                  <label class="text-black65"
-                    >Company Name <span class="text-danger">*</span></label
-                  >
-                  <div
-                    class="input-wrapper"
-                    [class.input-invalid]="
-                      fs.isControlInvalid(ctr1.company, basicInfo.submitted)
-                    "
-                  >
+                  <label class="text-black65">Address</label>
+                  <div class="input-wrapper">
                     <input
                       type="text"
-                      formControlName="company"
+                      formControlName="address"
                       spellcheck="false"
                     />
                   </div>
-                  <div
-                    class="text-right"
-                    *ngIf="
-                      fs.isControlInvalid(ctr1.company, basicInfo.submitted)
-                    "
-                  >
-                    <p
-                      class="text-danger"
-                      *ngIf="fs.isCtrHasError(ctr1.company, 'required')"
-                    >
-                      {{ basicInfo.messages.company.required }}
-                    </p>
-                  </div>
                 </div>
-                <!-- end of company name -->
+                <!-- end of address -->
               </div>
             </div>
             <!-- Buttons -->
@@ -331,13 +269,13 @@
                       class="text-danger"
                       *ngIf="fs.isCtrHasError(ctr2.email, 'required')"
                     >
-                      {{ loginInfo.messages.email.required }}
+                      Email cannot be empty.
                     </p>
                     <p
                       class="text-danger"
                       *ngIf="fs.isCtrHasError(ctr2.email, 'email')"
                     >
-                      {{ loginInfo.messages.email.email }}
+                      Email invalid.
                     </p>
                   </div>
                 </div>
@@ -365,6 +303,7 @@
                       "
                       formControlName="currentPassword"
                       spellcheck="false"
+                      autocomplete="new-password"
                     />
                     <fa-icon
                       class="
@@ -399,7 +338,7 @@
                       class="text-danger"
                       *ngIf="fs.isCtrHasError(ctr2.currentPassword, 'required')"
                     >
-                      {{ loginInfo.messages.currentPassword.required }}
+                      Please enter current password.
                     </p>
                   </div>
                 </div>
@@ -451,7 +390,7 @@
                       class="text-danger"
                       *ngIf="fs.isCtrHasError(ctr2.newPassword, 'required')"
                     >
-                      {{ loginInfo.messages.newPassword.required }}
+                      Please enter new password.
                     </p>
                   </div>
                 </div>
@@ -511,13 +450,13 @@
                       class="text-danger"
                       *ngIf="fs.isCtrHasError(ctr2.confirmPassword, 'required')"
                     >
-                      {{ loginInfo.messages.confirmPassword.required }}
+                      Please re-enter new password here.
                     </p>
                     <p
                       class="text-danger"
                       *ngIf="fs.isCtrHasError(ctr2.confirmPassword, 'matched')"
                     >
-                      {{ loginInfo.messages.confirmPassword.matched }}
+                      Confirm password did not matched with new password.
                     </p>
                   </ng-template>
                 </div>

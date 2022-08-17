@@ -7,7 +7,7 @@
           class="
             block
             py-2
-            text-center
+            text-left
             border border-x-0 border-t-0 border-b border-grey
             hover:text-main
           "
@@ -22,7 +22,7 @@
           class="py-2 flex justify-start hover:text-main"
         >
           <fa-icon [icon]="faHouse" class="mr-4"></fa-icon>
-          <span>Home</span>
+          <span>{{ "fixedUser.home" | translate }}</span>
         </a>
       </li>
       <li>
@@ -31,7 +31,7 @@
           class="py-2 flex justify-start hover:text-main"
         >
           <fa-icon [icon]="faGear" class="mr-4"></fa-icon>
-          <span>Setting</span>
+          <span>{{ "fixedUser.setting" | translate }}</span>
         </a>
       </li>
       <li>
@@ -40,21 +40,23 @@
           class="cursor-pointer py-2 flex justify-start hover:text-main"
         >
           <fa-icon [icon]="faLogout" class="mr-4"></fa-icon>
-          <span>Logout</span>
+          <span>{{ "fixedUser.logout" | translate }}</span>
         </p>
       </li>
     </ng-template>
     <ng-template [ngIf]="!user">
       <li>
         <a [routerLink]="['/auth/login']" class="block py-2 hover:text-main"
-          ><span>Login</span></a
+          ><span>{{ "fixedUser.login" | translate }}</span></a
         >
       </li>
+      <!--  
       <li>
         <a [routerLink]="['/auth/register']" class="block py-2 hover:text-main"
-          ><span>Register</span></a
+          ><span>{{ "fixedUser.register" | translate }}</span></a
         >
       </li>
+    -->
     </ng-template>
   </ul>
 </div>

@@ -20,11 +20,14 @@ export class FixedItemUserComponent extends FixedItemBaseComponent {
   faHouse = faHouse;
   faGear = faGear;
   @Input() user: any;
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(private router: Router) {
     super();
   }
   logout() {
-    this.authService.clearStorage();
-    this.router.navigate(['home']);
+    localStorage.removeItem('token');
+    this.router.navigate(['/home']);
+    setTimeout(() => {
+      window.location.reload();
+    }, 100);
   }
 }

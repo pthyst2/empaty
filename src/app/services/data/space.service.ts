@@ -1,66 +1,86 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable, Subscription } from 'rxjs';
+import { Apollo, gql } from 'apollo-angular';
 
 //#region Mocks
 import { mockSpaces } from 'src/app/data/mocks/mockSpaces';
 import { mockSpaceCategories } from 'src/app/data/mocks/mockSpaceCategories';
 //#endregion
+
 const spaces = mockSpaces;
 const categories = mockSpaceCategories;
+
+//#region Queries
+const gqlFloors = gql`
+  query floors($token: String!, $limit: Int!, $start: Int!) {
+    floors(token: $token, limit: $limit, start: $start) {
+      total
+      items {
+        id
+        name
+        description
+        name_ja
+        created
+        image
+      }
+    }
+  }
+`;
+const gqlServiceFloors = gql`
+  query serviceFloors(
+    $service: String!
+    $token: String!
+    $limit: Int!
+    $start: Int!
+  ) {
+    floors(service: $service, token: $token, limit: $limit, start: $start) {
+      total
+      items {
+        id
+        name
+        description
+        name_ja
+        created
+        image
+      }
+    }
+  }
+`;
+const gqlCreateFloor = gql`
+  mutation createFloor($input: NewHouse!) {
+    createFloor(input: $input)
+  }
+`;
+//#endregion
+
 @Injectable({
   providedIn: 'root',
 })
 export class SpaceService {
-  constructor(private http: HttpClient) {}
-  getSpaces(body?: any) {
-    let res: any = {
-      data: [],
-      limit: 20,
-      offset: 0,
-      count: spaces.length,
-      pages: 0,
-    };
-
-    if (body) {
-      if (body.limit) {
-        res.limit = body.limit;
-      }
-      if (body.offset) {
-        res.offset = body.offset;
-      }
-    }
-
-    let pages = Math.floor(spaces.length / res.limit);
-    if (spaces.length % res.limit > 0) {
-      pages++;
-    }
-    res.pages = pages;
-
-    /*
-    Examples:
-    1. offset = 0, limit = 5 => start = spaces[0], end = spaces[4]
-    2. offset = 5, limit = 5 => start = spaces[5], end = spaces[9]
-    3. offset = 10, limit = 5 => start = spaces[10], end = spaces[14]
-    => start = spaces[offset], end = spaces[offset + limit - 1]
-    */
-    let start = res.offset;
-    let end = start + res.limit - 1;
-    for (let i = start; i <= end; i++) {
-      let item: any = spaces[i];
-      if (!item) {
-        break;
-      } else {
-        res.data.push(item);
-      }
-    }
-    return res;
+  constructor(private http: HttpClient, private apollo: Apollo) {}
+  getSpaces(body: any): Observable<any> {
+    return this.apollo.query({
+      query: gqlFloors,
+      variables: {
+        token: localStorage.getItem('token'),
+        limit: body.limit ? body.limit : 0,
+        start: body.start ? body.start : 0,
+      },
+    });
   }
-  getSpacesNoLimit(body: any) {
-    return {
-      data: spaces,
-      count: spaces.length,
-    };
+  getServiceSpaces(body: any): Observable<any> {
+    return this.apollo.query({
+      query: gqlServiceFloors,
+      variables: {
+        service: body.service,
+        token: localStorage.getItem('token'),
+        limit: body.limit ? body.limit : 0,
+        start: body.start ? body.start : 0,
+      },
+    });
   }
+
   getSpaceDetail(_id: string) {
     let res: any = {
       status: 200,
@@ -78,11 +98,47 @@ export class SpaceService {
       status: 200,
     };
   }
-  createSpace(body: any) {
-    return {
-      status: 201,
-    };
+
+  getSpaceEncodedData(w: number, h: number): Observable<any> {
+    return this.http.get(
+      'http://3d.optimizer.vn/json/?w=' + w.toString() + '&h=' + h.toString()
+    );
   }
+
+  createSpace(body: any): Observable<any> {
+    let input: any = {
+      token: localStorage.getItem('token'),
+      name: body.name,
+      nameja: '',
+      description: body.description,
+      image: body.image ? body.image : '',
+      items: '',
+      data: '',
+      service: body.service,
+    };
+    let subs = new Subscription();
+    subs.add(
+      this.getSpaceEncodedData(body.width, body.length).subscribe({
+        next: (res: any) => {
+          input.data = res.data;
+        },
+        error: (err) => {
+          console.error(err);
+        },
+        complete: () => {
+          subs.unsubscribe();
+        },
+      })
+    );
+    console.log('input to mutate: ', input);
+    return this.apollo.mutate({
+      mutation: gqlCreateFloor,
+      variables: {
+        input: input,
+      },
+    });
+  }
+
   getCategories() {
     return {
       status: 200,

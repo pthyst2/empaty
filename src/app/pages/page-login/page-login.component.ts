@@ -60,27 +60,26 @@ export class PageLoginComponent implements OnInit {
         html: 'Please check all information and try again.',
       });
     } else {
-      try {
-        let data = this.loginForm.value;
-        let res = this.authService.login(data);
-        if (res.data) {
+      let input = this.loginForm.value;
+      this.authService.login(input).subscribe({
+        next: (res) => {
           this.popupService.success({
             title: 'Logged in successfully',
             html: 'Redirecting to member home page...',
           });
-          localStorage.setItem('token', JSON.stringify(res.data));
-          let user = this.authService.getUserDecoded();
-          localStorage.setItem('user', JSON.stringify(user));
+          this.authService.setUserToken(res.data.login);
           setTimeout(() => {
-            this.router.navigate(['member']);
+            this.router.navigate(['/member']);
           }, 1500);
-        }
-      } catch (err) {
-        this.popupService.error({
-          title: 'Login failed',
-          html: err,
-        });
-      }
+        },
+        error: (err) => {
+          console.error(err);
+          this.popupService.error({
+            title: "Can't login",
+            html: err,
+          });
+        },
+      });
     }
   }
 }

@@ -5,8 +5,7 @@
 export const environment = {
   production: false,
   appName: 'Empaty',
-  apiUrl: 'http://magento.optimizer.vn/rest/V2/',
-  testApi: 'https://pokeapi.co/api/v2/',
+  apiUrl: 'http://api.optimizer.vn/query',
   imageUrls: {
     none: 'assets/images/solids/no-image.png',
     logos: 'assets/images/solids/logos/',

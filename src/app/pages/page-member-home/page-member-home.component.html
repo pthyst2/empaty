@@ -1,7 +1,7 @@
 <div class="shadow-light rounded-modal p-[34px] bg-black2 page-member-home">
   <!-- Title -->
   <div class="mb-4 md:mb-6 xl:mb-8 text-center">
-    <p class="page-title">Space List</p>
+    <p class="page-title">{{ "pageMemberHome.title" | translate }}</p>
   </div>
   <!-- end of title -->
 
@@ -36,8 +36,9 @@
             md:pr-2
           "
         >
-          <button type="button" (click)="searchSpaces()" s>
+          <button type="button" (click)="searchSpaces()" class="tooltip">
             <fa-icon [icon]="faSearch"></fa-icon>
+            <span class="tooltiptext-left">Search</span>
           </button>
           <input
             type="text"
@@ -88,10 +89,12 @@
             justify-center
             items-center
             hover:shadow-light
+            tooltip
           "
           (click)="toggleModal('create-space')"
         >
           <img [src]="addSpaceByImageIcon" />
+          <span class="tooltiptext">Create new space by image</span>
         </div>
         <!-- end of add space by image -->
         <!-- Add space by editor -->
@@ -107,10 +110,12 @@
             justify-center
             items-center
             hover:shadow-light
+            tooltip
           "
-          (click)="toggleModal('create-space-image')"
+          (click)="toggleModal('create-space-editor')"
         >
           <img [src]="addSpaceByEditorIcon" />
+          <span class="tooltiptext-right">Create new space by editor</span>
         </div>
         <!-- end of add space by editor -->
       </div>
@@ -138,10 +143,10 @@
 
 <!-- Modal Create Space by image -->
 <ng-template [ngIf]="modals.createSpaceImage == true">
-  <modal-create-space-by-image
+  <modal-create-space-by-editor
     [user]="user"
-    (closed)="catchModalCreateSpaceImage($event)"
-  ></modal-create-space-by-image>
+    (closed)="catchModalCreateSpaceEditor($event)"
+  ></modal-create-space-by-editor>
 </ng-template>
 <!-- end of modal create space by image -->
 

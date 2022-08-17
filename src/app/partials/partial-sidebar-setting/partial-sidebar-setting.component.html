@@ -14,42 +14,46 @@
   "
 >
   <!-- User -->
-  <div class="flex lg:flex border-b-0 lg:border-b border-black15 py-4">
-    <div
-      (click)="goPage('/member/setting/profile')"
-      class="
-        cursor-pointer
-        flex
-        items-center
-        py-4
-        px-2
-        hover:bg-grey
-        rounded-[4px]
-      "
-    >
-      <!-- Avatar -->
-      <img
-        [src]="user.avatar"
+  <ng-template [ngIf]="user">
+    <div class="flex lg:flex border-b-0 lg:border-b border-black15 py-4">
+      <div
+        (click)="goPage('/member/setting/profile')"
         class="
-          shrink-0
-          mr-2
-          w-[32px]
-          h-[32px]
-          rounded-circle
-          border-2 border-main
+          cursor-pointer
+          flex
+          items-center
+          py-4
+          px-2
+          hover:bg-grey
+          rounded-[4px]
         "
-      />
-      <!-- end of avatar -->
-      <!-- Info -->
-      <div class="grow break-all">
-        <p>
-          <strong>{{ user.fullname }}</strong>
-        </p>
-        <p class="text-black45">{{ user.email }}</p>
+      >
+        <!-- Avatar -->
+        <ng-template [ngIf]="user.avatar">
+          <img
+            [src]="user.avatar"
+            class="
+              shrink-0
+              mr-2
+              w-[32px]
+              h-[32px]
+              rounded-circle
+              border-2 border-main
+            "
+          />
+        </ng-template>
+        <!-- end of avatar -->
+        <!-- Info -->
+        <div class="grow break-all">
+          <p>
+            <strong>{{ user.fullname }}</strong>
+          </p>
+          <p class="text-black45">{{ user.email }}</p>
+        </div>
+        <!-- end of info -->
       </div>
-      <!-- end of info -->
     </div>
-  </div>
+  </ng-template>
   <!-- end of user -->
   <!-- Links -->
   <div class="flex flex-row lg:flex-col flex-wrap py-4">

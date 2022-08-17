@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component,   Input, Output, EventEmitter } from '@angular/core';
 import { ModalBaseComponent } from '../modal-base/modal-base.component';
 import { mockUser } from 'src/app/data/mocks/mockUser';
 import { mockSpaceSizes } from 'src/app/data/mocks/mockSpaceSizes';
@@ -9,6 +9,7 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { environment } from 'src/environments/environment';
 import { ArrayService } from 'src/app/services/utilities/array.service';
 import { SpaceService } from 'src/app/services/data/space.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'modal-create-space',
   templateUrl: './modal-create-space.component.html',
@@ -28,19 +29,10 @@ export class ModalCreateSpaceComponent extends ModalBaseComponent {
       serviceTypes: mockServiceTypes,
     },
     form: this.fb.group({
-      title: ['', [Validators.required]],
-      serviceType: ['', [Validators.required]],
-      image: [''],
+      name: ['', [Validators.required]],
+      service: ['', [Validators.required]],
       description: [''],
     }),
-    msg: {
-      title: {
-        required: 'Space title cannot by empty.',
-      },
-      serviceType: {
-        required: 'Please select space service type.',
-      },
-    },
     submitted: false,
     defaultImage: environment.imageUrls.space + 'restaurant.png'
   };
@@ -80,11 +72,13 @@ export class ModalCreateSpaceComponent extends ModalBaseComponent {
   };
 
   modalTitle: any = this.step1.title;
-
+  subs = new Subscription();
   constructor(private fb: FormBuilder, private popup: PopupMessageService, private arrayService: ArrayService, private spaceService: SpaceService) {
     super();
   }
-
+  override ngOnDestroy(): void {
+    this.subs.unsubscribe()
+  }
   override close(data?: any) {
     this.closed.emit(data); 
   }
@@ -136,21 +130,28 @@ export class ModalCreateSpaceComponent extends ModalBaseComponent {
     this.step2.submitted = true;
     if (this.form2.valid) {
       let data = {
-        title: this.ctr1.title.value,
-        serviceType: this.ctr1.serviceType.value,
-        image: this.ctr1.image.value ? this.ctr1.image.value : undefined,
+        name: this.ctr1.name.value,
+        service: this.ctr1.service.value, 
         description: this.ctr1.description.value ? this.ctr1.description.value : '',
         width: this.ctr2.width.value,
         length: this.ctr2.length.value,
       };
+       
+      this.subs.add(
+        this.spaceService.createSpace(data).subscribe({
+          next: (res: any) => {
+            console.log("res create space: ", res);
+            this.popup.success({ title: 'New Space Created' });
+            this.close(true);
+          },
+          error: (err) => {
+            this.popup.error({
+              title: 'Create space failed',
+              html: 'Error when creating space: ' + err });
+          }
+        })
+      ) 
 
-      let res = this.spaceService.createSpace(data);
-      if (res.status == 201) {
-        this.popup.success({
-          title: 'New Space Created'
-        });
-        this.close(true);
-      }
     } else {
       this.popup.error({
         title: 'Invalid or missing info',

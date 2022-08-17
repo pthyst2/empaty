@@ -37,21 +37,25 @@
   </div>
   <!-- end of logo & nav -->
   <!-- User -->
-  <div
-    class="relative cursor-pointer hover:text-mainLight"
-    (mouseover)="showFixed = true"
-    (mouseleave)="showFixed = false"
-  >
-    <div class="h-[48px] inline-flex items-center">
-      <fa-icon [icon]="faUser"></fa-icon>
-      <p class="px-4">{{ user.fullname }}</p>
-      <fa-icon [icon]="faCaretDown"></fa-icon>
+  <ng-template [ngIf]="user">
+    <div
+      class="relative cursor-pointer hover:text-mainLight"
+      (mouseover)="showFixed = true"
+      (mouseleave)="showFixed = false"
+    >
+      <div class="h-[48px] inline-flex items-center">
+        <fa-icon [icon]="faUser"></fa-icon>
+        <p class="px-4">{{ user.fullname }}</p>
+        <fa-icon [icon]="faCaretDown"></fa-icon>
+      </div>
+      <ng-template [ngIf]="showFixed">
+        <fixed-item-user
+          [user]="user"
+          [attributes]="fixedUser"
+        ></fixed-item-user>
+      </ng-template>
     </div>
-    <ng-template [ngIf]="showFixed">
-      <fixed-item-user [user]="user" [attributes]="fixedUser"></fixed-item-user>
-    </ng-template>
-  </div>
-
+  </ng-template>
   <!-- end of user -->
 </div>
 <div class="lg:mb-[48px]"></div>

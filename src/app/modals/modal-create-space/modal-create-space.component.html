@@ -26,49 +26,34 @@
         <div class="flex flex-col lg:flex-row justify-center mb-8">
           <!-- Form -->
           <div class="flex flex-col justify-between">
-            <!-- Title -->
+            <!-- Name -->
             <div class="mb-4">
               <div class="form-group-inline">
                 <label class="text-right"
-                  ><p>Space Title <span class="text-danger">*</span></p></label
+                  ><p>Space Name <span class="text-danger">*</span></p></label
                 >
 
                 <div
                   class="input-wrapper w-[235px] shrink-0"
-                  [class.input-invalid]="isCtr1Invalid(ctr1.title)"
+                  [class.input-invalid]="isCtr1Invalid(ctr1.name)"
                 >
                   <input
                     type="text"
-                    formControlName="title"
+                    formControlName="name"
                     spellcheck="false"
                     placeholder="My Awesome Space"
                   />
                 </div>
               </div>
-              <ng-template [ngIf]="isCtr1Invalid(ctr1.title)">
+              <ng-template [ngIf]="isCtr1Invalid(ctr1.name)">
                 <div class="text-right">
-                  <p
-                    class="text-danger"
-                    *ngIf="ctr1.title.errors?.['required']"
-                  >
-                    <span>{{ step1.msg.title.required }}</span>
+                  <p class="text-danger" *ngIf="ctr1.name.errors?.['required']">
+                    <span>Space's name cannot be empty.</span>
                   </p>
                 </div>
               </ng-template>
             </div>
             <!-- end of title -->
-
-            <!-- Image -->
-            <div class="mb-4">
-              <div class="form-group-inline">
-                <label class="text-right"><p>Image</p></label>
-
-                <div class="input-wrapper w-[235px] shrink-0">
-                  <input type="file" formControlName="image" />
-                </div>
-              </div>
-            </div>
-            <!-- end of image -->
 
             <!-- Service type -->
             <div class="mb-4">
@@ -79,11 +64,11 @@
 
                 <div
                   class="input-wrapper w-[235px] shrink-0"
-                  [class.input-invalid]="isCtr1Invalid(ctr1.title)"
+                  [class.input-invalid]="isCtr1Invalid(ctr1.service)"
                 >
                   <select
-                    formControlName="serviceType"
-                    [class.border-red]="isCtr1Invalid(ctr1.serviceType)"
+                    formControlName="service"
+                    [class.border-red]="isCtr1Invalid(ctr1.service)"
                   >
                     <option value="" hidden selected disabled>
                       Select service type
@@ -94,15 +79,13 @@
                   </select>
                 </div>
               </div>
-              <ng-template [ngIf]="isCtr1Invalid(ctr1.serviceType)">
+              <ng-template [ngIf]="isCtr1Invalid(ctr1.service)">
                 <div class="text-right">
                   <p
-                    *ngIf="ctr1.serviceType.errors?.['required']"
+                    *ngIf="ctr1.service.errors?.['required']"
                     class="text-danger"
                   >
-                    <span>
-                      {{ step1.msg.serviceType.required }}
-                    </span>
+                    <span> Please select service type for space. </span>
                   </p>
                 </div>
               </ng-template>

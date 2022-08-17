@@ -37,7 +37,7 @@ import { PageMemberStatisticsComponent } from '../../pages/page-member-statistic
 
 //#region Modals
 import { ModalAddCollaboratorComponent } from 'src/app/modals/modal-add-collaborator/modal-add-collaborator.component';
-import { ModalCreateSpaceByImageComponent } from '../../modals/modal-create-space-by-image/modal-create-space-by-image.component';
+import { ModalCreateSpaceByEditorComponent } from '../../modals/modal-create-space-by-editor/modal-create-space-by-editor.component';
 import { ModalCreateSpaceComponent } from 'src/app/modals/modal-create-space/modal-create-space.component';
 import { ModalDeleteSpaceComponent } from 'src/app/modals/modal-delete-space/modal-delete-space.component';
 import { ModalDeleteCollaboratorComponent } from '../../modals/modal-delete-collaborator/modal-delete-collaborator.component';
@@ -61,7 +61,7 @@ import { LayoutSettingComponent } from '../layout-setting/layout-setting.compone
     ModalAddCollaboratorComponent,
     ModalDeleteSpaceComponent,
     ModalDeleteCollaboratorComponent,
-    ModalCreateSpaceByImageComponent,
+    ModalCreateSpaceByEditorComponent,
     ModalCreateSpaceComponent,
     ModalEditCollaboratorComponent,
     ModalEditSpaceComponent,

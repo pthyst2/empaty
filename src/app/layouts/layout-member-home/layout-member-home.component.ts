@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
+import { LangService } from 'src/app/services/utilities/lang.service';
+import { AuthService } from 'src/app/services/data/auth.service';
 @Component({
   selector: 'layout-member-home',
   templateUrl: './layout-member-home.component.html',
@@ -8,11 +11,19 @@ import { Router, NavigationEnd } from '@angular/router';
 export class LayoutMemberHomeComponent implements OnInit {
   linkActive: any;
   user: any;
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private translate: TranslateService,
+    private lang: LangService,
+    private authService: AuthService
+  ) {
     this.catchUrl();
   }
   ngOnInit(): void {
-    this.getUser();
+    if (this.authService.isLoggedIn() == true) {
+      this.getUser();
+    }
+    this.setLang();
   }
   catchUrl() {
     this.router.events.subscribe((event: any) => {
@@ -23,7 +34,16 @@ export class LayoutMemberHomeComponent implements OnInit {
     });
   }
   getUser() {
-    let localUser: any = localStorage.getItem('user');
-    this.user = JSON.parse(localUser);
+    this.authService.getUserInfo().subscribe({
+      next: (res: any) => {
+        this.user = res.data.userInfo;
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
+  }
+  setLang() {
+    this.lang.setLang(this.translate);
   }
 }

@@ -36,7 +36,7 @@
       <span class="capitalize">{{ space.status }}</span>
     </p>
     <p class="text-greyDark">
-      Service Type: {{ space.serviceType.name }} | Space size:
+      Service Type: {{ space.serviceType }} | Space size:
       {{ space.size.width }}mx{{ space.size.length }}m
       {{ space.size.width * space.size.length }}m2
     </p>
@@ -47,19 +47,21 @@
     <!-- Product -->
     <a
       [routerLink]="['/member/products']"
-      class="svg-wrapper w-[45px] h-[45px]"
+      class="svg-wrapper w-[45px] h-[45px] tooltip"
     >
       <div class="svg svg-store w-[20px] h-[20px]"></div>
+      <span class="tooltiptext-top">Open product page</span>
     </a>
     <!-- end of product -->
 
     <!-- Make private -->
     <ng-container *ngIf="space.status == 'published'; else private">
       <div
-        class="svg-wrapper w-[45px] h-[45px]"
+        class="svg-wrapper w-[45px] h-[45px] tooltip"
         (click)="space.paid ? '' : toggleModal('make-payment')"
       >
         <div class="svg svg-lock w-[20px] h-[20px]"></div>
+        <span class="tooltiptext-top">Make it private</span>
       </div>
     </ng-container>
     <!-- end of private -->
@@ -67,32 +69,42 @@
     <!-- Make public -->
     <ng-template #private>
       <div
-        class="svg-wrapper w-[45px] h-[45px]"
+        class="svg-wrapper w-[45px] h-[45px] tooltip"
         (click)="space.paid ? '' : toggleModal('make-payment')"
       >
         <div class="svg svg-unlock w-[20px] h-[20px]"></div>
+        <span class="tooltiptext-top">Make it public</span>
       </div>
     </ng-template>
     <!-- end of make public -->
 
     <!-- Collaborators -->
     <div
-      class="svg-wrapper w-[45px] h-[45px]"
+      class="svg-wrapper w-[45px] h-[45px] tooltip"
       (click)="toggleModal('add-collaborator')"
     >
       <div class="svg svg-add-collaborator w-[20px] h-[20px]"></div>
+      <span class="tooltiptext-top">Add collaborator</span>
     </div>
     <!-- end of collaborators -->
 
     <!-- Edit -->
-    <div class="svg-wrapper w-[45px] h-[45px]" (click)="toggleModal('edit')">
+    <div
+      class="svg-wrapper w-[45px] h-[45px] tooltip"
+      (click)="toggleModal('edit')"
+    >
       <div class="svg svg-edit w-[20px] h-[20px]"></div>
+      <span class="tooltiptext-top">Edit space</span>
     </div>
     <!-- end of edit -->
 
     <!-- Delete -->
-    <div class="svg-wrapper w-[45px] h-[45px]" (click)="toggleModal('delete')">
+    <div
+      class="svg-wrapper w-[45px] h-[45px] tooltip"
+      (click)="toggleModal('delete')"
+    >
       <div class="svg svg-trash w-[20px] h-[20px]"></div>
+      <span class="tooltiptext-top">Delete space</span>
     </div>
     <!-- end of delete -->
   </div>

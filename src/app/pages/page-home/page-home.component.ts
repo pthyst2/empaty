@@ -55,16 +55,7 @@ export class PageHomeComponent implements OnInit {
   }
 
   loadSpaces() {
-    try {
-      let body = {
-        limit: 6,
-        offset: 0,
-      };
-      let res = this.spaceService.getSpaces(body);
-      this.sectionSpaces.data = res.data;
-    } catch (err) {
-      console.error('Error when loading spaces: ', err);
-    }
+    this.sectionSpaces.data = [];
   }
   loadBlogs() {
     try {

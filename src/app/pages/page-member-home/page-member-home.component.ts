@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { SpaceService } from 'src/app/services/data/space.service';
@@ -7,13 +7,14 @@ import { SeoService } from 'src/app/services/utilities/seo.service';
 import { AuthService } from 'src/app/services/data/auth.service';
 import { CollaboratorService } from 'src/app/services/data/collaborator.service';
 import { mockServiceTypes } from 'src/app/data/mocks/mockServiceTypes';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'page-member-home',
   templateUrl: './page-member-home.component.html',
   styleUrls: ['./page-member-home.component.sass'],
 })
-export class PageMemberHomeComponent implements OnInit {
+export class PageMemberHomeComponent implements OnInit, OnDestroy {
   faSearch = faMagnifyingGlass;
 
   iconUrl = environment.imageUrls.icon;
@@ -54,42 +55,40 @@ export class PageMemberHomeComponent implements OnInit {
     html: '',
     timer: undefined,
   };
+
+  subs = new Subscription();
   constructor(
     private spaceService: SpaceService,
     private popupService: PopupMessageService,
     private authService: AuthService,
     private collabService: CollaboratorService,
-
     private seo: SeoService
   ) {}
 
   ngOnInit(): void {
     this.setSEO();
     this.getUser();
+    this.searchSpaces();
     this.loadServiceTypes();
-    this.searchSpacesNoLimit();
     this.loadCollaborators();
   }
-
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
   setSEO() {
     this.seo.setTitle('Company Spaces');
   }
   getUser() {
-    this.user = this.authService.getUserDecoded();
-  }
-  loadSpaces(body?: any) {
-    try {
-      let res = this.spaceService.getSpaces(body);
-      this.spaces = [];
-      this.spaces = res.data;
-      this.pagination.pages = res.pages;
-      this.pagination.currentPage = body && body.page ? body.page : 1;
-    } catch (err) {
-      this.popupService.error({
-        title: 'Load spaces failed',
-        html: err,
-      });
-    }
+    this.subs.add(
+      this.authService.getUserInfo().subscribe({
+        next: (res: any) => {
+          this.user = res.data.userInfo;
+        },
+        error: (err) => {
+          console.error(err);
+        },
+      })
+    );
   }
 
   loadServiceTypes() {
@@ -105,29 +104,43 @@ export class PageMemberHomeComponent implements OnInit {
       console.error('Error when loading collaborators: ', err);
     }
   }
-
-  searchSpaces(page?: number) {
-    let body = {
-      serviceType: this.search.serviceType,
-      keyword: this.search.keyword,
-      page: page ? page : 1,
-      offset: 0,
-      limit: this.limit,
-    };
-    if (page) {
-      body.offset = page > 1 ? this.limit * (page - 1) : 0;
-    }
-
-    this.loadSpaces(body);
+  loadSpaces(body: any) {
+    this.subs.add(
+      this.spaceService.getSpaces(body).subscribe({
+        next: (res: any) => {
+          console.log('res load spaces: ', res);
+        },
+        error: (err) => {
+          console.error(err);
+        },
+      })
+    );
   }
-
-  searchSpacesNoLimit() {
+  loadServiceSpaces(body: any) {
+    this.subs.add(
+      this.spaceService.getServiceSpaces(body).subscribe({
+        next: (res: any) => {
+          console.log('res load service spaces: ', res);
+        },
+        error: (err) => {
+          console.error(err);
+        },
+      })
+    );
+  }
+  searchSpaces() {
     let body = {
-      serviceType: this.search.serviceType,
+      service: this.search.serviceType,
       keyword: this.search.keyword,
+      limit: this.limit,
+      start: 0,
     };
-    let res = this.spaceService.getSpacesNoLimit(body);
-    this.spaces = res.data;
+
+    if (body.service) {
+      this.loadServiceSpaces(body);
+    } else {
+      this.loadSpaces(body);
+    }
   }
 
   toggleModal(name: string, content?: any) {
@@ -136,7 +149,7 @@ export class PageMemberHomeComponent implements OnInit {
         this.modals.createSpace = !this.modals.createSpace;
         break;
       }
-      case 'create-space-image': {
+      case 'create-space-editor': {
         this.modals.createSpaceImage = !this.modals.createSpaceImage;
         break;
       }
@@ -161,15 +174,17 @@ export class PageMemberHomeComponent implements OnInit {
   catchModalCreateSpace(event: any) {
     this.modals.createSpace = false;
     if (event != false) {
-      this.searchSpaces(this.pagination.currentPage);
+      this.searchSpaces();
     }
   }
-  catchModalCreateSpaceImage(event: any) {
-    this.toggleModal('create-space-image');
-    this.toggleModal('popup', {
-      icon: 'success',
-      title: 'Space Created',
-      timer: 1500,
-    });
+  catchModalCreateSpaceEditor(event: any) {
+    this.toggleModal('create-space-editor');
+    if (event != false) {
+      this.toggleModal('popup', {
+        icon: 'success',
+        title: 'Space Created',
+        timer: 1500,
+      });
+    }
   }
 }

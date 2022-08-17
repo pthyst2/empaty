@@ -162,7 +162,7 @@ export class PageRegisterComponent implements OnInit {
   }
   submitStepRegister() {
     this.stepRegister.submitted = true;
-    if (this.stepRegister.form.valid) {
+    /*if (this.stepRegister.form.valid) {
       try {
         let data = this.stepRegister.form.value;
         let res = this.authService.register(data);
@@ -188,7 +188,7 @@ export class PageRegisterComponent implements OnInit {
         title: "Can't create account",
         html: 'Please check all information and try again.',
       });
-    }
+    }*/
   }
   //#endregion
   //#region Plan

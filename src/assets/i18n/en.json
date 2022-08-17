@@ -12,8 +12,11 @@
         }
     },
     "fixedUser": {
+        "home": "Home",
         "login": "Login",
-        "register": "Register"
+        "register": "Register",
+        "setting": "Setting",
+        "logout": "Logout"
     },
     "sectionSpaces": {
         "title": "Various Utilization Scenes",
@@ -22,6 +25,11 @@
     },
     "itemSpace": {
         "tryItNow": "Try It Now"
+    },
+    "pageMemberHome": {
+        "title": "Space List",
+        "search": "Search",
+        "createByImage": "Create new space by image",
+        "createByEditor": "Create new space by editor"
     }
-
 }

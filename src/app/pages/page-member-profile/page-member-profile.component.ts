@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FormService } from 'src/app/services/utilities/form.service';
 import { AuthService } from 'src/app/services/data/auth.service';
+import { UserService } from 'src/app/services/data/user.service';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'page-member-profile',
   templateUrl: './page-member-profile.component.html',
   styleUrls: ['./page-member-profile.component.sass'],
 })
-export class PageMemberProfileComponent implements OnInit {
+export class PageMemberProfileComponent implements OnInit, OnDestroy {
   faEye = faEye;
   faEyeSlash = faEyeSlash;
   user: any;
@@ -16,34 +18,19 @@ export class PageMemberProfileComponent implements OnInit {
     loading: false,
     edit: false,
     form: this.fb.group({
-      _id: ['', [Validators.required]],
-      firstname: ['', [Validators.required]],
-      lastname: ['', [Validators.required]],
+      id: ['', [Validators.required]],
+      fullname: ['', [Validators.required]],
       phone: ['', [Validators.required]],
-      company: ['', [Validators.required]],
+      address: [''],
     }),
     submitted: false,
-    messages: {
-      firstname: {
-        required: 'First name cannot be empty.',
-      },
-      lastname: {
-        required: 'Last name cannot be empty.',
-      },
-      phone: {
-        required: 'Phone number cannot be empty.',
-      },
-      company: {
-        required: "Company's name cannot be empty.",
-      },
-    },
   };
 
   loginInfo: any = {
     loading: false,
     edit: false,
     form: this.fb.group({
-      _id: ['', [Validators.required]],
+      id: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       currentPassword: ['', [Validators.required]],
       newPassword: ['', [Validators.required]],
@@ -55,22 +42,6 @@ export class PageMemberProfileComponent implements OnInit {
       newPassword: false,
       confirmPassword: false,
     },
-    messages: {
-      email: {
-        required: 'Email cannot be empty.',
-        email: 'Email is invalid.',
-      },
-      currentPassword: {
-        required: 'Please enter the current password.',
-      },
-      newPassword: {
-        required: 'Please enter the new password.',
-      },
-      confirmPassword: {
-        required: 'Please re-enter the new password.',
-        matched: "Confirm password don't match with the new password.",
-      },
-    },
   };
   popup = false;
   popupContent: any = {
@@ -79,34 +50,46 @@ export class PageMemberProfileComponent implements OnInit {
     icon: '',
     timer: undefined,
   };
+  subs = new Subscription();
   constructor(
     private fb: FormBuilder,
     public fs: FormService,
-    private authService: AuthService
+    private authService: AuthService,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
     this.getUser();
   }
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
   getUser() {
     this.basicInfo.loading = true;
     this.loginInfo.loading = true;
-    setTimeout(() => {
-      this.user = this.authService.getUserDecoded();
-      this.setFormsValue();
-      this.basicInfo.loading = false;
-      this.loginInfo.loading = false;
-    }, 1000);
+    this.subs.add(
+      this.authService.getUserInfo().subscribe({
+        next: (res: any) => {
+          this.user = res.data.userInfo;
+          console.log('user: ', this.user);
+          this.setFormsValue();
+          this.basicInfo.loading = false;
+          this.loginInfo.loading = false;
+        },
+        error: (err) => {
+          console.error(err);
+        },
+      })
+    );
   }
   setFormsValue() {
     if (this.user) {
       let u = this.user;
-      this.ctr1._id.setValue(u._id);
-      this.ctr1.firstname.setValue(u.firstname);
-      this.ctr1.lastname.setValue(u.lastname);
-      this.ctr1.phone.setValue(u.phoneNumber);
-      this.ctr1.company.setValue(u.company);
-      this.ctr2._id.setValue(u._id);
+      this.ctr1.id.setValue(u.id);
+      this.ctr1.fullname.setValue(u.fullname);
+      this.ctr1.phone.setValue(u.phone);
+      this.ctr1.address.setValue(u.address ? u.address : 'No Data');
+      this.ctr2.id.setValue(u.id);
       this.ctr2.email.setValue(u.email);
     }
   }
@@ -122,13 +105,29 @@ export class PageMemberProfileComponent implements OnInit {
   submitForm1() {
     this.basicInfo.submitted = true;
     if (this.form1.valid) {
-      this.togglePopup({
-        icon: 'success',
-        title: 'Basic infomation updated',
-        timer: 1500,
-      });
-      this.basicInfo.edit = false;
-      this.getUser();
+      let input: any = {
+        fullname: this.ctr1.fullname.value,
+        phone: this.ctr1.phone.value,
+        address: this.ctr1.address.value,
+        token: localStorage.getItem('token'),
+      };
+      this.subs.add(
+        this.userService.updateBasicInfo(input).subscribe({
+          next: (res: any) => {
+            this.togglePopup({
+              icon: 'success',
+              title: 'Basic infomation updated',
+              html: 'Reloading data...',
+              timer: 1500,
+            });
+            this.basicInfo.edit = false;
+            setTimeout(() => window.location.reload(), 1500);
+          },
+          error: (err) => {
+            console.error(err);
+          },
+        })
+      );
     } else {
       this.togglePopup({
         icon: 'error',
@@ -153,13 +152,29 @@ export class PageMemberProfileComponent implements OnInit {
     }
 
     if (this.form2.valid) {
-      this.togglePopup({
-        icon: 'success',
-        title: 'Login infomation updated',
-        timer: 1500,
-      });
-      this.loginInfo.edit = false;
-      this.getUser();
+      let input: any = {
+        oldPassword: this.ctr2.currentPassword.value,
+        newPassword: this.ctr2.newPassword.value,
+        confirmPassword: this.ctr2.confirmPassword.value,
+        token: localStorage.getItem('token'),
+      };
+      this.subs.add(
+        this.userService.updateLoginInfo(input).subscribe({
+          next: (res: any) => {
+            this.togglePopup({
+              icon: 'success',
+              title: 'Login infomation updated',
+              html: 'Reloading data...',
+              timer: 1500,
+            });
+            this.loginInfo.edit = false;
+            setTimeout(() => window.location.reload(), 1500);
+          },
+          error: (err) => {
+            console.error(err);
+          },
+        })
+      );
     } else {
       this.togglePopup({
         icon: 'error',

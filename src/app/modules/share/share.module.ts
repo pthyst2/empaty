@@ -7,6 +7,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DragScrollModule } from 'ngx-drag-scroll';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { ApolloModule, APOLLO_OPTIONS } from 'apollo-angular';
+import { HttpLink } from 'apollo-angular/http';
+import { InMemoryCache } from '@apollo/client/core';
 //#endregion
 
 //#region Buttons
@@ -72,13 +75,27 @@ const imports: any = [
       deps: [HttpClient],
     },
   }),
+  ApolloModule,
 ];
 //#endregion
 @NgModule({
   declarations: declarations,
   imports: imports,
   exports: [declarations, ...imports],
-  providers: [],
+  providers: [
+    {
+      provide: APOLLO_OPTIONS,
+      useFactory: (httpLink: HttpLink) => {
+        return {
+          cache: new InMemoryCache(),
+          link: httpLink.create({
+            uri: 'http://api.optimizer.vn/query',
+          }),
+        };
+      },
+      deps: [HttpLink],
+    },
+  ],
 })
 export class ShareModule {}
 export function httpTranslateLoader(http: HttpClient) {

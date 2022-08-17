@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-
+import { Router } from '@angular/router';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { Subscription } from 'rxjs';
 
 //#region Services
 import { AuthService } from 'src/app/services/data/auth.service';
@@ -13,7 +14,7 @@ import { SeoService } from 'src/app/services/utilities/seo.service';
   templateUrl: './page-forgot-password.component.html',
   styleUrls: ['./page-forgot-password.component.sass'],
 })
-export class PageForgotPasswordComponent implements OnInit {
+export class PageForgotPasswordComponent implements OnInit, OnDestroy {
   faEye = faEye;
   faEyeSlash = faEyeSlash;
 
@@ -61,15 +62,21 @@ export class PageForgotPasswordComponent implements OnInit {
     },
   };
 
+  subs = new Subscription();
+
   constructor(
     private authService: AuthService,
     private popupService: PopupMessageService,
     private fb: FormBuilder,
-    private seo: SeoService
+    private seo: SeoService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.setSEO();
+  }
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
   setSEO() {
     this.seo.setTitle('Forgot Password');
@@ -84,26 +91,25 @@ export class PageForgotPasswordComponent implements OnInit {
   submitStep1() {
     this.step1.submitted = true;
     if (this.step1.form.valid) {
-      try {
-        let data = this.step1.form.value;
-        let res = this.authService.sendResetCode(data);
-        if (res.status == 200) {
-          this.popupService.success({
-            title: 'Reset code sent',
-            html: 'Please check your mailbox',
-          });
-          setTimeout(() => {
-            this.step1.active = false;
-            this.ctr2.email.setValue(this.ctr1.email.value);
-            this.step2.active = true;
-          }, 1000);
-        }
-      } catch (err) {
-        this.popupService.error({
-          title: 'Can\t send reset code',
-          html: err,
-        });
-      }
+      let input = this.ctr1.email.value;
+      this.subs.add(
+        this.authService.sendResetCode(input).subscribe({
+          next: (res: any) => {
+            this.popupService.success({
+              title: 'Reset code sent',
+              html: 'Please check your mailbox',
+            });
+            setTimeout(() => {
+              this.step1.active = false;
+              this.ctr2.email.setValue(input);
+              this.step2.active = true;
+            }, 1000);
+          },
+          error: (err) => {
+            console.error(err);
+          },
+        })
+      );
     } else {
       this.popupService.error({
         title: "Can't send reset code",
@@ -122,24 +128,29 @@ export class PageForgotPasswordComponent implements OnInit {
     }
 
     if (this.step2.form.valid) {
-      try {
-        let data = this.step2.form.value;
-        let res = this.authService.resetPassword(data);
-        if (res.status == 200) {
-          this.popupService.success({
-            title: 'Reset password successfully',
-            html: 'Redirecting to login page...',
-          });
-          setTimeout(() => {
-            window.location.assign('auth/login');
-          }, 2000);
-        }
-      } catch (err) {
-        this.popupService.error({
-          title: 'Reset password failed',
-          html: err,
-        });
-      }
+      let data = this.step2.form.value;
+      this.subs.add(
+        this.authService
+          .resetPassword({
+            email: data.email,
+            codeActive: data.resetCode,
+            password: data.password,
+          })
+          .subscribe({
+            next: (res: any) => {
+              this.popupService.success({
+                title: 'Reset password successfully',
+                html: 'Redirecting to login page...',
+              });
+              setTimeout(() => {
+                this.router.navigate(['/auth/login']);
+              }, 2000);
+            },
+            error: (err) => {
+              console.error(err);
+            },
+          })
+      );
     } else {
       this.popupService.error({
         title: "Can't reset password",

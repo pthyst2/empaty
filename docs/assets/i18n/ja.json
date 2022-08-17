@@ -12,8 +12,11 @@
         }
     },
     "fixedUser": {
+        "home": "ホームページ",
         "login": "ログイン",
-        "register": "登録"
+        "register": "登録", 
+        "setting": "設定",
+        "logout": "ログアウト"
     },
     "sectionSpaces": {
         "title": "さまざまな活用シーン",
@@ -22,5 +25,11 @@
     },
     "itemSpace": {
         "tryItNow": "今試してみて"
+    },
+    "pageMemberHome": {
+        "title": "スペース一覧",
+        "search": "探す",
+        "createByImage": "イメージで新しい空間をつくる",
+        "createByEditor": "編集者による新しいスペースの作成"
     }
 }

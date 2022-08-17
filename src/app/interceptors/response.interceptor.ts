@@ -7,11 +7,9 @@ import {
   HttpResponse,
 } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
 @Injectable()
 export class ResponseInterceptor implements HttpInterceptor {
   constructor() {}
-
   intercept(
     req: HttpRequest<unknown>,
     next: HttpHandler

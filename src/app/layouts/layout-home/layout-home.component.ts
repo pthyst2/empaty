@@ -3,6 +3,7 @@ import { solidAppInfo } from 'src/app/data/solids/solidAppInfo';
 import { solidNavHeaderHome } from 'src/app/data/solids/solidNavHeaderHome';
 import { TranslateService } from '@ngx-translate/core';
 import { LangService } from 'src/app/services/utilities/lang.service';
+import { AuthService } from 'src/app/services/data/auth.service';
 @Component({
   selector: 'layout-home',
   templateUrl: './layout-home.component.html',
@@ -13,19 +14,28 @@ export class LayoutHomeComponent implements OnInit {
   navs: any = solidNavHeaderHome;
   logoUrl: string = solidAppInfo.logoUrl;
 
-  constructor(private translate: TranslateService, private lang: LangService) {}
+  constructor(
+    private translate: TranslateService,
+    private lang: LangService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit(): void {
-    this.getUser();
+    if (this.authService.isLoggedIn() == true) {
+      this.getUser();
+    }
     this.setLang();
   }
 
   getUser() {
-    let localUser: any = localStorage.getItem('user');
-    let user = JSON.parse(localUser);
-    if (user) {
-      this.user = user;
-    }
+    this.authService.getUserInfo().subscribe({
+      next: (res: any) => {
+        this.user = res.data.userInfo;
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
   }
   setLang() {
     this.lang.setLang(this.translate);
