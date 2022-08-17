@@ -16,31 +16,31 @@
       md:w-itemSpaceWidthLg
     "
   >
-    <img
-      [src]="space.thumbnail"
-      class="w-itemSpaceWidthLg h-itemSpaceHeightLg"
-    />
+    <img [src]="image" class="w-itemSpaceWidthLg h-itemSpaceHeightLg" />
   </a>
   <!-- end of thumbnail -->
   <!-- Info -->
   <div class="grow mr-0 mb-4 px-4 md:mb-0 md:mr-10 md:px-0">
     <a
-      [routerLink]="[space.link]"
+      [routerLink]="['/member/home']"
       class="text-xl hover:text-main uppercase font-semibold"
     >
-      {{ space.title }}
+      {{ space.name }}
     </a>
+    <!--  
     <p class="text-greyDark">
       Update on {{ space.updatedAt | date: "yyyy.MM.dd" }} by
       {{ space.author }} | Status:
       <span class="capitalize">{{ space.status }}</span>
     </p>
+  -->
+    <!--  
     <p class="text-greyDark">
       Service Type: {{ space.serviceType }} | Space size:
       {{ space.size.width }}mx{{ space.size.length }}m
       {{ space.size.width * space.size.length }}m2
     </p>
-  </div>
+  --></div>
   <!-- end of info -->
   <!-- Actions -->
   <div class="grow inline-flex justify-end items-center">

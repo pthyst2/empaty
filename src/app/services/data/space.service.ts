@@ -19,9 +19,10 @@ const gqlFloors = gql`
       items {
         id
         name
-        description
         name_ja
+        description
         created
+        status
         image
       }
     }

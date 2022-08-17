@@ -108,7 +108,8 @@ export class PageMemberHomeComponent implements OnInit, OnDestroy {
     this.subs.add(
       this.spaceService.getSpaces(body).subscribe({
         next: (res: any) => {
-          console.log('res load spaces: ', res);
+          console.log('loadSpaces res: ', res);
+          this.spaces = res.data.floors.items;
         },
         error: (err) => {
           console.error(err);

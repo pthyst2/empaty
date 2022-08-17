@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 import {
   faUser,
   faPencil,
@@ -51,20 +52,12 @@ export class PartialItemSpaceLargeComponent implements OnInit {
     delete: this.svgUrl + 'trash.svg',
     deleteColor: this.svgUrl + 'trash-color.svg',
   };
-
-  constructor(private router: Router) {}
+  noImage = environment.imageUrls.space + 'no-image.png';
+  image: any;
+  constructor(private router: Router, private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
-    this.setNoImage();
-    this.setLink();
-  }
-  setLink() {
-    this.space.link = 'member/space/' + this.space._id;
-  }
-  setNoImage() {
-    if (!this.space.thumbnail) {
-      this.space.thumbnail = environment.imageUrls.space + 'no-image.png';
-    }
+    this.renderImage();
   }
 
   toggleModal(name: string) {
@@ -87,7 +80,15 @@ export class PartialItemSpaceLargeComponent implements OnInit {
       }
     }
   }
-
+  renderImage() {
+    if (!this.space.image) {
+      this.image = this.noImage;
+    } else {
+      this.image = this.sanitizer.bypassSecurityTrustResourceUrl(
+        'data:image/jpg;base64,' + this.space.image
+      );
+    }
+  }
   catchMakePayment(value: any) {
     if (value != false) {
       this.router.navigate(['/member/order-space']);
