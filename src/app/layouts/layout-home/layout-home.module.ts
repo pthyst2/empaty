@@ -21,7 +21,6 @@ import { PartialItemBlogComponent } from 'src/app/partials/partial-item-blog/par
 
 //#region Fixed items
 import { FixedItemBaseComponent } from 'src/app/fixed-items/fixed-item-base/fixed-item-base.component';
-import { FixedItemMultiLanguagesComponent } from 'src/app/fixed-items/fixed-item-multi-languages/fixed-item-multi-languages.component';
 //#endregion
 
 import { LayoutHomeRoutingModule } from './layout-home-routing.module';
@@ -40,7 +39,6 @@ import { LayoutHomeComponent } from './layout-home.component';
     PartialItemFunctionComponent,
     PartialItemBlogComponent,
     FixedItemBaseComponent,
-    FixedItemMultiLanguagesComponent,
   ],
   imports: [CommonModule, ShareModule, LayoutHomeRoutingModule],
 })

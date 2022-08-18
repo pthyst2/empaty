@@ -23,10 +23,12 @@ import { PartialCopyrightComponent } from 'src/app/partials/partial-copyright/pa
 import { PartialLoadingComponent } from 'src/app/partials/partial-loading/partial-loading.component';
 import { PartialPaginationComponent } from 'src/app/partials/partial-pagination/partial-pagination.component';
 import { PartialItemSwitchComponent } from '../../partials/partial-item-switch/partial-item-switch.component';
+import { PartialLangStringComponent } from 'src/app/partials/partial-lang-string/partial-lang-string.component';
 //#endregion
 
 //#region Fixed items
 import { FixedItemUserComponent } from 'src/app/fixed-items/fixed-item-user/fixed-item-user.component';
+import { FixedItemMultiLanguagesComponent } from 'src/app/fixed-items/fixed-item-multi-languages/fixed-item-multi-languages.component';
 //#endregion
 
 //#region Modals
@@ -48,6 +50,7 @@ const declarations: any = [
   ButtonIconFontAwesomeComponent,
   ButtonSvgComponent,
   FixedItemUserComponent,
+  FixedItemMultiLanguagesComponent,
   ModalConfirmComponent,
   ModalBaseComponent,
   ModalMessageComponent,
@@ -56,6 +59,7 @@ const declarations: any = [
   PartialItemSwitchComponent,
   PartialLoadingComponent,
   PartialPaginationComponent,
+  PartialLangStringComponent,
   SliderBaseComponent,
   SliderCreateSpaceComponent,
 ];

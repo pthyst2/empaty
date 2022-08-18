@@ -16,7 +16,10 @@
       md:w-itemSpaceWidthLg
     "
   >
-    <img [src]="image" class="w-itemSpaceWidthLg h-itemSpaceHeightLg" />
+    <img
+      [src]="image"
+      class="w-itemSpaceWidthLg h-itemSpaceHeightLg object-contain"
+    />
   </a>
   <!-- end of thumbnail -->
   <!-- Info -->
@@ -27,20 +30,24 @@
     >
       {{ space.name }}
     </a>
-    <!--  
+
     <p class="text-greyDark">
-      Update on {{ space.updatedAt | date: "yyyy.MM.dd" }} by
-      {{ space.author }} | Status:
+      {{ "partialItemSpaceLarge.texts.updated-on" | translate }}
+      : {{ space.modified | date: "yyyy.MM.dd"
+      }}<!--  by
+      {{ space.author }}-->
+      | {{ "partialItemSpaceLarge.texts.status" | translate }}:
       <span class="capitalize">{{ space.status }}</span>
     </p>
-  -->
-    <!--  
-    <p class="text-greyDark">
-      Service Type: {{ space.serviceType }} | Space size:
+
+    <p class="text-greyDark capitalize">
+      {{ "partialItemSpaceLarge.texts.service-type" | translate }}:
+      {{ space.service ? space.service : "Other" }}
+      <!-- | Space size:
       {{ space.size.width }}mx{{ space.size.length }}m
-      {{ space.size.width * space.size.length }}m2
+      {{ space.size.width * space.size.length }}m2 -->
     </p>
-  --></div>
+  </div>
   <!-- end of info -->
   <!-- Actions -->
   <div class="grow inline-flex justify-end items-center">
@@ -50,7 +57,9 @@
       class="svg-wrapper w-[45px] h-[45px] tooltip"
     >
       <div class="svg svg-store w-[20px] h-[20px]"></div>
-      <span class="tooltiptext-top">Open product page</span>
+      <span class="tooltiptext-top">{{
+        "partialItemSpaceLarge.tooltips.products" | translate
+      }}</span>
     </a>
     <!-- end of product -->
 
@@ -61,7 +70,9 @@
         (click)="space.paid ? '' : toggleModal('make-payment')"
       >
         <div class="svg svg-lock w-[20px] h-[20px]"></div>
-        <span class="tooltiptext-top">Make it private</span>
+        <span class="tooltiptext-top">{{
+          "partialItemSpaceLarge.tooltips.private" | translate
+        }}</span>
       </div>
     </ng-container>
     <!-- end of private -->
@@ -73,7 +84,9 @@
         (click)="space.paid ? '' : toggleModal('make-payment')"
       >
         <div class="svg svg-unlock w-[20px] h-[20px]"></div>
-        <span class="tooltiptext-top">Make it public</span>
+        <span class="tooltiptext-top">{{
+          "partialItemSpaceLarge.tooltips.public" | translate
+        }}</span>
       </div>
     </ng-template>
     <!-- end of make public -->
@@ -84,7 +97,9 @@
       (click)="toggleModal('add-collaborator')"
     >
       <div class="svg svg-add-collaborator w-[20px] h-[20px]"></div>
-      <span class="tooltiptext-top">Add collaborator</span>
+      <span class="tooltiptext-top">{{
+        "partialItemSpaceLarge.tooltips.user" | translate
+      }}</span>
     </div>
     <!-- end of collaborators -->
 
@@ -94,7 +109,9 @@
       (click)="toggleModal('edit')"
     >
       <div class="svg svg-edit w-[20px] h-[20px]"></div>
-      <span class="tooltiptext-top">Edit space</span>
+      <span class="tooltiptext-top">{{
+        "partialItemSpaceLarge.tooltips.edit" | translate
+      }}</span>
     </div>
     <!-- end of edit -->
 
@@ -104,7 +121,9 @@
       (click)="toggleModal('delete')"
     >
       <div class="svg svg-trash w-[20px] h-[20px]"></div>
-      <span class="tooltiptext-top">Delete space</span>
+      <span class="tooltiptext-top">{{
+        "partialItemSpaceLarge.tooltips.delete" | translate
+      }}</span>
     </div>
     <!-- end of delete -->
   </div>

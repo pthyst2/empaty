@@ -36,26 +36,43 @@
     <!-- end of nav -->
   </div>
   <!-- end of logo & nav -->
-  <!-- User -->
-  <ng-template [ngIf]="user">
+  <!-- Multi language & user -->
+  <div class="inline-flex items-center">
+    <!-- Multi language -->
     <div
-      class="relative cursor-pointer hover:text-mainLight"
-      (mouseover)="showFixed = true"
-      (mouseleave)="showFixed = false"
+      class="relative cursor-pointer"
+      (mouseover)="showLanguages = true"
+      (mouseleave)="showLanguages = false"
     >
-      <div class="h-[48px] inline-flex items-center">
-        <fa-icon [icon]="faUser"></fa-icon>
-        <p class="px-4">{{ user.fullname }}</p>
-        <fa-icon [icon]="faCaretDown"></fa-icon>
-      </div>
-      <ng-template [ngIf]="showFixed">
-        <fixed-item-user
-          [user]="user"
-          [attributes]="fixedUser"
-        ></fixed-item-user>
+      <img [src]="iconLang" class="w-[30px] h-[22px] py-[12px]" />
+      <ng-template [ngIf]="showLanguages == true">
+        <fixed-item-multi-languages
+          [attributes]="fixedLangs"
+        ></fixed-item-multi-languages>
       </ng-template>
     </div>
-  </ng-template>
-  <!-- end of user -->
+    <!-- end of multi language -->
+    <!-- User -->
+    <ng-template [ngIf]="user">
+      <div
+        class="relative cursor-pointer hover:text-mainLight"
+        (mouseover)="showFixed = true"
+        (mouseleave)="showFixed = false"
+      >
+        <div class="h-[48px] inline-flex items-center">
+          <p class="px-4">{{ user.fullname }}</p>
+          <fa-icon [icon]="faCaretDown"></fa-icon>
+        </div>
+        <ng-template [ngIf]="showFixed">
+          <fixed-item-user
+            [user]="user"
+            [attributes]="fixedUser"
+          ></fixed-item-user>
+        </ng-template>
+      </div>
+    </ng-template>
+    <!-- end of user -->
+  </div>
+  <!-- end of multi language & user -->
 </div>
 <div class="lg:mb-[48px]"></div>

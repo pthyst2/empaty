@@ -11,13 +11,7 @@
             "register": "Register"
         }
     },
-    "fixedUser": {
-        "home": "Home",
-        "login": "Login",
-        "register": "Register",
-        "setting": "Setting",
-        "logout": "Logout"
-    },
+    
     "sectionSpaces": {
         "title": "Various Utilization Scenes",
         "noSpace": "You do not have any space.",
@@ -26,10 +20,79 @@
     "itemSpace": {
         "tryItNow": "Try It Now"
     },
+    "fixedItemUser": {
+        "home": "Home",
+        "login": "Login", 
+        "setting": "Setting",
+        "logout": "Logout"
+    },
     "pageMemberHome": {
-        "title": "Space List",
-        "search": "Search",
-        "createByImage": "Create new space by image",
-        "createByEditor": "Create new space by editor"
-    }
+        "texts": {
+            "title": "Space list",
+            "no-space": "You have no slot for space."
+        },
+        "tooltips": {
+            "search": "Search",
+            "create-by-image": "Create new space by image",
+            "create-by-editor": "Create new space by editor"
+        },
+        "select": {
+            "all": "All Types"
+        }
+    },
+    "partialItemSpaceLarge": {
+        "texts": {
+            "updated-on": "Updated on",
+            "status": "Status",
+            "service-type": "Service type"
+        },
+        "tooltips": {
+            "products": "Open product page",
+            "public": "Make it public",
+            "private": "Make it private",
+            "user": "Add collaborator",
+            "edit": "Edit space",
+            "delete": "Delete space"
+        }
+    },
+    "modalCreateSpace": {
+        "step1": {
+            "texts": {
+                "title": "Create Space"
+            },
+            "labels": {
+                "name": "Space Name",
+                "service": "Service Type",
+                "description": "Description"
+            },
+            "buttons": {
+                "close": "Close",
+                "next": "Next"
+            },
+            "errors": {
+                "name-required": "Space's name cannot be empty.",
+                "service-required": "Please select service type for space."
+            }
+        },
+        "step2": {
+            "texts": {
+                "title": "Select space's size",
+                "select-service": "Select service type",
+                "select-size": "Please select the width and length of the space",
+                "size-fixed": "The height is fixed at 3m"
+               
+            },
+            "labels": {
+                "template": "Create by template",
+                "myself": "Create by myself",
+                "width": "Width",
+                "length": "Length"
+            },
+            "buttons": {
+                "close": "Close",
+                "back": "Back",
+                "finish": "Finish"
+            }
+        }
+    } 
 }

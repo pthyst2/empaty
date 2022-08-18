@@ -16,35 +16,34 @@
       <div class="grow flex flex-col lg:flex-row mb-4">
         <!-- Inputs -->
         <div class="pr-4 mb-4 lg:mb-0">
-          <!-- Title -->
+          <!-- Name -->
           <div class="mb-4">
             <div class="form-group-inline">
               <label class="text-right"
                 ><strong
-                  >Space Title <span class="text-danger">*</span></strong
+                  >Space Name <span class="text-danger">*</span></strong
                 ></label
               >
               <div
                 class="input-wrapper shrink-0 grow-0 w-[240px]"
-                [class.input-invalid]="
-                  fs.isControlInvalid(ctr.title, submitted)
-                "
+                [class.input-invalid]="fs.isControlInvalid(ctr.name, submitted)"
               >
-                <input type="text" formControlName="title" spellcheck="false" />
+                <input type="text" formControlName="name" spellcheck="false" />
               </div>
             </div>
-            <ng-template [ngIf]="fs.isControlInvalid(ctr.title, submitted)">
+            <ng-template [ngIf]="fs.isControlInvalid(ctr.name, submitted)">
               <div class="text-right">
                 <span
                   class="text-danger"
-                  *ngIf="fs.isCtrHasError(ctr.title, 'required')"
-                  >{{ messages.title.required }}</span
+                  *ngIf="fs.isCtrHasError(ctr.name, 'required')"
+                  >Space's name cannot be empty.</span
                 >
               </div>
             </ng-template>
           </div>
-          <!-- end of title -->
+          <!-- end of name -->
           <!-- Image -->
+          <!-- 
           <div class="mb-4">
             <div class="form-group-inline">
               <label class="text-right"><strong>Image </strong></label>
@@ -65,40 +64,67 @@
               </div>
             </div>
           </div>
+          -->
           <!-- end of image -->
-          <!-- Url -->
+          <!-- Japanese name -->
           <div class="mb-4">
             <div class="form-group-inline">
-              <label class="text-right"><strong>Public URL</strong></label>
+              <label class="text-right"><strong>Japanese Name</strong></label>
               <div class="input-wrapper shrink-0 grow-0 w-[240px]">
-                <input type="text" formControlName="url" spellcheck="false" />
-                <div
-                  class="
-                    ml-2
-                    pl-2
-                    border-l border-black15
-                    svg-wrapper
-                    w-[20px]
-                    h-[20px]
-                  "
-                >
-                  <div class="svg svg-lock w-[18px] h-[18px]"></div>
-                </div>
+                <input
+                  type="text"
+                  formControlName="nameja"
+                  spellcheck="false"
+                />
               </div>
             </div>
           </div>
-          <!-- end of url -->
+          <!-- end of japanese name -->
+          <!-- Service type -->
           <div class="mb-4">
             <div class="form-group-inline">
-              <label class="text-right"><strong>Summary</strong></label>
+              <label class="text-right"
+                ><strong
+                  >Service Type <span class="text-danger">*</span></strong
+                ></label
+              >
+              <div
+                class="input-wrapper shrink-0 grow-0 w-[240px]"
+                [class.input-invalid]="
+                  fs.isControlInvalid(ctr.service, submitted)
+                "
+              >
+                <select formControlName="service">
+                  <option *ngFor="let type of serviceTypes" [value]="type.name">
+                    {{ type.name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <ng-template [ngIf]="fs.isControlInvalid(ctr.service, submitted)">
+              <div class="text-right">
+                <span
+                  class="text-danger"
+                  *ngIf="fs.isCtrHasError(ctr.service, 'required')"
+                  >Please select service type of space.</span
+                >
+              </div>
+            </ng-template>
+          </div>
+          <!-- end of service type -->
+          <!-- Description -->
+          <div class="mb-4">
+            <div class="form-group-inline">
+              <label class="text-right"><strong>Description</strong></label>
               <div class="input-wrapper shrink-0 grow-0 w-[240px]">
                 <textarea
-                  formControlName="summary"
+                  formControlName="description"
                   spellcheck="false"
                 ></textarea>
               </div>
             </div>
           </div>
+          <!-- end of description -->
         </div>
         <!-- end of inputs -->
         <!-- Image -->
@@ -125,13 +151,9 @@
 </modal-base>
 
 <!-- Message popup -->
-<ng-template [ngIf]="popup == true">
-  <modal-message
-    [title]="popupContent.title"
-    [html]="popupContent.html"
-    [icon]="popupContent.icon"
-    [timer]="popupContent.timer"
-    (closed)="togglePopup()"
-  ></modal-message>
-</ng-template>
+<modal-popup
+  [show]="popup.show"
+  [content]="popup"
+  (closed)="popup.show = false"
+></modal-popup>
 <!-- end of message popup -->

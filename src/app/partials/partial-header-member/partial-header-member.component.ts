@@ -9,6 +9,7 @@ import {
   faUser,
   faCaretDown,
 } from '@fortawesome/free-solid-svg-icons';
+import { solidLanguages } from 'src/app/data/solids/solidLanguages';
 @Component({
   selector: 'partial-header-member',
   templateUrl: './partial-header-member.component.html',
@@ -42,13 +43,30 @@ export class PartialHeaderMemberComponent implements OnInit {
       active: false,
     },
   ];
+  showLanguages = false;
+  fixedLangs = { bottomNegative: 'full', right: '0', rounded: true };
   showFixed = false;
   fixedUser = {
     bottomNegative: 'full',
     right: '0',
     rounded: true,
   };
+  iconLang: any;
   constructor(private aroute: ActivatedRoute) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getLangIcon();
+  }
+  getLangIcon() {
+    let localLang: any = localStorage.getItem('lang');
+    if (!localLang) {
+      localLang = 'en';
+    }
+    for (let lang of solidLanguages) {
+      if (lang.value == localLang) {
+        this.iconLang = lang.icon;
+        break;
+      }
+    }
+  }
 }

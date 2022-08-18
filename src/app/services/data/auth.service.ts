@@ -21,18 +21,25 @@ const gqlUserInfo = gql`
   }
 `;
 const gqlLogin = gql`
-  mutation Login($input: Login!) {
-    login(input: $input)
+  mutation Login($email: String!, $password: String!) {
+    login(input: { email: $email, password: $password })
   }
 `;
+
 const gqlForgotPassword = gql`
   mutation forgotPassword($email: String!) {
     forgotPassword(email: $email)
   }
 `;
 const gqlResetPassword = gql`
-  mutation resetPassword($input: ResetPassword!) {
-    resetPassword(input: $input)
+  mutation resetPassword(
+    $email: String!
+    $codeActive: String!
+    $password: String!
+  ) {
+    resetPassword(
+      input: { email: $email, codeActive: $codeActive, password: $password }
+    )
   }
 `;
 //#endregion
@@ -52,7 +59,8 @@ export class AuthService {
     return this.apollo.mutate({
       mutation: gqlLogin,
       variables: {
-        input: input,
+        email: input.email,
+        password: input.password,
       },
     });
   }
@@ -83,7 +91,9 @@ export class AuthService {
     return this.apollo.mutate({
       mutation: gqlResetPassword,
       variables: {
-        input: input,
+        email: input.email,
+        codeActive: input.codeActive,
+        password: input.password,
       },
     });
   }

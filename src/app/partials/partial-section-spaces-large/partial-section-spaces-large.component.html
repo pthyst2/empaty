@@ -1,7 +1,7 @@
-<div class="w-full h-[800px] overflow-y-auto partial-section-spaces-large">
+<div class="w-full h-[800px] overflow-y-auto list">
   <ng-container *ngIf="spaces && spaces.length > 0; else noSpace">
     <div
-      class="py-8 px-9 border-t border-black45 space"
+      class="py-8 px-9 border-t border-black15 space"
       *ngFor="let space of spaces"
     >
       <partial-item-space-large
@@ -11,6 +11,8 @@
     </div>
   </ng-container>
   <ng-template #noSpace>
-    <p>{{ msg.noSpace }}</p>
+    <div class="text-center">
+      <p>{{ "pageMemberHome.texts.no-space" | translate }}</p>
+    </div>
   </ng-template>
 </div>

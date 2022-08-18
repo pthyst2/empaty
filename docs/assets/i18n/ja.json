@@ -11,13 +11,7 @@
             "register": "登録"
         }
     },
-    "fixedUser": {
-        "home": "ホームページ",
-        "login": "ログイン",
-        "register": "登録", 
-        "setting": "設定",
-        "logout": "ログアウト"
-    },
+    
     "sectionSpaces": {
         "title": "さまざまな活用シーン",
         "nospace": "スペースがありません。",
@@ -26,10 +20,73 @@
     "itemSpace": {
         "tryItNow": "今試してみて"
     },
+    "fixedItemUser": {
+        "home": "ホーム",
+        "login": "ログイン", 
+        "setting": "セッティング",
+        "logout": "ログアウト"
+    },
     "pageMemberHome": {
-        "title": "スペース一覧",
-        "search": "探す",
-        "createByImage": "イメージで新しい空間をつくる",
-        "createByEditor": "編集者による新しいスペースの作成"
+        "texts": {
+            "title": "スペースリスト",
+            "no-space": "スロットがなくなりました。"
+        },
+        "tooltips": {
+            "search": "検索",
+            "create-by-image": "イメージで新規登録",
+            "create-by-editor": "エディターで新規登録"
+        },
+        "select": {
+            "all": "全てのタイプ"
+        }
+    },
+    "partialItemSpaceLarge": {
+        "texts": {
+            "updated-on": "編集",
+            "status": "ステータス",
+            "service-type": "サービスタイプ"
+        },
+        "tooltips": {
+            "products": "商品ページを開く",
+            "public": "公開中になる",
+            "private": "非公開になる",
+            "user": "コラボレートを追加する",
+            "edit": "スペースの編集",
+            "delete": "スペースの削除"
+        }
+    },
+    "modalCreateSpace": {
+        "step1": {
+            "texts": {
+                "title": "スペース作成"
+            },
+            "labels": {
+                "name": "スペース名",
+                "service": "サービスタイプ",
+                "description": "説明"
+            },
+            "buttons": {
+                "close": "閉じる",
+                "next": "次"
+            },
+            "errors": {
+                "name-required": "空きスペースの名前ができません。",
+                "service-required": "スペースのサービスタイプを選択ください。"
+            }
+        },
+        "step2": {
+            "texts": {
+                "title": "スペースサイズを選択ください"
+            },
+            "labels": {
+                "template": "テンプレートで作成",
+                "myself": "自由に作成"
+            },
+            "buttons": {
+                "close": "閉じる",
+                "back": "戻る",
+                "finish": "完了"
+            }
+        }
     }
 }

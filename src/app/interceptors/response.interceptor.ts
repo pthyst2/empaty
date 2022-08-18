@@ -14,6 +14,11 @@ export class ResponseInterceptor implements HttpInterceptor {
     req: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
+    /*let newReq = req.clone({
+      setHeaders: {
+        'Access-Control-Allow-Origin': '*',
+      },
+    });*/
     return next.handle(req).pipe(
       map((event: any) => {
         return event;

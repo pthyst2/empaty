@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { ModalBaseComponent } from '../modal-base/modal-base.component';
 import { SpaceService } from 'src/app/services/data/space.service';
-import { PopupMessageService } from 'src/app/services/utilities/popup-message.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: ' modal-delete-space',
   templateUrl: './modal-delete-space.component.html',
@@ -10,30 +10,48 @@ import { PopupMessageService } from 'src/app/services/utilities/popup-message.se
 export class ModalDeleteSpaceComponent extends ModalBaseComponent {
   @Input() override static = false;
   @Input() space : any;
-
-  constructor(private spaceService: SpaceService, private popup: PopupMessageService){
+  popup : any = {
+    show: false,
+    icon: 'success',
+    title: "",
+    html: "",timer: undefined
+  }
+  sub = new Subscription();
+  constructor(private spaceService: SpaceService ){
     super();
   }
-
+  override ngOnDestroy(): void {
+    this.sub.unsubscribe()
+  }
   override close(value?: any) {
     super.close(value ? value : false)
   }
 
   confirmDelete(){
-    try {
-      let res = this.spaceService.deleteSpace(this.space._id);
-      if (res.status == 200) {
-        this.popup.success({
-          title: 'Space deleted'
-        });
-        this.close(true)
+    this.sub.add(this.spaceService.deleteSpace(this.space.id).subscribe({
+      next: (res: any) => {
+        this.popup = {
+          show: true,
+          icon: 'success',
+          title: 'Space deleted',
+          timer: 1000
+        }
+        setTimeout(
+          () => {
+            this.close(true);
+            window.location.reload();
+          },1000
+        )
+      },
+      error: (err) => { 
+        console.error(err);
+        this.popup = {
+          show: true,
+          icon: 'error',
+          title: 'Delete space failed',
+          html: 'Error when delete space: ' + err
+        };
       }
-    }
-    catch (err) {
-      this.popup.error({
-        title: "Can't delete space",
-        html: err
-      })  
-    }
+    }))
   }
 }

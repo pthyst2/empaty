@@ -26,8 +26,9 @@ export class PageMemberHomeComponent implements OnInit, OnDestroy {
   addSpaceByImageIcon = this.svgUrl + 'add-space-by-image.svg';
   addSpaceByEditorIcon = this.svgUrl + 'add-space-by-editor.svg';
 
+  loading: boolean = false;
   spaces: any = [];
-  limit = 10;
+  limit = 0;
 
   serviceTypes: any;
 
@@ -105,26 +106,33 @@ export class PageMemberHomeComponent implements OnInit, OnDestroy {
     }
   }
   loadSpaces(body: any) {
+    this.loading = true;
     this.subs.add(
       this.spaceService.getSpaces(body).subscribe({
         next: (res: any) => {
-          console.log('loadSpaces res: ', res);
           this.spaces = res.data.floors.items;
         },
         error: (err) => {
           console.error(err);
         },
+        complete: () => {
+          this.loading = false;
+        },
       })
     );
   }
   loadServiceSpaces(body: any) {
+    this.loading = true;
     this.subs.add(
       this.spaceService.getServiceSpaces(body).subscribe({
         next: (res: any) => {
-          console.log('res load service spaces: ', res);
+          this.spaces = res.data.servicefloors.items;
         },
         error: (err) => {
           console.error(err);
+        },
+        complete: () => {
+          this.loading = false;
         },
       })
     );

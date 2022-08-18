@@ -22,3 +22,9 @@
     <!-- end of buttons -->
   </div>
 </modal-base>
+
+<modal-popup
+  [show]="popup.show"
+  [content]="popup"
+  (closed)="popup.show = false"
+></modal-popup>

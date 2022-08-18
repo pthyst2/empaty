@@ -4,13 +4,37 @@ import { Observable } from 'rxjs';
 
 //#region Queries
 const gqlEditUser = gql`
-  mutation editUser($input: InputUserInfo!) {
-    editUser(input: $input)
+  mutation editUser(
+    $fullname: String!
+    $phone: String!
+    $address: String!
+    $token: String!
+  ) {
+    editUser(
+      input: {
+        fullname: $fullname
+        phone: $phone
+        address: $address
+        token: $token
+      }
+    )
   }
 `;
 const gqlChangePassword = gql`
-  mutation changePassword($input: ChangePassword!) {
-    changePassword(input: $input)
+  mutation changePassword(
+    $oldPassword: String!
+    $newPassword: String!
+    $confirmPassword: String!
+    $token: String!
+  ) {
+    changePassword(
+      input: {
+        oldPassword: $oldPassword
+        newPassword: $newPassword
+        confirmPassword: $confirmPassword
+        token: $token
+      }
+    )
   }
 `;
 //#endregion
@@ -24,7 +48,10 @@ export class UserService {
     return this.apollo.mutate({
       mutation: gqlEditUser,
       variables: {
-        input: input,
+        fullname: input.fullname,
+        phone: input.phone,
+        address: input.address,
+        token: localStorage.getItem('token'),
       },
     });
   }
@@ -32,7 +59,10 @@ export class UserService {
     return this.apollo.mutate({
       mutation: gqlChangePassword,
       variables: {
-        input: input,
+        oldPassword: input.oldPassword,
+        newPassword: input.newPassword,
+        confirmPassword: input.confirmPassword,
+        token: localStorage.getItem('token'),
       },
     });
   }

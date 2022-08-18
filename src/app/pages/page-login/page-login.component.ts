@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-
+import { Subscription } from 'rxjs';
 //#region Services
 import { AuthService } from 'src/app/services/data/auth.service';
 import { PopupMessageService } from 'src/app/services/utilities/popup-message.service';
@@ -13,7 +13,7 @@ import { SeoService } from 'src/app/services/utilities/seo.service';
   templateUrl: './page-login.component.html',
   styleUrls: ['./page-login.component.sass'],
 })
-export class PageLoginComponent implements OnInit {
+export class PageLoginComponent implements OnInit, OnDestroy {
   faEye = faEye;
   faEyeSlash = faEyeSlash;
   loginForm = this.fb.group({
@@ -31,7 +31,7 @@ export class PageLoginComponent implements OnInit {
     },
   };
   formSubmitted: boolean = false;
-
+  subs = new Subscription();
   constructor(
     private authService: AuthService,
     private popupService: PopupMessageService,
@@ -43,7 +43,9 @@ export class PageLoginComponent implements OnInit {
   ngOnInit(): void {
     this.setSEO();
   }
-
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
   setSEO() {
     this.seo.setTitle('Login');
   }
@@ -61,25 +63,28 @@ export class PageLoginComponent implements OnInit {
       });
     } else {
       let input = this.loginForm.value;
-      this.authService.login(input).subscribe({
-        next: (res) => {
-          this.popupService.success({
-            title: 'Logged in successfully',
-            html: 'Redirecting to member home page...',
-          });
-          this.authService.setUserToken(res.data.login);
-          setTimeout(() => {
-            this.router.navigate(['/member']);
-          }, 1500);
-        },
-        error: (err) => {
-          console.error(err);
-          this.popupService.error({
-            title: "Can't login",
-            html: err,
-          });
-        },
-      });
+
+      this.subs.add(
+        this.authService.login(input).subscribe({
+          next: (res) => {
+            this.popupService.success({
+              title: 'Logged in successfully',
+              html: 'Redirecting to member home page...',
+            });
+            this.authService.setUserToken(res.data.login);
+            setTimeout(() => {
+              this.router.navigate(['/member']);
+            }, 1500);
+          },
+          error: (err) => {
+            console.error(err);
+            this.popupService.error({
+              title: "Can't login",
+              html: err,
+            });
+          },
+        })
+      );
     }
   }
 }

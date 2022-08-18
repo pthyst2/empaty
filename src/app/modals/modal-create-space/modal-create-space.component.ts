@@ -71,7 +71,7 @@ export class ModalCreateSpaceComponent extends ModalBaseComponent {
     cubeViewImage: environment.imageUrls.svg + 'cube-view.svg'
   };
 
-  modalTitle: any = this.step1.title;
+  
   subs = new Subscription();
   constructor(private fb: FormBuilder, private popup: PopupMessageService, private arrayService: ArrayService, private spaceService: SpaceService) {
     super();
@@ -104,7 +104,7 @@ export class ModalCreateSpaceComponent extends ModalBaseComponent {
   backStep1() {
     this.step2.active = false;
     this.step1.active = true;
-    this.modalTitle = this.step1.title;
+   
   }
 
   submitForm1() {
@@ -112,7 +112,7 @@ export class ModalCreateSpaceComponent extends ModalBaseComponent {
     if (this.form1.valid) {
       this.step1.active = false;
       this.step2.active = true;
-      this.modalTitle = this.step2.title;
+     
     } else {
       this.popup.error({
         title: 'Invalid or missing info',
@@ -135,28 +135,41 @@ export class ModalCreateSpaceComponent extends ModalBaseComponent {
         description: this.ctr1.description.value ? this.ctr1.description.value : '',
         width: this.ctr2.width.value,
         length: this.ctr2.length.value,
+        data: ''
       };
        
-      this.subs.add(
-        this.spaceService.createSpace(data).subscribe({
-          next: (res: any) => {
-            console.log("res create space: ", res);
-            this.popup.success({ title: 'New Space Created' });
-            this.close(true);
-          },
-          error: (err) => {
-            this.popup.error({
-              title: 'Create space failed',
-              html: 'Error when creating space: ' + err });
-          }
-        })
-      ) 
-
+      this.subs.add(this.spaceService.getSpaceEncodedData(data.width,data.length).subscribe({
+        next: (res: any) => {
+          data.data = res.data;
+          this.createSpace(data);
+        }, error: (err) => {
+          console.error(err)
+        }
+      }))
     } else {
       this.popup.error({
         title: 'Invalid or missing info',
         html: 'Please check all information and try again.',
       });
     }
+  }
+  createSpace(data: any){
+    this.subs.add(
+      this.spaceService.createSpace(data).subscribe({
+        next: (res: any) => { 
+          this.popup.success({ title: 'New Space Created' });
+          setTimeout(
+            () => {
+              window.location.reload();
+            },1000
+          )
+        },
+        error: (err) => {
+          this.popup.error({
+            title: 'Create space failed',
+            html: 'Error when creating space: ' + err });
+        }
+      })
+    ) 
   }
 }

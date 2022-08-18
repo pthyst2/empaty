@@ -1,7 +1,7 @@
 <div class="shadow-light rounded-modal p-[34px] bg-black2 page-member-home">
   <!-- Title -->
   <div class="mb-4 md:mb-6 xl:mb-8 text-center">
-    <p class="page-title">{{ "pageMemberHome.title" | translate }}</p>
+    <p class="page-title">{{ "pageMemberHome.texts.title" | translate }}</p>
   </div>
   <!-- end of title -->
 
@@ -38,7 +38,9 @@
         >
           <button type="button" (click)="searchSpaces()" class="tooltip">
             <fa-icon [icon]="faSearch"></fa-icon>
-            <span class="tooltiptext-left">Search</span>
+            <span class="tooltiptext-left">{{
+              "pageMemberHome.tooltips.search" | translate
+            }}</span>
           </button>
           <input
             type="text"
@@ -55,8 +57,10 @@
           class="w-full pt-2 md:pt-0 md:pl-2 cursor-pointer"
           [(ngModel)]="search.serviceType"
         >
-          <option value="" hidden disabled selected>All</option>
-          <option *ngFor="let type of serviceTypes" value="{{ type._id }}">
+          <option value="">
+            {{ "pageMemberHome.select.all" | translate }}
+          </option>
+          <option *ngFor="let type of serviceTypes" value="{{ type.name }}">
             {{ type.name }}
           </option>
         </select>
@@ -94,7 +98,9 @@
           (click)="toggleModal('create-space')"
         >
           <img [src]="addSpaceByImageIcon" />
-          <span class="tooltiptext">Create new space by image</span>
+          <span class="tooltiptext">{{
+            "pageMemberHome.tooltips.create-by-image" | translate
+          }}</span>
         </div>
         <!-- end of add space by image -->
         <!-- Add space by editor -->
@@ -115,7 +121,9 @@
           (click)="toggleModal('create-space-editor')"
         >
           <img [src]="addSpaceByEditorIcon" />
-          <span class="tooltiptext-right">Create new space by editor</span>
+          <span class="tooltiptext-right">{{
+            "pageMemberHome.tooltips.create-by-editor" | translate
+          }}</span>
         </div>
         <!-- end of add space by editor -->
       </div>
@@ -125,10 +133,17 @@
   <!-- end of search & create new -->
 
   <!-- List -->
-  <partial-section-spaces-large
-    [spaces]="spaces"
-    [collaborators]="collaborators"
-  ></partial-section-spaces-large>
+  <ng-container *ngIf="loading == true; else loaded">
+    <div class="w-full h-[250px]">
+      <partial-loading></partial-loading>
+    </div>
+  </ng-container>
+  <ng-template #loaded>
+    <partial-section-spaces-large
+      [spaces]="spaces"
+      [collaborators]="collaborators"
+    ></partial-section-spaces-large>
+  </ng-template>
   <!-- end of list -->
 </div>
 

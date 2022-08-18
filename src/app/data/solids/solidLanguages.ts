@@ -5,11 +5,11 @@ export const solidLanguages = [
   {
     label: 'English',
     icon: svgUrl + 'flag-usa.svg',
-    domain: 'en',
+    value: 'en',
   },
   {
     label: 'Japanese',
     icon: svgUrl + 'flag-japan.svg',
-    domain: 'jp',
+    value: 'ja',
   },
 ];

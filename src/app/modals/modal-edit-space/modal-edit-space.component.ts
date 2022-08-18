@@ -3,6 +3,9 @@ import { environment } from 'src/environments/environment';
 import { FormBuilder, Validators } from '@angular/forms';
 import { SpaceService } from 'src/app/services/data/space.service';
 import { FormService } from 'src/app/services/utilities/form.service';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Subscription } from 'rxjs';
+
 @Component({
   selector: 'modal-edit-space',
   templateUrl: './modal-edit-space.component.html',
@@ -13,56 +16,62 @@ export class ModalEditSpaceComponent implements OnInit {
   @Output() closed = new EventEmitter();
 
   editForm = this.fb.group({
-    _id: ['', [Validators.required]],
-    title: ['', [Validators.required]],
-    url: [''],
+    id: ['', [Validators.required]],
+    name: ['', [Validators.required]],
+    nameja: [''],
+    description: [''],
     image: [''],
-    summary: [''],
+    service: ['', [Validators.required]],
   });
-
-  messages = {
-    title: {
-      required: "Space's title cannot be empty.",
-    },
-  };
+  serviceTypes: any = [];
   submitted = false;
   image: any;
-  popup = false;
-  popupContent: any = {
+  popup: any = {
+    show: false,
+    icon: 'success',
     title: '',
     html: '',
-    icon: '',
     timer: undefined,
   };
-
+  sub = new Subscription();
   constructor(
     private fb: FormBuilder,
     public fs: FormService,
-    private spaceSerivce: SpaceService
+    private spaceSerivce: SpaceService,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit(): void {
+    this.loadServiceTypes();
     this.transferSpaceToForm();
   }
   close(data?: any) {
     this.closed.emit(data ? data : false);
   }
-  setImage(url: any) {
-    this.image = url;
+
+  loadServiceTypes() {
+    this.serviceTypes = this.spaceSerivce.getServiceTypes();
   }
+
   transferSpaceToForm() {
     console.log('this.space: ', this.space);
     if (this.space) {
-      this.ctr._id.setValue(this.space._id);
-      this.ctr.title.setValue(this.space.title);
-      this.ctr.url.setValue(this.space.url);
-      this.ctr.image.setValue(this.space.thumbnail);
-      this.ctr.summary.setValue(this.space.summary);
-      this.image = this.space.thumbnail
-        ? this.space.thumbnail
-        : environment.imageUrls.none;
+      this.ctr.id.setValue(this.space.id);
+      this.ctr.name.setValue(this.space.name);
+      this.ctr.nameja.setValue(this.space.name_ja);
+      this.ctr.description.setValue(this.space.description);
+      this.ctr.service.setValue(this.space.service);
+
+      if (!this.space.image) {
+        this.image = environment.imageUrls.none;
+      } else {
+        this.image = this.sanitizer.bypassSecurityTrustResourceUrl(
+          'data:image/jpg;base64,' + this.space.image
+        );
+      }
     }
   }
+
   get ctr() {
     return this.editForm.controls;
   }
@@ -70,42 +79,43 @@ export class ModalEditSpaceComponent implements OnInit {
   submitForm() {
     this.submitted = true;
     if (this.editForm.valid) {
-      try {
-        let data = this.editForm.value;
-        let res = this.spaceSerivce.updateSpace(data);
-        if (res.status == 200) {
-          this.togglePopup({
-            title: 'Space updated !',
-            icon: 'success',
-            timer: 1500,
-          });
-          setTimeout(() => {
-            this.close(true);
-          }, 1600);
-        }
-      } catch (err) {
-        this.togglePopup({
-          title: "Can't update space",
-          html: 'Error when updating space: ' + err,
-          icon: 'error',
-        });
-      }
+      let data = {
+        id: this.ctr.id.value,
+        name: this.ctr.name.value,
+        nameja: this.ctr.nameja.value,
+        description: this.ctr.description.value,
+        service: this.ctr.service.value,
+      };
+      this.sub.add(
+        this.spaceSerivce.updateSpace(data).subscribe({
+          next: (res: any) => {
+            this.popup = {
+              show: true,
+              icon: 'success',
+              title: 'Space updated !',
+              timer: 1000,
+            };
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
+          },
+          error: (err) => {
+            this.popup = {
+              show: true,
+              icon: 'error',
+              title: "Can't update space",
+              html: 'Error when updating space: ' + err,
+            };
+          },
+        })
+      );
     } else {
-      this.togglePopup({
+      this.popup = {
+        show: true,
+        icon: 'error',
         title: "Can't update space",
         html: 'Some info is missing or invalid. Please check all information and try again.',
-        icon: 'error',
-      });
+      };
     }
-  }
-
-  togglePopup(content?: any) {
-    this.popup = content ? true : false;
-    this.popupContent = {
-      title: content && content.title ? content.title : '',
-      html: content && content.html ? content.html : '',
-      icon: content && content.icon ? content.icon : '',
-      timer: content && content.timer ? content.timer : undefined,
-    };
   }
 }

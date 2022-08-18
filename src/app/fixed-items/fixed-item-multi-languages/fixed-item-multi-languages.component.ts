@@ -8,4 +8,8 @@ import { FixedItemBaseComponent } from '../fixed-item-base/fixed-item-base.compo
 })
 export class FixedItemMultiLanguagesComponent extends FixedItemBaseComponent {
   languages: any = solidLanguages;
+  selectLang(lang: any) {
+    localStorage.setItem('lang', lang.value);
+    window.location.reload();
+  }
 }

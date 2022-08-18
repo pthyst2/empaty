@@ -1,27 +1,26 @@
-<div class="py-20 px-8 md:px-page_px_md lg:px-page_px_lg bg-white">
-  <!-- Title & description -->
-  <div class="mb-11 text-center">
-    <p class="text-xl">{{ "sectionSpaces.title" | translate }}</p>
-  </div>
-  <!-- end of title & description -->
-  <!-- List spaces -->
-  <ng-container *ngIf="spaces && spaces.length > 0; else noSpace">
+<ng-template [ngIf]="spaces && spaces.length > 0">
+  <div class="py-20 px-8 md:px-page_px_md lg:px-page_px_lg bg-white">
+    <!-- Title & description -->
+    <div class="mb-11 text-center">
+      <p class="text-xl">{{ "sectionSpaces.title" | translate }}</p>
+    </div>
+    <!-- end of title & description -->
+    <!-- List spaces -->
+
     <div class="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 mb-8">
       <div *ngFor="let space of spaces" class="md:px-8 mb-6">
         <partial-item-space [space]="space"></partial-item-space>
       </div>
     </div>
-  </ng-container>
-  <ng-template #noSpace>
-    <p class="text-center">{{ "sectionSpaces.noSpace" | translate }}</p>
-  </ng-template>
-  <!-- end of list spaces -->
 
-  <!-- Button explore -->
-  <div class="w-full text-center">
-    <button type="button" class="btn btn-main">
-      {{ "sectionSpaces.btnExplore" | translate }}
-    </button>
+    <!-- end of list spaces -->
+
+    <!-- Button explore -->
+    <div class="w-full text-center">
+      <button type="button" class="btn btn-main">
+        {{ "sectionSpaces.btnExplore" | translate }}
+      </button>
+    </div>
+    <!-- end of button explore -->
   </div>
-  <!-- end of button explore -->
-</div>
+</ng-template>
