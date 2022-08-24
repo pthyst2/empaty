@@ -23,7 +23,7 @@ import { PartialCopyrightComponent } from 'src/app/partials/partial-copyright/pa
 import { PartialLoadingComponent } from 'src/app/partials/partial-loading/partial-loading.component';
 import { PartialPaginationComponent } from 'src/app/partials/partial-pagination/partial-pagination.component';
 import { PartialItemSwitchComponent } from '../../partials/partial-item-switch/partial-item-switch.component';
-import { PartialLangStringComponent } from 'src/app/partials/partial-lang-string/partial-lang-string.component';
+import { PartialSpecialTranslateComponent } from 'src/app/partials/partial-special-translate/partial-special-translate.component';
 //#endregion
 
 //#region Fixed items
@@ -59,7 +59,7 @@ const declarations: any = [
   PartialItemSwitchComponent,
   PartialLoadingComponent,
   PartialPaginationComponent,
-  PartialLangStringComponent,
+  PartialSpecialTranslateComponent,
   SliderBaseComponent,
   SliderCreateSpaceComponent,
 ];

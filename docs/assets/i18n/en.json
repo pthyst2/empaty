@@ -11,7 +11,6 @@
             "register": "Register"
         }
     },
-    
     "sectionSpaces": {
         "title": "Various Utilization Scenes",
         "noSpace": "You do not have any space.",
@@ -22,7 +21,7 @@
     },
     "fixedItemUser": {
         "home": "Home",
-        "login": "Login", 
+        "login": "Login",
         "setting": "Setting",
         "logout": "Logout"
     },
@@ -30,6 +29,9 @@
         "texts": {
             "title": "Space list",
             "no-space": "You have no slot for space."
+        },
+        "placeholders": {
+            "search": "Search name of space"
         },
         "tooltips": {
             "search": "Search",
@@ -44,9 +46,11 @@
         "texts": {
             "updated-on": "Updated on",
             "status": "Status",
-            "service-type": "Service type"
+            "service-type": "Service type",
+            "size": "Space size"
         },
         "tooltips": {
+            "download": "Download file for app",
             "products": "Open product page",
             "public": "Make it public",
             "private": "Make it private",
@@ -55,10 +59,58 @@
             "delete": "Delete space"
         }
     },
+    "popups": {
+        "titles": {
+            "invalid": "Invalid or missing info",
+            "success-create-space": "New space created",
+            "fail-create-space": "Create space failed",
+            "success-add-collaborator": "Collaborator added",
+            "success-edit-space": "Space updated!",
+            "fail-edit-space": "Can't update space",
+            "success-delete-space": "Space deleted",
+            "fail-delete-space": "Delete space failed",
+            "success-basic-update": "Basic information updated",
+            "fail-basic-update": "Update basic info failed",
+            "success-login-update": "Login information updated",
+            "fail-login-update": "Update login failed",
+            "success-account-update": "Account info updated",
+            "fail-account-update": "Update account info failed",
+            "vr-on": "VR sharing is on now",
+            "vr-off": "VR sharing is off now",
+            "success-subscription-update": "Supscription updated",
+            "fail-subscription-update": "Update subscription failed",
+            "success-billing-address-update": "Billing address updated",
+            "fail-billing-address-update": "Update billing address failed",
+            "success-service-address-update": "Service address updated",
+            "fail-service-address-update": "Update service address failed",
+            "success-payment-update": "Payment updated",
+            "fail-payment-update": "Update payment failed",
+            "success-invite": "Invite sent",
+            "fail-invite": "Sent invite failed",
+            "success-delete-user": "User deleted",
+            "fail-delete-user": "Delete user failed"
+        },
+        "htmls": {
+            "check-and-try-again": "Please check all information and try again",
+            "error": "Error"
+        }
+    },
+    "buttons": {
+        "close": "Close",
+        "cancel": "Cancel",
+        "save-changes": "Save Changes",
+        "edit": "Edit",
+        "back": "Back",
+        "confirm": "Confirm"
+    },
+    "texts": {
+        "no-data": "No data."
+    },
     "modalCreateSpace": {
         "step1": {
             "texts": {
-                "title": "Create Space"
+                "title": "Create Space",
+                "select-service": "Select service type"
             },
             "labels": {
                 "name": "Space Name",
@@ -72,21 +124,24 @@
             "errors": {
                 "name-required": "Space's name cannot be empty.",
                 "service-required": "Please select service type for space."
+            },
+            "placeholders": {
+                "name": "My Awesome Space",
+                "description": "This space was created by Empaty"
             }
         },
         "step2": {
             "texts": {
                 "title": "Select space's size",
-                "select-service": "Select service type",
                 "select-size": "Please select the width and length of the space",
-                "size-fixed": "The height is fixed at 3m"
-               
+                "size-fixed": "The height is fixed at 3m",
+                "square": "Square"
             },
             "labels": {
                 "template": "Create by template",
                 "myself": "Create by myself",
-                "width": "Width",
-                "length": "Length"
+                "width": "width",
+                "length": "length"
             },
             "buttons": {
                 "close": "Close",
@@ -94,5 +149,257 @@
                 "finish": "Finish"
             }
         }
-    } 
+    },
+    "modalPaySpace": {
+        "texts": {
+            "title": "Payment require",
+            "hasnt-paid": "This space hasn't completed paid yet.",
+            "would-you-like": "Whould you like to make payment now?"
+        },
+        "buttons": {
+            "confirm": "Yes, please !"
+        }
+    },
+    "modalAddCollaborator": {
+        "texts": {
+            "title": "Add User",
+            "select-user": "Select user",
+            "role": "Role"
+        },
+        "labels": {
+            "view": "Can view",
+            "edit": "Can edit"
+        },
+        "buttons": {
+            "confirm": "Confirm"
+        },
+        "errors": {
+            "user-required": "Please select a user."
+        }
+    },
+    "modalEditSpace": {
+        "texts": {
+            "title": "Edit Space"
+        },
+        "labels": {
+            "name": "Space Name",
+            "nameja": "Japanese Name",
+            "service": "Service Type",
+            "description": "Description"
+        },
+        "errors": {
+            "name-required": "Space's name cannot be empty.",
+            "service-required": "Please select service type for space."
+        },
+        "buttons": {
+            "confirm": "Save Changes"
+        }
+    },
+    "modalDeleteSpace": {
+        "texts": {
+            "title": "Confirm Delete",
+            "really": "Do you really want to delete this space?"
+        },
+        "buttons": {
+            "confirm": "Yes, delete it."
+        }
+    },
+    "pageMemberSettingProfile": {
+        "texts": {
+            "title-basic": "Basic Information",
+            "title-login": "Login Information"
+        },
+        "labels": {
+            "fullname": "Full Name",
+            "phone": "Phone Number",
+            "address": "Address",
+            "password": "Password",
+            "current-password": "Current Password",
+            "new-password": "New Password",
+            "confirm-password": "Confirm Password"
+        },
+        "buttons": {
+            "confirm": "Save Changes"
+        },
+        "errors": {
+            "fullname-required": "Full name cannot be empty.",
+            "phone-required": "Phone number cannot be empty.",
+            "email-required": "Email cannot be empty.",
+            "email-invalid": "Email invalid.",
+            "current-password-required": "Please enter current password.",
+            "new-password-required": "Please enter new password.",
+            "confirm-password-required": "Please re-enter new password here.",
+            "confirm-password-matched": "Confirm password did not matched new password."
+        }
+    },
+    "partialSidebarSetting": {
+        "texts": {
+            "account": "Account",
+            "manage": "Manage",
+            "billing": "Billing",
+            "roles": "Roles"
+        }
+    },
+    "pageMemberSettingManage": {
+        "texts": {
+            "title-account": "Account Detail",
+            "title-vr-sharing": "VR Sharing",
+            "description-vr-sharing": "Once VR sharing is enabled, all spaces in your account will be VR ready and can be shared via url. Your spaces will be viewable via the Empaty VR app for either Google Cardboard or Samsung gear VR."
+        },
+        "labels": {
+            "account": "Account Name"
+        },
+        "errors": {
+            "account-required": "Account's name cannot be empty."
+        }
+    },
+    "pageMemberSettingBilling": {
+        "texts": {
+            "title-subscription": "Subscription",
+            "title-change-plan": "Change plan",
+            "title-addresses": "Addresses",
+            "title-payment": "Payment",
+            "title-invoices": "Invoices",
+            "address-billing": "Billing Address",
+            "address-service": "Service Address",
+            "not-purchase-yet": "You did not purchase any plan yet.",
+            "no-billing-data": "No billing address data.",
+            "no-service-data": "No service address data.",
+            "no-payment-data": "No payment data.",
+            "no-invoices-data": "You have no invoice yet.",
+            "choose-country": "Choose country",
+            "choose-card-type": "Choose card type",
+            "choose-expire-month": "Choose month",
+            "choose-expire-year": "Choose year"
+        },
+        "labels": {
+            "plan": "Your plan",
+            "country": "Country",
+            "city": "City",
+            "unit": "Suite/Unit",
+            "state": "State",
+            "street": "Street",
+            "postal-code": "Postal Code",
+            "card-holder": "Holder",
+            "card-type": "Type",
+            "card-number": "Number",
+            "card-expire-month": "Expire Month",
+            "card-expire-year": "Expire Year"
+        },
+        "errors": {
+            "city-required": "City information cannot be empty.",
+            "street-required": "Street information cannot be empty.",
+            "postal-code-required": "Postal code information cannot be empty.",
+            "country-required": "Country information cannot be empty.",
+            "card-holder-required": "Card's holder cannot be empty.",
+            "card-type-required": "Please select type of credit card.",
+            "card-number-required": "Card's number cannot be empty.",
+            "expire-month-required": "Please select expire month of credit card.",
+            "expire-year-required": "Please select expire year of credit card.",
+            "cvv-required": "Please provide CVV number of credit card."
+        },
+        "buttons": {
+            "purchase-new-plan": "Purchase New Plan",
+            "edit-addresses": "Edit Addresses",
+            "setup-addresses": "Setup Addresses",
+            "edit-payment": "Edit Payment",
+            "setup-payment": "Setup Payment"
+        }
+    },
+    "modalPurchasePlan": {
+        "texts": {
+            "title": "Purchase Plan",
+            "monthly-fee": "Monthly Fee",
+            "yearly-fee": "Yearly Fee",
+            "payment-method": "Payment Method",
+            "description-1": "This plan will be apply immediately after you clicked \"Purchase it\" button.",
+            "description-2": "By click \"Purchase it\", you are agreed with our \"Terms and Conditions\" about purchase plans on Emparty system."
+        },
+        "buttons": {
+            "confirm": "Purchase it"
+        }
+    },
+    "pageMemberSettingRoles": {
+        "texts": {
+            "title": "Space Users",
+            "th-name": "Name",
+            "th-all-roles": "All Roles",
+            "th-access": "Access",
+            "th-date-joined": "Date Joined",
+            "th-all-statuses": "All Statuses",
+            "th-action": "Action",
+            "no-collaborator": "There is no collaborator."
+        },
+        "buttons": {
+            "invite": "Invite"
+        }
+    },
+    "modalInviteUser": {
+        "texts": {
+            "title": "Invite",
+            "select-role": "Select role"
+        },
+        "labels": {
+            "invitation-message": "Invitation Message",
+            "role": "Role"
+        },
+        "buttons": {
+            "confirm": "Send Invite"
+        },
+        "errors": {
+            "email-required": "Please enter email of the person you want to invite.",
+            "role-required": "Please select role.",
+            "email-invalid": "Invalid email."
+        }
+    },
+    "modalDeleteUser": {
+        "texts": {
+            "title": "Delete User",
+            "description": "After deleted, this user will not able to view or edit all of your space."
+        }
+    },
+    "pageMemberOrder": {
+        "texts": {
+            "title": "Payment",
+            "section-initial": "Initial Payment",
+            "section-contact": "Contact",
+            "section-payment-method": "Payment Method",
+            "section-payment-type": "Payment Type",
+            "subtotal": "Subtotal excluded",
+            "tax": "Tax rate",
+            "total": "Total",
+            "description": "By clicking the \"Order\" button, you are ordering the product after agreeing to the terms of use of Optimizer.co.jp, the privacy policy and other terms and conditions of sale described on this site. For prices, please see the product details page and here.",
+            "payment-yearly": "Yearly payment",
+            "payment-monthly": "Monthly payment",
+            "type": "Type",
+            "expire-at": "Expire at",
+            "service-type": "Service Type",
+            "width": "Width",
+            "length": "Length",
+            "size": "Size",
+            "items": "Items",
+            "no-items": "This space have no item."
+        },
+        "tooltips": {
+            "go-edit": "Go to edit"
+        },
+        "buttons": {
+            "confirm": "Make Order"
+        }
+    },
+    "pageMemberStatistics": {
+        "texts": {
+            "title": "Statistics",
+            "lifetime": "Lifetime",
+            "30days": "30 Days",
+            "7days": "7 Days",
+            "spaces": "spaces",
+            "impressions": "Impressions",
+            "visits": "Visits",
+            "name": "Name",
+            "unique-visitors": "Unique Visitors",
+            "created-at": "Created at",
+            "updated-at": "Updated at"
+        }
+    }
 }

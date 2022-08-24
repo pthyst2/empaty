@@ -15,9 +15,7 @@
       <div class="flex items-center justify-between mb-2 text-black65">
         <p class="text-[16px] leading-[23px] tracking-wider uppercase mr-2">
           <strong>{{
-            basicInfo.edit == true
-              ? "Edit Basic Information"
-              : "Basic Information"
+            'pageMemberSettingProfile.texts.title-basic' | translate
           }}</strong>
         </p>
 
@@ -34,9 +32,9 @@
             hover:bg-main
             rounded
           "
-          (click)="toggleForm(basicInfo)"
+          (click)="toggleForm('basic')"
         >
-          Edit
+          {{ 'buttons.edit' | translate }}
         </button>
       </div>
       <!-- end of title & edit -->
@@ -53,16 +51,16 @@
             class="grid grid-cols-1 lg:grid-cols-2 gap-x-8 gap-y-4 break-all"
           >
             <div>
-              <span class="text-black45">Full Name: </span
+              <span class="text-black45">{{ 'pageMemberSettingProfile.labels.fullname' | translate }}: </span
               ><span>{{ user.fullname }}</span>
             </div>
             <div>
-              <span class="text-black45">Phone Number: </span
+              <span class="text-black45">{{ 'pageMemberSettingProfile.labels.phone' | translate }}: </span
               ><span>{{ user.phone }}</span>
             </div>
             <div>
-              <span class="text-black45">Address: </span
-              ><span>{{ user.address }}</span>
+              <span class="text-black45">{{ 'pageMemberSettingProfile.labels.address' | translate }}: </span
+              ><span>{{ user.address ? user.address : ('texts.no-data' | translate) }}</span>
             </div>
           </div>
         </ng-template>
@@ -79,7 +77,7 @@
                 <!-- Full name -->
                 <div class="form-group-col">
                   <label class="text-black65"
-                    >Full Name <span class="text-danger">*</span></label
+                    >{{ 'pageMemberSettingProfile.labels.fullname' | translate }} <span class="text-danger">*</span></label
                   >
                   <div
                     class="input-wrapper"
@@ -103,7 +101,7 @@
                       class="text-danger"
                       *ngIf="fs.isCtrHasError(ctr1.fullname, 'required')"
                     >
-                      Full name cannot be empty.
+                      {{ 'pageMemberSettingProfile.errors.fullname-required' | translate }}
                     </p>
                   </div>
                 </div>
@@ -112,7 +110,7 @@
                 <!-- Phone number -->
                 <div class="form-group-col">
                   <label class="text-black65"
-                    >Phone Number <span class="text-danger">*</span></label
+                    >{{ 'pageMemberSettingProfile.labels.phone' | translate }} <span class="text-danger">*</span></label
                   >
                   <div
                     class="input-wrapper"
@@ -134,14 +132,14 @@
                       class="text-danger"
                       *ngIf="fs.isCtrHasError(ctr1.phone, 'required')"
                     >
-                      Phone number cannot be empty.
+                      {{ 'pageMemberSettingProfile.errors.phone-required' | translate }}
                     </p>
                   </div>
                 </div>
                 <!-- end of phone number -->
                 <!-- Address -->
                 <div class="form-group-col">
-                  <label class="text-black65">Address</label>
+                  <label class="text-black65">{{ 'pageMemberSettingProfile.labels.address' | translate }}</label>
                   <div class="input-wrapper">
                     <input
                       type="text"
@@ -166,12 +164,12 @@
               <button
                 type="button"
                 class="btn btn-white lg:mb-0 lg:mr-4 order-last lg:order-first"
-                (click)="toggleForm(basicInfo)"
+                (click)="toggleForm('basic')"
               >
-                Cancel
+                {{ 'buttons.cancel' | translate }}
               </button>
               <button type="submit" class="btn btn-main mb-3 lg:mb-0">
-                Save Changes
+                {{ 'buttons.save-changes' | translate }}
               </button>
             </div>
             <!-- end of buttons -->
@@ -188,9 +186,7 @@
       <div class="flex items-center justify-between mb-2 text-black65">
         <p class="text-[16px] leading-[23px] tracking-wider uppercase mr-2">
           <strong>{{
-            loginInfo.edit == true
-              ? "Edit Login Information"
-              : "Login Information"
+            'pageMemberSettingProfile.texts.title-login' | translate
           }}</strong>
         </p>
         <button
@@ -206,9 +202,9 @@
             hover:bg-main
             rounded
           "
-          (click)="toggleForm(loginInfo)"
+          (click)="toggleForm('login')"
         >
-          Edit
+          {{ 'buttons.edit' | translate }}
         </button>
       </div>
       <!-- end of title & edit -->
@@ -229,7 +225,7 @@
               ><span>{{ user.email }}</span>
             </div>
             <div>
-              <span class="text-black45">Password: </span><span>******</span>
+              <span class="text-black45">{{ 'pageMemberSettingProfile.labels.password' | translate }}: </span><span>******</span>
             </div>
           </div>
         </ng-template>
@@ -248,42 +244,15 @@
                   <label class="text-black65"
                     >Email <span class="text-danger">*</span>
                   </label>
-                  <div
-                    class="input-wrapper"
-                    [class.input-invalid]="
-                      fs.isControlInvalid(ctr2.email, loginInfo.submitted)
-                    "
-                  >
-                    <input
-                      type="email"
-                      formControlName="email"
-                      spellcheck="false"
-                    />
-                  </div>
-
-                  <div
-                    class="text-right"
-                    *ngIf="fs.isControlInvalid(ctr2.email, loginInfo.submitted)"
-                  >
-                    <p
-                      class="text-danger"
-                      *ngIf="fs.isCtrHasError(ctr2.email, 'required')"
-                    >
-                      Email cannot be empty.
-                    </p>
-                    <p
-                      class="text-danger"
-                      *ngIf="fs.isCtrHasError(ctr2.email, 'email')"
-                    >
-                      Email invalid.
-                    </p>
+                  <div>
+                    {{ ctr2.email.value }}
                   </div>
                 </div>
                 <!-- end of email -->
                 <!-- Current password -->
                 <div class="form-group-col">
                   <label class="text-black65">
-                    Current Password
+                    {{ 'pageMemberSettingProfile.labels.current-password' | translate }}
                     <span class="text-danger">*</span>
                   </label>
                   <div
@@ -338,7 +307,7 @@
                       class="text-danger"
                       *ngIf="fs.isCtrHasError(ctr2.currentPassword, 'required')"
                     >
-                      Please enter current password.
+                      {{ 'pageMemberSettingProfile.errors.current-password-required' | translate }}
                     </p>
                   </div>
                 </div>
@@ -346,7 +315,7 @@
                 <!-- New password -->
                 <div class="form-group-col">
                   <label class="text-black65">
-                    New Password <span class="text-danger">*</span>
+                    {{ 'pageMemberSettingProfile.labels.new-password' | translate }} <span class="text-danger">*</span>
                   </label>
                   <div
                     class="input-wrapper"
@@ -390,7 +359,7 @@
                       class="text-danger"
                       *ngIf="fs.isCtrHasError(ctr2.newPassword, 'required')"
                     >
-                      Please enter new password.
+                      {{ 'pageMemberSettingProfile.errors.new-password-required' | translate }}
                     </p>
                   </div>
                 </div>
@@ -398,7 +367,7 @@
                 <!-- Confirm password -->
                 <div class="form-group-col">
                   <label class="text-black65">
-                    Confirm Password <span class="text-danger">*</span>
+                    {{ 'pageMemberSettingProfile.labels.confirm-password' | translate }} <span class="text-danger">*</span>
                   </label>
                   <div
                     class="input-wrapper"
@@ -450,13 +419,13 @@
                       class="text-danger"
                       *ngIf="fs.isCtrHasError(ctr2.confirmPassword, 'required')"
                     >
-                      Please re-enter new password here.
+                      {{ 'pageMemberSettingProfile.errors.confirm-password-required' | translate }}
                     </p>
                     <p
                       class="text-danger"
                       *ngIf="fs.isCtrHasError(ctr2.confirmPassword, 'matched')"
                     >
-                      Confirm password did not matched with new password.
+                      {{ 'pageMemberSettingProfile.errors.confirm-password-matched' | translate }}
                     </p>
                   </ng-template>
                 </div>
@@ -476,12 +445,12 @@
               <button
                 type="button"
                 class="btn btn-white lg:mb-0 lg:mr-4 order-last lg:order-first"
-                (click)="toggleForm(loginInfo)"
+                (click)="toggleForm('login')"
               >
-                Cancel
+                {{ 'buttons.cancel' | translate }}
               </button>
               <button type="submit" class="btn btn-main mb-3 lg:mb-0">
-                Save Changes
+                {{ 'buttons.save-changes' | translate }}
               </button>
             </div>
             <!-- end of buttons -->
@@ -493,15 +462,6 @@
     </div>
     <!-- end of login info -->
   </div>
-  <!-- Popup -->
-  <ng-template [ngIf]="popup == true">
-    <modal-message
-      [title]="popupContent.title"
-      [html]="popupContent.html"
-      [icon]="popupContent.icon"
-      [timer]="popupContent.timer"
-      (closed)="togglePopup()"
-    ></modal-message>
-  </ng-template>
-  <!-- end of popup -->
 </layout-setting>
+
+<modal-popup [show]="popup.show" [content]="popup" (closed)="popup.show = false"></modal-popup>

@@ -1,5 +1,12 @@
-<div class="rounded-modal bg-black2">
-  <!-- Title -->
+
+<div class="rounded-modal bg-black2 lg:min-w-[800px]">
+  <ng-template [ngIf]="loading == true">
+    <div class="w-full h-[50vh]">
+      <partial-loading></partial-loading>
+    </div>
+  </ng-template>
+  <ng-template [ngIf]="loading == false">
+    <!-- Name -->
   <div
     class="
       pt-[40px]
@@ -11,25 +18,37 @@
     "
   >
     <p class="mr-0 pr-0 lg:mr-4 lg:pr-4 lg:border-r border-black45 page-title">
-      Payment
+      {{ 'pageMemberOrder.texts.title' | translate }}
     </p>
     <p
-      *ngIf="spaceOrder && spaceOrder.space.title"
       class="page-title text-black65"
     >
-      {{ spaceOrder.space.title }}
+      {{ space.name }}
     </p>
   </div>
-  <!-- end of title -->
+  <!-- end of name -->
 
   <!-- Space order  -->
   <div class="pt-[20px] pb-[40px] px-[80px] flex flex-col lg:flex-row">
     <!-- Left -->
     <div>
+      <!-- Space -->
+      <div>
+        <img [src]="image" class="block w-full" />
+        <ul class="py-4">
+          <li class="flex justify-between items-center"><p>{{ 'pageMemberOrder.texts.service-type' | translate }}: </p><p>{{ space.service }}</p></li>
+          <li class="flex justify-between items-center"><p>{{ 'pageMemberOrder.texts.width' | translate }} (m): </p><p>{{ space.width }}</p></li>
+          <li class="flex justify-between items-center"><p>{{ 'pageMemberOrder.texts.length' | translate }} (m): </p><p>{{ space.length }}</p></li>
+          <li class="flex justify-between items-center"><p>{{ 'pageMemberOrder.texts.size' | translate }} (m<sup>2</sup>): </p><p>{{ space.length * space.width }}</p></li>
+        <li class="flex justify-between items-center"><p>{{ 'pageMemberOrder.texts.items' | translate }}: </p><p>{{ space.items.length }}</p></li>
+        </ul>
+      </div>
+      <!-- end of space -->
       <!-- Items -->
+      <ng-container *ngIf="space.items && space.items.length > 0">
       <div class="max-h-[360px] lg:max-h-[500px] overflow-y-scroll list-items">
         <div
-          *ngFor="let item of spaceOrder.items"
+          *ngFor="let item of space.items"
           class="
             flex flex-col
             lg:flex-row
@@ -135,27 +154,28 @@
           <!-- end of info -->
         </div>
       </div>
+      </ng-container>
       <!-- end of items -->
       <!-- Initial payment -->
-      <div class="mt-[32px] py-[16px] border-t">
+      <div class="mt-[16px] py-[16px] border-t">
         <p class="uppercase tracking-wider pb-[16px]">
-          <strong>Initial Payment</strong>
+          <strong>{{ 'pageMemberOrder.texts.section-initial' | translate }}</strong>
         </p>
 
         <div class="flex justify-between items-center pb-2">
-          <p class="text-black45">Subtotal excluded</p>
+          <p class="text-black45">{{ 'pageMemberOrder.texts.subtotal' | translate }}</p>
           <p class="tracking-wider">
             <strong>{{
-              spaceOrder.payments.initial.subTotal | currency: "JPY"
+              order.floor.price | currency: "JPY"
             }}</strong>
           </p>
         </div>
 
         <div class="flex justify-between items-center pb-2">
-          <p class="text-black45">Tax rate</p>
+          <p class="text-black45">{{ 'pageMemberOrder.texts.tax' | translate }}</p>
           <p class="tracking-wider">
             <strong>{{
-              spaceOrder.payments.initial.tax | currency: "JPY"
+              order.floor.vat | currency: "JPY"
             }}</strong>
           </p>
         </div>
@@ -169,10 +189,10 @@
             py-2
           "
         >
-          <p class="text-black45">Total</p>
+          <p class="text-black45">{{ 'pageMemberOrder.texts.total' | translate }}</p>
           <p class="tracking-wider">
             <strong>{{
-              spaceOrder.payments.initial.total | currency: "JPY"
+              order.floor.total | currency: "JPY"
             }}</strong>
           </p>
         </div>
@@ -181,13 +201,13 @@
     </div>
     <!-- end of left -->
     <!-- Right -->
-    <div class="px-0 lg:pl-8 inline-flex flex-col">
+    <div class="px-0 lg:pl-8 inline-flex flex-col grow">
       <!-- Contact -->
       <ng-template [ngIf]="user">
         <div class="py-4 lg:pt-0 border-t lg:border-0 border-black15">
           <div class="flex justify-between items-center mb-3">
-            <p class="uppercase tracking-wider"><strong>Contact</strong></p>
-            <a [routerLink]="['/home']" class="text-black45 hover:text-main">
+            <p class="uppercase tracking-wider"><strong>{{ 'pageMemberOrder.texts.section-contact' | translate }}</strong></p>
+            <a [routerLink]="['/member/setting/profile']" target="_blank" class="text-black45 hover:text-main">
               <fa-icon [icon]="faEdit"></fa-icon>
             </a>
           </div>
@@ -198,7 +218,7 @@
               </p>
             </li>
             <li>
-              <p>{{ user.phoneNumber }}</p>
+              <p>{{ user.phone }}</p>
             </li>
             <li>
               <p>{{ user.email }}</p>
@@ -212,9 +232,9 @@
         <div class="py-4 border-t border-black15">
           <div class="flex justify-between items-center mb-3">
             <p class="uppercase tracking-wider">
-              <strong>Payment Method</strong>
+              <strong>{{ 'pageMemberOrder.texts.section-payment-method' | translate }}</strong>
             </p>
-            <a [routerLink]="['/home']" class="text-black45 hover:text-main">
+            <a [routerLink]="['/member/setting/billing']" target="_blank" class="text-black45 hover:text-main">
               <fa-icon [icon]="faEdit"></fa-icon>
             </a>
           </div>
@@ -230,30 +250,41 @@
                 <strong>{{ card.holder }}</strong>
               </p>
               <p>XXXX-XXXX-XXXX-{{ card.last4 }}</p>
-              <p>Expired at {{ card.expire.year }}/{{ card.expire.month }}</p>
+              <p>{{ 'pageMemberOrder.texts.expire-at' | translate }} {{ card.expire.month }}/{{ card.expire.year }}</p>
             </div>
           </div>
         </div>
       </ng-template>
       <!-- end of payment method -->
-      <!-- Monthly payment -->
+      <!-- Payment type -->
       <div class="grow order-first lg:order-3 py-4 border-t border-black15">
         <p class="uppercase tracking-wider pb-[16px]">
-          <strong>Monthly Payment</strong>
+          <strong>{{ 'pageMemberOrder.texts.section-payment-type' | translate }}</strong>
         </p>
         <div class="grid grid-cols-2 mb-2">
-          <p class="text-black45">Subtotal excluded</p>
+          <p class="text-black45">{{ 'pageMemberOrder.texts.type' | translate }}</p>
+          <div class="form-group-col">
+            <div class="input-wrapper">
+              <select [(ngModel)]="payment" (change)="getPrice()">
+                <option value="month">{{ 'pageMemberOrder.texts.payment-monthly' | translate }}</option>
+                <option value="year">{{ 'pageMemberOrder.texts.payment-yearly' | translate }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 mb-2">
+          <p class="text-black45">{{ 'pageMemberOrder.texts.subtotal' | translate }}</p>
           <p class="text-right">
             <strong>{{
-              spaceOrder.payments.monthly.subTotal | currency: "JPY"
+              order.price | currency: "JPY"
             }}</strong>
           </p>
         </div>
         <div class="grid grid-cols-2 mb-2">
-          <p class="text-black45">Tax</p>
+          <p class="text-black45">{{ 'pageMemberOrder.texts.tax' | translate }}</p>
           <p class="text-right">
             <strong>{{
-              spaceOrder.payments.monthly.tax | currency: "JPY"
+              order.vat | currency: "JPY"
             }}</strong>
           </p>
         </div>
@@ -265,10 +296,10 @@
             border-t border-dotted border-black15
           "
         >
-          <p class="text-black45">Total</p>
+          <p class="text-black45">{{ 'pageMemberOrder.texts.total' | translate }}</p>
           <p class="text-right">
             <strong>{{
-              spaceOrder.payments.monthly.total | currency: "JPY"
+              order.total | currency: "JPY"
             }}</strong>
           </p>
         </div>
@@ -293,7 +324,7 @@
             rounded
           "
         >
-          <span>Close</span>
+          <span>{{ 'buttons.close' | translate}}</span>
         </button>
         <button
           class="
@@ -311,25 +342,16 @@
             bg-main
             rounded
           "
+          (click)="makeOrder()"
         >
-          <span>Make Order</span>
+          <span>{{ 'pageMemberOrder.buttons.confirm' | translate }}</span>
         </button>
       </div>
       <!-- end of buttons -->
       <!-- Policy -->
       <div class="order-last text-black45 w-[336px] py-4">
         <p class="text-[13px] leading-[22px]">
-          By clicking the "Order" button, you are ordering the product after
-          agreeing to the terms of use of Optimizer.co.jp,
-          <a [routerLink]="['/home']" class="text-main hover:underline"
-            >the privacy policy</a
-          >
-          and
-          <a [routerLink]="['/home']" class="text-main hover:underline"
-            >other terms and conditions</a
-          >
-          of sale described on this site. For prices, please see the product
-          details page and here.
+           {{ 'pageMemberOrder.texts.description' | translate }}
         </p>
       </div>
       <!-- end of policy -->
@@ -337,4 +359,7 @@
     <!-- end of right -->
   </div>
   <!-- end of space order -->
+  </ng-template>
+  
 </div>
+

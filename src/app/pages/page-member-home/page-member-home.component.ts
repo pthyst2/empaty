@@ -8,7 +8,8 @@ import { AuthService } from 'src/app/services/data/auth.service';
 import { CollaboratorService } from 'src/app/services/data/collaborator.service';
 import { mockServiceTypes } from 'src/app/data/mocks/mockServiceTypes';
 import { Subscription } from 'rxjs';
-
+import { FormBuilder } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'page-member-home',
   templateUrl: './page-member-home.component.html',
@@ -32,10 +33,10 @@ export class PageMemberHomeComponent implements OnInit, OnDestroy {
 
   serviceTypes: any;
 
-  search: any = {
-    serviceType: '',
-    keyword: '',
-  };
+  searchForm = this.fb.group({
+    name: [''],
+    service: ['']
+  })
 
   pagination = {
     pages: 1,
@@ -58,20 +59,26 @@ export class PageMemberHomeComponent implements OnInit, OnDestroy {
   };
 
   subs = new Subscription();
+  placeholders = {
+    search: ''
+  }
   constructor(
     private spaceService: SpaceService,
     private popupService: PopupMessageService,
+    private fb: FormBuilder,
     private authService: AuthService,
     private collabService: CollaboratorService,
-    private seo: SeoService
-  ) {}
+    private seo: SeoService,
+    private translate: TranslateService
+  ) { }
 
   ngOnInit(): void {
     this.setSEO();
     this.getUser();
-    this.searchSpaces();
+    this.loadSpaces();
     this.loadServiceTypes();
     this.loadCollaborators();
+    this.getPlaceholders();
   }
   ngOnDestroy(): void {
     this.subs.unsubscribe();
@@ -91,7 +98,9 @@ export class PageMemberHomeComponent implements OnInit, OnDestroy {
       })
     );
   }
-
+  get ctr() {
+    return this.searchForm.controls;
+  }
   loadServiceTypes() {
     this.serviceTypes = mockServiceTypes;
   }
@@ -105,51 +114,28 @@ export class PageMemberHomeComponent implements OnInit, OnDestroy {
       console.error('Error when loading collaborators: ', err);
     }
   }
-  loadSpaces(body: any) {
+  loadSpaces() {
     this.loading = true;
-    this.subs.add(
-      this.spaceService.getSpaces(body).subscribe({
-        next: (res: any) => {
-          this.spaces = res.data.floors.items;
-        },
-        error: (err) => {
-          console.error(err);
-        },
-        complete: () => {
-          this.loading = false;
-        },
-      })
-    );
-  }
-  loadServiceSpaces(body: any) {
-    this.loading = true;
-    this.subs.add(
-      this.spaceService.getServiceSpaces(body).subscribe({
-        next: (res: any) => {
-          this.spaces = res.data.servicefloors.items;
-        },
-        error: (err) => {
-          console.error(err);
-        },
-        complete: () => {
-          this.loading = false;
-        },
-      })
-    );
-  }
-  searchSpaces() {
     let body = {
-      service: this.search.serviceType,
-      keyword: this.search.keyword,
+      service: this.ctr.service.value,
+      name: this.ctr.name.value,
       limit: this.limit,
       start: 0,
     };
-
-    if (body.service) {
-      this.loadServiceSpaces(body);
-    } else {
-      this.loadSpaces(body);
-    }
+    this.subs.add(
+      this.spaceService.getSpaces(body).subscribe({
+        next: (res: any) => {
+          this.spaces = res.data.searchfloors.items;
+          console.log("this.spaces: ", this.spaces);
+        },
+        error: (err) => {
+          console.error(err);
+        },
+        complete: () => {
+          this.loading = false;
+        },
+      })
+    );
   }
 
   toggleModal(name: string, content?: any) {
@@ -183,7 +169,7 @@ export class PageMemberHomeComponent implements OnInit, OnDestroy {
   catchModalCreateSpace(event: any) {
     this.modals.createSpace = false;
     if (event != false) {
-      this.searchSpaces();
+      this.loadSpaces();
     }
   }
   catchModalCreateSpaceEditor(event: any) {
@@ -195,5 +181,10 @@ export class PageMemberHomeComponent implements OnInit, OnDestroy {
         timer: 1500,
       });
     }
+  }
+  getPlaceholders() {
+    this.subs.add(this.translate.get('pageMemberHome.placeholders.search').subscribe(
+      (res: any) => { this.placeholders.search = res }
+    ))
   }
 }

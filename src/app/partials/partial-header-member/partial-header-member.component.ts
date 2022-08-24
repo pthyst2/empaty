@@ -10,6 +10,7 @@ import {
   faCaretDown,
 } from '@fortawesome/free-solid-svg-icons';
 import { solidLanguages } from 'src/app/data/solids/solidLanguages';
+import { solidAppInfo } from 'src/app/data/solids/solidAppInfo';
 @Component({
   selector: 'partial-header-member',
   templateUrl: './partial-header-member.component.html',
@@ -18,7 +19,7 @@ import { solidLanguages } from 'src/app/data/solids/solidLanguages';
 export class PartialHeaderMemberComponent implements OnInit {
   faUser = faUser;
   faCaretDown = faCaretDown;
-  logo = environment.imageUrls.logos + 'logo-empaty.svg';
+  logo = solidAppInfo.logoUrl;
   @Input() linkActive: any;
   @Input() user: any;
   nav = [
@@ -52,7 +53,7 @@ export class PartialHeaderMemberComponent implements OnInit {
     rounded: true,
   };
   iconLang: any;
-  constructor(private aroute: ActivatedRoute) {}
+  constructor(private aroute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.getLangIcon();

@@ -3,8 +3,8 @@ const logoUrl = environment.imageUrls.logos;
 export const solidAppInfo = {
   name: 'Empaty',
   languages: ['jp', 'en'],
-  logoUrl: logoUrl + 'logo-empaty.svg',
-  logoColorUrl: logoUrl + 'logo-empaty-color.svg',
+  logoUrl: logoUrl + 'logo-roommaker.svg',
+  logoColorUrl: logoUrl + 'logo-roommaker.svg',
   contact: {
     support: {
       phone: '0523187254',

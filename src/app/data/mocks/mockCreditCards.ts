@@ -8,13 +8,13 @@ export const mockCreditCards = [
     _id: '1',
     user: users[0]._id,
     type: types[1].value,
-    holder: 'HUYNH THUY LINH',
-    cardNumber: '4221040812345678',
+    holder: 'OPTIMIZER DEV',
+    cardNumber: '4242424242424242',
     last4: '5678',
     expire: {
-      month: 9,
-      year: 2026,
+      month: 12,
+      year: 34,
     },
-    cvc: 578,
+    cvv: 567,
   },
 ];

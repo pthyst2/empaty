@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FormService } from 'src/app/services/utilities/form.service';
+import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'page-member-manage',
   templateUrl: './page-member-manage.component.html',
@@ -21,11 +23,6 @@ export class PageMemberManageComponent implements OnInit {
       name: ['', [Validators.required]],
     }),
     submitted: false,
-    messages: {
-      name: {
-        required: "Account's name cannot be empty.",
-      },
-    },
   };
 
   vrInfo = this.fb.group({
@@ -40,8 +37,9 @@ export class PageMemberManageComponent implements OnInit {
     timer: undefined,
     show: false,
   };
+  subs = new Subscription;
 
-  constructor(private fb: FormBuilder, public fs: FormService) {}
+  constructor(private fb: FormBuilder, public fs: FormService, private translate: TranslateService) { }
   ngOnInit(): void {
     this.transferDataToForm();
   }
@@ -59,10 +57,20 @@ export class PageMemberManageComponent implements OnInit {
     if (this.form1.valid) {
       this.popup = {
         title: 'Account info updated',
-        timer: 1500,
+        timer: 1200,
         icon: 'success',
         show: true,
       };
+      this.subs.add(this.translate.get('popups.titles.success-account-update').subscribe(
+        (res: any) => {
+          this.popup.title = res
+        }
+      ))
+      setTimeout(
+        () => {
+          window.location.reload()
+        }, 1200
+      )
     } else {
       this.popup = {
         title: 'Invalid or missing information',
@@ -70,16 +78,45 @@ export class PageMemberManageComponent implements OnInit {
         icon: 'error',
         show: true,
       };
+      this.subs.add(this.translate.get('popups.titles.invalid').subscribe(
+        (res: any) => {
+          this.popup.title = res
+        }
+      ));
+      this.subs.add(this.translate.get('popups.htmls.error').subscribe(
+        (res: any) => {
+          this.popup.html = res
+        }
+      ))
     }
   }
   submitForm2() {
     this.popup = {
       icon: 'success',
-      title:
-        'VR sharing is ' + (this.ctr2.vrShare.value == true ? 'on' : 'off'),
-      timer: 1500,
+      title: '',
+      timer: 1200,
       show: true,
     };
+    let value: any = this.ctr2.vrShare.value;
+    if (value == 'on') {
+      this.subs.add(this.translate.get('popups.titles.vr-on').subscribe(
+        (res: any) => {
+          this.popup.title = res
+        }
+      ))
+    }
+    else {
+      this.subs.add(this.translate.get('popups.titles.vr-off').subscribe(
+        (res: any) => {
+          this.popup.title = res
+        }
+      ))
+    }
+    setTimeout(
+      () => {
+        window.location.reload()
+      }, 1200
+    )
   }
   transferDataToForm() {
     this.ctr1._id.setValue(this.mockAccount._id);

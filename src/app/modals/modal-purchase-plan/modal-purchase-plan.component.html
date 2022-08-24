@@ -13,7 +13,7 @@
         "
       >
         <!-- Title -->
-        <div class="uppercase"><strong>Purchase Plan</strong></div>
+        <div class="uppercase"><strong>{{ 'modalPurchasePlan.texts.title' | translate }}</strong></div>
         <!-- end of title -->
         <!-- Close -->
         <fa-icon
@@ -46,7 +46,7 @@
           <!-- Fees -->
           <div>
             <div class="flex justify-between items-center">
-              <p>Yearly Fee</p>
+              <p>{{ 'modalPurchasePlan.texts.yearly-fee' | translate }}</p>
               <p>
                 {{ plan.fees.year | currency: "JPY":"symbol-narrow":"1.2-2" }}
               </p>
@@ -55,7 +55,7 @@
               *ngIf="plan.fees.month"
               class="flex justify-between items-center"
             >
-              <p>Monthly Fee</p>
+              <p>{{ 'modalPurchasePlan.texts.monthly-fee' | translate }}</p>
               <p>
                 {{ plan.fees.month | currency: "JPY":"symbol-narrow":"1.2-2" }}
               </p>
@@ -66,7 +66,7 @@
         <!-- end of plan -->
         <!-- Payment method -->
         <div>
-          <p class="text-main"><strong>Payment Method</strong></p>
+          <p class="text-main"><strong>{{ 'modalPurchasePlan.texts.payment-method' | translate}}</strong></p>
           <!-- Holder -->
           <p>{{ payment.holder }}</p>
           <!-- end of holder -->
@@ -88,16 +88,10 @@
       <!-- Note -->
       <div class="text-black65 pt-2 pb-4 italic text-[13px]">
         <p>
-          This plan will be apply immediately after you clicked
-          <strong>Purchase it</strong> button.
+          {{ 'modalPurchasePlan.texts.description-1' | translate }}
         </p>
         <p>
-          By click <span><strong>Purchase it</strong></span
-          >, you are argeed with our
-          <a [routerLink]="['/member/home']" class="text-main"
-            >Terms and Conditions</a
-          >
-          about purchase plans on {{ appName }} system.
+          {{ 'modalPurchasePlan.texts.description-2' | translate }}
         </p>
       </div>
       <!-- end of note -->
@@ -109,14 +103,14 @@
           class="btn btn-white mr-0 lg:mr-4"
           (click)="close()"
         >
-          Cancel
+          {{ 'buttons.cancel' | translate }}
         </button>
         <button
           type="button"
           class="btn btn-main order-first lg:order-last mb-2 lg:mb-0"
           (click)="close(true)"
         >
-          Purchase it
+          {{ 'modalPurchasePlan.buttons.confirm' | translate }}
         </button>
       </div>
       <!-- end of buttons -->

@@ -13,6 +13,8 @@ import { PageMemberManageComponent } from 'src/app/pages/page-member-manage/page
 import { PageMemberBillingComponent } from 'src/app/pages/page-member-billing/page-member-billing.component';
 import { PageMemberRolesComponent } from 'src/app/pages/page-member-roles/page-member-roles.component';
 import { PageMemberInvoiceDetailComponent } from 'src/app/pages/page-member-invoice-detail/page-member-invoice-detail.component';
+import { PagePaymentSuccessComponent } from 'src/app/pages/page-payment-success/page-payment-success.component';
+import { PagePaymentCancelComponent } from 'src/app/pages/page-payment-cancel/page-payment-cancel.component';
 //#endregion
 
 const routes: Routes = [
@@ -34,7 +36,7 @@ const routes: Routes = [
         component: PageMemberProductsComponent,
       },
       {
-        path: 'order-space',
+        path: 'order-space/:id',
         component: PageMemberOrderComponent,
       },
       {
@@ -76,6 +78,26 @@ const routes: Routes = [
           },
         ],
       },
+
+      {
+        path: 'payment',
+        children: [
+          {
+            path: 'success',
+            component: PagePaymentSuccessComponent,
+            children: [
+              {
+                path: '**',
+                component: PagePaymentSuccessComponent
+              }
+            ]
+          },
+          {
+            path: 'cancel',
+            component: PagePaymentCancelComponent
+          }
+        ]
+      }
     ],
   },
 ];
@@ -84,4 +106,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class LayoutMemberHomeRoutingModule {}
+export class LayoutMemberHomeRoutingModule { }

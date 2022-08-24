@@ -64,7 +64,7 @@
           (click)="goPage(group.route)"
           [class.bg-grey]="group.active"
         >
-          {{ group.label }}
+          {{ 'partialSidebarSetting.texts.' + group.label | translate }}
         </div>
       </ng-template>
       <ng-template [ngIf]="!group.route">
@@ -85,7 +85,7 @@
               <div [class]="'w-[18px] h-[18px] svg svg-' + group.icon"></div>
             </div>
           </ng-template>
-          <p class="mr-2">{{ group.label }}</p>
+          <p class="mr-2">{{ 'partialSidebarSetting.texts.' + group.label | translate }}</p>
           <p>
             <fa-icon [icon]="group.show == true ? faUp : faDown"></fa-icon>
           </p>
@@ -111,7 +111,7 @@
                 <div [class]="'w-[18px] h-[18px] svg svg-' + item.icon"></div>
               </div>
             </ng-template>
-            <p>{{ item.label }}</p>
+            <p>{{ 'partialSidebarSetting.texts.' + item.label | translate }}</p>
           </div>
         </ng-template>
       </ng-template>

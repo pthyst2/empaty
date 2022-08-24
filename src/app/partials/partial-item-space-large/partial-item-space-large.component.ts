@@ -10,7 +10,8 @@ import {
   faLock,
   faLockOpen,
 } from '@fortawesome/free-solid-svg-icons';
-
+import { saveAs } from 'file-saver';
+import { SpaceService } from 'src/app/services/data/space.service';
 @Component({
   selector: 'partial-item-space-large',
   templateUrl: './partial-item-space-large.component.html',
@@ -54,12 +55,14 @@ export class PartialItemSpaceLargeComponent implements OnInit {
   };
   noImage = environment.imageUrls.space + 'no-image.png';
   image: any;
-  constructor(private router: Router, private sanitizer: DomSanitizer) {}
+
+  spaceLink: any;
+  constructor(private router: Router, private sanitizer: DomSanitizer, private spaceSerivice: SpaceService) { }
 
   ngOnInit(): void {
     this.renderImage();
+    this.renderLink();
   }
-
   toggleModal(name: string) {
     switch (name) {
       case 'make-payment': {
@@ -80,6 +83,13 @@ export class PartialItemSpaceLargeComponent implements OnInit {
       }
     }
   }
+  renderLink() {
+    this.spaceLink =
+      'http://3d.optimizer.vn/?token=' +
+      localStorage.getItem('token') +
+      '&floor_id=' +
+      this.space.id;
+  }
   renderImage() {
     if (!this.space.image) {
       this.image = this.noImage;
@@ -91,8 +101,14 @@ export class PartialItemSpaceLargeComponent implements OnInit {
   }
   catchMakePayment(value: any) {
     if (value != false) {
-      this.router.navigate(['/member/order-space']);
+      this.router.navigate(['/member/order-space/' + this.space.id]);
     }
     this.toggleModal('make-payment');
+  }
+  downloadFile() {
+    let token = localStorage.getItem('token');
+    let blob = new Blob([this.space.id + '\n' + token]);
+    let name = this.spaceSerivice.getSafeName(this.space.id);
+    saveAs(blob, name + ".empaty")
   }
 }

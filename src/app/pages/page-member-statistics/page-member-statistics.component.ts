@@ -1,13 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SeoService } from 'src/app/services/utilities/seo.service';
 import { SpaceService } from 'src/app/services/data/space.service';
+import { ImageService } from 'src/app/services/utilities/image.service';
 import { environment } from 'src/environments/environment';
+import { Subscription } from 'rxjs';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'page-member-statistics',
   templateUrl: './page-member-statistics.component.html',
   styleUrls: ['./page-member-statistics.component.sass'],
 })
-export class PageMemberStatisticsComponent implements OnInit {
+export class PageMemberStatisticsComponent implements OnInit, OnDestroy {
+  noImage = environment.imageUrls.none;
   spaces: any = [];
   loading = false;
   tabs = ['Lifetime', '30 Days', '7 Days'];
@@ -17,11 +21,14 @@ export class PageMemberStatisticsComponent implements OnInit {
     impressions: 0,
     visits: 0,
   };
-
-  constructor(private seo: SeoService, private spaceService: SpaceService) {}
+  subs = new Subscription;
+  constructor(private seo: SeoService, private spaceService: SpaceService, private translate: TranslateService, public imageService: ImageService) { }
   ngOnInit(): void {
     this.setSEO();
     this.getSpaces();
+  }
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
   setSEO() {
     this.seo.setTitle('Statistic');
@@ -30,24 +37,39 @@ export class PageMemberStatisticsComponent implements OnInit {
     this.loading = true;
     //let res: any = this.spaceService.getSpaces();
     this.spaces = [];
-    for (let space of this.spaces) {
-      if (!space.thumbnail) {
-        space.thumbnail = environment.imageUrls.none;
+    this.subs.add(this.spaceService.getSpaces().subscribe({
+      next: (res: any) => {
+        this.spaces = res.data.searchfloors.items;
+        /*this.spaces = [];
+        console.log("data: ", data);
+        for (let space of data) {
+          let item: any = space;
+          if (!space.image) {
+            item.image = environment.imageUrls.none;
+          }
+          else {
+            item.image = this.imageService.convertBase64(space.image)
+          }
+          this.spaces.push(item)
+        }*/
+        console.log("this.spaces: ", this.spaces);
+
+        this.total.impressions = this.spaces.reduce(
+          (preResult: any, currentItem: any) =>
+            preResult + 99,
+          0
+        );
+        this.total.visits = this.spaces.reduce(
+          (preResult: any, currentItem: any) =>
+            preResult + 99,
+          0
+        );
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error("Error when getting spaces: ", err)
       }
-    }
-    this.total.impressions = this.spaces.reduce(
-      (preResult: any, currentItem: any) =>
-        preResult + currentItem.statistics?.impressions,
-      0
-    );
-    this.total.visits = this.spaces.reduce(
-      (preResult: any, currentItem: any) =>
-        preResult + currentItem.statistics?.visits,
-      0
-    );
-    setTimeout(() => {
-      this.loading = false;
-    }, 1500);
+    }))
   }
   activeTab(name: string) {
     this.tabActive = name;

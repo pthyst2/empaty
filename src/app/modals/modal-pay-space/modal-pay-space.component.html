@@ -2,22 +2,22 @@
   <div class="flex flex-col bg-black2 p-8 rounded-modal">
     <!-- Title -->
     <div class="text-center pb-3 mb-3 border-b border-black15">
-      <p class="modal-title">Payment Require</p>
+      <p class="modal-title">{{ 'modalPaySpace.texts.title' | translate }}</p>
     </div>
     <!-- end of title -->
 
     <div class="mb-3 grow text-center">
-      <p>This space hasn't completed paid yet.</p>
-      <p>Would you like to make payment now?</p>
+      <p>{{ 'modalPaySpace.texts.hasnt-paid' | translate }}</p>
+      <p>{{ 'modalPaySpace.texts.would-you-like' | translate }}</p>
     </div>
 
     <!-- Buttons -->
     <div class="text-center">
       <button type="button" class="btn btn-white mr-4" (click)="close()">
-        Cancel
+        {{ 'buttons.cancel' | translate }}
       </button>
       <button type="button" class="btn btn-main" (click)="makePayment()">
-        Yes, please !
+        {{ 'modalPaySpace.buttons.confirm' | translate }}
       </button>
     </div>
     <!-- end of buttons -->

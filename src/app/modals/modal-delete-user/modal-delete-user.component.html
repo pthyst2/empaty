@@ -4,25 +4,24 @@
       <!-- Title -->
       <div class="text-center">
         <div class="text-[22px] uppercase">
-          <strong>Delete Collaborator</strong>
+          <strong>{{ 'modalDeleteUser.texts.title' | translate }}</strong>
         </div>
       </div>
       <!-- end of title -->
       <!-- Content -->
       <div class="text-black65 py-4 text-center">
         <p>
-          After deleted, this user will not able to view or edit all of your
-          space.
+          {{ 'modalDeleteUser.texts.description' | translate }}
         </p>
       </div>
       <!-- end of content -->
       <!-- Buttons -->
       <div class="flex justify-center items-center">
         <button type="button" class="btn btn-main mr-2" (click)="close()">
-          Cancel
+          {{ 'buttons.cancel' | translate }}
         </button>
         <button type="button" class="btn btn-white" (click)="confirm()">
-          Confirm
+          {{ 'buttons.confirm' | translate }}
         </button>
       </div>
       <!-- end of buttons -->

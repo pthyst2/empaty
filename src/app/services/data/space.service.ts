@@ -13,59 +13,34 @@ const spaces = mockSpaces;
 const categories = mockSpaceCategories;
 const serviceTypes = mockServiceTypes;
 //#region Queries
-const gqlFloors = gql`
-  query floors($token: String!, $limit: Int!, $start: Int!) {
-    floors(token: $token, limit: $limit, start: $start) {
-      total
-      items {
-        id
-        name
-        name_ja
-        description
-        service
-        image
-        created
-        modified
-        status
-      }
+const gqlSearchFloors = gql`query searchfloors($name: String!, $service: String!, $token: String!, $limit: Int!, $start: Int!){
+  searchfloors(name: $name, service: $service, token: $token, limit: $limit, start: $start){
+    total
+    items {
+      id
+      name
+      name_ja
+      description
+      service
+      image
+      created
+      modified
+      status
+      width
+      length
+      paid
     }
   }
-`;
-const gqlServiceFloors = gql`
-  query serviceFloors(
-    $service: String!
-    $token: String!
-    $limit: Int!
-    $start: Int!
-  ) {
-    servicefloors(
-      service: $service
-      token: $token
-      limit: $limit
-      start: $start
-    ) {
-      total
-      items {
-        id
-        name
-        name_ja
-        description
-        service
-        image
-        created
-        modified
-        status
-      }
-    }
-  }
-`;
+}`
 const gqlCreateFloor = gql`
   mutation createFloor(
     $name: String!
     $description: String!
     $data: String!
     $token: String!
-    $service: String!
+    $service: String!,
+    $width: Int!,
+    $length: Int!,
   ) {
     createFloor(
       input: {
@@ -76,7 +51,9 @@ const gqlCreateFloor = gql`
         name: $name
         nameja: $name
         service: $service
-        token: $token
+        token: $token,
+        width: $width,
+        length: $length
       }
     )
   }
@@ -107,54 +84,55 @@ const gqlDeleteFloor = gql`
     deleteFloor(Id: $Id, token: $token)
   }
 `;
+const gqlGetFloor = gql`query floor($id: String!, $token: String!){
+	floor(id:$id,token: $token){
+		id
+    name
+    name_ja
+    service
+    description
+    image
+    items
+    width
+    length
+  }
+}`;
 //#endregion
 
 @Injectable({
   providedIn: 'root',
 })
 export class SpaceService {
-  constructor(private http: HttpClient, private apollo: Apollo) {}
-  getSpaces(body: any): Observable<any> {
-    return this.apollo.query({
-      query: gqlFloors,
-      variables: {
-        token: localStorage.getItem('token'),
-        limit: body.limit ? body.limit : 0,
-        start: body.start ? body.start : 0,
-      },
-    });
-  }
-  getServiceSpaces(body: any): Observable<any> {
-    let test = {
-      service: body.service,
+  constructor(private http: HttpClient, private apollo: Apollo) { }
+  getSpaces(body?: any): Observable<any> {
+    let variables: any = {
+      name: '',
+      service: 'All',
       token: localStorage.getItem('token'),
-      limit: body.limit ? body.limit : 0,
-      start: body.start ? body.start : 0,
-    };
-    console.log('body to query: ', test);
+      limit: 0,
+      start: 0
+    }
+
+    if (body) {
+      if (body.name) { variables.name = body.name }
+      if (body.service) { variables.service = body.service }
+      if (body.limit) { variables.limit = body.limit }
+      if (body.start) { variables.start = body.start }
+    }
 
     return this.apollo.query({
-      query: gqlServiceFloors,
-      variables: {
-        service: body.service,
-        token: localStorage.getItem('token'),
-        limit: body.limit ? body.limit : 0,
-        start: body.start ? body.start : 0,
-      },
+      query: gqlSearchFloors,
+      variables: variables
     });
   }
-
-  getSpaceDetail(_id: string) {
-    let res: any = {
-      status: 200,
-      data: null,
-    };
-    for (let space of spaces) {
-      if (space._id == _id) {
-        res.data = space;
+  getSpaceDetail(id: string): Observable<any> {
+    return this.apollo.query({
+      query: gqlGetFloor,
+      variables: {
+        id: id,
+        token: localStorage.getItem('token')
       }
-    }
-    return res;
+    });
   }
   deleteSpace(id: string): Observable<any> {
     return this.apollo.mutate({
@@ -165,13 +143,11 @@ export class SpaceService {
       },
     });
   }
-
   getSpaceEncodedData(w: number, h: number): Observable<any> {
     return this.http.get(
       'http://3d.optimizer.vn/json/?w=' + w.toString() + '&h=' + h.toString()
     );
   }
-
   createSpace(body: any): Observable<any> {
     return this.apollo.mutate({
       mutation: gqlCreateFloor,
@@ -184,6 +160,8 @@ export class SpaceService {
         nameja: body.name,
         service: body.service,
         token: localStorage.getItem('token'),
+        width: body.width,
+        length: body.length
       },
     });
   }
@@ -222,5 +200,13 @@ export class SpaceService {
       }
     }
     return res;
+  }
+  getSafeName(raw: string) {
+    let result = '';
+    result = raw.toLocaleLowerCase();
+    while (result.includes(' ') == true) {
+      result = result.replace(' ', '_')
+    }
+    return result;
   }
 }

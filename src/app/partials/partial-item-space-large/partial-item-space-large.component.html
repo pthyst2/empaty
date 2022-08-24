@@ -1,7 +1,8 @@
 <div class="w-full flex flex-col flex-wrap md:flex-row items-center">
   <!-- Thumbnail -->
   <a
-    [routerLink]="[space.link]"
+    href="{{ spaceLink }}"
+    target="_blank"
     class="
       grow
       justify-center
@@ -25,7 +26,8 @@
   <!-- Info -->
   <div class="grow mr-0 mb-4 px-4 md:mb-0 md:mr-10 md:px-0">
     <a
-      [routerLink]="['/member/home']"
+      href="{{ spaceLink }}"
+      target="_blank"
       class="text-xl hover:text-main uppercase font-semibold"
     >
       {{ space.name }}
@@ -43,14 +45,23 @@
     <p class="text-greyDark capitalize">
       {{ "partialItemSpaceLarge.texts.service-type" | translate }}:
       {{ space.service ? space.service : "Other" }}
-      <!-- | Space size:
-      {{ space.size.width }}mx{{ space.size.length }}m
-      {{ space.size.width * space.size.length }}m2 -->
+       | {{ "partialItemSpaceLarge.texts.size" | translate }}:
+      {{ space.width * space.length }}m<sup>2</sup>
+      ({{ space.width }}mx{{ space.length }}m)
     </p>
   </div>
   <!-- end of info -->
   <!-- Actions -->
   <div class="grow inline-flex justify-end items-center">
+    <!-- Download -->
+    <div class="svg-wrapper w-[20px] h-[45px] mx-4 tooltip" (click)="downloadFile()">
+      <div class="svg svg-download w-[20px] h-[20px]"></div>
+      <span class="tooltiptext-left">{{
+        "partialItemSpaceLarge.tooltips.download" | translate
+      }}</span>
+    </div>
+    <!-- end of download -->
+
     <!-- Product -->
     <a
       [routerLink]="['/member/products']"
@@ -64,10 +75,9 @@
     <!-- end of product -->
 
     <!-- Make private -->
-    <ng-container *ngIf="space.status == 'published'; else private">
+    <ng-container *ngIf="space.paid == 'active'; else private">
       <div
         class="svg-wrapper w-[45px] h-[45px] tooltip"
-        (click)="space.paid ? '' : toggleModal('make-payment')"
       >
         <div class="svg svg-lock w-[20px] h-[20px]"></div>
         <span class="tooltiptext-top">{{
@@ -81,7 +91,7 @@
     <ng-template #private>
       <div
         class="svg-wrapper w-[45px] h-[45px] tooltip"
-        (click)="space.paid ? '' : toggleModal('make-payment')"
+        (click)="toggleModal('make-payment')"
       >
         <div class="svg svg-unlock w-[20px] h-[20px]"></div>
         <span class="tooltiptext-top">{{

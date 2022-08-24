@@ -2,7 +2,7 @@
   <div class="flex flex-col p-[48px] bg-white rounded-modal">
     <!-- Title -->
     <div class="text-center mb-4">
-      <p class="modal-title">Edit Space</p>
+      <p class="modal-title">{{ 'modalEditSpace.texts.title' | translate }}</p>
     </div>
     <!-- end of title -->
     <!-- Form -->
@@ -21,7 +21,7 @@
             <div class="form-group-inline">
               <label class="text-right"
                 ><strong
-                  >Space Name <span class="text-danger">*</span></strong
+                  >{{ 'modalEditSpace.labels.name' | translate }} <span class="text-danger">*</span></strong
                 ></label
               >
               <div
@@ -36,7 +36,7 @@
                 <span
                   class="text-danger"
                   *ngIf="fs.isCtrHasError(ctr.name, 'required')"
-                  >Space's name cannot be empty.</span
+                  >{{ 'modalEditSpace.errors.name-required' | translate }}</span
                 >
               </div>
             </ng-template>
@@ -69,7 +69,7 @@
           <!-- Japanese name -->
           <div class="mb-4">
             <div class="form-group-inline">
-              <label class="text-right"><strong>Japanese Name</strong></label>
+              <label class="text-right"><strong>{{ 'modalEditSpace.labels.nameja' | translate }}</strong></label>
               <div class="input-wrapper shrink-0 grow-0 w-[240px]">
                 <input
                   type="text"
@@ -85,7 +85,7 @@
             <div class="form-group-inline">
               <label class="text-right"
                 ><strong
-                  >Service Type <span class="text-danger">*</span></strong
+                  >{{ 'modalEditSpace.labels.service' | translate }}<span class="text-danger">*</span></strong
                 ></label
               >
               <div
@@ -106,7 +106,7 @@
                 <span
                   class="text-danger"
                   *ngIf="fs.isCtrHasError(ctr.service, 'required')"
-                  >Please select service type of space.</span
+                  >{{ 'modalEditSpace.errors.service-required' | translate }}</span
                 >
               </div>
             </ng-template>
@@ -115,7 +115,7 @@
           <!-- Description -->
           <div class="mb-4">
             <div class="form-group-inline">
-              <label class="text-right"><strong>Description</strong></label>
+              <label class="text-right"><strong>{{ 'modalEditSpace.labels.description' | translate }}</strong></label>
               <div class="input-wrapper shrink-0 grow-0 w-[240px]">
                 <textarea
                   formControlName="description"
@@ -137,10 +137,10 @@
       <!-- Buttons -->
       <div class="text-center">
         <button type="button" class="btn btn-white mr-4" (click)="close()" c>
-          Cancel
+          {{ 'buttons.cancel' | translate }}
         </button>
         <button type="submit" class="btn btn-main" (click)="submitForm()">
-          Save Change
+          {{ 'modalEditSpace.buttons.confirm' | translate }}
         </button>
       </div>
       <!-- end of buttons -->

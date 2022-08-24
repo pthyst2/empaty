@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 //#region Services
@@ -10,13 +10,15 @@ import { CreditCardService } from 'src/app/services/utilities/credit-card.servic
 import { AddressService } from 'src/app/services/data/address.service';
 import { InvoiceService } from 'src/app/services/data/invoice.service';
 import { CountryService } from 'src/app/services/data/country.service';
+import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 //#endregion
 @Component({
   selector: 'page-member-billing',
   templateUrl: './page-member-billing.component.html',
   styleUrls: ['./page-member-billing.component.sass'],
 })
-export class PageMemberBillingComponent implements OnInit {
+export class PageMemberBillingComponent implements OnInit, OnDestroy {
   //#region Variables
   faEye = faEye;
   faEyeSlash = faEyeSlash;
@@ -102,38 +104,26 @@ export class PageMemberBillingComponent implements OnInit {
       number: ['', [Validators.required]],
       expMonth: ['', [Validators.required]],
       expYear: ['', Validators.required],
-      cvc: ['', [Validators.required]],
+      cvv: ['', [Validators.required]],
     }),
     shows: {
       number: false,
-      cvc: false,
-    },
-    messages: {
-      type: {
-        required: 'Please select type of credit card.',
-      },
-      holder: {
-        required: "Card's holder cannot be empty.",
-      },
-      number: {
-        required: "Card's number cannot be empty.",
-      },
-      expMonth: {
-        required: 'Please select expire month of credit card.',
-      },
-      expYear: {
-        required: 'Please select expire year of credit card.',
-      },
-      cvc: {
-        required: 'Please provide cvc number of credit card.',
-      },
-    },
+      cvv: false,
+    }
   };
   invoiceInfo: any = {
     loading: false,
     data: [],
   };
   popup: any = {};
+  subs = new Subscription;
+  placeholders = {
+    city: 'City',
+    state: 'State',
+    unit: 'Unit',
+    street: "Street",
+    postalCode: 1000
+  }
   //#endregion
 
   constructor(
@@ -145,10 +135,12 @@ export class PageMemberBillingComponent implements OnInit {
     private ccService: CreditCardService,
     private paymentService: UserCardService,
     private invoicService: InvoiceService,
-    private countryService: CountryService
-  ) {}
+    private countryService: CountryService,
+    private translate: TranslateService
+  ) { }
 
   ngOnInit(): void {
+    this.getPlaceHolders();
     this.getData('user');
     if (this.user) {
       this.getData('sub');
@@ -163,7 +155,9 @@ export class PageMemberBillingComponent implements OnInit {
     this.getData('card-types');
     this.getData('card-years');
   }
-
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
   getData(name: string) {
     switch (name) {
       case 'user': {
@@ -272,7 +266,7 @@ export class PageMemberBillingComponent implements OnInit {
         ctr.number.setValue(data.cardNumber);
         ctr.expMonth.setValue(data.expire.month);
         ctr.expYear.setValue(data.expire.year);
-        ctr.cvc.setValue(data.cvc);
+        ctr.cvv.setValue(data.cvv);
         break;
       }
     }
@@ -320,28 +314,42 @@ export class PageMemberBillingComponent implements OnInit {
     this.editMode = !this.editMode;
     switch (name) {
       case 'sub': {
-        this.editTitle = this.subscriptionInfo.data
-          ? 'Change Plan'
-          : 'Choose Plan';
         this.subscriptionInfo.edit = !this.subscriptionInfo.edit;
         break;
       }
       case 'address': {
-        this.editTitle =
-          !this.addressInfo.data.billing && !this.addressInfo.data.service
-            ? 'Setup Addresses'
-            : 'Edit Addresses';
         this.addressInfo.edit = !this.addressInfo.edit;
+        this.getData('bill');
+        this.getData('service');
+        this.dataToForm('bill', this.addressInfo.data.billing);
+        this.dataToForm('service', this.addressInfo.data.service);
         break;
       }
       case 'payment': {
-        this.editTitle = this.paymentInfo.data
-          ? 'Edit Payment'
-          : 'Setup Payment Method';
         this.paymentInfo.edit = !this.paymentInfo.edit;
+        this.getData('payment');
+        this.dataToForm('payment', this.paymentInfo.data)
         break;
       }
     }
+  }
+  popupInvalid() {
+    this.popup = {
+      show: true,
+      icon: 'error',
+      title: '',
+      html: '',
+    };
+    this.subs.add(this.translate.get('popups.titles.invalid').subscribe(
+      (res: any) => {
+        this.popup.title = res
+      }
+    ));
+    this.subs.add(this.translate.get('popups.htmls.error').subscribe(
+      (res: any) => {
+        this.popup.html = res
+      }
+    ));
   }
   submitForm(name: string, content?: any) {
     switch (name) {
@@ -352,20 +360,40 @@ export class PageMemberBillingComponent implements OnInit {
         if (this.form('sub').valid) {
           this.subscriptionInfo.edit = false;
           this.editMode = false;
-          this.popup = {
-            show: true,
-            icon: 'success',
-            title: 'Subsciption updated!',
-            timer: 1500,
-          };
-          this.getData('sub');
+          try {
+            this.popup = {
+              show: true,
+              icon: 'success',
+              title: 'Subsciption updated!',
+              timer: 1500,
+            };
+            this.subs.add(this.translate.get('popups.titles.success-subscription-update').subscribe(
+              (res: any) => {
+                this.popup.title = res
+              }
+            ))
+            this.getData('sub');
+          }
+          catch (err) {
+            this.popup = {
+              show: true,
+              icon: 'error',
+              title: 'Update subscription failed',
+              html: 'Error: ' + err
+            };
+            this.subs.add(this.translate.get('popups.titles.fail-subscription-update').subscribe(
+              (res: any) => {
+                this.popup.title = res
+              }
+            ));
+            this.subs.add(this.translate.get('popups.htmls.error').subscribe(
+              (res: any) => {
+                this.popup.html = res
+              }
+            ))
+          }
         } else {
-          this.popup = {
-            show: true,
-            icon: 'error',
-            title: 'Invalid or missing info',
-            html: 'Please checkk all information and try again.',
-          };
+          this.popupInvalid();
         }
         break;
       }
@@ -373,20 +401,40 @@ export class PageMemberBillingComponent implements OnInit {
         this.addressInfo.submits.billing = true;
         this.ctr('bill').user.setValue(this.user._id);
         if (this.form('bill').valid) {
-          this.popup = {
-            show: true,
-            icon: 'success',
-            title: 'Billing address updated!',
-            timer: 1500,
-          };
+          try {
+            this.popup = {
+              show: true,
+              icon: 'success',
+              title: 'Billing address updated!',
+              timer: 1500,
+            };
+            this.subs.add(this.translate.get('popups.titles.success-billing-address-update').subscribe(
+              (res: any) => {
+                this.popup.title = res
+              }
+            ))
+          }
+          catch (err) {
+            this.popup = {
+              show: true,
+              icon: 'error',
+              title: 'Update billing address failed',
+              html: 'Error: ' + err
+            };
+            this.subs.add(this.translate.get('popups.titles.fail-billing-address-update').subscribe(
+              (res: any) => {
+                this.popup.title = res
+              }
+            ));
+            this.subs.add(this.translate.get('popups.htmls.error').subscribe(
+              (res: any) => {
+                this.popup.html = res + ": " + err
+              }
+            ))
+          }
           this.getData('bill');
         } else {
-          this.popup = {
-            show: true,
-            icon: 'error',
-            title: 'Invalid or missing info',
-            html: 'Please checkk all information and try again.',
-          };
+          this.popupInvalid();
         }
         break;
       }
@@ -394,20 +442,41 @@ export class PageMemberBillingComponent implements OnInit {
         this.addressInfo.submits.service = true;
         this.ctr('service').user.setValue(this.user._id);
         if (this.form('service').valid) {
-          this.popup = {
-            show: true,
-            icon: 'success',
-            title: 'Service address updated!',
-            timer: 1500,
-          };
-          this.getData('service');
+          try {
+            this.popup = {
+              show: true,
+              icon: 'success',
+              title: 'Service address updated!',
+              timer: 1500,
+            };
+            this.subs.add(this.translate.get('popups.titles.success-service-address-update').subscribe(
+              (res: any) => {
+                this.popup.title = res
+              }
+            ));
+            this.getData('service');
+          }
+          catch (err) {
+            this.popup = {
+              show: true,
+              icon: 'error',
+              title: 'Update service address failed',
+              html: 'Error: ' + err
+            };
+            this.subs.add(this.translate.get('popups.titles.fail-service-address-update').subscribe(
+              (res: any) => {
+                this.popup.title = res
+              }
+            ));
+            this.subs.add(this.translate.get('popups.htmls.error').subscribe(
+              (res: any) => {
+                this.popup.html = res + ": " + err
+              }
+            ))
+          }
+
         } else {
-          this.popup = {
-            show: true,
-            icon: 'error',
-            title: 'Invalid or missing info',
-            html: 'Please checkk all information and try again.',
-          };
+          this.popupInvalid();
         }
         break;
       }
@@ -417,23 +486,68 @@ export class PageMemberBillingComponent implements OnInit {
         if (this.form('payment').valid) {
           this.paymentInfo.edit = false;
           this.editMode = false;
-          this.popup = {
-            show: true,
-            icon: 'success',
-            title: 'Payment updated!',
-            timer: 1500,
-          };
-          this.getData('payment');
+          try {
+            this.popup = {
+              show: true,
+              icon: 'success',
+              title: 'Payment updated!',
+              timer: 1500,
+            };
+            this.subs.add(this.translate.get('popups.titles.success-payment-update').subscribe(
+              (res: any) => {
+                this.popup.title = res
+              }
+            ))
+            this.getData('payment');
+          }
+          catch (err) {
+            this.popup = {
+              show: true,
+              icon: 'error',
+              title: 'Update payment failed'
+            };
+            this.subs.add(this.translate.get('popups.titles.fail-payment-update').subscribe(
+              (res: any) => {
+                this.popup.title = res
+              }
+            ))
+            this.subs.add(this.translate.get('popups.htmls.error').subscribe(
+              (res: any) => {
+                this.popup.html = res + ": " + err
+              }
+            ))
+          }
         } else {
-          this.popup = {
-            show: true,
-            icon: 'error',
-            title: 'Invalid or missing info',
-            html: 'Please checkk all information and try again.',
-          };
+          this.popupInvalid();
         }
         break;
       }
     }
+  }
+  getPlaceHolders() {
+    // City
+    this.subs.add(this.translate.get('pageMemberSettingBilling.labels.city').subscribe(
+      (res: any) => {
+        this.placeholders.city = res
+      }
+    ))
+    // State
+    this.subs.add(this.translate.get('pageMemberSettingBilling.labels.state').subscribe(
+      (res: any) => {
+        this.placeholders.state = res
+      }
+    ))
+    // Unit
+    this.subs.add(this.translate.get('pageMemberSettingBilling.labels.unit').subscribe(
+      (res: any) => {
+        this.placeholders.unit = res
+      }
+    ))
+    // Street
+    this.subs.add(this.translate.get('pageMemberSettingBilling.labels.street').subscribe(
+      (res: any) => {
+        this.placeholders.street = res
+      }
+    ))
   }
 }

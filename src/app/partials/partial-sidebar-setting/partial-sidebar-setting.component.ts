@@ -14,32 +14,32 @@ export class PartialSidebarSettingComponent implements OnInit {
   menu: any = [
     {
       icon: 'account',
-      label: 'Account',
+      label: 'account',
       show: false,
       active: false,
       items: [
         {
           icon: 'manage',
-          label: 'Manage',
+          label: 'manage',
           active: false,
           route: '/member/setting/manage',
         },
         {
           icon: 'billing',
-          label: 'Billing',
+          label: 'billing',
           active: false,
           route: '/member/setting/billing',
         },
         {
           icon: 'user-octagon',
-          label: 'Roles',
+          label: 'roles',
           active: false,
           route: '/member/setting/roles',
         },
       ],
     },
   ];
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
   ngOnInit(): void {
     this.activeItem();
   }

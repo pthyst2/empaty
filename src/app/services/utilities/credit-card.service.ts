@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class CreditCardService {
-  constructor() {}
+  constructor() { }
 
   getExpireYears() {
     let today = new Date();
@@ -14,6 +14,12 @@ export class CreditCardService {
     for (let i = thisYear; i <= yearEnd; i++) {
       result.push(i);
     }
+    return result;
+  }
+  getLast4(cardNumber: string) {
+    let result: any = cardNumber.trim();
+    let n = result.length;
+    result = result.substring(n - 4, n);
     return result;
   }
 }

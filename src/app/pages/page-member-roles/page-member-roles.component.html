@@ -2,7 +2,7 @@
   <div class="w-full rounded-[4px] p-[16px] bg-white xl:min-w-[750px]">
     <!-- Title & invite -->
     <div class="flex justify-between items-center mb-4">
-      <p class="uppercase text-black65"><strong>Space Users</strong></p>
+      <p class="uppercase text-black65"><strong>{{ 'pageMemberSettingRoles.texts.title' | translate }}</strong></p>
       <button
         type="button"
         class="btn btn-main"
@@ -11,7 +11,7 @@
         <div class="svg-wrapper w-[16px] h-[16px] mr-2">
           <div class="svg svg-user-add-white w-[16px] h-[16px]"></div>
         </div>
-        <p>Invite</p>
+        <p>{{ 'pageMemberSettingRoles.buttons.invite' | translate }}</p>
       </button>
     </div>
     <!-- end of title & invite -->
@@ -28,7 +28,7 @@
           <thead>
             <tr>
               <th class="px-3 py-2 bg-grey text-black65 text-left">
-                <p>Name</p>
+                <p>{{ 'pageMemberSettingRoles.texts.th-name' | translate }}</p>
               </th>
               <th class="px-2 py-2 bg-grey text-black65 text-left">
                 <select
@@ -36,16 +36,16 @@
                   [(ngModel)]="role"
                   (change)="catchChangeRole()"
                 >
-                  <option value="">All Roles</option>
+                  <option value="">{{ 'pageMemberSettingRoles.texts.th-all-roles' | translate }}</option>
                   <option value="admin">Admin</option>
                   <option value="user">User</option>
                 </select>
               </th>
               <th class="px-3 py-2 bg-grey text-black65 text-left">
-                <p>Access</p>
+                <p>{{ 'pageMemberSettingRoles.texts.th-access' | translate }}</p>
               </th>
               <th class="px-3 py-2 bg-grey text-black65 text-left">
-                <p>Date Joined</p>
+                <p>{{ 'pageMemberSettingRoles.texts.th-date-joined' | translate }}</p>
               </th>
               <th class="px-2 py-2 bg-grey text-black65 text-left">
                 <select
@@ -53,14 +53,14 @@
                   [(ngModel)]="status"
                   (change)="catchChangeStatus()"
                 >
-                  <option value="">All Statuses</option>
+                  <option value="">{{ 'pageMemberSettingRoles.texts.th-all-statuses' | translate }}</option>
                   <option value="active">Active</option>
                   <option value="pending">Pending</option>
                   <option value="deleted">Deleted</option>
                 </select>
               </th>
               <th class="px-3 py-2 bg-grey text-black65 text-left">
-                <p>Action</p>
+                <p>{{ 'pageMemberSettingRoles.texts.th-action' | translate }}</p>
               </th>
             </tr>
           </thead>
@@ -76,7 +76,7 @@
                 <p class="text-main">{{ user.role.name }}</p>
               </td>
               <td class="px-3 py-2 text-left">
-                <p>No data.</p>
+                <p>{{ 'texts.no-data' | translate }}</p>
               </td>
               <td class="px-3 py-2 text-left">
                 <p>{{ user.created_at | date: "YYYY-MM-dd" }}</p>
@@ -105,7 +105,7 @@
         </table>
       </ng-template>
       <ng-template [ngIf]="!users || users.length == 0">
-        <p>There is no collaborators.</p>
+        <p>{{ 'pageMemberSettingRoles.texts.no-collaborator' | translate }}</p>
       </ng-template>
     </ng-template>
     <!-- end of table -->

@@ -2,7 +2,7 @@
   <div class="rounded-modal bg-black2 p-8 flex flex-col">
     <!-- Title -->
     <div class="text-center mb-6">
-      <p class="modal-title">Add User</p>
+      <p class="modal-title">{{ 'modalAddCollaborator.texts.title' | translate }}</p>
     </div>
     <!-- end of title -->
 
@@ -19,7 +19,7 @@
             [class.input-invalid]="isCtrInvalid(ctr.email)"
           >
             <select formControlName="email" class="p-2 w-[290px]">
-              <option value="" hidden disabled selected>Select user</option>
+              <option value="" hidden disabled selected>{{ 'modalAddCollaborator.texts.select-user' | translate }}</option>
               <option
                 *ngFor="let item of collaborators"
                 value="{{ item.user._id }}"
@@ -33,7 +33,7 @@
               class="text-danger text-right"
               *ngIf="ctr.email.errors?.['required']"
             >
-              <p>Please select a user.</p>
+              <p>{{ 'modalAddCollaborator.errors.user-required' | translate }}</p>
             </div>
           </ng-template>
         </div>
@@ -41,7 +41,7 @@
         <!-- Role -->
         <div class="flex flex-col mb-6">
           <label class="mb-2"
-            ><strong>Role <span class="text-danger">*</span></strong></label
+            ><strong>{{ 'modalAddCollaborator.texts.role' | translate }} <span class="text-danger">*</span></strong></label
           >
           <div class="flex flex-wrap">
             <!-- Can View -->
@@ -52,7 +52,7 @@
                   [class.checked]="ctr.role.value == 'view'"
                 ></div>
               </div>
-              <div class="label">Can View</div>
+              <div class="label">{{ 'modalAddCollaborator.labels.view' | translate }}</div>
             </div>
             <!-- end of can view -->
             <!-- Can edit -->
@@ -63,7 +63,7 @@
                   [class.checked]="ctr.role.value == 'edit'"
                 ></div>
               </div>
-              <div class="label">Can Edit</div>
+              <div class="label">{{ 'modalAddCollaborator.labels.edit' | translate }}</div>
             </div>
             <!-- end of can edit -->
           </div>
@@ -72,13 +72,14 @@
       </div>
       <div class="flex justify-center items-center">
         <button type="button" class="btn btn-white mr-4" (click)="close()">
-          Cancel
+          {{ 'buttons.close' | translate}}
         </button>
         <button type="submit" class="btn btn-main" (click)="submitForm()">
-          Confirm
+           {{ 'modalAddCollaborator.buttons.confirm' | translate }}
         </button>
       </div>
     </form>
     <!-- end of form -->
   </div>
 </modal-base>
+<modal-popup [show]="popup.show" [content]="popup" (closed)="popup.show = false"></modal-popup>

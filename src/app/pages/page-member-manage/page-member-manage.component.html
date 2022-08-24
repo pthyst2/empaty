@@ -6,18 +6,10 @@
       <div class="flex items-center justify-between mb-2 text-black65">
         <p class="text-[16px] leading-[23px] tracking-wider uppercase mr-2">
           <strong>{{
-            accountInfo.edit == true ? "Edit Account Detail" : "Account Detail"
+            'pageMemberSettingManage.texts.title-account' | translate
           }}</strong>
         </p>
-        <!-- 
-        <div
-          *ngIf="accountInfo.edit == false"
-          class="svg-wrapper w-[20px] h-[20px]"
-          (click)="accountInfo.edit = true"
-        >
-          <div class="svg svg-edit w-[20px] h-[20px]"></div>
-        </div>
-      -->
+         
         <button
           *ngIf="accountInfo.edit == false"
           type="button"
@@ -33,7 +25,7 @@
           "
           (click)="accountInfo.edit = true"
         >
-          Edit
+          {{ 'buttons.edit' | translate }}
         </button>
       </div>
       <!-- end of title & edit -->
@@ -47,7 +39,7 @@
         <!-- Content -->
         <ng-template [ngIf]="accountInfo.edit == false">
           <p>
-            <span class="text-black45">Account Name: </span
+            <span class="text-black45">{{ 'pageMemberSettingManage.labels.account' | translate }}: </span
             ><span>{{ mockAccount.name }}</span>
           </p>
         </ng-template>
@@ -64,7 +56,7 @@
               <div class="form-group-col">
                 <label
                   ><strong
-                    >Name <span class="text-danger">*</span></strong
+                    >{{ 'pageMemberSettingManage.labels.account' | translate }} <span class="text-danger">*</span></strong
                   ></label
                 >
                 <div
@@ -84,7 +76,7 @@
                   *ngIf="fs.isControlInvalid(ctr1.name, accountInfo.submitted)"
                 >
                   <p *ngIf="fs.isCtrHasError(ctr1.name, 'required')">
-                    {{ accountInfo.messages.name.required }}
+                    {{ 'pageMemberSettingManage.errors.account-required' | translate }}
                   </p>
                 </div>
               </div>
@@ -106,10 +98,10 @@
                 class="btn btn-white order-last lg:order-first mr-0 lg:mr-4"
                 (click)="accountInfo.edit = false"
               >
-                Cancel
+                {{ 'buttons.cancel' | translate }}
               </button>
               <button type="submit" class="btn btn-main mb-2 lg:mb-0">
-                Save Changes
+                {{ 'buttons.save-changes' | translate }}
               </button>
             </div>
             <!-- end of buttons -->
@@ -132,19 +124,18 @@
             mr-2
           "
         >
-          <strong>VR Sharing</strong>
+          <strong>{{ 'pageMemberSettingManage.texts.title-vr-sharing' | translate }}</strong>
         </p>
         <div>
           <partial-item-switch
             [trueLabel]="'ON'"
             [falseLabel]="'OFF'"
+            (changed)="submitForm2()"
           ></partial-item-switch>
         </div>
       </div>
       <div class="text-black45">
-        Once VR sharing is enabled, all spaces in your account will be VR ready
-        and can be shared via a url. Your spaces will be viewable via the
-        Betaspace VR app for either Google Cardboard or Samsung Gear VR.
+        {{ 'pageMemberSettingManage.texts.description-vr-sharing' | translate }}  
       </div>
     </div>
     <!-- end of vr link -->

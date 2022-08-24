@@ -30,7 +30,7 @@ export class PageMemberRolesComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private collabService: CollaboratorService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getData('user');
@@ -51,7 +51,6 @@ export class PageMemberRolesComponent implements OnInit {
         setTimeout(() => {
           this.loading = false;
         }, 1500);
-        console.log('this.users: ', this.users);
         break;
       }
     }

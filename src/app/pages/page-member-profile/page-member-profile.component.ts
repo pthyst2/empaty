@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { FormService } from 'src/app/services/utilities/form.service';
 import { AuthService } from 'src/app/services/data/auth.service';
 import { UserService } from 'src/app/services/data/user.service';
+import { TranslateService } from '@ngx-translate/core';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 @Component({
@@ -43,20 +44,21 @@ export class PageMemberProfileComponent implements OnInit, OnDestroy {
       confirmPassword: false,
     },
   };
-  popup = false;
-  popupContent: any = {
+  popup: any = {
+    show: false,
+    icon: 'success',
     title: '',
     html: '',
-    icon: '',
-    timer: undefined,
-  };
+    timer: undefined
+  }
   subs = new Subscription();
   constructor(
     private fb: FormBuilder,
     public fs: FormService,
     private authService: AuthService,
-    private userService: UserService
-  ) {}
+    private userService: UserService,
+    private translate: TranslateService
+  ) { }
 
   ngOnInit(): void {
     this.getUser();
@@ -71,7 +73,6 @@ export class PageMemberProfileComponent implements OnInit, OnDestroy {
       this.authService.getUserInfo().subscribe({
         next: (res: any) => {
           this.user = res.data.userInfo;
-          console.log('user: ', this.user);
           this.setFormsValue();
           this.basicInfo.loading = false;
           this.loginInfo.loading = false;
@@ -84,23 +85,38 @@ export class PageMemberProfileComponent implements OnInit, OnDestroy {
   }
   setFormsValue() {
     if (this.user) {
-      let u = this.user;
-      this.ctr1.id.setValue(u.id);
-      this.ctr1.fullname.setValue(u.fullname);
-      this.ctr1.phone.setValue(u.phone);
-      this.ctr1.address.setValue(u.address ? u.address : 'No Data');
-      this.ctr2.id.setValue(u.id);
-      this.ctr2.email.setValue(u.email);
+      this.setForm1Value();
+      this.setForm2Value();
     }
   }
+
   toggleForm(section: any) {
-    section.edit = !section.edit;
+    switch (section) {
+      case 'basic': {
+        this.basicInfo.edit = !this.basicInfo.edit;
+        this.setForm1Value();
+        break;
+      }
+      case 'login': {
+        this.loginInfo.edit = !this.loginInfo.edit;
+        this.setForm2Value();
+        break;
+      }
+    }
+
   }
   get form1() {
     return this.basicInfo.form;
   }
   get ctr1() {
     return this.form1.controls;
+  }
+
+  setForm1Value() {
+    this.ctr1.id.setValue(this.user.id);
+    this.ctr1.fullname.setValue(this.user.fullname);
+    this.ctr1.phone.setValue(this.user.phone);
+    this.ctr1.address.setValue(this.user.address);
   }
   submitForm1() {
     this.basicInfo.submitted = true;
@@ -114,43 +130,87 @@ export class PageMemberProfileComponent implements OnInit, OnDestroy {
       this.subs.add(
         this.userService.updateBasicInfo(input).subscribe({
           next: (res: any) => {
-            this.togglePopup({
+            this.popup = {
+              show: true,
               icon: 'success',
               title: 'Basic infomation updated',
-              html: 'Reloading data...',
               timer: 1500,
-            });
+            }
+            this.subs.add(this.translate.get('popups.titles.success-basic-update').subscribe(
+              (res: any) => {
+                this.popup.title = res
+              }
+            ))
             this.basicInfo.edit = false;
             setTimeout(() => window.location.reload(), 1500);
           },
           error: (err) => {
+            this.popup = {
+              show: true,
+              icon: 'error',
+              title: "Update basic info failed",
+              html: 'Err: ' + err,
+            }
+            this.subs.add(this.translate.get('popups.titles.fail-basic-update').subscribe(
+              (res: any) => {
+                this.popup.title = res
+              }
+            ))
+            this.subs.add(this.translate.get('popups.htmls.error').subscribe(
+              (res: any) => {
+                this.popup.html = res + ": " + err
+              }
+            ))
             console.error(err);
           },
         })
       );
     } else {
-      this.togglePopup({
-        icon: 'error',
-        title: 'Invalid or missing info',
-        html: 'Please check all information and try again.',
-      });
+      this.popupMissing();
     }
   }
+
+  popupMissing() {
+    this.popup = {
+      show: true,
+      icon: 'error',
+      title: 'Invalid or missing info',
+      html: 'Please check all information and try again.',
+    }
+    this.subs.add(this.translate.get('popups.titles.invalid').subscribe(
+      (res: any) => {
+        this.popup.title = res
+      }
+    ));
+    this.subs.add(this.translate.get('popups.htmls.check-and-try-again').subscribe(
+      (res: any) => {
+        this.popup.html = res
+      }
+    ))
+  }
+
   get form2() {
     return this.loginInfo.form;
   }
   get ctr2() {
     return this.form2.controls;
   }
+  setForm2Value() {
+    this.ctr2.id.setValue(this.user.id);
+    this.ctr2.email.setValue(this.user.email);
+  }
   submitForm2() {
     this.loginInfo.submitted = true;
-
-    if (this.ctr2.confirmPassword.value != this.ctr2.newPassword.value) {
-      this.ctr2.confirmPassword.setErrors({ matched: true });
-    } else {
-      this.ctr2.confirmPassword.setErrors(null);
+    let confirm: any = this.ctr2.confirmPassword.value;
+    let newpass: any = this.ctr2.newPassword.value;
+    if (confirm && newpass) {
+      if (confirm != newpass) {
+        this.ctr2.confirmPassword.setErrors({ matched: true });
+      }
+      else {
+        this.ctr2.confirmPassword.setErrors(null);
+      }
     }
-
     if (this.form2.valid) {
       let input: any = {
         oldPassword: this.ctr2.currentPassword.value,
@@ -161,35 +221,45 @@ export class PageMemberProfileComponent implements OnInit, OnDestroy {
       this.subs.add(
         this.userService.updateLoginInfo(input).subscribe({
           next: (res: any) => {
-            this.togglePopup({
+            this.popup = {
+              show: true,
               icon: 'success',
               title: 'Login infomation updated',
-              html: 'Reloading data...',
               timer: 1500,
-            });
+            }
+
+            this.subs.add(this.translate.get('popups.titles.success-login-update').subscribe(
+              (res: any) => {
+                this.popup.title = res
+              }
+            ))
+
             this.loginInfo.edit = false;
             setTimeout(() => window.location.reload(), 1500);
           },
           error: (err) => {
+            this.popup = {
+              show: true,
+              icon: 'error',
+              title: "Update login info failed",
+              html: 'Err: ' + err,
+            }
+            this.subs.add(this.translate.get('popups.titles.fail-login-update').subscribe(
+              (res: any) => {
+                this.popup.title = res
+              }
+            ))
+            this.subs.add(this.translate.get('popups.htmls.error').subscribe(
+              (res: any) => {
+                this.popup.html = res + ": " + err
+              }
+            ))
             console.error(err);
           },
         })
       );
     } else {
-      this.togglePopup({
-        icon: 'error',
-        title: 'Invalid or missing info',
-        html: 'Please check all information and try again.',
-      });
+      this.popupMissing();
     }
-  }
-  togglePopup(content?: any) {
-    this.popup = content ? true : false;
-    this.popupContent = {
-      title: content && content.title ? content.title : '',
-      html: content && content.html ? content.html : '',
-      icon: content && content.icon ? content.icon : '',
-      timer: content && content.timer ? content.timer : undefined,
-    };
   }
 }

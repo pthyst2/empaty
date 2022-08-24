@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ShareModule } from 'src/app/modules/share/share.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LayoutMemberHomeRoutingModule } from './layout-member-home-routing.module';
+
 //#endregion
 
 //#region Partials
@@ -53,6 +54,8 @@ import { ModalPurchasePlanComponent } from '../../modals/modal-purchase-plan/mod
 //#region Layouts
 import { LayoutMemberHomeComponent } from './layout-member-home.component';
 import { LayoutSettingComponent } from '../layout-setting/layout-setting.component';
+import { PagePaymentSuccessComponent } from '../../pages/page-payment-success/page-payment-success.component';
+import { PagePaymentCancelComponent } from '../../pages/page-payment-cancel/page-payment-cancel.component';
 //#endregion
 @NgModule({
   declarations: [
@@ -93,6 +96,8 @@ import { LayoutSettingComponent } from '../layout-setting/layout-setting.compone
     PartialItemPlanComponent,
     PartialListPlansComponent,
     ModalDeleteUserComponent,
+    PagePaymentSuccessComponent,
+    PagePaymentCancelComponent,
   ],
   imports: [
     CommonModule,
@@ -101,4 +106,4 @@ import { LayoutSettingComponent } from '../layout-setting/layout-setting.compone
     LayoutMemberHomeRoutingModule,
   ],
 })
-export class LayoutMemberHomeModule {}
+export class LayoutMemberHomeModule { }

@@ -8,10 +8,11 @@
   </ng-template>
   <ng-template [ngIf]="loading == false">
     <!-- Title -->
-    <p class="page-title text-center mb-8">Statistics</p>
+    <p class="page-title text-center mb-8">{{ 'pageMemberStatistics.texts.title' | translate }}</p>
     <!-- end of title -->
     <!-- Tabs -->
     <div class="bg-black15 w-full flex items-center">
+      <!-- Lifetime -->
       <p
         class="
           cursor-pointer
@@ -21,14 +22,50 @@
           hover:border-main
           hover:bg-white
         "
-        *ngFor="let tab of tabs"
-        (click)="activeTab(tab)"
-        [class.border-main]="tabActive == tab"
-        [class.bg-white]="tabActive == tab"
-        [class.border-transparent]="tabActive != tab"
+        (click)="activeTab('Lifetime')"
+        [class.border-main]="tabActive == 'Lifetime'"
+        [class.bg-white]="tabActive == 'Lifetime'"
+        [class.border-transparent]="tabActive != 'Lifetime'"
       >
-        {{ tab }}
+        {{ 'pageMemberStatistics.texts.lifetime' | translate }}
       </p>
+      <!-- end of lifetime -->
+      <!-- 30 days -->
+      <p
+        class="
+          cursor-pointer
+          py-2
+          px-4
+          border-b-2
+          hover:border-main
+          hover:bg-white
+        "
+        (click)="activeTab('30 Days')"
+        [class.border-main]="tabActive == '30 Days'"
+        [class.bg-white]="tabActive == '30 Days'"
+        [class.border-transparent]="tabActive != '30 Days'"
+      >
+        {{ 'pageMemberStatistics.texts.30days' | translate }}
+      </p>
+      <!-- end of 30 days -->
+      <!-- 7 days -->
+      <p
+        class="
+          cursor-pointer
+          py-2
+          px-4
+          border-b-2
+          hover:border-main
+          hover:bg-white
+        "
+        (click)="activeTab('7 Days')"
+        [class.border-main]="tabActive == '7 Days'"
+        [class.bg-white]="tabActive == '7 Days'"
+        [class.border-transparent]="tabActive != '7 Days'"
+      >
+        {{ 'pageMemberStatistics.texts.7days' | translate }}
+      </p>
+      <!-- end of 7 days -->
     </div>
     <div class="px-8 py-4 bg-white">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-y-4">
@@ -43,7 +80,7 @@
               {{ tabActive }}
             </p>
             <p class="text-black65">
-              <strong>{{ spaces.length }} spaces</strong>
+              <strong>{{ spaces.length }} {{ 'pageMemberStatistics.texts.spaces' | translate }}</strong>
             </p>
           </div>
         </div>
@@ -61,7 +98,7 @@
             <div class="svg svg-monitor-mobile w-[32px] h-[32px]"></div>
           </div>
           <div>
-            <p class="uppercase text-black45 tracking-wider">Impressions</p>
+            <p class="uppercase text-black45 tracking-wider">{{ 'pageMemberStatistics.texts.impressions' | translate }}</p>
             <p class="text-black65">
               <strong>{{ total.impressions }}</strong>
             </p>
@@ -74,7 +111,7 @@
             <div class="svg svg-health w-[32px] h-[32px]"></div>
           </div>
           <div>
-            <p class="uppercase text-black45 tracking-wider">Visits</p>
+            <p class="uppercase text-black45 tracking-wider">{{ 'pageMemberStatistics.texts.visits' | translate }}</p>
             <p class="text-black65">
               <strong>{{ total.visits }}</strong>
             </p>
@@ -84,54 +121,63 @@
     </div>
     <!-- end of tabs -->
     <!-- List -->
-    <div>
-      <!-- Head -->
-      <div class="grid grid-cols-5 bg-black15">
-        <div class="col-span-2 p-2">Name</div>
-        <div class="p-2 text-center">Impressions</div>
-        <div class="p-2 text-center">Visits</div>
-        <div class="p-2 text-center">Unique Visitors</div>
-      </div>
-      <!--end of head -->
-      <!-- Body -->
-      <div class="list max-h-[400px] overflow-y-scroll bg-white">
-        <div
-          *ngFor="let space of spaces"
-          class="grid grid-cols-5 border-t border-black15"
-        >
-          <!-- Name -->
-          <div class="col-span-2 p-2 flex items-center">
-            <img
-              [src]="space.thumbnail"
-              class="w-[64px] h-[64px] mr-2 object-contain"
-            />
-            <div>
-              <p class="text-[16px] uppercase">
-                <strong>{{ space.title }}</strong>
-              </p>
-              <p class="text-black45">Updated by {{ space.author }}</p>
-            </div>
-          </div>
-          <!-- end of name -->
-          <!-- Impressions -->
-          <div class="p-2 justify-center flex items-center">
-            <p>{{ space.statistics.impressions }}</p>
-          </div>
-          <!-- end of impressions -->
-          <!-- Visits -->
-          <div class="p-2 justify-center flex items-center">
-            <p>{{ space.statistics.visits }}</p>
-          </div>
-          <!-- end of visits -->
-          <!-- Unique visitors -->
-          <div class="p-2 justify-center flex items-center">
-            <p>{{ space.statistics.uniques }}</p>
-          </div>
-          <!-- end of unique visitors -->
+    <ng-container *ngIf="spaces && spaces.length > 0; else noSpace">
+      <div>
+        <!-- Head -->
+        <div class="grid grid-cols-5 bg-black15">
+          <div class="col-span-2 p-2">{{ 'pageMemberStatistics.texts.name' | translate }}</div>
+          <div class="p-2 text-center">{{ 'pageMemberStatistics.texts.impressions' | translate }}</div>
+          <div class="p-2 text-center">{{ 'pageMemberStatistics.texts.visits' | translate }}</div>
+          <div class="p-2 text-center">{{ 'pageMemberStatistics.texts.unique-visitors' | translate }}</div>
         </div>
+        <!--end of head -->
+        <!-- Body -->
+        <div class="list max-h-[400px] overflow-y-scroll bg-white">
+          <div
+            *ngFor="let space of spaces"
+            class="grid grid-cols-5 border-t border-black15"
+          >
+            <!-- Name -->
+            <div class="col-span-2 p-2 flex items-center">
+              <img
+                [src]="space.image ? imageService.convertBase64(space.image) : noImage"
+                class="w-[64px] h-[64px] object-contain"
+              />
+              <div class="px-4">
+                <p class="text-[16px] uppercase">
+                  <strong>{{ space.name }}</strong>
+                </p>
+                <!-- 
+                <p class="text-black45">Updated by {{ space.author }}</p>
+                -->
+                <p class="text-black45">{{ 'pageMemberStatistics.texts.created-at' | translate }} {{ space.created | date: "YYYY-MM-dd" }}</p>
+                <p class="text-black45">{{ 'pageMemberStatistics.texts.updated-at' | translate }} {{ space.modified | date: "YYYY-MM-dd" }}</p>
+              </div>
+            </div>
+            <!-- end of name -->
+            <!-- Impressions -->
+            <div class="p-2 justify-center flex items-center">
+              <p>99</p>
+            </div>
+            <!-- end of impressions -->
+            <!-- Visits -->
+            <div class="p-2 justify-center flex items-center">
+              <p>99</p>
+            </div>
+            <!-- end of visits -->
+            <!-- Unique visitors -->
+            <div class="p-2 justify-center flex items-center">
+              <p>99</p>
+            </div>
+            <!-- end of unique visitors -->
+          </div>
+        </div>
+        <!-- end of body -->
       </div>
-      <!-- end of body -->
-    </div>
+    </ng-container>
+    <ng-template #noSpace>
+      <p>{{ 'texts.no-data' | translate }}</p>
+    </ng-template>
     <!-- end of list -->
   </ng-template>
 </div>

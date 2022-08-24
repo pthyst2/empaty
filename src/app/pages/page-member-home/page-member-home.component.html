@@ -10,7 +10,9 @@
     <div class="col-span-1"></div>
     <!-- Search -->
     <div class="col-span-1">
-      <div
+      <form
+        [formGroup]="searchForm"
+        (submit)="loadSpaces()"
         class="
           flex
           items-center
@@ -33,10 +35,10 @@
             boder-black45
             pb-2
             md:pb-0
-            md:pr-2
+            md:pr-2 
           "
         >
-          <button type="button" (click)="searchSpaces()" class="tooltip">
+          <button type="submit" (click)="loadSpaces()" class="tooltip">
             <fa-icon [icon]="faSearch"></fa-icon>
             <span class="tooltiptext-left">{{
               "pageMemberHome.tooltips.search" | translate
@@ -44,18 +46,20 @@
           </button>
           <input
             type="text"
-            [(ngModel)]="search.keyword"
-            class="px-2 grow"
+            formControlName="name"
+            class="px-2 grow "
             spellcheck="false"
-            placeholder="keyword..."
+            [placeholder]="placeholders.search"
           />
-          <div class="cursor-pointer" (click)="search.keyword = ''">
+          <!-- 
+          <div *ngIf="search.keyword" class="absolute z-[1000] right-[5px] cursor-pointer w-[20px] h-[20px]" (click)="search.keyword = ''">
             <img class="w-[20px] h-[20px]" [src]="xCircleIcon" />
           </div>
+          -->
         </div>
         <select
           class="w-full pt-2 md:pt-0 md:pl-2 cursor-pointer"
-          [(ngModel)]="search.serviceType"
+          formControlName="service"
         >
           <option value="">
             {{ "pageMemberHome.select.all" | translate }}
@@ -64,7 +68,7 @@
             {{ type.name }}
           </option>
         </select>
-      </div>
+      </form>
     </div>
     <!-- end of search -->
     <!-- Create new -->

@@ -25,7 +25,7 @@
               <p
                 class="text-[16px] leading-[23px] tracking-wider uppercase mr-2"
               >
-                <strong>Subscription</strong>
+                <strong>{{ 'pageMemberSettingBilling.texts.title-subscription' | translate }}</strong>
               </p>
               <button
                 *ngIf="subscriptionInfo.data"
@@ -33,7 +33,7 @@
                 class="btn btn-white"
                 (click)="toggleEdit('sub')"
               >
-                Change Plan
+                {{ 'pageMemberSettingBilling.texts.title-change-plan' | translate }}
               </button>
               <button
                 *ngIf="!subscriptionInfo.data"
@@ -41,18 +41,18 @@
                 class="btn btn-main"
                 (click)="toggleEdit('sub')"
               >
-                Purchase New Plan
+                {{ 'pageMemberSettingBilling.buttons.purchase-new-plan' | translate }}
               </button>
             </div>
             <!-- end of title -->
             <!-- Content -->
             <div *ngIf="subscriptionInfo.loading == false; else subLoading">
               <div *ngIf="subscriptionInfo.data; else noPlan">
-                <span class="text-black65">Your plan: </span
+                <span class="text-black65">{{ 'pageMemberSettingBilling.labels.plan' | translate }}: </span
                 ><span>{{ subscriptionInfo.data.plan.title }}</span>
               </div>
               <ng-template #noPlan>
-                <p>You did not purchase any plan yet.</p>
+                <p>{{ 'pageMemberSettingBilling.texts.not-purchase-yet' | translate}}</p>
               </ng-template>
             </div>
             <ng-template #subLoading>
@@ -70,7 +70,7 @@
               <p
                 class="text-[16px] leading-[23px] tracking-wider uppercase mr-2"
               >
-                <strong>Addresses</strong>
+                <strong>{{ 'pageMemberSettingBilling.texts.title-addresses' | translate }}</strong>
               </p>
               <button
                 *ngIf="addressInfo.data.billing || addressInfo.data.service"
@@ -78,7 +78,7 @@
                 class="btn btn-white"
                 (click)="toggleEdit('address')"
               >
-                Edit Addresses
+                {{ 'pageMemberSettingBilling.buttons.edit-addresses' | translate }}
               </button>
               <button
                 *ngIf="!addressInfo.data.billing && !addressInfo.data.service"
@@ -86,7 +86,7 @@
                 class="btn btn-main"
                 (click)="toggleEdit('address')"
               >
-                Setup Addresses
+                {{ 'pageMemberSettingBilling.buttons.setup-addresses' | translate }}
               </button>
             </div>
             <!-- end of title -->
@@ -94,7 +94,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
               <!-- Billing address -->
               <div>
-                <p class="text-black45"><strong>Billing Address</strong></p>
+                <p class="text-black45"><strong>{{ 'pageMemberSettingBilling.texts.address-billing' | translate }}</strong></p>
                 <div
                   *ngIf="
                     addressInfo.loading.billing == false;
@@ -114,11 +114,11 @@
                       <span>, {{ addressInfo.data.billing.country }}.</span>
                     </p>
                     <p>
-                      Postal Code: {{ addressInfo.data.billing.postalCode }}
+                      {{ 'pageMemberSettingBilling.labels.postal-code' | translate }}: {{ addressInfo.data.billing.postalCode }}
                     </p>
                   </div>
                   <ng-template #noBilling>
-                    <p>No billing address data.</p>
+                    <p>{{ 'pageMemberSettingBilling.texts.no-billing-data' | translate}}</p>
                   </ng-template>
                 </div>
                 <ng-template #billingLoading>
@@ -130,7 +130,7 @@
               <!-- end of billing address -->
               <!-- Service address -->
               <div>
-                <p class="text-black45"><strong>Service Address</strong></p>
+                <p class="text-black45"><strong>{{ 'pageMemberSettingBilling.texts.address-service' | translate }}</strong></p>
                 <div
                   *ngIf="
                     addressInfo.loading.service == false;
@@ -150,11 +150,11 @@
                       <span>, {{ addressInfo.data.service.country }}.</span>
                     </p>
                     <p>
-                      Postal Code: {{ addressInfo.data.service.postalCode }}
+                      {{ 'pageMemberSettingBilling.labels.postal-code' | translate }}: {{ addressInfo.data.service.postalCode }}
                     </p>
                   </div>
                   <ng-template #noService>
-                    <p>No service address data.</p>
+                    <p>{{ 'pageMemberSettingBilling.texts.no-service-data' | translate }}</p>
                   </ng-template>
                 </div>
                 <ng-template #serviceLoading>
@@ -175,7 +175,7 @@
           <!-- Title -->
           <div class="flex items-center justify-between mb-8 text-black65">
             <p class="text-[16px] leading-[23px] tracking-wider uppercase mr-2">
-              <strong>Payment</strong>
+              <strong>{{ 'pageMemberSettingBilling.texts.title-payment' | translate }}</strong>
             </p>
             <button
               *ngIf="paymentInfo.data"
@@ -183,7 +183,7 @@
               class="btn btn-white"
               (click)="toggleEdit('payment')"
             >
-              Edit Payment
+              {{ 'pageMemberSettingBilling.buttons.edit-payment' | translate }}
             </button>
             <button
               *ngIf="!paymentInfo.data"
@@ -191,7 +191,7 @@
               class="btn btn-main"
               (click)="toggleEdit('payment')"
             >
-              Setup Payment
+              {{ 'pageMemberSettingBilling.buttons.setup-payment' | translate }}
             </button>
           </div>
           <!-- end of title -->
@@ -202,7 +202,7 @@
               [card]="paymentInfo.data"
             ></partial-credit-card>
             <ng-template #noPayment>
-              <p>No payment data.</p>
+              <p>{{ 'pageMemberSettingBilling.texts.no-payment-data' | translate }}</p>
             </ng-template>
           </div>
           <!-- end of content -->
@@ -234,7 +234,7 @@
           "
         >
           <p class="text-[16px] leading-[23px] tracking-wider uppercase mr-2">
-            <strong>Invoices</strong>
+            <strong>{{ 'pageMemberSettingBilling.texts.title-invoices' | translate }}</strong>
           </p>
         </div>
         <!-- end of title -->
@@ -280,7 +280,7 @@
               </div>
             </ng-container>
             <ng-template #noInvoice>
-              <p>You have no invoice yet.</p>
+              <p class="py-2">{{ 'pageMemberSettingBilling.texts.no-invoices-data' | translate}}</p>
             </ng-template>
           </ng-template>
         </div>
@@ -298,7 +298,7 @@
       <!-- Title -->
       <div class="flex items-center justify-between mb-4 text-black65">
         <p class="text-[16px] leading-[23px] tracking-wider uppercase mr-2">
-          <strong>{{ editTitle }}</strong>
+          <strong>{{ 'pageMemberSettingBilling.buttons.edit-addresses' | translate }}</strong>
         </p>
         <button
           *ngIf="subscriptionInfo.edit == true"
@@ -306,7 +306,7 @@
           class="btn btn-white"
           (click)="toggleEdit('sub')"
         >
-          Back
+          {{ 'buttons.back' | translate }}
         </button>
         <button
           *ngIf="addressInfo.edit == true"
@@ -314,7 +314,7 @@
           class="btn btn-white"
           (click)="toggleEdit('address')"
         >
-          Back
+          {{ 'buttons.back' | translate }}
         </button>
         <button
           *ngIf="paymentInfo.edit == true"
@@ -322,7 +322,7 @@
           class="btn btn-white"
           (click)="toggleEdit('payment')"
         >
-          Back
+          {{ 'buttons.back' | translate }}
         </button>
       </div>
       <!-- end of title -->
@@ -340,7 +340,7 @@
         <!-- Billing address -->
         <div class="mb-4">
           <!-- Title -->
-          <p class="text-black65 mb-2"><strong>Billing Address</strong></p>
+          <p class="text-black65 mb-2"><strong>{{ 'pageMemberSettingBilling.texts.address-billing' | translate }}</strong></p>
           <!-- end of title -->
           <!-- Form -->
           <form [formGroup]="form('bill')" (submit)="submitForm('bill')">
@@ -350,7 +350,7 @@
                 <!-- Country -->
                 <div class="mb-2">
                   <div class="form-group-inline">
-                    <label>Country <span class="text-danger">*</span></label>
+                    <label>{{ 'pageMemberSettingBilling.labels.country' | translate }} <span class="text-danger">*</span></label>
                     <div
                       class="input-wrapper"
                       [class.input-invalid]="
@@ -362,7 +362,7 @@
                     >
                       <select formControlName="country">
                         <option value="" disabled selected hidden>
-                          Choose Country
+                          {{ 'pageMemberSettingBilling.texts.choose-country' | translate }}
                         </option>
                         <option
                           *ngFor="let country of addressInfo.selects.countries"
@@ -387,7 +387,7 @@
                           fs.isCtrHasError(ctr('bill').country, 'required')
                         "
                       >
-                        {{ addressInfo.messages.country.required }}
+                         {{  'pageMemberSettingBilling.errors.country-required' | translate }}
                       </p>
                     </div>
                   </ng-template>
@@ -396,7 +396,7 @@
                 <!-- City -->
                 <div class="mb-2">
                   <div class="form-group-inline">
-                    <label>City <span class="text-danger">*</span></label>
+                    <label>{{ 'pageMemberSettingBilling.labels.city' | translate }} <span class="text-danger">*</span></label>
                     <div
                       class="input-wrapper"
                       [class.input-invalid]="
@@ -410,7 +410,7 @@
                         type="text"
                         formControlName="city"
                         spellcheck="false"
-                        placeholder="City"
+                        [placeholder]="placeholders.city"
                       />
                     </div>
                   </div>
@@ -424,7 +424,7 @@
                   >
                     <div class="text-danger text-right text-[13px]">
                       <p *ngIf="fs.isCtrHasError(ctr('bill').city, 'required')">
-                        {{ addressInfo.messages.city.required }}
+                        {{  'pageMemberSettingBilling.errors.city-required' | translate }}
                       </p>
                     </div>
                   </ng-template>
@@ -433,13 +433,13 @@
                 <!-- Unit -->
                 <div class="mb-2">
                   <div class="form-group-inline">
-                    <label>Suite/Unit </label>
+                    <label>{{ 'pageMemberSettingBilling.labels.unit' | translate }}</label>
                     <div class="input-wrapper">
                       <input
                         type="text"
                         formControlName="unit"
                         spellcheck="false"
-                        placeholder="Suite/Unit"
+                        [placeholder]="placeholders.unit"
                       />
                     </div>
                   </div>
@@ -450,13 +450,13 @@
                 <!-- State -->
                 <div class="mb-2">
                   <div class="form-group-inline">
-                    <label>State</label>
+                    <label>{{ 'pageMemberSettingBilling.labels.state' | translate }}</label>
                     <div class="input-wrapper">
                       <input
                         type="text"
                         formControlName="state"
                         spellcheck="false"
-                        placeholder="State"
+                        [placeholder]="placeholders.state"
                       />
                     </div>
                   </div>
@@ -465,7 +465,7 @@
                 <!-- Street -->
                 <div class="mb-2">
                   <div class="form-group-inline">
-                    <label>Street <span class="text-danger">*</span></label>
+                    <label>{{ 'pageMemberSettingBilling.labels.street' | translate }} <span class="text-danger">*</span></label>
                     <div
                       class="input-wrapper"
                       [class.input-invalid]="
@@ -479,7 +479,7 @@
                         type="text"
                         formControlName="street"
                         spellcheck="false"
-                        placeholder="Street"
+                        [placeholder]="placeholders.street"
                       />
                     </div>
                   </div>
@@ -495,7 +495,7 @@
                       <p
                         *ngIf="fs.isCtrHasError(ctr('bill').street, 'required')"
                       >
-                        {{ addressInfo.messages.street.required }}
+                        {{ 'pageMemberSettingBilling.errors.street-required' | translate }}
                       </p>
                     </div>
                   </ng-template>
@@ -505,7 +505,7 @@
                 <div class="mb-2">
                   <div class="form-group-inline mb-2">
                     <label
-                      >Postal Code <span class="text-danger">*</span></label
+                      >{{ 'pageMemberSettingBilling.labels.postal-code' | translate }} <span class="text-danger">*</span></label
                     >
                     <div
                       class="input-wrapper"
@@ -538,7 +538,7 @@
                           fs.isCtrHasError(ctr('bill').postalCode, 'required')
                         "
                       >
-                        {{ addressInfo.messages.postalCode.required }}
+                        {{ 'pageMemberSettingBilling.errors.postal-code-required' | translate }}
                       </p>
                     </div>
                   </ng-template>
@@ -550,7 +550,7 @@
             <!-- Buttons -->
             <div class="text-right">
               <button type="submit" class="btn btn-main">
-                {{ addressInfo.data.billing ? "Save Changes" : "Complete" }}
+                {{ 'buttons.save-changes' | translate }}
               </button>
             </div>
             <!-- end of buttons -->
@@ -561,7 +561,7 @@
         <!-- Service address -->
         <div class="mb-4">
           <!-- Title -->
-          <p class="text-black65 mb-2"><strong>Service Address</strong></p>
+          <p class="text-black65 mb-2"><strong>{{ 'pageMemberSettingBilling.texts.address-service' | translate }}</strong></p>
           <!-- end of title -->
           <!-- Form -->
           <form [formGroup]="form('service')" (submit)="submitForm('service')">
@@ -571,7 +571,7 @@
                 <!-- Country -->
                 <div class="mb-2">
                   <div class="form-group-inline">
-                    <label>Country <span class="text-danger">*</span></label>
+                    <label>{{ 'pageMemberSettingBilling.labels.country' | translate }}<span class="text-danger">*</span></label>
                     <div
                       class="input-wrapper"
                       [class.input-invalid]="
@@ -583,7 +583,7 @@
                     >
                       <select formControlName="country">
                         <option value="" disabled selected hidden>
-                          Choose Country
+                          {{ 'pageMemberSettingBilling.texts.choose-country' | translate }}
                         </option>
                         <option
                           *ngFor="let country of addressInfo.selects.countries"
@@ -608,7 +608,7 @@
                           fs.isCtrHasError(ctr('service').country, 'required')
                         "
                       >
-                        {{ addressInfo.messages.country.required }}
+                        {{ 'pageMemberSettingBilling.errors.country-required' | translate }}
                       </p>
                     </div>
                   </ng-template>
@@ -617,7 +617,7 @@
                 <!-- City -->
                 <div class="mb-2">
                   <div class="form-group-inline">
-                    <label>City <span class="text-danger">*</span></label>
+                    <label>{{ 'pageMemberSettingBilling.labels.city' | translate }} <span class="text-danger">*</span></label>
                     <div
                       class="input-wrapper"
                       [class.input-invalid]="
@@ -631,7 +631,7 @@
                         type="text"
                         formControlName="city"
                         spellcheck="false"
-                        placeholder="City"
+                        [placeholder]="placeholders.city"
                       />
                     </div>
                   </div>
@@ -649,7 +649,7 @@
                           fs.isCtrHasError(ctr('service').city, 'required')
                         "
                       >
-                        {{ addressInfo.messages.city.required }}
+                        {{ 'pageMemberSettingBilling.errors.city-required' | translate }}
                       </p>
                     </div>
                   </ng-template>
@@ -658,13 +658,13 @@
                 <!-- Unit -->
                 <div class="mb-2">
                   <div class="form-group-inline">
-                    <label>Suite/Unit </label>
+                    <label>{{ 'pageMemberSettingBilling.labels.unit' | translate }} </label>
                     <div class="input-wrapper">
                       <input
                         type="text"
                         formControlName="unit"
                         spellcheck="false"
-                        placeholder="Suite/Unit"
+                        [placeholder]="placeholders.unit"
                       />
                     </div>
                   </div>
@@ -675,13 +675,13 @@
                 <!-- State -->
                 <div class="mb-2">
                   <div class="form-group-inline">
-                    <label>State</label>
+                    <label>{{ 'pageMemberSettingBilling.labels.state' | translate }}</label>
                     <div class="input-wrapper">
                       <input
                         type="text"
                         formControlName="state"
                         spellcheck="false"
-                        placeholder="State"
+                        [placeholder]="placeholders.state"
                       />
                     </div>
                   </div>
@@ -690,7 +690,7 @@
                 <!-- Street -->
                 <div class="mb-2">
                   <div class="form-group-inline">
-                    <label>Street <span class="text-danger">*</span></label>
+                    <label>{{ 'pageMemberSettingBilling.labels.street' | translate }} <span class="text-danger">*</span></label>
                     <div
                       class="input-wrapper"
                       [class.input-invalid]="
@@ -704,7 +704,7 @@
                         type="text"
                         formControlName="street"
                         spellcheck="false"
-                        placeholder="Street"
+                        [placeholder]="placeholders.street"
                       />
                     </div>
                   </div>
@@ -722,7 +722,7 @@
                           fs.isCtrHasError(ctr('service').street, 'required')
                         "
                       >
-                        {{ addressInfo.messages.street.required }}
+                        {{ 'pageMemberSettingBilling.errors.street-required' | translate }}
                       </p>
                     </div>
                   </ng-template>
@@ -732,7 +732,7 @@
                 <div class="mb-2">
                   <div class="form-group-inline mb-2">
                     <label
-                      >Postal Code <span class="text-danger">*</span></label
+                      >{{ 'pageMemberSettingBilling.labels.postal-code' | translate }} <span class="text-danger">*</span></label
                     >
                     <div
                       class="input-wrapper"
@@ -768,7 +768,7 @@
                           )
                         "
                       >
-                        {{ addressInfo.messages.postalCode.required }}
+                        {{ 'pageMemberSettingBilling.errors.postal-code-required' | translate }}
                       </p>
                     </div>
                   </ng-template>
@@ -780,7 +780,7 @@
             <!-- Buttons -->
             <div class="text-right">
               <button type="submit" class="btn btn-main">
-                {{ addressInfo.data.service ? "Save Changes" : "Complete" }}
+                {{ 'buttons.save-changes' | translate }}
               </button>
             </div>
             <!-- end of buttons -->
@@ -799,7 +799,7 @@
             <!-- Holder -->
             <div>
               <div class="form-group-inline">
-                <label>Holder <span class="text-danger">*</span></label>
+                <label>{{ 'pageMemberSettingBilling.labels.card-holder' | translate }} <span class="text-danger">*</span></label>
                 <div
                   class="input-wrapper"
                   [class.input-invalid]="
@@ -824,7 +824,7 @@
                   <p
                     *ngIf="fs.isCtrHasError(ctr('payment').holder, 'required')"
                   >
-                    {{ paymentInfo.messages.holder.required }}
+                    {{ 'pageMemberSettingBilling.errors.card-holder-required' | translate }}
                   </p>
                 </div>
               </ng-template>
@@ -833,7 +833,7 @@
             <!-- Type -->
             <div>
               <div class="form-group-inline">
-                <label>Type <span class="text-danger">*</span></label>
+                <label>{{ 'pageMemberSettingBilling.labels.card-number' | translate }} <span class="text-danger">*</span></label>
                 <div
                   class="input-wrapper"
                   [class.input-invalid]="
@@ -845,7 +845,7 @@
                 >
                   <select formControlName="type">
                     <option value="" disabled selected hidden>
-                      Select Type
+                      {{ 'pageMemberSettingBilling.texts.choose-card-type' | translate }}
                     </option>
                     <option
                       *ngFor="let type of paymentInfo.selects.types"
@@ -866,7 +866,7 @@
               >
                 <div class="text-danger text-right text-[13px]">
                   <p *ngIf="fs.isCtrHasError(ctr('payment').type, 'required')">
-                    {{ paymentInfo.messages.type.required }}
+                    {{ 'pageMemberSettingBilling.errors.card-type-required' | translate }}
                   </p>
                 </div>
               </ng-template>
@@ -875,7 +875,7 @@
             <!-- Number -->
             <div>
               <div class="form-group-inline">
-                <label>Number <span class="text-danger">*</span></label>
+                <label>{{ 'pageMemberSettingBilling.labels.card-number' | translate }} <span class="text-danger">*</span></label>
                 <div
                   class="input-wrapper"
                   [class.input-invalid]="
@@ -917,36 +917,36 @@
                   <p
                     *ngIf="fs.isCtrHasError(ctr('payment').number, 'required')"
                   >
-                    {{ paymentInfo.messages.number.required }}
+                    {{ 'pageMemberSettingBilling.errors.card-number-required' | translate }}
                   </p>
                 </div>
               </ng-template>
             </div>
             <!-- end of number -->
-            <!-- CVC -->
+            <!-- CVV -->
             <div>
               <div class="form-group-inline">
-                <label>CVC <span class="text-danger">*</span></label>
+                <label>CVV <span class="text-danger">*</span></label>
                 <div
                   class="input-wrapper"
                   [class.input-invalid]="
                     fs.isControlInvalid(
-                      ctr('payment').cvc,
+                      ctr('payment').cvv,
                       paymentInfo.submitted
                     )
                   "
                 >
                   <input
-                    [type]="paymentInfo.shows.cvc == true ? 'text' : 'password'"
-                    formControlName="cvc"
+                    [type]="paymentInfo.shows.cvv == true ? 'text' : 'password'"
+                    formControlName="cvv"
                   />
                   <div
                     class="svg-wrapper text-black65"
-                    (click)="paymentInfo.shows.cvc = !paymentInfo.shows.cvc"
+                    (click)="paymentInfo.shows.cvv = !paymentInfo.shows.cvv"
                   >
                     <fa-icon
                       [icon]="
-                        paymentInfo.shows.cvc == true ? faEyeSlash : faEye
+                        paymentInfo.shows.cvv == true ? faEyeSlash : faEye
                       "
                     ></fa-icon>
                   </div>
@@ -954,21 +954,21 @@
               </div>
               <ng-template
                 [ngIf]="
-                  fs.isControlInvalid(ctr('payment').cvc, paymentInfo.submitted)
+                  fs.isControlInvalid(ctr('payment').cvv, paymentInfo.submitted)
                 "
               >
                 <div class="text-danger text-right text-[13px]">
-                  <p *ngIf="fs.isCtrHasError(ctr('payment').cvc, 'required')">
-                    {{ paymentInfo.messages.cvc.required }}
+                  <p *ngIf="fs.isCtrHasError(ctr('payment').cvv, 'required')">
+                    {{ 'pageMemberSettingBilling.errors.cvv-required' | translate }}
                   </p>
                 </div>
               </ng-template>
             </div>
-            <!-- end of cvc -->
+            <!-- end of cvv -->
             <!-- Exp month -->
             <div>
               <div class="form-group-inline">
-                <label>Expire Month <span class="text-danger">*</span></label>
+                <label>{{ 'pageMemberSettingBilling.labels.card-expire-month' | translate }} <span class="text-danger">*</span></label>
                 <div
                   class="input-wrapper"
                   [class.input-invalid]="
@@ -980,7 +980,7 @@
                 >
                   <select formControlName="expMonth">
                     <option value="" selected disabled hidden>
-                      Select Month
+                      {{ 'pageMemberSettingBilling.texts.choose-expire-month' | translate }}
                     </option>
                     <option value="1">1</option>
                     <option value="2">2</option>
@@ -1011,7 +1011,7 @@
                       fs.isCtrHasError(ctr('payment').expMonth, 'required')
                     "
                   >
-                    {{ paymentInfo.messages.expMonth.required }}
+                    {{ 'pageMemberSettingBilling.errors.expire-month-required' | translate }}
                   </p>
                 </div>
               </ng-template>
@@ -1020,7 +1020,7 @@
             <!-- Exp year -->
             <div>
               <div class="form-group-inline">
-                <label>Expire Year <span class="text-danger">*</span></label>
+                <label>{{ 'pageMemberSettingBilling.labels.card-expire-year' | translate }} <span class="text-danger">*</span></label>
                 <div
                   class="input-wrapper"
                   [class.input-invalid]="
@@ -1032,7 +1032,7 @@
                 >
                   <select formControlName="expYear">
                     <option value="" selected disabled hidden>
-                      Select Year
+                      {{ 'pageMemberSettingBilling.texts.choose-year' | translate }}
                     </option>
                     <option
                       *ngFor="let year of paymentInfo.selects.years"
@@ -1055,7 +1055,7 @@
                   <p
                     *ngIf="fs.isCtrHasError(ctr('payment').expYear, 'required')"
                   >
-                    {{ paymentInfo.messages.expYear.required }}
+                    {{ 'pageMemberSettingBilling.errors.expire-year' | translate }}
                   </p>
                 </div>
               </ng-template>
@@ -1066,7 +1066,7 @@
           <!-- Buttons -->
           <div class="text-right">
             <button type="submit" class="btn btn-main">
-              {{ paymentInfo.data ? "Save Changes" : "Complete" }}
+              {{ 'buttons.save-changes' | translate }}
             </button>
           </div>
           <!-- end of buttons -->

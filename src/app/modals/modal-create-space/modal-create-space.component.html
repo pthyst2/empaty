@@ -1,4 +1,4 @@
-<modal-base (closed)="close($event)" [static]="static">
+<modal-base (closed)="close($event)">
   <div
     class="
       flex flex-col
@@ -45,7 +45,7 @@
                     type="text"
                     formControlName="name"
                     spellcheck="false"
-                    placeholder="My Awesome Space"
+                    [placeholder]="placeholders.name"
                   />
                 </div>
               </div>
@@ -80,7 +80,7 @@
                     [class.border-red]="isCtr1Invalid(ctr1.service)"
                   >
                     <option value="" hidden selected disabled>
-                      Select service type
+                      {{ "modalCreateSpace.step1.texts.select-service" | translate }}
                     </option>
                     <option
                       *ngFor="let type of step1.selects.serviceTypes"
@@ -121,7 +121,7 @@
                   <textarea
                     formControlName="description"
                     spellcheck="false"
-                    placeholder="This space was created by Empaty"
+                    [placeholder]="placeholders.description"
                   >
                   </textarea>
                 </div>
@@ -213,7 +213,7 @@
         <ng-template [ngIf]="ctr2.createBy.value == 'self'">
           <div class="flex flex-col">
             <p class="text-center mb-4">
-              Please select the width and length of the space:
+              {{ "modalCreateSpace.step2.texts.select-size" | translate }}
             </p>
 
             <div
@@ -231,7 +231,12 @@
               <div>
                 <!-- Width -->
                 <div class="form-group-inline mb-4">
-                  <label class="text-center lg:text-right">Width (m)</label>
+                  <label class="text-center lg:text-right capitalize"
+                    >{{
+                      "modalCreateSpace.step2.labels.width" | translate
+                    }}
+                    (m)</label
+                  >
                   <div class="input-wrapper">
                     <select formControlName="width" class="min-w-[75px]">
                       <option
@@ -246,7 +251,12 @@
                 <!-- end of width -->
                 <!-- Length -->
                 <div class="form-group-inline mb-4">
-                  <label class="text-center lg:text-right">Length (m)</label>
+                  <label class="text-center lg:text-right capitalize"
+                    >{{
+                      "modalCreateSpace.step2.labels.length" | translate
+                    }}
+                    (m)</label
+                  >
                   <div class="input-wrapper">
                     <select formControlName="length" class="min-w-[75px]">
                       <option
@@ -260,7 +270,9 @@
                 </div>
                 <!-- end of length -->
                 <!-- Height -->
-                <p class="text-black45">The height is fixed at 3m.</p>
+                <p class="text-black45">
+                  {{ "modalCreateSpace.step2.texts.size-fixed" | translate }}
+                </p>
                 <!-- end of height -->
               </div>
               <!-- end of selects -->
@@ -299,11 +311,16 @@
               "
             >
               <p class="text-center lg:text-left">
-                The space will be created with length = {{ ctr2.length.value }}m
-                and width = {{ ctr2.width.value }}m.
+                <partial-special-translate
+                  [key]="'size-create'"
+                  [data]="{
+                    width: ctr2.width.value,
+                    length: ctr2.length.value
+                  }"
+                ></partial-special-translate>
               </p>
               <p class="text-[24px]">
-                Square:
+                {{ "modalCreateSpace.step2.texts.square" | translate }}:
                 <strong
                   >{{ ctr2.length.value * ctr2.width.value }}m<sup
                     >2</sup
@@ -339,3 +356,5 @@
     <!-- end of step 2 -->
   </div>
 </modal-base>
+
+<modal-popup [show]="popup.show" [content]="popup" (closed)="popup.show = false"></modal-popup>

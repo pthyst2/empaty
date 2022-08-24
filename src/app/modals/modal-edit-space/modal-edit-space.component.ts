@@ -5,7 +5,7 @@ import { SpaceService } from 'src/app/services/data/space.service';
 import { FormService } from 'src/app/services/utilities/form.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
-
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'modal-edit-space',
   templateUrl: './modal-edit-space.component.html',
@@ -38,8 +38,9 @@ export class ModalEditSpaceComponent implements OnInit {
     private fb: FormBuilder,
     public fs: FormService,
     private spaceSerivce: SpaceService,
-    private sanitizer: DomSanitizer
-  ) {}
+    private sanitizer: DomSanitizer,
+    private translate: TranslateService
+  ) { }
 
   ngOnInit(): void {
     this.loadServiceTypes();
@@ -54,7 +55,6 @@ export class ModalEditSpaceComponent implements OnInit {
   }
 
   transferSpaceToForm() {
-    console.log('this.space: ', this.space);
     if (this.space) {
       this.ctr.id.setValue(this.space.id);
       this.ctr.name.setValue(this.space.name);
@@ -89,23 +89,41 @@ export class ModalEditSpaceComponent implements OnInit {
       this.sub.add(
         this.spaceSerivce.updateSpace(data).subscribe({
           next: (res: any) => {
-            this.popup = {
-              show: true,
-              icon: 'success',
-              title: 'Space updated !',
-              timer: 1000,
-            };
-            setTimeout(() => {
-              window.location.reload();
-            }, 1000);
+            this.sub.add(this.translate.get('popups.titles.success-edit-space').subscribe(
+              (res: any) => {
+                this.popup = {
+                  show: true,
+                  icon: 'success',
+                  title: res,
+                  timer: 1000,
+                };
+                setTimeout(() => {
+                  window.location.reload();
+                }, 1000);
+              }
+            ))
           },
           error: (err) => {
             this.popup = {
               show: true,
               icon: 'error',
-              title: "Can't update space",
-              html: 'Error when updating space: ' + err,
+              title: "",
+              html: '',
             };
+            this.sub.add(
+              this.translate.get('popups.titles.fail-edit-space').subscribe(
+                (res: any) => {
+                  this.popup.title = res
+                }
+              )
+            );
+            this.sub.add(
+              this.translate.get('popups.htmls.error').subscribe(
+                (res: any) => {
+                  this.popup.html = res + ": " + err
+                }
+              )
+            )
           },
         })
       );
@@ -113,9 +131,23 @@ export class ModalEditSpaceComponent implements OnInit {
       this.popup = {
         show: true,
         icon: 'error',
-        title: "Can't update space",
-        html: 'Some info is missing or invalid. Please check all information and try again.',
+        title: "",
+        html: '',
       };
+      this.sub.add(
+        this.translate.get('popups.titles.invalid').subscribe(
+          (res: any) => {
+            this.popup.title = res
+          }
+        )
+      );
+      this.sub.add(
+        this.translate.get('popups.htmls.check-and-try-again').subscribe(
+          (res: any) => {
+            this.popup.html = res
+          }
+        )
+      )
     }
   }
 }

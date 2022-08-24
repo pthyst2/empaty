@@ -2,16 +2,16 @@ export const mockServiceTypes = [
   {
     _id: 1,
     name: 'Office',
-    value: 'office',
+    value: 'Office',
   },
   {
     _id: 2,
     name: 'EC Shop',
-    value: 'ecshop',
+    value: 'EC Shop',
   },
   {
     _id: 3,
     name: 'Service Provider',
-    value: 'provider',
+    value: 'Service Provider',
   },
 ];

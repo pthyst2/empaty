@@ -11,7 +11,6 @@
             "register": "登録"
         }
     },
-    
     "sectionSpaces": {
         "title": "さまざまな活用シーン",
         "nospace": "スペースがありません。",
@@ -22,7 +21,7 @@
     },
     "fixedItemUser": {
         "home": "ホーム",
-        "login": "ログイン", 
+        "login": "ログイン",
         "setting": "セッティング",
         "logout": "ログアウト"
     },
@@ -30,6 +29,9 @@
         "texts": {
             "title": "スペースリスト",
             "no-space": "スロットがなくなりました。"
+        },
+        "placeholders": {
+            "search": "スペースの名前で検索"
         },
         "tooltips": {
             "search": "検索",
@@ -44,9 +46,11 @@
         "texts": {
             "updated-on": "編集",
             "status": "ステータス",
-            "service-type": "サービスタイプ"
+            "service-type": "サービスタイプ",
+            "size": "スペースサイズ"
         },
         "tooltips": {
+            "download": "アプリのファイルをダウンロードしました。",
             "products": "商品ページを開く",
             "public": "公開中になる",
             "private": "非公開になる",
@@ -55,10 +59,58 @@
             "delete": "スペースの削除"
         }
     },
+    "popups": {
+        "titles": {
+            "invalid": "足りない情報または無効な情報",
+            "success-create-space": "新しいスペースを作成しました。",
+            "fail-create-space": "スペースの作成を失敗しました。",
+            "success-add-collaborator": "コラボレートを追加しました。",
+            "success-edit-space": "アップデートしました。",
+            "fail-edit-space": "アップデートできません。",
+            "success-delete-space": "削除しました。",
+            "fail-delete-space": "削除が失敗しました。",
+            "success-basic-update": "基本情報をアップデートしました。",
+            "fail-basic-update": "基本情報をアップデート失敗しました。",
+            "success-login-update": "ログイン情報をアップデートしました。",
+            "fail-login-update": "ログイン情報をアップデート失敗しました。",
+            "success-account-update": "アカウント情報をアップデートしました。",
+            "fail-account-update": "アカウント情報をアップデート失敗しました。",
+            "vr-on": "VR共有がオンになりました。",
+            "vr-off": "VR共有はオフになりました。",
+            "success-subscription-update": "サブスクリプションをアップデートしました。",
+            "fail-subscription-update": "サブスクリプションをアップデート失敗しました。",
+            "success-billing-address-update": "請求先住所",
+            "fail-billing-address-update": "請求先住所をアップデートしました。",
+            "success-service-address-update": "サービス住所をアップデートしました。",
+            "fail-service-address-update": "サービス住所をアップデート失敗しました。",
+            "success-payment-update": "支払をアップデートしました。",
+            "fail-payment-update": "支払をアップデート失敗しました。",
+            "success-invite": "招待を送信しました。",
+            "fail-invite": "招待を送信失敗しました。",
+            "success-delete-user": "ユーザーを削除しました。",
+            "fail-delete-user": "ユーザーを削除失敗しました。"
+        },
+        "htmls": {
+            "check-and-try-again": "情報を確認し、もう一度お試しください",
+            "error": "エラー"
+        }
+    },
+    "buttons": {
+        "close": "閉じる",
+        "cancel": "キャンセル",
+        "save-changes": "保存しました。",
+        "edit": "編集",
+        "back": "戻る",
+        "confirm": "確認"
+    },
+    "texts": {
+        "no-data": "データー無し"
+    },
     "modalCreateSpace": {
         "step1": {
             "texts": {
-                "title": "スペース作成"
+                "title": "スペース作成",
+                "select-service": "サービスタイプを選択ください。"
             },
             "labels": {
                 "name": "スペース名",
@@ -72,21 +124,282 @@
             "errors": {
                 "name-required": "空きスペースの名前ができません。",
                 "service-required": "スペースのサービスタイプを選択ください。"
+            },
+            "placeholders": {
+                "name": "素晴らしいスペース",
+                "description": "こちらのスペースはempatyで作成されました。"
             }
         },
         "step2": {
             "texts": {
-                "title": "スペースサイズを選択ください"
+                "title": "スペースサイズを選択ください",
+                "select-size": "幅と長さを選択ください",
+                "size-fixed": "高さ（固定）：3m",
+                "square": "面積"
             },
             "labels": {
                 "template": "テンプレートで作成",
-                "myself": "自由に作成"
+                "myself": "自由に作成",
+                "width": "幅",
+                "length": "長さ"
             },
             "buttons": {
                 "close": "閉じる",
                 "back": "戻る",
                 "finish": "完了"
             }
+        }
+    },
+    "modalPaySpace": {
+        "texts": {
+            "title": "支払い必須",
+            "hasnt-paid": "こちらのスペースはまだ支払しません。",
+            "would-you-like": "ただ今お支払いしますか？"
+        },
+        "buttons": {
+            "confirm": "はい、お願いいたします。"
+        }
+    },
+    "modalAddCollaborator": {
+        "texts": {
+            "title": "ユーザー追加",
+            "select-user": "ユーザー選択",
+            "role": "ロール"
+        },
+        "labels": {
+            "view": "閲覧",
+            "edit": "編集"
+        },
+        "buttons": {
+            "confirm": "確認"
+        },
+        "errors": {
+            "user-required": "ユーザーを選択ください。"
+        }
+    },
+    "modalEditSpace": {
+        "texts": {
+            "title": "スペース追加"
+        },
+        "labels": {
+            "name": "スペース選択",
+            "nameja": "日名",
+            "service": "サービスタイプ",
+            "description": "説明"
+        },
+        "errors": {
+            "name-required": "空きスペースの名前ができません。",
+            "service-required": "スペースのサービスタイプを選択ください。"
+        },
+        "buttons": {
+            "confirm": "保存しました。"
+        }
+    },
+    "modalDeleteSpace": {
+        "texts": {
+            "title": "削除確認",
+            "really": "こちらのスペースを削除しますか?"
+        },
+        "buttons": {
+            "confirm": "はい、お願いいたします。"
+        }
+    },
+    "pageMemberSettingProfile": {
+        "texts": {
+            "title-basic": "基本情報",
+            "title-login": "ログイン情報"
+        },
+        "labels": {
+            "fullname": "フルネーム",
+            "phone": "電話番号",
+            "address": "住所",
+            "password": "パスワード",
+            "current-password": "現在パスワード",
+            "new-password": "新しいパスワード",
+            "confirm-password": "確認パスワード"
+        },
+        "buttons": {
+            "confirm": "保存しました。"
+        },
+        "errors": {
+            "fullname-required": "空きフルネームができません。",
+            "phone-required": "空き電話番号ができません。",
+            "email-required": "空きメルアドができません。",
+            "email-invalid": "無効なメールアドレス",
+            "current-password-required": "現在パスワードを入力ください。",
+            "new-password-required": "新しいパスワードを入力ください。",
+            "confirm-password-required": "確認パスワードを入力ください。",
+            "confirm-password-matched": "確認パスワードが新しいパスワードより一致しませんでした。"
+        }
+    },
+    "partialSidebarSetting": {
+        "texts": {
+            "account": "アカウント",
+            "manage": "管理",
+            "billing": "請求",
+            "roles": "ロール"
+        }
+    },
+    "pageMemberSettingManage": {
+        "texts": {
+            "title-account": "アカウント詳細",
+            "title-vr-sharing": "VR共有",
+            "description-vr-sharing": "VR共有が有効になると、アカウント内のすべてのスペースが VR対応になり、URLで共有できるようになります。 スペースは、Google CardboardまたはSamsung Gear VRのEmpatyVRのアプリを介して表示できます。"
+        },
+        "labels": {
+            "account": "アカウント名"
+        },
+        "errors": {
+            "account-required": "空きアカウントがができません。"
+        }
+    },
+    "pageMemberSettingBilling": {
+        "texts": {
+            "title-subscription": "サブスクリプション",
+            "title-change-plan": "プラン変更",
+            "title-addresses": "住所",
+            "title-payment": "支払",
+            "title-invoices": "請求書",
+            "address-billing": "請求先住所",
+            "address-service": "サービス住所",
+            "not-purchase-yet": "プランをまだ購入していません。",
+            "no-billing-data": "請求先住所のデーターがありません。",
+            "no-service-data": "サービス住所のデーターがありません。",
+            "no-payment-data": "支払のデーターがありません。",
+            "no-invoices-data": "請求書はまだありません。",
+            "choose-country": "国を選択します。",
+            "choose-card-type": "カードのタイプを選択ください。",
+            "choose-expire-month": "月を選択ください。",
+            "choose-expire-year": "年を選択ください。"
+        },
+        "labels": {
+            "plan": "あなたのプラン",
+            "country": "国",
+            "city": "市",
+            "unit": "区",
+            "state": "県",
+            "street": "道",
+            "postal-code": "郵便番号",
+            "card-holder": "ホルダー",
+            "card-type": "タイプ",
+            "card-number": "番号",
+            "card-expire-month": "有効期限（月）",
+            "card-expire-year": "有効期限（年）"
+        },
+        "errors": {
+            "city-required": "空き市ができません。",
+            "street-required": "空き道ができません。",
+            "postal-code-required": "空き郵便番号ができません。",
+            "country-required": "空き国ができません。",
+            "card-holder-required": "空きカードホルダーができません。",
+            "card-type-required": "クレジット カードのタイプを選択ください。",
+            "card-number-required": "カード番号ができません。",
+            "expire-month-required": "クレジット カードの有効期限（月）を選択ください。",
+            "expire-year-required": "クレジット カードの有効期限（年）を選択ください。",
+            "cvv-required": "クレジット カードのCVV 番号を入力ください。"
+        },
+        "buttons": {
+            "purchase-new-plan": "プラン購入",
+            "edit-addresses": "住所編集",
+            "setup-addresses": "住所設定",
+            "edit-payment": "支払編集",
+            "setup-payment": "支払設定"
+        }
+    },
+    "modalPurchasePlan": {
+        "texts": {
+            "title": "購入プラン",
+            "monthly-fee": "月会費",
+            "yearly-fee": "年会費",
+            "payment-method": "支払方法",
+            "description-1": "プランは「購入」ボタンをクリックするとすぐに適用されます。",
+            "description-2": "「購入」をクリックすると、購入するプランに関してempatyの「利用規約」を同意しました"
+        },
+        "buttons": {
+            "confirm": "購入"
+        }
+    },
+    "pageMemberSettingRoles": {
+        "texts": {
+            "title": "スペースユーザー",
+            "th-name": "名",
+            "th-all-roles": "全てのロール",
+            "th-access": "住所",
+            "th-date-joined": "参加日",
+            "th-all-statuses": "全てのステータス",
+            "th-action": "アクション",
+            "no-collaborator": "コラボレーターはいません。"
+        },
+        "buttons": {
+            "invite": "招待"
+        }
+    },
+    "modalInviteUser": {
+        "texts": {
+            "title": "招待",
+            "select-role": "ロール選択"
+        },
+        "labels": {
+            "invitation-message": "招待メッセージ",
+            "role": "ロール"
+        },
+        "buttons": {
+            "confirm": "招待送信"
+        },
+        "errors": {
+            "email-required": "招待したい人のメールアドレスを入力ください。",
+            "role-required": "ロールを選択ください。",
+            "email-invalid": "無効なメール。"
+        }
+    },
+    "modalDeleteUser": {
+        "texts": {
+            "title": "ユーザー削除",
+            "description": "削除後でこちらのユーザーはすべてのスペースを表示または編集できなくなります。"
+        }
+    },
+    "pageMemberOrder": {
+        "texts": {
+            "title": "支払",
+            "section-initial": "頭金",
+            "section-contact": "連絡先",
+            "section-payment-method": "支払方法",
+            "section-payment-type": "支払タイプ",
+            "subtotal": "小毛抜き",
+            "tax": "税率",
+            "total": "合計",
+            "description": "「注文」ボタンをクリックすることにより、Optimizer.co.jp の利用規約、プライバシー ポリシー、およびこのサイトに記載されている他の販売条件に同意した上で、商品を注文したことになります。 価格は商品詳細ページとこちらをご覧ください。",
+            "payment-yearly": "年払い",
+            "payment-monthly": "月払い",
+            "type": "タイプ",
+            "expire-at": "期限",
+            "service-type": "サービスタイプ",
+            "width": "幅",
+            "length": "長さ",
+            "size": "Size",
+            "items": "Items",
+            "no-items": "This space have no item."
+        },
+        "tooltips": {
+            "go-edit": "Go to edit"
+        },
+        "buttons": {
+            "confirm": "注文"
+        }
+    },
+    "pageMemberStatistics": {
+        "texts": {
+            "title": "Statistics",
+            "lifetime": "Lifetime",
+            "30days": "30 Days",
+            "7days": "7 Days",
+            "spaces": "spaces",
+            "impressions": "Impressions",
+            "visits": "Visits",
+            "name": "Name",
+            "unique-visitors": "Unique Visitors",
+            "created-at": "Created at",
+            "updated-at": "Updated at"
         }
     }
 }

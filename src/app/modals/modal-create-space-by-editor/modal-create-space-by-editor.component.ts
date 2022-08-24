@@ -68,7 +68,7 @@ export class ModalCreateSpaceByEditorComponent implements OnInit {
       holder: ['', [Validators.required]],
       number: ['', [Validators.required]],
       last4: [''],
-      cvc: ['', [Validators.required]],
+      cvv: ['', [Validators.required]],
       expMonth: ['', [Validators.required]],
       expYear: ['', [Validators.required]],
     }),
@@ -115,7 +115,7 @@ export class ModalCreateSpaceByEditorComponent implements OnInit {
     private fb: FormBuilder,
     private spaceService: SpaceService,
     private userCardService: UserCardService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getCategories();
@@ -216,7 +216,7 @@ export class ModalCreateSpaceByEditorComponent implements OnInit {
     this.ctr2.last4.setValue(data.last4);
     this.ctr2.expMonth.setValue(data.expire.month);
     this.ctr2.expYear.setValue(data.expire.year);
-    this.ctr2.cvc.setValue(data.cvc);
+    this.ctr2.cvv.setValue(data.cvv);
   }
   submitForm2() {
     this.step2.submitted = true;

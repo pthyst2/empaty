@@ -13,7 +13,7 @@
       <!-- end of close -->
       <!-- Title -->
       <div class="text-center">
-        <p class="uppercase"><strong>Invite</strong></p>
+        <p class="uppercase"><strong>{{ 'modalInviteUser.texts.title' | translate }}</strong></p>
       </div>
       <!-- end of title -->
       <!-- Form -->
@@ -41,10 +41,10 @@
             >
               <div class="text-right text-danger">
                 <p *ngIf="fs.isCtrHasError(ctr.email, 'required')">
-                  {{ invite.messages.email.required }}
+                   {{ 'modalInviteUser.errors.email-required' | translate }}
                 </p>
                 <p *ngIf="fs.isCtrHasError(ctr.email, 'email')">
-                  {{ invite.messages.email.email }}
+                  {{ 'modalInviteUser.errors.email-invalid' | translate }}
                 </p>
               </div>
             </ng-template>
@@ -53,7 +53,7 @@
           <!-- Message -->
           <div class="mb-4">
             <div class="form-group-col">
-              <label>Invitation Message</label>
+              <label>{{ 'modalInviteUser.labels.invitation-message' | translate }}</label>
               <div class="input-wrapper">
                 <textarea
                   formControlName="inviteMessage"
@@ -67,7 +67,7 @@
           <!-- Role -->
           <div>
             <div class="form-group-col">
-              <label>Role <span class="text-danger">*</span></label>
+              <label>{{ 'modalInviteUser.labels.role' | translate }} <span class="text-danger">*</span></label>
               <div
                 class="input-wrapper"
                 [class.input-invalid]="
@@ -75,7 +75,7 @@
                 "
               >
                 <select formControlName="role">
-                  <option value="" disabled hidden selected>Select Role</option>
+                  <option value="" disabled hidden selected>{{ 'modalInviteUser.texts.select-role' | translate }}</option>
                   <option
                     *ngFor="let role of invite.selects.roles"
                     [value]="role.value"
@@ -90,7 +90,7 @@
             >
               <div class="text-right text-danger">
                 <p *ngIf="fs.isCtrHasError(ctr.role, 'required')">
-                  {{ invite.messages.role.required }}
+                  {{ 'modalInviteUser.errors.role-required' | translate }}
                 </p>
               </div>
             </ng-template>
@@ -102,10 +102,10 @@
       <!-- Buttons -->
       <div class="flex justify-center items-center">
         <button type="button" class="btn btn-white mr-2" (click)="close()">
-          Cancel
+          {{ 'buttons.cancel' | translate }}
         </button>
         <button type="button" class="btn btn-main" (click)="submit()">
-          Send Invite
+          {{ 'modalInviteUser.buttons.confirm' | translate }}
         </button>
       </div>
       <!-- end of buttons -->

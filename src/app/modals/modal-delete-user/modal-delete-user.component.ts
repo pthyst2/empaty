@@ -1,12 +1,14 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { CollaboratorService } from 'src/app/services/data/collaborator.service';
 import { AuthService } from 'src/app/services/data/auth.service';
+import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'modal-delete-user',
   templateUrl: './modal-delete-user.component.html',
   styleUrls: ['./modal-delete-user.component.sass'],
 })
-export class ModalDeleteUserComponent implements OnInit {
+export class ModalDeleteUserComponent implements OnInit, OnDestroy {
   @Input() collaborator: any;
   @Input() show: boolean = false;
   @Output() closed = new EventEmitter();
@@ -17,13 +19,17 @@ export class ModalDeleteUserComponent implements OnInit {
     title: 'Collaborator deleted',
     timer: undefined,
   };
-
+  subs = new Subscription;
   constructor(
     private collabService: CollaboratorService,
-    private authService: AuthService
-  ) {}
+    private authService: AuthService,
+    private translate: TranslateService
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
+  ngOnDestroy(): void {
+    this.subs.unsubscribe()
+  }
   close(data?: any) {
     this.closed.emit(data ? data : false);
   }
@@ -34,22 +40,39 @@ export class ModalDeleteUserComponent implements OnInit {
       collaborator: this.collaborator._id,
     };
     let res: any = this.collabService.deleteCollaborator(data);
-    if (res.status == 200) {
+
+    try {
       this.close(true);
       this.popup = {
         show: true,
         icon: 'success',
-        title: 'Collaborator deleted',
+        title: 'User deleted',
         timer: 1500,
       };
-    } else {
-      this.close(false);
+      this.subs.add(this.translate.get('popups.titles.success-delete-user').subscribe(
+        (res: any) => {
+          this.popup.title = res
+        }
+      ))
+    }
+    catch (err) {
       this.popup = {
         show: true,
         icon: 'error',
-        title: "Can't delete",
-        html: 'Error when deleting collaborator',
+        title: 'Delete user failed',
+        html: 'Error: ' + err
       };
+      this.subs.add(this.translate.get('popups.titles.fail-delete-user').subscribe(
+        (res: any) => {
+          this.popup.title = res
+        }
+      ));
+      this.subs.add(this.translate.get('popups.htmls.error').subscribe(
+        (res: any) => {
+          this.popup.html = res + ": " + err
+        }
+      ))
     }
+
   }
 }
