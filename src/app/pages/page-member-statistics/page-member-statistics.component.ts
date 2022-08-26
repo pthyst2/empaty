@@ -14,8 +14,7 @@ export class PageMemberStatisticsComponent implements OnInit, OnDestroy {
   noImage = environment.imageUrls.none;
   spaces: any = [];
   loading = false;
-  tabs = ['Lifetime', '30 Days', '7 Days'];
-  tabActive = 'Lifetime';
+  tabActive = 'lifetime';
 
   total = {
     impressions: 0,
@@ -40,18 +39,7 @@ export class PageMemberStatisticsComponent implements OnInit, OnDestroy {
     this.subs.add(this.spaceService.getSpaces().subscribe({
       next: (res: any) => {
         this.spaces = res.data.searchfloors.items;
-        /*this.spaces = [];
-        console.log("data: ", data);
-        for (let space of data) {
-          let item: any = space;
-          if (!space.image) {
-            item.image = environment.imageUrls.none;
-          }
-          else {
-            item.image = this.imageService.convertBase64(space.image)
-          }
-          this.spaces.push(item)
-        }*/
+
         console.log("this.spaces: ", this.spaces);
 
         this.total.impressions = this.spaces.reduce(

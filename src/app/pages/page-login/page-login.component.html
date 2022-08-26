@@ -2,7 +2,7 @@
   <form [formGroup]="loginForm" class="text-white" (submit)="submitLogin()">
     <!-- Title -->
     <div class="py-4 text-xl font-semibold border-b border-greyDark text-right">
-      <p>Login</p>
+      <p>{{ "pageLogin.texts.title" | translate }}</p>
     </div>
     <!-- end of title -->
     <!-- Inputs -->
@@ -27,10 +27,10 @@
         >
           <div class="text-right" t>
             <span *ngIf="ctr.email.errors?.['required']" class="text-danger">{{
-              validatorMessages.email.required
+              "pageLogin.errors.email-required" | translate
             }}</span>
             <span *ngIf="ctr.email.errors?.['email']" class="text-danger">{{
-              validatorMessages.email.email
+              "pageLogin.errors.email-invalid" | translate
             }}</span>
           </div>
         </ng-template>
@@ -38,13 +38,16 @@
       <!-- end of email -->
       <!-- Password -->
       <div class="form-group">
-        <label>Password <span class="text-danger">*</span></label>
+        <label
+          >{{ "pageLogin.labels.password" | translate }}
+          <span class="text-danger">*</span></label
+        >
         <div class="input-wrapper">
           <input
             [type]="showPassword ? 'text' : 'password'"
             formControlName="password"
             spellcheck="false"
-            placeholder="Login password"
+            placeholder="******"
             class="grow text-black"
             [class.input-invalid]="
               (ctr.password.dirty || formSubmitted) && ctr.password.invalid
@@ -65,7 +68,7 @@
             <span
               *ngIf="ctr.password.errors?.['required']"
               class="text-danger"
-              >{{ validatorMessages.password.required }}</span
+              >{{ "pageLogin.errors.password-required" | translate }}</span
             >
           </div>
         </ng-template>
@@ -75,8 +78,10 @@
     <!-- end of inputs -->
     <!-- Navs -->
     <nav class="mb-8 flex flex-wrap items-center justify-end">
-      <a [routerLink]="['/auth/forgot-password']" class="px-2 hover:text-main"
-        >Forgot password</a
+      <a
+        [routerLink]="['/auth/forgot-password']"
+        class="px-2 hover:text-main"
+        >{{ "pageLogin.texts.forgot-password" | translate }}</a
       >
       <!-- 
       <a [routerLink]="['/auth/register']" class="pl-2 hover:text-main"
@@ -102,9 +107,11 @@
           rounded
         "
       >
-        Login
+        {{ "pageLogin.buttons.login" | translate }}
       </button>
     </div>
     <!-- end of submit button -->
   </form>
 </div>
+
+<modal-popup [show]="popup.show" [content]="popup"></modal-popup>

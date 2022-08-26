@@ -21,6 +21,7 @@ import { PartialSearchWithCategoryComponent } from 'src/app/partials/partial-sea
 import { PartialSectionSpacesLargeComponent } from '../../partials/partial-section-spaces-large/partial-section-spaces-large.component';
 import { PartialSidebarSettingComponent } from '../../partials/partial-sidebar-setting/partial-sidebar-setting.component';
 import { PartialTableProductsComponent } from '../../partials/partial-table-products/partial-table-products.component';
+import { PartialItemCollabComponent } from '../../partials/partial-item-collab/partial-item-collab.component';
 //#endregion
 
 //#region Pages
@@ -34,6 +35,9 @@ import { PageMemberProductsComponent } from 'src/app/pages/page-member-products/
 import { PageMemberPublicSpacesComponent } from '../../pages/page-member-public-spaces/page-member-public-spaces.component';
 import { PageMemberRolesComponent } from '../../pages/page-member-roles/page-member-roles.component';
 import { PageMemberStatisticsComponent } from '../../pages/page-member-statistics/page-member-statistics.component';
+import { PagePaymentSuccessComponent } from '../../pages/page-payment-success/page-payment-success.component';
+import { PagePaymentCancelComponent } from '../../pages/page-payment-cancel/page-payment-cancel.component';
+import { PageMemberUsersComponent } from '../../pages/page-member-users/page-member-users.component';
 //#endregion
 
 //#region Modals
@@ -54,8 +58,6 @@ import { ModalPurchasePlanComponent } from '../../modals/modal-purchase-plan/mod
 //#region Layouts
 import { LayoutMemberHomeComponent } from './layout-member-home.component';
 import { LayoutSettingComponent } from '../layout-setting/layout-setting.component';
-import { PagePaymentSuccessComponent } from '../../pages/page-payment-success/page-payment-success.component';
-import { PagePaymentCancelComponent } from '../../pages/page-payment-cancel/page-payment-cancel.component';
 //#endregion
 @NgModule({
   declarations: [
@@ -98,6 +100,8 @@ import { PagePaymentCancelComponent } from '../../pages/page-payment-cancel/page
     ModalDeleteUserComponent,
     PagePaymentSuccessComponent,
     PagePaymentCancelComponent,
+    PageMemberUsersComponent,
+    PartialItemCollabComponent,
   ],
   imports: [
     CommonModule,

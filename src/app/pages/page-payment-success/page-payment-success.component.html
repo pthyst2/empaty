@@ -1,15 +1,42 @@
-<div class="flex justify-center items-center rounded-modal p-[24px] bg-white lg:min-w-[800px] min-h-[70vh]">
-    <div class="text-center">
-        <h1 class="text-[24px]">Your order is completed !</h1>
-        <div class="text-[16px]">
-        <span>Thank you for choosing </span><span class="text-main">{{ brandName }}</span>
-        </div>
-        <div class="py-8">
-        <p class="text-black45">If you have any question or something wrong with your order, please contact with <span class="text-main">support@empaty.com</span>.</p>
-        <p class="text-black45">Wish you have a greate day.</p>
-        </div>
-        <div class="text-center">
-            <a [routerLink]="['/home']" class="rounded py-3 px-4 bg-main hover:bg-mainLight text-white inline-block">Back to Homepage</a>
-        </div>
+<div
+  class="
+    flex
+    justify-center
+    items-center
+    rounded-modal
+    p-[24px]
+    bg-white
+    lg:min-w-[800px]
+    min-h-[70vh]
+  "
+>
+  <div class="text-center">
+    <h1 class="text-[24px]">Your order is completed !</h1>
+    <div class="text-[16px]">
+      <span>Thank you for choosing </span
+      ><span class="text-main">{{ brandName }}</span>
     </div>
+    <div class="py-8">
+      <p class="text-black45">
+        If you have any question or something wrong with your order, please
+        contact with <span class="text-main">support@empaty.com</span>.
+      </p>
+      <p class="text-black45">Wish you have a greate day.</p>
+    </div>
+    <div class="text-center">
+      <a
+        [routerLink]="['/member/home']"
+        class="
+          rounded
+          py-3
+          px-4
+          bg-main
+          hover:bg-mainLight
+          text-white
+          inline-block
+        "
+        >Back to spaces</a
+      >
+    </div>
+  </div>
 </div>

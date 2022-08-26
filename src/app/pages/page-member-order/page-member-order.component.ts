@@ -31,7 +31,7 @@ export class PageMemberOrderComponent implements OnInit, OnDestroy {
     jcb: environment.imageUrls.logos + 'logo-jcb.png',
   };
   subs = new Subscription;
-  payment = 'month';
+  payment: any = 'month';
   constructor(
     private orderService: OrderService,
     private ccService: UserCardService,
@@ -85,10 +85,10 @@ export class PageMemberOrderComponent implements OnInit, OnDestroy {
       next: (res: any) => {
         this.order = res.data.pricefloor;
       },
-      error: (err) => {
+      error: (err: any) => {
         console.error("Error when get price of order: ", err)
       }
-    }))
+    }));
   }
   getCardInfo() {
     this.card = this.ccService.getCard("1").data;

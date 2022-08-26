@@ -8,7 +8,9 @@
   </ng-template>
   <ng-template [ngIf]="loading == false">
     <!-- Title -->
-    <p class="page-title text-center mb-8">{{ 'pageMemberStatistics.texts.title' | translate }}</p>
+    <p class="page-title text-center mb-8">
+      {{ "pageMemberStatistics.texts.title" | translate }}
+    </p>
     <!-- end of title -->
     <!-- Tabs -->
     <div class="bg-black15 w-full flex items-center">
@@ -22,12 +24,12 @@
           hover:border-main
           hover:bg-white
         "
-        (click)="activeTab('Lifetime')"
-        [class.border-main]="tabActive == 'Lifetime'"
-        [class.bg-white]="tabActive == 'Lifetime'"
-        [class.border-transparent]="tabActive != 'Lifetime'"
+        (click)="activeTab('lifetime')"
+        [class.border-main]="tabActive == 'lifetime'"
+        [class.bg-white]="tabActive == 'lifetime'"
+        [class.border-transparent]="tabActive != 'lifetime'"
       >
-        {{ 'pageMemberStatistics.texts.lifetime' | translate }}
+        {{ "pageMemberStatistics.texts.lifetime" | translate }}
       </p>
       <!-- end of lifetime -->
       <!-- 30 days -->
@@ -40,12 +42,12 @@
           hover:border-main
           hover:bg-white
         "
-        (click)="activeTab('30 Days')"
-        [class.border-main]="tabActive == '30 Days'"
-        [class.bg-white]="tabActive == '30 Days'"
-        [class.border-transparent]="tabActive != '30 Days'"
+        (click)="activeTab('30days')"
+        [class.border-main]="tabActive == '30days'"
+        [class.bg-white]="tabActive == '30days'"
+        [class.border-transparent]="tabActive != '30days'"
       >
-        {{ 'pageMemberStatistics.texts.30days' | translate }}
+        {{ "pageMemberStatistics.texts.30days" | translate }}
       </p>
       <!-- end of 30 days -->
       <!-- 7 days -->
@@ -58,12 +60,12 @@
           hover:border-main
           hover:bg-white
         "
-        (click)="activeTab('7 Days')"
-        [class.border-main]="tabActive == '7 Days'"
-        [class.bg-white]="tabActive == '7 Days'"
-        [class.border-transparent]="tabActive != '7 Days'"
+        (click)="activeTab('7days')"
+        [class.border-main]="tabActive == '7days'"
+        [class.bg-white]="tabActive == '7days'"
+        [class.border-transparent]="tabActive != '7days'"
       >
-        {{ 'pageMemberStatistics.texts.7days' | translate }}
+        {{ "pageMemberStatistics.texts.7days" | translate }}
       </p>
       <!-- end of 7 days -->
     </div>
@@ -77,10 +79,13 @@
           </div>
           <div>
             <p class="uppercase text-black45 tracking-wider">
-              {{ tabActive }}
+              {{ "pageMemberStatistics.texts." + tabActive | translate }}
             </p>
             <p class="text-black65">
-              <strong>{{ spaces.length }} {{ 'pageMemberStatistics.texts.spaces' | translate }}</strong>
+              <strong
+                >{{ spaces.length }}
+                {{ "pageMemberStatistics.texts.spaces" | translate }}</strong
+              >
             </p>
           </div>
         </div>
@@ -98,7 +103,9 @@
             <div class="svg svg-monitor-mobile w-[32px] h-[32px]"></div>
           </div>
           <div>
-            <p class="uppercase text-black45 tracking-wider">{{ 'pageMemberStatistics.texts.impressions' | translate }}</p>
+            <p class="uppercase text-black45 tracking-wider">
+              {{ "pageMemberStatistics.texts.impressions" | translate }}
+            </p>
             <p class="text-black65">
               <strong>{{ total.impressions }}</strong>
             </p>
@@ -111,7 +118,9 @@
             <div class="svg svg-health w-[32px] h-[32px]"></div>
           </div>
           <div>
-            <p class="uppercase text-black45 tracking-wider">{{ 'pageMemberStatistics.texts.visits' | translate }}</p>
+            <p class="uppercase text-black45 tracking-wider">
+              {{ "pageMemberStatistics.texts.visits" | translate }}
+            </p>
             <p class="text-black65">
               <strong>{{ total.visits }}</strong>
             </p>
@@ -125,10 +134,18 @@
       <div>
         <!-- Head -->
         <div class="grid grid-cols-5 bg-black15">
-          <div class="col-span-2 p-2">{{ 'pageMemberStatistics.texts.name' | translate }}</div>
-          <div class="p-2 text-center">{{ 'pageMemberStatistics.texts.impressions' | translate }}</div>
-          <div class="p-2 text-center">{{ 'pageMemberStatistics.texts.visits' | translate }}</div>
-          <div class="p-2 text-center">{{ 'pageMemberStatistics.texts.unique-visitors' | translate }}</div>
+          <div class="col-span-2 p-2">
+            {{ "pageMemberStatistics.texts.name" | translate }}
+          </div>
+          <div class="p-2 text-center">
+            {{ "pageMemberStatistics.texts.impressions" | translate }}
+          </div>
+          <div class="p-2 text-center">
+            {{ "pageMemberStatistics.texts.visits" | translate }}
+          </div>
+          <div class="p-2 text-center">
+            {{ "pageMemberStatistics.texts.unique-visitors" | translate }}
+          </div>
         </div>
         <!--end of head -->
         <!-- Body -->
@@ -140,7 +157,11 @@
             <!-- Name -->
             <div class="col-span-2 p-2 flex items-center">
               <img
-                [src]="space.image ? imageService.convertBase64(space.image) : noImage"
+                [src]="
+                  space.image
+                    ? imageService.convertBase64(space.image)
+                    : noImage
+                "
                 class="w-[64px] h-[64px] object-contain"
               />
               <div class="px-4">
@@ -150,8 +171,14 @@
                 <!-- 
                 <p class="text-black45">Updated by {{ space.author }}</p>
                 -->
-                <p class="text-black45">{{ 'pageMemberStatistics.texts.created-at' | translate }} {{ space.created | date: "YYYY-MM-dd" }}</p>
-                <p class="text-black45">{{ 'pageMemberStatistics.texts.updated-at' | translate }} {{ space.modified | date: "YYYY-MM-dd" }}</p>
+                <p class="text-black45">
+                  {{ "pageMemberStatistics.texts.created-at" | translate }}
+                  {{ space.created | date: "YYYY-MM-dd" }}
+                </p>
+                <p class="text-black45">
+                  {{ "pageMemberStatistics.texts.updated-at" | translate }}
+                  {{ space.modified | date: "YYYY-MM-dd" }}
+                </p>
               </div>
             </div>
             <!-- end of name -->
@@ -176,7 +203,7 @@
       </div>
     </ng-container>
     <ng-template #noSpace>
-      <p>{{ 'texts.no-data' | translate }}</p>
+      <p>{{ "texts.no-data" | translate }}</p>
     </ng-template>
     <!-- end of list -->
   </ng-template>

@@ -57,7 +57,7 @@ export class PartialItemSpaceLargeComponent implements OnInit {
   image: any;
 
   spaceLink: any;
-  constructor(private router: Router, private sanitizer: DomSanitizer, private spaceSerivice: SpaceService) { }
+  constructor(private router: Router, private sanitizer: DomSanitizer, private spaceService: SpaceService) { }
 
   ngOnInit(): void {
     this.renderImage();
@@ -108,7 +108,7 @@ export class PartialItemSpaceLargeComponent implements OnInit {
   downloadFile() {
     let token = localStorage.getItem('token');
     let blob = new Blob([this.space.id + '\n' + token]);
-    let name = this.spaceSerivice.getSafeName(this.space.id);
+    let name = this.spaceService.getSafeName(this.space.id);
     saveAs(blob, name + ".empaty")
   }
 }

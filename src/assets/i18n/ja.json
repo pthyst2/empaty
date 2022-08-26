@@ -88,7 +88,15 @@
             "success-invite": "招待を送信しました。",
             "fail-invite": "招待を送信失敗しました。",
             "success-delete-user": "ユーザーを削除しました。",
-            "fail-delete-user": "ユーザーを削除失敗しました。"
+            "fail-delete-user": "ユーザーを削除失敗しました。",
+            "success-update-collaborator": "Collaborator updated",
+            "fail-update-collaborator": "Update collaborator failed",
+            "success-send-code": "リセットコードを送信しました。",
+            "fail-send-code": "リセットコードを送信失敗しました。",
+            "success-reset-password": "パスワードをアップデートしました。",
+            "fail-reset-password": "パスワードをアップデート失敗しました。",
+            "success-login": "ログイン成功",
+            "fail-login": "ログイン失敗"
         },
         "htmls": {
             "check-and-try-again": "情報を確認し、もう一度お試しください",
@@ -376,12 +384,12 @@
             "service-type": "サービスタイプ",
             "width": "幅",
             "length": "長さ",
-            "size": "Size",
-            "items": "Items",
-            "no-items": "This space have no item."
+            "size": "サイズ",
+            "items": "アイテム",
+            "no-items": "こちらのスペースはアイテムがありません。"
         },
         "tooltips": {
-            "go-edit": "Go to edit"
+            "go-edit": "編集"
         },
         "buttons": {
             "confirm": "注文"
@@ -389,17 +397,86 @@
     },
     "pageMemberStatistics": {
         "texts": {
-            "title": "Statistics",
-            "lifetime": "Lifetime",
-            "30days": "30 Days",
-            "7days": "7 Days",
-            "spaces": "spaces",
-            "impressions": "Impressions",
-            "visits": "Visits",
-            "name": "Name",
-            "unique-visitors": "Unique Visitors",
-            "created-at": "Created at",
-            "updated-at": "Updated at"
+            "title": "統計",
+            "lifetime": "ライフタイム",
+            "30days": "30日間",
+            "7days": "7日間",
+            "spaces": "スペース",
+            "impressions": "印象",
+            "visits": "訪問",
+            "name": "名",
+            "unique-visitors": "ユニーク訪問者",
+            "created-at": "作成日時",
+            "updated-at": "変更日時"
+        }
+    },
+    "pageMemberPublicSpaces": {
+        "texts": {
+            "title": "公開中スペース",
+            "no-space": "スペースはまだ公開されていません。"
+        }
+    },
+    "pageMemberCollaborators": {
+        "texts": {
+            "title": "Collaborators",
+            "total": "Total"
+        }
+    },
+    "modalEditCollaborator": {
+        "texts": {
+            "title": "コラボレート編集",
+            "fullname": "フルネーム",
+            "role": "ロール",
+            "permission-invoice": "請求書権限",
+            "permission-email": "メール権限",
+            "permission-billing": "ビリング権限"
+        }
+    },
+    "layoutSetting": {
+        "texts": {
+            "title": "セッティング"
+        }
+    },
+    "pageLogin": {
+        "texts": {
+            "title": "ログイン",
+            "forgot-password": "忘れたパスワード"
+        },
+        "labels": {
+            "password": "パスワード"
+        },
+        "errors": {
+            "email-required": "空きメールアドレスができません。",
+            "email-invalid": "無効なメールアドレス。",
+            "password-required": "空きパスワードができません。"
+        },
+        "buttons": {
+            "login": "ログイン"
+        }
+    },
+    "pageForgotPassword": {
+        "texts": {
+            "title-forgot": "忘れたパスワード",
+            "title-reset": "パスワードを再起動する",
+            "description": "リセットコードを受け取るため、メールアドレスを入力ください。",
+            "login": "ログイン"
+        },
+        "labels": {
+            "reset-code": "リセットコード",
+            "new-password":"新しいパスワード",
+            "confirm-password":"確認用パスワード"
+        },
+        "errors": {
+            "email-required": "空きメルアドができません。",
+            "email-invalid": "無効なメールアドレス",
+            "reset-code-required": "メールで受け取ったリセットコードを入力ください。 メールで探さない場合は、スパムまたはジャンクフォルダの中で確認ください。",
+            "new-password-required": "新しいパスワードができません。",
+            "confirm-password-required": "新しいパスワードを再入力ください。",
+            "confirm-password-matched": "確認用パスワードが新しいパスワードと一致しませんでした。"
+        },
+        "buttons": {
+            "send-code": "リセットコード送信",
+            "reset-password": "パスワード再設定完了"
         }
     }
 }

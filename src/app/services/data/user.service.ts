@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Apollo, gql } from 'apollo-angular';
 import { Observable } from 'rxjs';
 
+
 //#region Queries
 const gqlEditUser = gql`
   mutation editUser(
@@ -43,7 +44,7 @@ const gqlChangePassword = gql`
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private apollo: Apollo) {}
+  constructor(private apollo: Apollo) { }
   updateBasicInfo(input: any): Observable<any> {
     return this.apollo.mutate({
       mutation: gqlEditUser,

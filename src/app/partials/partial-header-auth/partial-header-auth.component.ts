@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from 'src/environments/environment';
+import { solidAppInfo } from 'src/app/data/solids/solidAppInfo';
 @Component({
   selector: 'partial-header-auth',
   templateUrl: './partial-header-auth.component.html',
   styleUrls: ['./partial-header-auth.component.sass'],
 })
 export class PartialHeaderAuthComponent implements OnInit {
-  logo = environment.imageUrls.logos + 'logo-empaty.svg';
-  constructor() {}
+  logo = solidAppInfo.logoUrl;
+  constructor() { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }

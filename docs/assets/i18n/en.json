@@ -88,7 +88,15 @@
             "success-invite": "Invite sent",
             "fail-invite": "Sent invite failed",
             "success-delete-user": "User deleted",
-            "fail-delete-user": "Delete user failed"
+            "fail-delete-user": "Delete user failed",
+            "success-update-collaborator": "Collaborator updated",
+            "fail-update-collaborator": "Update collaborator failed",
+            "success-send-code": "Reset code sent",
+            "fail-send-code": "Sending reset code failed",
+            "success-reset-password": "Login password updated",
+            "fail-reset-password": "Reset password failed",
+            "success-login": "Login success",
+            "fail-login": "Login failed"
         },
         "htmls": {
             "check-and-try-again": "Please check all information and try again",
@@ -400,6 +408,74 @@
             "unique-visitors": "Unique Visitors",
             "created-at": "Created at",
             "updated-at": "Updated at"
+        }
+    },
+    "pageMemberPublicSpaces": {
+        "texts": {
+            "title": "Public Spaces",
+            "no-space": "No space has been published yet."
+        }
+    },
+    "pageMemberCollaborators": {
+        "texts": {
+            "title": "Collaborators",
+            "total": "Total"
+        }
+    },
+    "modalEditCollaborator": {
+        "texts": {
+            "title": "Edit Collaborator",
+            "fullname": "Full Name",
+            "role": "Role",
+            "permission-invoice": "Invoice permission",
+            "permission-email": "Email permission",
+            "permission-billing": "Billing permission"
+        }
+    },
+    "layoutSetting": {
+        "texts": {
+            "title": "Setting"
+        }
+    },
+    "pageLogin": {
+        "texts": {
+            "title": "Login",
+            "forgot-password": "Forgot password"
+        },
+        "labels": {
+            "password": "Password"
+        },
+        "errors": {
+            "email-required": "Login email cannot be empty.",
+            "email-invalid": "Login email invalid.",
+            "password-required": "Login password cannot be empty."
+        },
+        "buttons": {
+            "login": "Login"
+        }
+    },
+    "pageForgotPassword": {
+        "texts": {
+            "title-forgot": "Forgot password",
+            "title-reset": "Reset password",
+            "description": "Enter your email address to receive reset code",
+            "login": "Login"
+        },
+        "labels": {
+            "reset-code": "Reset Code",
+            "new-password":"New Password",
+            "confirm-password":"Confirm Password"
+        },
+        "errors": {
+            "email-required":"Email cannot be empty.",
+            "reset-code-required": "Please enter the reset code was sent to your email. If you did not find the mail, please check in spam or junk folder.",
+            "new-password-required": "New password cannot be empty.",
+            "confirm-password-required": "Please re-enter new password here.",
+            "confirm-password-matched": "Confirm password did not matched new password."
+        },
+        "buttons": {
+            "send-code": "Send reset code",
+            "reset-password": "Complete reset password"
         }
     }
 }

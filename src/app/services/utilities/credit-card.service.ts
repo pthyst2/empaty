@@ -8,7 +8,8 @@ export class CreditCardService {
 
   getExpireYears() {
     let today = new Date();
-    let thisYear = today.getFullYear();
+    let thisYear = (today.getFullYear() % 2000);
+
     let yearEnd = thisYear + 25;
     let result: any = [];
     for (let i = thisYear; i <= yearEnd; i++) {

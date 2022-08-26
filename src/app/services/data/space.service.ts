@@ -1,15 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Apollo, gql } from 'apollo-angular';
 
-//#region Mocks
-import { mockSpaces } from 'src/app/data/mocks/mockSpaces';
+//#region Mocks 
 import { mockSpaceCategories } from 'src/app/data/mocks/mockSpaceCategories';
 import { mockServiceTypes } from 'src/app/data/mocks/mockServiceTypes';
 //#endregion
 
-const spaces = mockSpaces;
 const categories = mockSpaceCategories;
 const serviceTypes = mockServiceTypes;
 //#region Queries
@@ -31,7 +29,26 @@ const gqlSearchFloors = gql`query searchfloors($name: String!, $service: String!
       paid
     }
   }
-}`
+}`;
+const gqlGetPublisheds = gql`query paidFloors($token:String!,$limit:Int!,$start:Int!){
+  paidfloors(
+      token: $token,
+		limit:$limit,
+    start:$start
+  ){
+    total
+    items{
+      id
+      image
+      name
+      modified
+      created
+      service
+      width
+      length
+    }
+  }
+}`;
 const gqlCreateFloor = gql`
   mutation createFloor(
     $name: String!
@@ -104,6 +121,9 @@ const gqlGetFloor = gql`query floor($id: String!, $token: String!){
 })
 export class SpaceService {
   constructor(private http: HttpClient, private apollo: Apollo) { }
+  get token() {
+    return localStorage.getItem('token');
+  }
   getSpaces(body?: any): Observable<any> {
     let variables: any = {
       name: '',
@@ -187,19 +207,22 @@ export class SpaceService {
   getServiceTypes() {
     return serviceTypes;
   }
-  getPublishedSpaces() {
-    let res: any = {
-      status: 200,
-      count: 0,
-      data: [],
-    };
-    for (let space of spaces) {
-      if (space.status == 'published') {
-        res.data.push(space);
-        res.count++;
-      }
+  getPublishedSpaces(body?: any): Observable<any> {
+    let variables: any = {
+      token: this.token,
+      limit: 0,
+      start: 0
     }
-    return res;
+
+    if (body) {
+      if (body.limit) { variables.limit = body.limit }
+      if (body.start) { variables.start = body.start }
+    }
+
+    return this.apollo.query({
+      query: gqlGetPublisheds,
+      variables: variables
+    })
   }
   getSafeName(raw: string) {
     let result = '';

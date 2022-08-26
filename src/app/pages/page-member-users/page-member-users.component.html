@@ -1,0 +1,100 @@
+<div
+  class="min-h-[60vh] bg-black2 rounded-[1em] p-[16px] md:p-[24px] lg:p-[48px]"
+>
+  <!-- Title -->
+  <p class="page-title text-center">Collaborators</p>
+  <!-- end of title -->
+  <!-- Search & Invite  -->
+  <form [formGroup]="searchForm" class="pt-[16px] pb-[32px]">
+    <div class="grid grid-cols-3">
+      <div class="col-span-1"></div>
+      <!-- Search -->
+      <div class="col-span-1">
+        <div class="p-2 bg-white rounded shadow-light flex items-center">
+          <div class="inline-flex items-center">
+            <div class="grow border-r border-black15 pr-2">
+              <select formControlName="status">
+                <option value="All">All Statuses</option>
+                <option
+                  *ngFor="let status of statuses"
+                  value="{{ status.value }}"
+                >
+                  {{ status.label }}
+                </option>
+              </select>
+            </div>
+            <input
+              type="text"
+              formControlName="name"
+              spellcheck="false"
+              placeholder="Search name..."
+              class="w-full box-border px-2"
+            />
+          </div>
+          <fa-icon
+            [icon]="faSearch"
+            class="shrink-0 w-[20px] h-[20px]"
+          ></fa-icon>
+        </div>
+      </div>
+      <!-- end of search -->
+      <!-- Invite -->
+      <div class="col-span-1">
+        <div
+          class="
+            h-full
+            rounded
+            px-4
+            mx-2
+            cursor-pointer
+            bg-white
+            inline-flex
+            justify-center
+            items-center
+            hover:shadow-light
+            svg-wrapper
+            w-[24px]
+            tooltip
+          "
+        >
+          <div class="svg svg-add-collaborator w-[20px] h-[20px]"></div>
+          <span class="tooltiptext-right">Invite Collaborator</span>
+        </div>
+      </div>
+      <!-- end of invite -->
+    </div>
+  </form>
+  <!-- end of search & invite -->
+
+  <!-- List collaborators -->
+  <ng-container *ngIf="loading == true; else loaded">
+    <div class="w-full h-full">
+      <partial-loading></partial-loading>
+    </div>
+  </ng-container>
+  <ng-template #loaded>
+    <ng-container *ngIf="collabs && collabs.length > 0; else noCollab">
+      <div
+        class="
+          grid
+          gap-4
+          sm:grid-cols-1
+          md:grid-cols-2
+          min-w-[320px]
+          md:min-w-[600px]
+          lg:min-w-[900px]
+          xl:grid-cols-3
+        "
+      >
+        <partial-item-collab
+          *ngFor="let collab of collabs"
+          [collab]="collab"
+        ></partial-item-collab>
+      </div>
+    </ng-container>
+    <ng-template #noCollab>
+      <p class="text-center">You have no collaborator.</p>
+    </ng-template>
+  </ng-template>
+  <!-- end of list collaborators -->
+</div>

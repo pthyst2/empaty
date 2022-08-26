@@ -1,15 +1,19 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { Subscription } from 'rxjs';
+import { FormBuilder } from '@angular/forms';
+//#region Services
+import { TranslateService } from '@ngx-translate/core';
 import { SpaceService } from 'src/app/services/data/space.service';
 import { PopupMessageService } from 'src/app/services/utilities/popup-message.service';
 import { SeoService } from 'src/app/services/utilities/seo.service';
 import { AuthService } from 'src/app/services/data/auth.service';
 import { CollaboratorService } from 'src/app/services/data/collaborator.service';
+//#endregion
+
 import { mockServiceTypes } from 'src/app/data/mocks/mockServiceTypes';
-import { Subscription } from 'rxjs';
-import { FormBuilder } from '@angular/forms';
-import { TranslateService } from '@ngx-translate/core';
+
 @Component({
   selector: 'page-member-home',
   templateUrl: './page-member-home.component.html',
@@ -84,7 +88,11 @@ export class PageMemberHomeComponent implements OnInit, OnDestroy {
     this.subs.unsubscribe();
   }
   setSEO() {
-    this.seo.setTitle('Company Spaces');
+    let input: any = {
+      title: 'Company Spaces',
+      description: 'Description of spaces',
+    }
+    this.seo.setSeoForPage(input)
   }
   getUser() {
     this.subs.add(

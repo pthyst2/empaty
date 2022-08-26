@@ -1,10 +1,28 @@
 <div class="p-[48px] bg-white rounded-modal lg:min-w-[960px]">
   <!-- Title -->
   <div class="text-center mb-4">
-    <p class="page-title">Public Spaces</p>
+    <p class="page-title">
+      {{ "pageMemberPublicSpaces.texts.title" | translate }}
+    </p>
   </div>
   <!-- end of title -->
   <!-- List spaces -->
-  <partial-list-public-spaces [spaces]="spaces"></partial-list-public-spaces>
+  <ng-template [ngIf]="loading == true">
+    <div class="w-full h-[200px]">
+      <partial-loading></partial-loading>
+    </div>
+  </ng-template>
+  <ng-template [ngIf]="loading == false">
+    <ng-container *ngIf="spaces && spaces.length > 0; else noSpace">
+      <partial-list-public-spaces
+        [spaces]="spaces"
+      ></partial-list-public-spaces>
+    </ng-container>
+    <ng-template #noSpace>
+      <p class="text-center">
+        {{ "pageMemberPublicSpaces.texts.no-space" | translate }}
+      </p>
+    </ng-template>
+  </ng-template>
   <!-- end of list spaces -->
 </div>

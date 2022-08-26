@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { gql, Apollo } from 'apollo-angular';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 //#region Queries
 const gqlMakeOrder = gql`query paymentFloor($payment: String!, $id: String!, $token: String!){
   paymentFloor(currency: "jpy", payment: $payment, id: $id, token: $token)
@@ -36,15 +36,17 @@ export class OrderService {
   get token() {
     return localStorage.getItem('token')
   }
-  getPrice(input: any): Observable<any> {
+  getPrice(input: any) {
+
     return this.apollo.query({
       query: gqlGetPrice,
       variables: {
         id: input.id,
         payment: input.payment,
         token: this.token
-      }
-    })
+      },
+      fetchPolicy: 'network-only'
+    });
   }
   makeOrder(input: any): Observable<any> {
     return this.apollo.query({

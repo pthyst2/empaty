@@ -15,6 +15,7 @@ import { PageMemberRolesComponent } from 'src/app/pages/page-member-roles/page-m
 import { PageMemberInvoiceDetailComponent } from 'src/app/pages/page-member-invoice-detail/page-member-invoice-detail.component';
 import { PagePaymentSuccessComponent } from 'src/app/pages/page-payment-success/page-payment-success.component';
 import { PagePaymentCancelComponent } from 'src/app/pages/page-payment-cancel/page-payment-cancel.component';
+import { PageMemberUsersComponent } from 'src/app/pages/page-member-users/page-member-users.component';
 //#endregion
 
 const routes: Routes = [
@@ -44,6 +45,10 @@ const routes: Routes = [
         component: PageMemberCollaboratorsComponent,
       },
       {
+        path: 'users',
+        component: PageMemberUsersComponent
+      },
+      {
         path: 'public-spaces',
         component: PageMemberPublicSpacesComponent,
       },
@@ -51,7 +56,6 @@ const routes: Routes = [
         path: 'statistics',
         component: PageMemberStatisticsComponent,
       },
-
       {
         path: 'setting',
         children: [
@@ -78,7 +82,6 @@ const routes: Routes = [
           },
         ],
       },
-
       {
         path: 'payment',
         children: [

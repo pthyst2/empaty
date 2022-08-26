@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/data/auth.service';
 import { PopupMessageService } from 'src/app/services/utilities/popup-message.service';
 import { SeoService } from 'src/app/services/utilities/seo.service';
+import { TranslateService } from '@ngx-translate/core';
 //#endregion
 @Component({
   selector: 'page-forgot-password',
@@ -25,12 +26,6 @@ export class PageForgotPasswordComponent implements OnInit, OnDestroy {
       email: ['', [Validators.required, Validators.email]],
     }),
     submitted: false,
-    messages: {
-      email: {
-        required: 'Email cannot be empty.',
-        email: 'Email is invalid.',
-      },
-    },
   };
 
   step2 = {
@@ -43,25 +38,14 @@ export class PageForgotPasswordComponent implements OnInit, OnDestroy {
       confirmPassword: ['', [Validators.required]],
     }),
     submitted: false,
-    messages: {
-      resetCode: {
-        required:
-          'Reset code cannot be empty. Please check again in your mailbox.',
-      },
-      password: {
-        required: 'New password cannot be empty.',
-      },
-      confirmPassword: {
-        required: 'Please confirm your new password.',
-        matched: "Confirm password don't match with new password.",
-      },
-    },
     show: {
       newPassword: false,
       confirmPassword: false,
     },
   };
-
+  popup: any = {
+    show: false
+  }
   subs = new Subscription();
 
   constructor(
@@ -69,8 +53,9 @@ export class PageForgotPasswordComponent implements OnInit, OnDestroy {
     private popupService: PopupMessageService,
     private fb: FormBuilder,
     private seo: SeoService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private translate: TranslateService
+  ) { }
 
   ngOnInit(): void {
     this.setSEO();
@@ -88,6 +73,36 @@ export class PageForgotPasswordComponent implements OnInit, OnDestroy {
     return this.step2.form.controls;
   }
 
+  closePopup() {
+    setTimeout(
+      () => {
+        this.popup = {
+          show: false
+        }
+      }, 1200
+    )
+  }
+
+  invalidPopup() {
+    this.popup = {
+      show: true,
+      icon: 'error',
+      title: '',
+      html: ''
+    }
+    this.subs.add(this.translate.get('popups.titles.invalid').subscribe({
+      next: (res: any) => {
+        this.popup.title = res
+      }
+    }))
+    this.subs.add(this.translate.get('popups.htmls.check-and-try-again').subscribe({
+      next: (res: any) => {
+        this.popup.html = res
+      }
+    }))
+    this.closePopup();
+  }
+
   submitStep1() {
     this.step1.submitted = true;
     if (this.step1.form.valid) {
@@ -95,38 +110,54 @@ export class PageForgotPasswordComponent implements OnInit, OnDestroy {
       this.subs.add(
         this.authService.sendResetCode(input).subscribe({
           next: (res: any) => {
-            this.popupService.success({
-              title: 'Reset code sent',
-              html: 'Please check your mailbox',
-            });
-            setTimeout(() => {
-              this.step1.active = false;
-              this.ctr2.email.setValue(input);
-              this.step2.active = true;
-            }, 1000);
+            this.subs.add(this.translate.get('popups.titles.success-send-code').subscribe({
+              next: (res: any) => {
+                this.popup = {
+                  show: true,
+                  icon: 'success',
+                  title: res
+                }
+              }
+            }))
+            this.step1.active = false;
+            this.ctr2.email.setValue(input);
+            this.step2.active = true;
+            this.closePopup();
           },
           error: (err) => {
-            console.error(err);
+            console.error("Error when sending reset code: ", err);
+            this.popup = {
+              show: true,
+              icon: 'error',
+              title: '',
+              html: ''
+            }
+            this.subs.add(this.translate.get('popups.titles.fail-send-code').subscribe({
+              next: (res: any) => {
+                this.popup.title = res
+              }
+            }))
+            this.subs.add(this.translate.get('popups.htmls.error').subscribe({
+              next: (res: any) => {
+                this.popup.html = res + ": " + err
+              }
+            }))
+            this.closePopup();
           },
         })
       );
     } else {
-      this.popupService.error({
-        title: "Can't send reset code",
-        html: 'Please check all information and try again.',
-      });
+      this.invalidPopup()
     }
   }
 
   submitStep2() {
     this.step2.submitted = true;
-
     if (this.ctr2.password.value != this.ctr2.confirmPassword.value) {
       this.ctr2.confirmPassword.setErrors({ matched: true });
     } else {
       this.ctr2.confirmPassword.setErrors(null);
     }
-
     if (this.step2.form.valid) {
       let data = this.step2.form.value;
       this.subs.add(
@@ -138,24 +169,44 @@ export class PageForgotPasswordComponent implements OnInit, OnDestroy {
           })
           .subscribe({
             next: (res: any) => {
-              this.popupService.success({
-                title: 'Reset password successfully',
-                html: 'Redirecting to login page...',
-              });
+              this.subs.add(this.translate.get('popups.titles.success-reset-password').subscribe({
+                next: (res: any) => {
+                  this.popup = {
+                    show: true,
+                    icon: 'success',
+                    title: res
+                  }
+                }
+              }))
+
               setTimeout(() => {
                 this.router.navigate(['/auth/login']);
-              }, 2000);
+              }, 1200);
             },
             error: (err) => {
-              console.error(err);
+              console.error("Error when sending reset code: ", err);
+              this.popup = {
+                show: true,
+                icon: 'error',
+                title: '',
+                html: ''
+              }
+              this.subs.add(this.translate.get('popups.titles.fail-reset-password').subscribe({
+                next: (res: any) => {
+                  this.popup.title = res
+                }
+              }))
+              this.subs.add(this.translate.get('popups.htmls.error').subscribe({
+                next: (res: any) => {
+                  this.popup.html = res + ": " + err
+                }
+              }))
+              this.closePopup();
             },
           })
       );
     } else {
-      this.popupService.error({
-        title: "Can't reset password",
-        html: 'Please check all information and try again.',
-      });
+      this.invalidPopup()
     }
   }
 }
