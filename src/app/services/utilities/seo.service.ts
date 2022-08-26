@@ -35,10 +35,17 @@ export class SeoService {
     }
     this.addProperty('og:title', input.title);
     this.addProperty('og:type', 'website');
-    this.addMeta('description', input.description);
+    this.addProperty('og:description', input.description);
     let url: any = window.location.href;
-    console.log("url: ", url);
+
     this.addProperty('og:url', url);
-    this.addProperty('og:image', input.image ? input.image : environment.imageUrls.none);
+    if (input.image) {
+      this.addProperty('og:image', input.image);
+    }
+    else {
+      let baseUrl = window.location.host;
+      let noImage: any = baseUrl + '/' + environment.imageUrls.none;
+      this.addProperty('og:image', noImage);
+    }
   }
 }
